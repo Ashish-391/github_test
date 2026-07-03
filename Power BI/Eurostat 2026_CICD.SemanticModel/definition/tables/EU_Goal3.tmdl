@@ -1,0 +1,170 @@
+table EU_Goal3
+	lineageTag: 0342f0ff-6996-4918-8918-094abffcbeb1
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 127a0dfd-7eaa-46c7-be1a-3571137eb5fa
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		lineageTag: 9dd152b7-7caa-461a-83dd-a2b1d420c738
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unit
+		dataType: string
+		lineageTag: 4d6e57af-aa3b-4744-9338-f1cb71b8deea
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		lineageTag: 0eb137cb-3d25-4228-8c9c-f37d41d5ad23
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 1c851017-aa65-4780-96ee-61128bb405b2
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 00191328-18a0-4fed-94c7-d77f0afee195
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: ed6d3c1a-d510-4e95-b2eb-5e5dd925b6db
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		lineageTag: 35461f34-c96d-4cdd-9554-b0c80f30c837
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		dataType: string
+		lineageTag: b4c6af17-4502-45e9-bf90-8132a5161451
+		summarizeBy: none
+		sourceColumn: Mortality
+
+		annotation SummarizationSetBy = Automatic
+
+	column icd10
+		dataType: string
+		lineageTag: 77ad0b07-5da2-43b4-a26f-750dadf1ae9c
+		summarizeBy: none
+		sourceColumn: icd10
+
+		annotation SummarizationSetBy = Automatic
+
+	column nace_r2
+		dataType: string
+		lineageTag: 6f750738-bd63-468f-83ad-5e294b69deca
+		summarizeBy: none
+		sourceColumn: nace_r2
+
+		annotation SummarizationSetBy = Automatic
+
+	column severity
+		dataType: string
+		lineageTag: a5066dc3-f427-4c0f-b3a5-e91a7d360f07
+		summarizeBy: none
+		sourceColumn: severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: 0e15f855-bd83-4371-8513-78a2d5d00f50
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column tra_infr
+		dataType: string
+		lineageTag: d6937ae8-0356-4e10-909a-6df6f80c714b
+		summarizeBy: none
+		sourceColumn: tra_infr
+
+		annotation SummarizationSetBy = Automatic
+
+	column airpol
+		dataType: string
+		lineageTag: 205e681d-dd2f-44b5-a155-596e9a271a46
+		summarizeBy: none
+		sourceColumn: airpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_he
+		dataType: string
+		lineageTag: b644bcae-2654-4950-876b-7e1cc77a5273
+		summarizeBy: none
+		sourceColumn: indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: b096388b-6e0b-471f-91a9-e223ac407b33
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column hhtyp
+		dataType: string
+		lineageTag: a770b87c-2d98-405a-9db8-8c2b68b817fd
+		summarizeBy: none
+		sourceColumn: hhtyp
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_Goal3 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 3'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 3"]}[Data],
+				    SDG_03_11_ = #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a"{[entity="Goal3",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_03_11_, each ([IndicatorValue] = "SDG_03_20") and ([sex] = "T")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows",{"CountryAbrv", "IndicatorValue", "UpdatedFromDate", "Year", "Unit", "Value", "sex", "age"}),
+				    #"Appended Query" = Table.Combine({#"Removed Other Columns",  EU_SDG_03_30, SDG_08_60, SDG_11_20, EU_SDG_11_40, EU_SDG_11_52, #"EU_SDG_03_60 (2)", EU_SDG_03_42})
+				in
+				    #"Appended Query"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

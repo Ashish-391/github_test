@@ -1,0 +1,87 @@
+table SDG_hlth_silc_17_eu
+	lineageTag: 0c4d9170-b372-464c-b688-641f087de5f5
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 4675efc7-e1e8-4d61-b6e5-aa3c6b4f6e8e
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 0de90b37-246c-4c7b-b3d1-8238a908d89b
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: d901f500-2981-4059-9298-c29889fd487b
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_he
+		dataType: string
+		lineageTag: c3575738-048d-4a6e-9ced-5fff710d38c2
+		summarizeBy: none
+		sourceColumn: indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: cc5fc451-7c1b-4367-809e-251eefa2b19c
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: d2cb4292-1c17-4753-b641-612cc95679ce
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: e23d596e-7a83-42ce-bd30-538f6ad6c246
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 79c29351-73b2-4d1e-84a4-ecfd496dc59a
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_hlth_silc_17_eu = m
+		mode: import
+		queryGroup: 'New indicators 2026'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2db96d17-b148-4d11-80f4-26b75cb98f00" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="ALL_SDG_New Indicators"]}[Data],
+				    SDG_hlth_silc_17_ = #"2db96d17-b148-4d11-80f4-26b75cb98f00"{[entity="SDG_hlth_silc_17",version=""]}[Data]
+				in
+				    SDG_hlth_silc_17_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

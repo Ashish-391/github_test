@@ -1,0 +1,186 @@
+table Goal14
+	lineageTag: e8bada30-d4ed-4b6c-86c5-e8d8361cb1e0
+
+	measure obs_value_Goal14 =
+			VAR minDate =
+			    CALCULATE (
+			        MIN ( 'Goal14'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal14'[UpdatedFromDate] )
+			    )
+			VAR maxDate =
+			    CALCULATE (
+			        MAX ( 'Goal14'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal14'[UpdatedFromDate] )
+			    )
+			VAR dateCheck =
+			    IF (
+			        maxDate
+			            IN ALLSELECTED ( 'Goal14'[UpdatedFromDate] ),
+			        6,
+			        0
+			    ) //var datafilter = IF(dateCheck=0,CALCULATETABLE('Goal 14',FILTER('Goal 14','Goal 14'[UpdatedFromDate]<=maxDate)))
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        minDate <> maxDate,
+			            CALCULATE (
+			                MAX ( 'Goal14'[Value] ),
+			                /* 'Goal 14'[UpdatedDate]>minDate && */
+			                'Goal14'[UpdatedFromDate] = maxDate
+			            ),
+			        minDate = maxDate,
+			            CALCULATE (
+			                MAX ( 'Goal14'[Value] ),
+			                'Goal14'[UpdatedFromDate] = maxDate
+			            )
+			    )
+		lineageTag: 00c0daa3-c518-4bf8-974f-e1b580e7acc9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Tooltip_color_Goal-14 =
+			
+			var minDate = CALCULATE(Min('Goal14'[UpdatedFromDate]),ALLSELECTED('Goal14'[UpdatedFromDate]))
+			var maxDate = CALCULATE(MAX('Goal14'[UpdatedFromDate]),ALLSELECTED('Goal14'[UpdatedFromDate]))
+			var minValue = CALCULATE(MAX('Goal14'[Value]),'Goal14'[UpdatedFromDate]=minDate)
+			var maxValue = CALCULATE(MAX('Goal14'[Value]),'Goal14'[UpdatedFromDate]=maxDate)
+			var countRowsTotal = COUNTROWS(FILTER('Goal14','Goal14'[UpdatedFromDate]>=minDate && 'Goal14'[UpdatedFromDate]<=maxDate))
+			
+			RETURN
+			//IF(countRowsTotal>2,IF(minValue<>maxValue,1,0),
+			IF(countRowsTotal>=2,
+			    IF(minValue=maxValue ,
+			        0,1),
+			
+			        0)
+		formatString: 0
+		lineageTag: b9346164-d7dc-4487-83d8-5e08fec918f9
+
+	measure count = ```
+			
+			var minDate = CALCULATE(Min('Goal14'[UpdatedFromDate]),ALLSELECTED('Goal14'[UpdatedFromDate]))
+			var maxDate = CALCULATE(MAX('Goal14'[UpdatedFromDate]),ALLSELECTED('Goal14'[UpdatedFromDate]))
+			RETURN
+			COUNTROWS(FILTER('Goal14','Goal14'[UpdatedFromDate]>minDate && 'Goal14'[UpdatedFromDate]<=maxDate))
+			
+			```
+		formatString: 0
+		lineageTag: 4db50aa1-b287-4dd6-849c-2446dca2ddcf
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 644fe318-5100-4c5e-b2dd-2d22156e4613
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: d8c46dff-758d-4fb8-95c1-1bb75a2a5367
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 1a2dc9f2-03a8-45b1-b133-079938dc15c6
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: dd mmmm yyyy
+		lineageTag: 1f7d4112-433b-4717-9676-f11d5331f341
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: d061a3d4-4917-4eda-becc-207e5946dfaf
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 1687006b-5e48-4403-ba9a-efa5f073c342
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg
+		dataType: string
+		lineageTag: edae024f-033d-4b9c-aa19-2044d5b60f01
+		summarizeBy: none
+		sourceColumn: fishreg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EU Fish Stock'
+		dataType: string
+		lineageTag: 7ac7feee-4d60-4127-bd95-168791ff0a60
+		summarizeBy: none
+		sourceColumn: EU Fish Stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: c1819ed3-ff99-4659-af17-ba28eb69c76b
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Seabasin
+		dataType: string
+		lineageTag: 9a22ff71-0ab4-457e-bc2c-d8e1965cf19d
+		summarizeBy: none
+		sourceColumn: Seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Goal14 = m
+		mode: import
+		queryGroup: 'Goal 14'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"3e362a5d-4812-472d-905b-8dc4d3765aa0" = Source{[Id="3e362a5d-4812-472d-905b-8dc4d3765aa0"]}[Items],
+				//     #"Removed Other Columns" = Table.SelectColumns(#"3e362a5d-4812-472d-905b-8dc4d3765aa0",{"Year", "Unit", "Value", "RecordCount", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "CountryAbrv", "Created"}),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Year", Int64.Type}, {"Unit", type text}, {"Value", type number}, {"RecordCount", Int64.Type}, {"UpdatedFromDate", type date}, {"UpdatedToDate", type date}, {"IndicatorValue", type text}, {"CountryAbrv", type text}, {"Created", type date}}),
+				//     #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [Unit] = "PC"),
+				//     #"Appended Query" = Table.Combine({#"Filtered Rows", SDG_14_21, SDG_14_30, SDG_14_50, SDG_14_60})
+				// in
+				//     #"Appended Query"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    Goal14_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="Goal14",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal14_,{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

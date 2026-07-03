@@ -1,0 +1,110 @@
+table SDG_16_10
+	lineageTag: d986a258-54e1-4693-a323-3acc0c174f20
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 3b7f39c8-62e6-465e-97d4-b5726573f924
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: b63343ca-8e73-400a-81d0-2c3e3801305b
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: bb1fc4a3-9b7e-468e-b770-3b7a4d462a9e
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: cd7b54e8-e170-4060-9b5e-4430819e7c61
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 47cb5336-87bb-4a4e-83f1-75098cf350d5
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: b1e949cc-6c51-4e03-9d78-ec1f592157a6
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 846dddc7-073a-4c55-b13e-3ed43e328e23
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column lev_perc
+		dataType: string
+		lineageTag: 0009cdd0-9f53-4eab-b108-89114f68e906
+		summarizeBy: none
+		sourceColumn: lev_perc
+
+		annotation SummarizationSetBy = Automatic
+
+	column leg_stat
+		dataType: string
+		lineageTag: 1bec019e-516c-4ca0-b46d-3173259c37d5
+		summarizeBy: none
+		sourceColumn: leg_stat
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: c3b0614a-5992-44a8-a1aa-70c403a77f23
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_16_10 = m
+		mode: import
+		queryGroup: 'Goal 16'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    Goal16_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="Goal16",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal16_,{{"UpdatedFromDate", type date}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([IndicatorValue] = "SDG_16_10") and ([sex] = "T"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

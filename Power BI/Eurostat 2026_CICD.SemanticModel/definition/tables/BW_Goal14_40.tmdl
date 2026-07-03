@@ -1,0 +1,71 @@
+table BW_Goal14_40
+	lineageTag: a252ca6a-ec59-474b-b688-def7308d9921
+
+	column Value
+		lineageTag: c134b862-1c2b-44d5-9f3e-f635a2191550
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: b25b4484-f432-4a91-91f1-336015db0e72
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_14_40"
+			var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal14_40[Aquatic Environment]="Coastal water",maxTime_Period&ABS(BW_Goal14_40[Value]),BLANK())
+		dataType: double
+		lineageTag: d3e315ac-80ad-4d4b-99c8-fc2999919244
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Aquatic Environment'
+		lineageTag: 831ca209-64ed-4fdc-ba82-4d552d296c16
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Aquatic Environment]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: e683c9ef-6118-419f-85d0-4d32bd88f030
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BW_Goal14_40 = calculated
+		mode: import
+		source =
+				
+				var indicator = "sdg_14_40"
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[TIME_PERIOD]),'All_SDG_Goal5-12'[Indicator]=indicator)
+				RETURN
+				SELECTCOLUMNS (
+				        FILTER
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator),
+				        "Geo", 'All_SDG_Goal5-12'[Geo],
+				        "Year",'All_SDG_Goal5-12'[TIME_PERIOD],
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				        "Aquatic Environment", 'All_SDG_Goal5-12'[aquaenv]
+				    )
+
+	annotation PBI_Id = 5a928d8aa3504c8eab3327ebe1c947c4
+

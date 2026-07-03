@@ -1,0 +1,116 @@
+table BW_Goal6_40
+	lineageTag: 45fd6eb9-40a6-4a19-8196-ac6fedd3cad4
+
+	column TIME_PERIOD
+		formatString: 0
+		lineageTag: d384b5fa-4f9e-41bc-a209-c362dc6284d6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[TIME_PERIOD]
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		lineageTag: 06e4c08e-e46c-4c89-bf53-1be9222634ed
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[OBS_VALUE]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 15057e15-d167-448c-af7c-c6f00c265ec1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		lineageTag: fc65bad8-1aca-4b38-b575-7f9a3c7d5753
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[Unit]
+
+		annotation SummarizationSetBy = Automatic
+
+	column BMI
+		lineageTag: fd18f612-3b55-4389-bb89-027d19631dd8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[BMI]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		lineageTag: c7970070-f3b4-46ac-a07c-0b08e4d8912d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[Indicator]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'BMI Indicator'
+		lineageTag: a2e162f9-f75f-4e44-bda7-865ae7887db7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[BMI Indicator]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		isHidden
+		lineageTag: ffac682b-c8e3-4c29-9a8d-fc0e80ebfc36
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[Age]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Watpol
+		lineageTag: ac4aac6f-3825-408d-955c-6da142f2464f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[Watpol]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_06_40"
+			var maxTime_Period = CALCULATE(MAX(All_SDG_Goal_2[Time_Period]),All_SDG_Goal_2[Indicator]=indicator,All_SDG_Goal_2[Geo]="EU_V")
+			RETURN
+			IF(BW_Goal6_40[Time_Period]=maxTime_Period,maxTime_Period&BW_Goal6_40[OBS_VALUE],BLANK())
+		dataType: double
+		lineageTag: f46ec274-616e-444b-9cd1-fd82b64ba765
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Subst_cat
+		lineageTag: 264878e1-791c-465d-9d84-954344ced34a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal_2[Subst_cat]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BW_Goal6_40 = calculated
+		mode: import
+		source =
+				
+				var indicator = "SDG_06_40"
+				var maxTime_Period = CALCULATE(MAX(All_SDG_Goal_2[Time_Period]),All_SDG_Goal_2[Indicator]=indicator,All_SDG_Goal_2[Geo]="EU_V")
+				RETURN
+				FILTER
+				(All_SDG_Goal_2,(All_SDG_Goal_2[Time_Period]= maxTime_Period
+				||
+				All_SDG_Goal_2[Time_Period]=maxTime_Period-5
+				) && All_SDG_Goal_2[Indicator]=indicator )
+
+	annotation PBI_Id = 62c6f05e9930458c8e2b614a2aa84e12
+

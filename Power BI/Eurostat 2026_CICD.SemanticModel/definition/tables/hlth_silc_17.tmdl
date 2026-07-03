@@ -1,0 +1,87 @@
+table hlth_silc_17
+	lineageTag: 06120904-36ad-4602-9b2d-6d20b2112f05
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d8e8568-286a-40c1-b8dc-3e1ac3de8e00
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: f34ced2e-fcee-4109-ae05-3240b1ca1361
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 61f95872-2db1-44d1-9957-a87685cdf995
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_he
+		dataType: string
+		lineageTag: 44a9ad5d-5588-42f0-83c0-136df7a75711
+		summarizeBy: none
+		sourceColumn: indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 55728a00-8b6a-45c1-96a2-8fcd2715e586
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: c4671ad1-aa10-4a3b-9ba7-0ad833e9ed04
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 4a2db3a3-50fd-4fb4-b5e8-23761c48a96f
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 27b9a67c-146f-4b65-bc6c-57ca416895d1
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition hlth_silc_17 = m
+		mode: import
+		queryGroup: 'New indicators 2026'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2db96d17-b148-4d11-80f4-26b75cb98f00" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="ALL_SDG_New Indicators"]}[Data],
+				    All_SDG_hlth_silc_17_ = #"2db96d17-b148-4d11-80f4-26b75cb98f00"{[entity="All_SDG_hlth_silc_17",version=""]}[Data]
+				in
+				    All_SDG_hlth_silc_17_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

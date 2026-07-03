@@ -1,0 +1,25 @@
+table 'EU Member States'
+	lineageTag: 4453f186-3424-4e97-9b15-4502cd4af50e
+
+	column 'EU Countries'
+		dataType: string
+		lineageTag: a50c2aa4-2903-4f19-9327-1dd53d4f954f
+		summarizeBy: none
+		sourceColumn: EU Countries
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'EU Member States' = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("Lc5LDoAgDADRu7D2En5AG1EIqIkS7n8NSYfVyxTStBQzWVOHxqrMn7LswJsF6eUhKy4pG8jFllfxDzD0Nz/hYHiybKQiFakUlCzASa5Xu6X+", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"EU Countries" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"EU Countries", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

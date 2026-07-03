@@ -1,0 +1,96 @@
+table EU_SDG_03_30
+	lineageTag: 7ec3500b-82e0-4386-8ab9-9265010d7e06
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 538d7d99-ecb7-47c4-876f-1171a97a4aeb
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: fa52b09b-fca1-428f-8eea-766e13f260cf
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 59b7bde3-af78-4140-901d-ccfeb436eae6
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		lineageTag: 036c52f1-9a1b-4fe6-b09e-28e639dcc5ec
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unit
+		dataType: string
+		lineageTag: 860cc330-e20a-4b70-8e7a-decf5ea6bd01
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		lineageTag: 8c4a4c6c-9f40-4a93-8f85-63cc1bfd3311
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 7808c999-dc47-49ec-986c-6e8de319dbaf
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		lineageTag: 86c3582f-2580-4a5f-88df-54aec5487053
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: ef743354-9920-4424-b82a-cb61d87bb1ad
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_SDG_03_30 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 3'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 3"]}[Data],
+				    SDG_03_30_ = #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a"{[entity="SDG_03_30",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_03_30_, each ([sex] = "T"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

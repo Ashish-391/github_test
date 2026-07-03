@@ -1,0 +1,79 @@
+table BW_Goal16_70
+	lineageTag: 21034ec5-652e-46b6-be5f-4ebed0bd4c2e
+
+	column Year
+		formatString: 0
+		lineageTag: 35b4a36f-5070-46b6-90c2-981036c58fd6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: e49bd4cb-0ddf-41f7-bdd8-4ebcc392f233
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 330da408-108e-4913-b499-2ef37e155ce1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_16_70"
+			var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[TIME_PERIOD]),'All_SDG_Goal5-12'[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal16_70[Year]=maxTime_Period,maxTime_Period&BW_Goal16_70[Value],BLANK())
+		dataType: double
+		lineageTag: 50706def-f2a2-4202-8904-fdbc54f210c7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal16_70 = calculated
+		mode: import
+		source =
+				
+				
+				var indicator = "SDG_16_70"
+				var unit = "P_HTHAB"
+				var sex = "T"
+				var Legalstatus = "PER_VICT"
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Unit] = unit, 'All_SDG_Goal5-12'[Sex] = sex, 'All_SDG_Goal5-12'[leg_stat] = Legalstatus   /*,'All_SDG_Goal5-12'[Geo]="EU27_2020"*/)
+				
+				RETURN
+				
+				    SELECTCOLUMNS (
+				
+				        FILTER
+				
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				
+				||
+				
+				'All_SDG_Goal5-12'[Time_Period]=maxTime_Period-5
+				
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator && 'All_SDG_Goal5-12'[Unit] = unit && 'All_SDG_Goal5-12'[Sex] = sex && 'All_SDG_Goal5-12'[leg_stat] = Legalstatus),
+				
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				
+				    )
+
+	annotation PBI_Id = d121efbdd27e440db83bdb2319917214
+

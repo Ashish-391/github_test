@@ -1,0 +1,110 @@
+table SDG_01_40
+	isHidden
+	lineageTag: 0a504bb2-8a21-471a-b527-52c2eeeea27b
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c75d2cc1-34c7-43c3-9c77-34bafc08a183
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 02c247f4-c15f-441e-907e-94a0dbd3a473
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 00e78166-ec81-44a8-bb6c-f0af5896ce7b
+		summarizeBy: sum
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column age
+		dataType: string
+		isHidden
+		lineageTag: 44a4f7e4-1835-46c2-9e98-6fb8b6634029
+		summarizeBy: none
+		sourceColumn: age
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 63e622cb-b78c-4356-874d-af2f330c1be7
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 7426a006-d69d-4a28-a0e5-44245772baf2
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 9fb8934d-8797-44b1-bf62-af598c01ddeb
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_01_40 = m
+		mode: import
+		queryGroup: 'Goal 1'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    WorkspaceData = Workspaces{[workspaceId=workspaceID]}[Data],
+				    DataflowData = WorkspaceData{[dataflowName="Goal 1"]}[Data],
+				    SDG_01_40 = DataflowData{[entity="SDG_01_40", version=""]}[Data],
+				    // Ensure the UpdatedFromDate column is of type Date
+				    ConvertedTable = Table.TransformColumns(SDG_01_40, {{"UpdatedFromDate", each Date.From(_), type date}}),
+				    FilteredRows2 = Table.SelectRows(ConvertedTable, each [UpdatedFromDate] >= #date(2024, 1, 3)),
+				    FilteredRows = Table.SelectRows(FilteredRows2, each ([age] = "Y_LT65"))
+				in
+				    FilteredRows
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

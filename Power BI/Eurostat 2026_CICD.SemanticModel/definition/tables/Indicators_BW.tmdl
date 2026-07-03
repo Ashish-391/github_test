@@ -1,0 +1,65 @@
+table Indicators_BW
+	lineageTag: 05e931ff-5ed3-4b88-9791-69b489ba6ef5
+
+	column Indicators
+		dataType: string
+		lineageTag: a8bcca99-e76d-4612-94c0-c71fb48f5494
+		summarizeBy: none
+		sourceColumn: Indicators
+
+		annotation SummarizationSetBy = Automatic
+
+	column SDGIndex
+		dataType: string
+		lineageTag: ae8d9605-35e9-4abe-a050-e8ee7c6400ee
+		summarizeBy: none
+		sourceColumn: SDGIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c003c8a-b7c7-4a67-8de1-899bae53d919
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicators Value'
+		dataType: string
+		lineageTag: 9bbb34b8-a274-4ce1-a002-b737a15e8374
+		summarizeBy: none
+		sourceColumn: Indicators Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Indicators_BW = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("rVrrbts4Fn4VosACiTdZ+N52/6WJm+kibYNkMsWgWwS0RFvcSKKGpJx4fs077Bvuk+x3SMq2RKdN2g4KTBzzXHgu37kwnz+/+Hx9dn7bH9wO+l9eHL24FKrKBeOWaWnumFqwSq2EtmumNDMqkTxn4iHJayNVifODF1+OtjyGj/CQZaIKsWHFF1ZsuFnNS7MQ2kTcRgPidi1AJFjBQUPneZk2pKmotFxxC1WYxvdsDt5LwZZa1ZU/KB4ituNdJXO5kuUSCrJM1UZkKk8Nu5c2Y5C6Zrm6Z/dK3+GAFaWRdn3UEhIzdzq/Kz0Vt8dkgmO1OG7uTnpGVBOn0i/QgJRJlLGMjs9rnYrt1RoWxnJbd801up32e95e+eJYi0ppK1JWl4WwrBT4cQEPFiKViXMhL2TpLUd2Srh2ImCvXpvxAJEx6O04Igta7jN+W8MOp/4wxNjHuSBLbqjmKl3Dv8bAyql4YAdv3r87xLlhi9bH1slSy6TOba1xiwVPLC7VRBdiipdljS+c8etSWnZw8unmkB0YVetE/JPNaq1IuSN2ds5Ozq/2yBk5Oed0E9iutMzUFRmTWQW/70jXwgiuk8wZMIVxclURQcTRB9yJFhw6pdBS6SUvZQL9NbywjAimnqAoVCk5E4U0lG2GLbQqdnQQO/eanXRvMoVc57cP0jpLI8YpZsv0nlKpTdtrEw8mCMneF4bfzoyVlHuUdBKBA/uRx+E2z+aYcboYXyxEQqdcELlAaY464Rtp/7o63SNtGqSdKro0m0udhmAAP7uuBKGIqUQihYHI2Q3MsNRi2WI9e3Ma8+7DoZ73lcgRrSvhkoCX+5Jzyatu0I4Q/i45Bc9tBkSQC8HWcLwhgIOiNsO3oxaFD9XrjJKKENRDjUOVpVIpQalDF/cBYZsIqJWyzImIuPmAvC7UHaVdpcWK56JMRHTQY8+1RTxynUojKCw5hDoPpLWgELb1HALrHL4xR+yXd7+58M1EBdtYaWKmw4gpXymZ8jmuVCAveI5c7pC9asDoLbcE2UkiAWTWmczlJuXqoE//uc9A/16bxYCKiWNxqao69zCzF6wTZAa4a/rGZhBgM4EYrBGQ2mdMqaB2zD+kx5XiKRWhxQIZ6ey1R5fJ0OuiBXKBMs8fbIwqHiplau/thSyBRVxbylIyPCiQKIYdXL4f/mNy2GHeHwdUnHGdI7wEX9Fhp7hI62SL0dBRlh4uxi16H26/IoIlR1RtqMjy1oLIwdjvw8nxaBwR+yJ76fSVlZcGAwunTZLJPM0oSreq+CoR8XnZjnmeAqIMy7jzGLyCi6GqzbkhK8ulpLgwdzLPTcTK4+UFSi+HAgATpz+UAtCkbQO8/zpBQU7aOX799eMG8OITq61QwGO6UvDsjqVwMb3HLaNA9aPluBMtVEN7Ty6i3VibNF1etjZOcOiRqGaupHKwQvF8j3pK3d2kRevj7Fy4GlZxB5dkgbrk6X9qY/2liohutEsniipXa2dxkEdnJ8FonIJH5K6eOG1IUNmENZyQS154SMEVlptqbSKO3g2XwDvrimjE1YhSki94ibYuFPBJJ0FvzzWvsuGz8rQX8RkGPk9P1y6PaePALSiGFCsFygt1QMgxmx0B9Ohnk6l7of0nxIXC/xbo3TMHlqjnwsU9CKXeYir4T1syh12ZwNzSl3tqiprkNgK/T+lO9/goQoNgkbU2mLXN1sfFG6mSDD0OhaN6WC/hlBQoW6Yu4+XKTwZtSp/B+xub6PAkhLwyVRaOP8LWh8onpzYgPVdAqZDmSKkjVsF07ODT7N3fD9u0g3FTTd6VOanur06eIEsj9ESYKjA7iTwnB/sjf9SufvY6urxs/KzRfFGQlEIv167W1UVl/ez1sk3ggPytpDh6wnHv08eOd2osleuEVzBHxMc7ceY5VFohmtFk+ZagfXLcrhAaUu9dFxHEezcCwBZPvcNkV7YsXJeOsYSApkxiBabdMAZwkXzE8J0QFS6MKYKnAj6xIqcodmC2y+RV8MsVWjV2fnbZtsyr9skwCq6EsX6QaK4Owui098fvCONl0zA2KU3leIuaPpUf7w3abIN7tuRh/myfaipiuTxGUBYwjPgGhbfl09u7DgMalHtPmJR7bboBxkBP975ZByyUshhES9s52n8dXHXuYiqFbzHJJJTXiA/pmjgY7+rfdb8/nJ7h4OsOVveeB9M75IOXm2G8cXl3u5DJZXaMgUakbrWgSyBxQFXI6PDDXcLSAreGUF5VufTaGNfTZ8JNtpXAWBPOfKR+FsPR7PLjYcTNR0Vzd3KXIdl5dNB3dSdSb6bQ7SbE1z5AI0q/XncsgCHWO8qbHyNLTbmVuvsit1dSK2dBmJPGIBNaEb2C1oZKCSb72AyTNobMYVSzTQDqffDPIXCFVkiUS1eAeGkIGyJu0w4icek7IrkD4vd8vct2oQU8Zx9jik7BR92ZNGhS0HIIRx1BxaDfmVG/PHlCjambpZNbg2BGs1rOa4cNx81y5I8afkO9DyCkKXhiRt68gdEGrii85spaeHvcZ39rflVtgDRmFDpms87rohWu3aODAJPfWC4RWXspFfUkPzIcxux9vu2ZDeOjk+HPGg1j3tMQF8k6yekOrt8Bp6Iu3RCS+1arQ+hatu7w/F09W6/L+bVbDH1/DnYZDvap6scluq9KklprN5ZAVIJuSBxtJxXao9BeIpem2PaxtI+KxEyagnNNWyyD8u2DJfUL4kELunwKn+60Q4Tg/E+uU4QWa9pVFwvDTnXaX5zikz7jTxD1tEw+/Tjc2fMRUtwVIT7F/Y4dMRjukerz/1TSXofr7aocntlkT5tiMggjmdC8ueAmkoYdHP9RGN/hmQh5uzS6H1v4MVO5FrP3SI/Z66o7Cr77gHK61EKUDguAmmZrXqIZtWi8175C00DeBd0OXx5tfkIwcHjGXfut0oJKITu4uLm4OX17uHP/UetG404OPb8X7nVvMWzM9D0hFXEbBQA8zd3y91hTZYLTCS0Ugp/lUE7sMeWkcey2BoUGxbc5TQuF7nBespvrM1yqKKRvkAmlvEC2EejbNdfZtkQ1a7P3qLKEqlpZj26U/k6xceu09/F2mw2IK1MHVgtpMmasSu7YXCpaocTUoY1+hDrsZQ3hfEw77t+eKuQWz2/daOkN5H7xjAkx5utNfZ6rORgV1PpB/oIDFwFvnpajMd9LO921nTtrWit8UVu0k1mo2l36Zo20id+Fi3xnejo7aZ3drCdddhAu7XHWpIPVj0N1++Sk45gfeaSIuU/huo+3JxcX3medt4k95wNWIoZcAUQGQPwiX+8lcCuQ3hN3IL2YOFTiPZuN7uFBszf6xuNARrmNfonIp50i/dNrdCxksygU2tWTzROcVdZtSVujW87vAR61dju/Dqfmjbd5WiHzh73ApqWllSWNSGaNulfEPBoo07r2Jcqxq/zU9a7xZ6Cha9/abH5rxAOR/SZRogrjGocanmy6yLsAZbuimmWPG9n8u/bmMZEhlNDQc9IbBWnTk/vqsIFT3+UT45ctxt5tsxtXR8rEr/0a/v6tuSao9lDeph01tH6zEnadT6MdP+ZJr3cq5jYm2hnunOHa7YXlD36W8sGAj4jBlSjrffI7k93zpu8OO/e3EZz43eg5L//313+1e/+l7Tct8Z/4hxL9Fseh53iKCfFPjNOZrCJ+ABthqTP/9p9N7PIeN9ru4y2e8cjU4vrqaxqvf3BrxQ4+zGa/HsYyR1+5SbSgatFOtiFIrw5EBcc1Oqra0ljoYCDnc4AI8Uw2OJhwNzEiDisaIOcyd5P8i+7bQujjfqqQ7sprEp5gz7SqafOAbOSJr7WEgujIPIDtK6P+1fIplMCjL/8H", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Code = _t, Indicators = _t, SDGIndex = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Code", type text}, {"Indicators", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Indicators", "Code Name"}}),
+				    #"Merged Columns" = Table.CombineColumns(#"Renamed Columns",{"Code", "Code Name"},Combiner.CombineTextByDelimiter(": ", QuoteStyle.None),"Indicators"),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Merged Columns", "Indicators", "Indicators - Copy"),
+				    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column",{"Indicators - Copy"}),
+				    #"Added Index" = Table.AddIndexColumn(#"Removed Columns", "Index", 1, 1, Int64.Type),
+				    #"Duplicated Column1" = Table.DuplicateColumn(#"Added Index", "Indicators", "Indicators - Copy"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column1", "Indicators - Copy", Splitter.SplitTextByDelimiter(":", QuoteStyle.Csv), {"Indicators - Copy.1", "Indicators - Copy.2", "Indicators - Copy.3"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Indicators - Copy.1", type text}, {"Indicators - Copy.2", type text}, {"Indicators - Copy.3", type text}}),
+				    #"Split Column by Positions" = Table.SplitColumn(#"Changed Type1", "Indicators - Copy.1", Splitter.SplitTextByPositions({0}), {"Indicators - Copy.1.1"}),
+				    #"Split Column by Positions1" = Table.SplitColumn(#"Split Column by Positions", "Indicators - Copy.1.1", Splitter.SplitTextByPositions({1}), {"Indicators - Copy.1.1.1"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Positions1",{{"Indicators - Copy.1.1.1", type text}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type2", "Indicators - Copy.1.1.1", Splitter.SplitTextByDelimiter("]", QuoteStyle.Csv), {"Indicators - Copy.1.1.1.1", "Indicators - Copy.1.1.1.2"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Indicators - Copy.1.1.1.1", type text}, {"Indicators - Copy.1.1.1.2", type text}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type3",{"Indicators - Copy.1.1.1.2", "Indicators - Copy.2", "Indicators - Copy.3"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"Indicators - Copy.1.1.1.1", "Indicators Value"}})
+				in
+				    #"Renamed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

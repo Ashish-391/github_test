@@ -1,0 +1,196 @@
+table SDG_04_20
+	isHidden
+	lineageTag: a9bd5c9a-3f0d-4ef3-b941-7aaea75fa9d6
+
+	column Year
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: 6fa7fd2f-d01e-4f66-b5ae-c4f2f6962c7c
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: bc935c79-19e4-47dd-9876-04bbf851a01a
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: 5ae9410f-76af-410f-a63a-3b7b6b993ef2
+		summarizeBy: none
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		isHidden
+		lineageTag: 17062b90-f8fc-4e98-accd-09ead3d8b1a4
+		summarizeBy: none
+		sourceColumn: sex
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: bd28da2c-1124-4e89-af6c-5d22165b4a20
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 4956b49d-cf44-4d9c-b97e-1f523c1b06d1
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 05399742-181c-483c-aac3-66a1d1c0d6aa
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		isHidden
+		lineageTag: aa910cb8-60fb-43f7-a89c-7b752623abe0
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Created
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c58dd9ab-b3a3-46c9-9a10-a6fa26af7cd1
+		summarizeBy: none
+		sourceColumn: Created
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryCode
+		dataType: double
+		lineageTag: 0bc9fd0f-c671-4010-891c-9ad7b84f159e
+		summarizeBy: count
+		sourceColumn: CountryCode
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Title
+		dataType: string
+		lineageTag: c15c7322-d753-4d83-9220-37f60ad19638
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b09b4e07-1e50-4fd2-8026-6fce1b468baa
+		summarizeBy: none
+		sourceColumn: Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Color Tag'
+		dataType: string
+		lineageTag: 401e04f3-43d7-4d51-b577-c7ed151664b6
+		summarizeBy: none
+		sourceColumn: Color Tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Compliance Asset Id'
+		dataType: string
+		lineageTag: b183fff1-6fda-4d55-abad-20f3bba6d586
+		summarizeBy: none
+		sourceColumn: Compliance Asset Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duplicate
+		dataType: string
+		lineageTag: 1b81a5f6-0209-4b57-924d-f4434f7dc5c0
+		summarizeBy: none
+		sourceColumn: Duplicate
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		lineageTag: 78570029-3272-4695-b4a9-f4df4235d587
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedToDate
+		dataType: string
+		lineageTag: b1c9d2c5-b4e6-4487-a772-99ec152dc82c
+		summarizeBy: none
+		sourceColumn: UpdatedToDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column isced11
+		dataType: string
+		lineageTag: 4f2b58e0-65e0-4312-88ba-4d86c1f48ac2
+		summarizeBy: none
+		sourceColumn: isced11
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_04_20 = m
+		mode: import
+		queryGroup: 'Goal 4'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cc0fa450-fa6f-471a-bef0-4056b78f3912" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 4"]}[Data],
+				    SDG_04_20_ = #"cc0fa450-fa6f-471a-bef0-4056b78f3912"{[entity="SDG_04_20",version=""]}[Data]
+				in
+				    SDG_04_20_
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

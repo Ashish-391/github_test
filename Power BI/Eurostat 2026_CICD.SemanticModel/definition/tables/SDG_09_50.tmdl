@@ -1,0 +1,101 @@
+table SDG_09_50
+	lineageTag: 2e7a0a58-7344-414e-ac88-adae34073ec3
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4d6d0b7a-4457-4ccc-a1ec-ab7119745c84
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 43f9ca30-c85c-4dbd-813c-5cdb7ce97eb6
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 3617e4ff-f6bb-40b9-b38c-b83a84c0f0f5
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 9c615674-f416-4287-b82b-b702953aa412
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: cc0af279-eadc-47cf-a599-a93bbf6ff66e
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 3be8d1a2-4f5b-4456-a8bd-f06bf8b267a1
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column vehicle
+		dataType: string
+		isHidden
+		lineageTag: fd2455ab-3ddc-43a5-b480-5eb86b20b162
+		summarizeBy: none
+		sourceColumn: vehicle
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: c6dc04e6-e8b8-4ab5-9ef3-0c9ee67ae9b5
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_09_50 = m
+		mode: import
+		queryGroup: 'Goal 9'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"e7dd114e-bbb6-4bb8-8411-634dc72935be" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 9"]}[Data],
+				    SDG_09_50_ = #"e7dd114e-bbb6-4bb8-8411-634dc72935be"{[entity="SDG_09_50",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_09_50_, each ([vehicle] = "TRN_BUS_TOT_AVD")),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

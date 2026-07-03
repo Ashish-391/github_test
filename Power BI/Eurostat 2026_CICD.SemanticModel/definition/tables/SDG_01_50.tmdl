@@ -1,0 +1,116 @@
+table SDG_01_50
+	isHidden
+	lineageTag: cfc800e9-ca6d-4037-bc9c-c0f7129b41a6
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5b1698c5-4463-4e1b-84c3-3079c324b4a3
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: ce85300a-121a-4b0d-905b-f4934f8791c1
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 82e06262-3514-485c-89c5-f42ac4c7311a
+		summarizeBy: sum
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column age
+		dataType: string
+		isHidden
+		lineageTag: 79b11891-3109-4e78-a62b-bb99a47459ae
+		summarizeBy: none
+		sourceColumn: age
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 302a4b60-bf2d-4d8b-aad8-59cfdcf4c4e4
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 4333ff44-c700-43d7-be96-387f60fc3bea
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		isHidden
+		lineageTag: ab393b06-b4a1-4816-92a5-b3e7699d5c87
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 7db20ffb-6722-4012-b429-86016735b5fd
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_01_50 = m
+		mode: import
+		queryGroup: 'Goal 1'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"238281b2-c170-4491-b22a-2ad63536f76a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 1"]}[Data],
+				    SDG_01_50_ = #"238281b2-c170-4491-b22a-2ad63536f76a"{[entity="SDG_01_50",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_01_50_, each true),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each ([incgrp] = "TOTAL"))
+				in
+				    #"Filtered Rows1"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

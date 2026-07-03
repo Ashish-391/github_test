@@ -1,0 +1,138 @@
+table All_SDG_16_40_EUGraph
+	lineageTag: 232d2fc6-b394-4ea1-8e9c-ace81148ca15
+
+	column TIME_PERIOD
+		formatString: 0
+		lineageTag: d71daa56-ca35-4f89-83bf-3f9aa5b6afb5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[TIME_PERIOD]
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		lineageTag: 7946975a-f6b5-4992-8301-9aac40b0ff0c
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[OBS_VALUE]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_FLAG
+		lineageTag: c44c39a4-4689-43f5-9115-cd6d72357f77
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[OBS_FLAG]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		lineageTag: 8703264e-af57-4e75-88fd-f2553172627a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		lineageTag: dbbef2da-65f9-4119-924f-25d5917090ce
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[Unit]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level of perception'
+		lineageTag: 1ab88843-c905-4a2a-8a9d-f67f487096b6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[Level of perception]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		lineageTag: c0d60935-2174-4b57-a1c6-544ba8c3759b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[Freq]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		lineageTag: f246a674-583d-46f2-8762-40911dbc3560
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[Indicator]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'lev_perc - Name'
+		lineageTag: 83ca409e-c302-4417-bb1f-dc8634a1e045
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[lev_perc - Name]
+		sortByColumn: 'Sort level'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort level'
+		formatString: 0
+		lineageTag: 2893ce91-4ca7-4a5c-a03d-996189d1ec93
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[Sort level]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'All_SDG_16_40 (2).VG_FG'
+		lineageTag: eb214956-57c6-4ceb-b66f-7dbf6ba35d6d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Eu_Graph16_40[All_SDG_16_40 (2).VG_FG]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sorting = ```
+			
+			VAR VG = IF(All_SDG_16_40_EUGraph[Level of perception]= "Very good",All_SDG_16_40_EUGraph[OBS_VALUE])
+			VAR FG = IF(All_SDG_16_40_EUGraph[Level of perception]= "Fairly good",All_SDG_16_40_EUGraph[OBS_VALUE])
+			Var VG_FG = VG + FG
+			RETURN
+			IF
+			(All_SDG_16_40_EUGraph[TIME_PERIOD]= MAX(All_SDG_16_40_EUGraph[TIME_PERIOD]),
+			/* MAX
+			(All_SDG_16_40[TIME_PERIOD])& */VG_FG,
+			BLANK
+			())
+			 
+			
+			```
+		lineageTag: f01e2c5e-fd86-457e-a84e-2712c04aec06
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition All_SDG_16_40_EUGraph = calculated
+		mode: import
+		source = ```
+				
+				FILTER
+				(Eu_Graph16_40,(Eu_Graph16_40[TIME_PERIOD]=
+				MAX
+				(Eu_Graph16_40[TIME_PERIOD])/* ||All_SDG_16_40[TIME_PERIOD]=
+				MAX
+				(All_SDG_16_40[TIME_PERIOD])-
+				5 */
+				))
+				 
+				 
+				```
+
+	annotation PBI_Id = 73bbfdae23da4d1aa04fd2091000b214
+

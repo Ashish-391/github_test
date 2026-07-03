@@ -1,0 +1,91 @@
+table eu_SDG_09_40
+	lineageTag: ab5870a3-8ea8-4c48-99b2-43cee672c069
+
+	column Year
+		dataType: int64
+		lineageTag: d772b7d2-2175-4830-b5a1-d3b47cf344d3
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 2f81cc8a-bb87-4d6b-bd3b-e1b509c4a0be
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 6d9c0d37-17e0-4034-be56-44b863efc093
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 1d267002-6255-49e8-934b-3cb7e94178e0
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: b6f21792-65cf-47de-8dad-29c6935756c4
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 35d6c65f-2519-4d88-b8c8-a03eb730b4ed
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column coop_ptn
+		dataType: string
+		lineageTag: 3c9cab65-439d-47db-82c7-f399f59429bf
+		summarizeBy: none
+		sourceColumn: coop_ptn
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 31664479-7260-49ee-96f1-02fe20594dea
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition eu_SDG_09_40 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 9'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"e7dd114e-bbb6-4bb8-8411-634dc72935be" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 9"]}[Data],
+				    SDG_09_40_ = #"e7dd114e-bbb6-4bb8-8411-634dc72935be"{[entity="SDG_09_40",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_09_40_, each ([Unit] = "P_MHAB") and ([coop_ptn] = "APPL"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

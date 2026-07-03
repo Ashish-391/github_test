@@ -1,0 +1,88 @@
+table BW_Goal13_21
+	lineageTag: 270f8c74-2207-49b3-86ec-22cdc8d0998b
+
+	column Year
+		lineageTag: 8d3a5c92-57a9-4e62-ac48-086b5ffe39d6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		lineageTag: e5e0eed9-dd70-4c75-ac31-13d44c1c9906
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 2afe27f8-089e-412f-bc26-618af4e4fe80
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_13_21"
+			var maxTime_Period = CALCULATE(MAX(All_SDG_Goal12[TIME_PERIOD]),All_SDG_Goal12[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal13_21[Year]=maxTime_Period,maxTime_Period+BW_Goal13_21[Value],BLANK())
+		dataType: double
+		lineageTag: 996cace6-b789-4558-8ce7-fdd8939b94fa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal13_21 = calculated
+		mode: import
+		source = ```
+				
+				
+				var indicator = "SDG_13_21"
+				var unit = "T_KM2"
+				//Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX(All_SDG_Goal12[TIME_PERIOD]),All_SDG_Goal12[Indicator]=indicator,All_SDG_Goal12[Geo]="EU27_2020",All_SDG_Goal12[unit]=unit)
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				(All_SDG_Goal12,(All_SDG_Goal12[TIME_PERIOD]= maxTime_Period
+				||
+				All_SDG_Goal12[TIME_PERIOD]=maxTime_Period-5
+				) && All_SDG_Goal12[Indicator]=indicator && All_SDG_Goal12[Unit]=unit),
+				        "Year", All_SDG_Goal12[TIME_PERIOD],
+				        "Value", All_SDG_Goal12[OBS_VALUE],
+				        "Geo", All_SDG_Goal12[Geo]
+				    ) 
+				
+				
+				
+				    // var indicator = "SDG_13_10"
+				// var unit = "T_HAB"
+				// //Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				// var maxTime_Period = CALCULATE(MAX(Goal13[Year]),Goal13[IndicatorValue]=indicator,Goal13[CountryAbrv]="EU27_2020",Goal13[Unit]=unit,Goal13[UpdatedFromDate] = Max(Goal13[UpdatedFromDate]))
+				// RETURN
+				//     SELECTCOLUMNS (
+				//         FILTER
+				// (Goal13,(Goal13[Year]= maxTime_Period
+				// ||
+				// Goal13[Year]=maxTime_Period-5
+				// ) && Goal13[IndicatorValue]=indicator && Goal13[Unit]=unit && Goal13[UpdatedFromDate] = Max(Goal13[UpdatedFromDate])),
+				//         "Year", Goal13[Year],
+				//         "Value", Goal13[Value],
+				//         "Geo", Goal13[CountryAbrv]
+				//     ) 
+				
+				```
+
+	annotation PBI_Id = 3724299a847643c98617e88a85f454e0
+

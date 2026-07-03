@@ -1,0 +1,665 @@
+table '_Overvieww without Target'
+	lineageTag: d84c6be7-f191-4f38-b72c-f0cdfabbf00f
+
+	measure CAGR_LongTerm_WT = ```
+			
+			var Max_Year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD])) 
+			var min_year = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]))
+			var a = SELECTEDVALUE(_Goal1_Overview[Indicator])
+			var longtermYear = 
+			     /* IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_50*",
+			     Max_Year-13,
+			     IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_50",
+			     Max_Year-13, */
+			IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-14,
+			        IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-13,
+			            IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-12,
+			                IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-11,
+			                    IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-10, BLANK()
+			
+			     
+			                        )
+			                    )
+			                )
+			            )
+			        )
+			     
+			     )
+			
+			
+			var longexpo =IF( MAX(_Goal1_Overview[Indicator]) = "SDG_12_51",
+			     14,
+			/*  IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_50*",
+			     13,
+			     IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_50",
+			     13, */
+			/*  IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_42"||MAX(_Goal1_Overview[Indicator]) = "SDG_15_42*" ,
+			     11,  */   
+			IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     14,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     13,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     12,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     11,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     10, BLANK()
+			     )))))))
+			
+			
+			
+			var expo = 1/longexpo
+			Var numerator = IF(a="SDG_06_60", [Moving Avg],IF(a="SDG_14_60",[Moving Avg_14_60],IF(a="SDG_15_42"|| a = "SDG_15_42*" ,[Moving Avg_15_42], ([Ending Value WT]))))
+			Var Denominator = IF(a="SDG_06_60",[Longterm Moving Avg],IF(a="SDG_14_60",[Longterm Moving Avg_14_60],IF(a="SDG_15_42"
+			 ||a="SDG_15_42*",[Longterm Moving Avg_15_42], [Long_BeginnningValue WT])))
+			
+			return
+			IF(ISBLANK(longtermYear),BLANK(),ROUND( (((numerator/Denominator)^(expo)) - 1 ) * 100,3))
+			```
+		lineageTag: d7e04803-648f-4846-9584-df0ed722a816
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CAGR_ShortTerm_WT = ```
+			
+			/* var Max_Year1 = CALCULATE(MAX(Goal1_Overview[TIME_PERIOD])) 
+			var min_year2 = CALCULATE(MIN(Goal1_Overview[TIME_PERIOD]))
+			var longterm = Max_Year1 - min_year2
+			VAR max_year = MAX(Goal1_Overview[TIME_PERIOD])
+			Var Short  = IF(longterm =16, max_Year - 6,IF(longterm = 14, max_year - 6,max_year - 5))
+			var S_year = max_year - Short */
+			var a = SELECTEDVALUE(_Goal1_Overview[Indicator])
+			var S_year = [MaxxYear_Overview] - [MaxYearMinus3or5_Overvieww]
+			Var numerator = IF(a="SDG_06_60", [Moving Avg],IF(a= "SDG_14_60",[Moving Avg_14_60],IF(a="SDG_15_42" || a="SDG_15_42*",[Moving Avg_15_42], [Ending Value WT])))
+			Var Denominator = IF(a="SDG_06_60",[Shorterm Moving Avg],IF(a= "SDG_14_60",[Shorterm Moving Avg_14_60],IF(a="SDG_15_42" || a="SDG_15_42*",[Shorterm Moving Avg_15_42], [ShortTermBeginningValue_WT])))
+			return  
+			
+			IF(ISBLANK([ShortTermBeginningValue_WT]),BLANK() , ROUND(((DIVIDE(numerator,Denominator)^(1/S_year)-1)  ) * 100,4))
+			```
+		formatString: 0
+		lineageTag: 3657b1fd-f0c9-456f-9f87-10df49e0244a
+
+	measure 'Ending Value WT' =
+			
+			var a = SELECTEDVALUE(_Goal1_Overview[Indicator])
+			RETURN
+			CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MAX(_Goal1_Overview[TIME_PERIOD]),_Goal1_Overview[Indicator]=a)
+		lineageTag: f5b7ecca-7161-423f-a791-03a1bd9f428a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Long_BeginnningValue WT' = ```
+			
+			var Max_Year = MAX(_Goal1_Overview[TIME_PERIOD])
+			var min_year = MIN(_Goal1_Overview[TIME_PERIOD])
+			var longtermCalc = /* IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_50*",
+			     Max_Year-13,
+			     IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_50",
+			     Max_Year-13, */
+			IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-14,
+			        IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-13,
+			            IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-12,
+			                IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-11,
+			                    IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-10,
+			     BLANK()
+			                        )
+			                    )
+			                )
+			            )
+			        )
+			     
+			     )
+			return 
+			CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=longtermCalc)
+			```
+		lineageTag: 2d541d29-244e-4987-930b-d8e48e7b45fc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Longterm Moving Avg' = ```
+			
+			var Max_Year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]),_Goal1_Overview[Indicator] = "SDG_06_60")
+			var current_year = IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-14,
+			        IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-13,
+			            IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-12,
+			                IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-11,
+			                    IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-10,
+			     BLANK()
+			                        )
+			                    )
+			                )
+			            )
+			        )
+			     
+			     )
+			return
+			CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-3 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]),_Goal1_Overview[Indicator] = "SDG_06_60")
+			```
+		lineageTag: d820f7f0-3506-4f30-80ca-cba481a64c5b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Longterm Moving Avg_14_60' = ```
+			
+			var Max_Year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]),_Goal1_Overview[Indicator] = "SDG_14_60")
+			 
+			var current_year = IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-14,
+			        IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-13,
+			            IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-12,
+			                IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-11,
+			                    IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-10,
+			     BLANK()
+			                        )
+			                    )
+			                )
+			            )
+			        )
+			     
+			     )
+			 
+			return
+			CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-3 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]),
+			_Goal1_Overview[Indicator] = "SDG_14_60")
+			```
+		lineageTag: 3081d1f9-dbec-4846-bd34-27e3a27aeb13
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Moving Avg' = ```
+			
+			var current_year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), _Goal1_Overview[Indicator] = "SDG_06_60")
+			return 
+			CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-3 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]), _Goal1_Overview[Indicator] = "SDG_06_60")
+			```
+		lineageTag: e07fd18e-b628-4a2b-83d3-f8e2c6cabace
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Moving Avg_14_60' =
+			var current_year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), _Goal1_Overview[Indicator] = "SDG_14_60")
+			return
+			CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-3 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]), _Goal1_Overview[Indicator] = "SDG_14_60")
+		lineageTag: 7dcc324e-d835-4787-8e86-491e870d1e8c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Shorterm Moving Avg' = ```
+			var current_year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD])-5, _Goal1_Overview[Indicator] = "SDG_06_60")
+			return 
+			 CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-3 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]), _Goal1_Overview[Indicator] = "SDG_06_60") 
+			```
+		lineageTag: 51a0c282-69e1-4c6e-9f83-3768f2e32b46
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ShortTermBeginningValue_WT = ```
+			
+			/* var Max_Year1 = CALCULATE(MAX(Goal1_Overview[TIME_PERIOD])) 
+			var min_year2 = CALCULATE(MIN(Goal1_Overview[TIME_PERIOD]))
+			var longterm = Max_Year1 - min_year2 */
+			var a = SELECTEDVALUE('_Goal1_Overview'[Indicator])
+			VAR MaxYearVal = [MaxxYear_Overview]
+			VAR ExcludedYear = 2020
+			
+			VAR MaxYearMinus5Val =
+			    VAR y1 = MaxYearVal - 5
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus4Val =
+			    VAR y1 = MaxYearVal - 4
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus3Val =
+			    VAR y1 = MaxYearVal - 3
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus6Val =
+			    VAR y1 = MaxYearVal - 6
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			VAR sd = BLANK()
+			
+			return 
+			    IF(a="SDG_15_50*", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MAX(_Goal1_Overview[TIME_PERIOD])-6),
+			        IF(a="SDG_03_30", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MAX(_Goal1_Overview[TIME_PERIOD])-6),
+			            IF(a="SDG_04_40", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=/* MAX(Goal1_Overview[TIME_PERIOD])-4 */MaxYearMinus4Val),
+			                IF(a="SMG_04_40", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			                    IF(a="SSG_04_40", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			                        IF(a="SDG_11_32*" || a="SDG_14_10", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus3Val),
+			                        IF(a="SDG_12_51", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			                        IF(a="SDG_15_10", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus3Val),
+			                        IF(a="SDG_15_50", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MAX(_Goal1_Overview[TIME_PERIOD])-6),
+			                        IF(a="SDG_11_32", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus3Val),
+			                      IF(a="SDG_10_60", sd,
+			                        IF(a="SDG_17_60" || a="SDG_17_60*", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			                        CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus5Val)
+			                    )
+			                )
+			            )
+			        )
+			    )
+			)
+			))))))
+			```
+		lineageTag: b80211f8-187e-4530-b37e-67ebb24c1fa1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Shorterm Moving Avg_14_60' =
+			var current_year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD])-5, _Goal1_Overview[Indicator] = "SDG_14_60")
+			return
+			CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-3 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]), _Goal1_Overview[Indicator] = "SDG_14_60")
+		lineageTag: 73027db5-954f-46d5-ae82-2f3bd33bec79
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Shorterm Moving Avg_15_42' = ```
+			var current_year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD])-5,( _Goal1_Overview[Indicator] = "SDG_15_42" || _Goal1_Overview[Indicator] = "SDG_15_42*"))
+			return 
+			 CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-9 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]), (_Goal1_Overview[Indicator] = "SDG_15_42" || _Goal1_Overview[Indicator] = "SDG_15_42*")) 
+			```
+		lineageTag: 3a0fbf71-0e92-4146-b419-4838491c112e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Moving Avg_15_42' = ```
+			
+			var current_year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), (_Goal1_Overview[Indicator] = "SDG_15_42" || _Goal1_Overview[Indicator] = "SDG_15_42*"),_Goal1_Overview[Unit]="KM2")
+			return 
+			CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-9 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]), (_Goal1_Overview[Indicator] = "SDG_15_42" || _Goal1_Overview[Indicator] = "SDG_15_42*"),_Goal1_Overview[Unit]="KM2")
+			```
+		lineageTag: c8fbf40f-f693-405e-aa4d-5925254d9ee8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Longterm Moving Avg_15_42' = ```
+			
+			var Max_Year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]),(_Goal1_Overview[Indicator] = "SDG_15_42"||_Goal1_Overview[Indicator] = "SDG_15_42*"),_Goal1_Overview[Unit]="KM2")
+			 
+			var current_year = /* IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-15, */
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-14,
+			        IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-13,
+			            IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-12,
+			                IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-11,
+			                    IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-10,
+			     BLANK()
+			                        )
+			                    )
+			                )
+			            )
+			        )
+			     
+			     
+			 
+			return
+			CALCULATE(
+			AVERAGEX(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] >= current_year-9 && _Goal1_Overview[TIME_PERIOD] <= current_year), _Goal1_Overview[OBS_VALUE]),
+			_Goal1_Overview[Indicator] = "SDG_15_42" || _Goal1_Overview[Indicator] = "SDG_15_42*",_Goal1_Overview[Unit]="KM2")
+			```
+		lineageTag: 05fe8067-2a42-465b-a302-3581b75dd128
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'SubThemes.1'
+		dataType: string
+		lineageTag: e80fe80f-3d74-4117-bba6-5f49e25db9ab
+		summarizeBy: none
+		sourceColumn: SubThemes.1
+		sortByColumn: 'Sort Subthemes'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: bcffcf22-c0a7-4f1a-a66e-cd0426e5b0de
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column SDGIndex
+		dataType: int64
+		formatString: 0
+		lineageTag: f074d0cf-2caa-4197-809e-8db907fe8c32
+		summarizeBy: sum
+		sourceColumn: SDGIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	column MinYear
+		dataType: int64
+		lineageTag: 25938150-3abd-4d60-9b24-b07978da2e35
+		summarizeBy: sum
+		sourceColumn: MinYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MaxYear
+		dataType: int64
+		lineageTag: 57194916-dee7-4613-a6cd-3952beeacfa9
+		summarizeBy: sum
+		sourceColumn: MaxYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Target Year'
+		dataType: double
+		formatString: 0
+		lineageTag: dc1f9011-f8e2-461f-bf35-71e9055db0f6
+		summarizeBy: sum
+		sourceColumn: Target Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: double
+		formatString: 0
+		lineageTag: a9be7df4-eac9-4ff0-884e-4a0197921b26
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Subthemes'
+		dataType: int64
+		formatString: 0
+		lineageTag: a56b35ea-ec03-49d3-b564-1c95c3a42dcd
+		summarizeBy: sum
+		sourceColumn: Sort Subthemes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dim
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a93e562-9bda-4776-bddf-f767e226626c
+		summarizeBy: sum
+		sourceColumn: Dim
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Assessment Arrows' = '_Overvieww without Target'[CAGR_WT_1] * '_Overvieww without Target'[Dim]
+		lineageTag: 3a241f28-e072-4aa5-b498-6744cc8fc5a7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAGR_WT_1 = ```
+			var cagr_wt = 
+			SWITCH('_Overvieww without Target'[Year-Label] ,"Short Term" ,[CAGR_ShortTerm_WT],"Long Term",[CAGR_LongTerm_WT])
+			return cagr_wt
+			```
+		formatString: 0
+		lineageTag: 315757bf-a617-4d39-b06c-e9fc9034ae39
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Icon Trend' = ```
+			SWITCH(TRUE(),
+			ISBLANK('_Overvieww without Target'[Assessment Arrows]),
+			"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACkAAAAtCAAAAAAWmh08AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAFHSURBVDjL7ZRNS8NAEIb779MU24LWRhRaEfEqFDRaLNVC8eBBCoIiSkVIlCpSNbFNmu7azLuJaHa3XjwInUMy786T/ZiZTY7/1nIL8j+RLy7ZINFTaNfLkLcG7FHoHmT5Pbv6PkLbjFS4Ankp2ed4FbErUl2IhvREfQStycz3iuRXRvKzHwA9nbmHcPuKLAVVChc9PjTJayrzeYeZbG7Tey1UZ75JhOkU4lfe0dQosLA+PU+01bw3UqtF+rofJWDhaU6HhFVBHs/rpYEpSCvQk1Et3aetJztfJzJudKSbpyRtErn8oSYn64S0HzDpLlOSLQKWPL4H9EJFirR3OffL5JVe5aQoZSXui3N8tMOkJBrI6MU+q0OcyUhx5TampBxR0+csORJX7Pr7BaxHGbKByFayM7+Egc5Pkg1h43TEx8Db4v/5F+QnN/maFz9oBooAAAAASUVORK5CYII=",
+			--Red down
+			'_Overvieww without Target'[Assessment Arrows] <= -0.95,"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAAvCAYAAABDq4KNAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAQkSURBVGhD7ZnbixNXHMe/Z85cks0kmZlc3WwVBV+80lqRheJDRbDUFdt6RfRBa/HSarGKPhSf+g/1oVRKKX1oHxQEn4S++CL0QtfSi9tqNjPx9zs5i2k2UWzO2bKLnzBk5ptJZr77u5xzZkWXwArD0e8rihVpykr6pXMP8eDLz9H+5Ud0HanVAeiygZSYmN6JcMtrWjSDFVPzD2Zx7/IHcH+4i7+zTKv/hq16vo/ypeuo7z/UEw1hJf1koQBUm3iYpphLs+Ebmf2ToujXG/pb5rBiyglycKOI9gS9hsN6V3pwS+WeYBA7jUIIeOWE30bCdmUuDy+pacUc1rqfWy7DkaN/nv2KgCIVxz3BIPZMRTEyIUenH33gxRVK1UAr5rBmyosSdKhlj4LNBrUGxKiWPwYW0y9C5rhwRoSKa8qNKvrILPZMlSKIXE7d/DA4/fxaXR+ZxV76xQkcZWoxPNqz7lWq6tg01kzJsAivEA41xRpPZDxqJjawZkpQO/covYaNVZLEx1RvoljUilmsmeJ4+FWeAi12xRd1yJAbmp9NMBZN6brS+wtwPXFHdMMQbnEZmvIrNAUiA4PLAB6S/VKs2r4NrJpyk+HjkIoUz+RHDWJjYtWUpBl4OxN0709vnvc4cpI6n5Cu0kxj1xS1dRQm1IKwn4xcOWGJTJmfIjF2048i5VGX688y3k1pjJKUmsKxc3nLkSrBL5ZUY1hoFpyJvMDnGfozF1xjYNWUk8/TeimB23fvDhuk42BqtVbMM/aDl26W4rdvbmDuzm04fqBuWEFRyDod/PHt1+j8dJ8aRu8yvVQUSHa/jVzrFXTTjtKZ7vw8xEQBjXeOwG+s0uqLY+Rp0u83v8PPn12DmP0V/ww8PWrTr3MNDSaaT6b7a41TJkc1JvcewNor19Uf6L9iJP2iHW8gOfkhHlGL7lBEHvVt2RBDTJv0/vNUZLe8jjXnLo1liDFWU7WZgyjNHIBPE9lhJkbBaRJQyES1iamL16gGx184GjMlXInW6Y8QbNqK/AvMFFQaBgEa9N1ww2atjofR7ucnVTTPXoasN6k+nm+ML+7RefHMIVT37OuJBjBqiilv24HK8dOqLtznjEPcGPzN21A/dsroUyXjppjavoMI33yrVytaG4TTDlGESWoMucmWVs1gxRQ/eW2d+Rhy/Qbk5WJbvPIVtDXev4DSq9u1ag4rpphgVQutC1fRpYUgR6x/MAzIULz3PdT2H9aKWayZYsrbp1E/cUZNXBfqK8/PLjZuRfPUeTiepzTTWDXF1N49guIumhKRKe6IvHBsUvvOTU7pM8xj3ZRbCDFJJsS69fC5fR89iXh6p/7UDkv23/nZr77AX7e+x+pPPoXMT2jVDktmqpumyNqPrRtilszUUmK9pv4PXppaLrw0tVxYgaaAJymf45NErPyMAAAAAElFTkSuQmCC",
+			--Green arrow up
+			'_Overvieww without Target'[Assessment Arrows] >= 0.95 ,"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAqCAYAAAA9IzKsAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJfSURBVFhH3ZjfahNREMY/a6F6VfoU3voY4iMoPoYXhd5YTbVCQQRRLNJixWKLVC/UIthENBbahhahhf5RWmmC2TTbxGyyzX9z4kBJk7M7cxpj8BdCznd2Sb6dMzN7NmeqNfCP6aFPY+KZnyhXyqTMOJWJfCmPofeDeLb6lGbMOJWJB4v3sZfaxfO1KazFVmlWjrGJ4LcPmN96Wx9Xa687oVs4dA/rWoqRieivKO6Fx0j9wXZt3P14GyZ5LjZRLBcRWLgBt+jSzDGR6DJmvk6T4iM28XjpIXaS26SamYg8wUZ8nRQPkYnw7me83pgj1ZpKtYJAcBiZfIZm/GGbsJw4xj6NkvImkbXY5ypYJlQzGgnehFNwaMafL3thzK2/JOUNy8SkWmdLts6K8aVH2D7YIqXH18TK/jJeGGS8olQp1SspV8jRTGs8TSRzyVrtj5AyI5aJNfWUk2hNqCwfDQWQOkrRjDmh7wt4t/mGVDPaW7nlWFj8ESbVSCKbaNmUBs4P4MrFa6Qa6Tvbh0sXLpNqxGg/EYmuYHD+Oqlj+s/1Y/bqK1J8WNVxEruWK61IH6XrySjFyIRKWB12zqYRn7ZGQmG7+mM6DCNxQKNmktkOmfAKeXdEwuOYDjMTHlfbkcRU+wS1u9LRkUj4/YhX5egQm/ALt1cP0dH2SKgbnvSJzCAS/leqtv8SDCLBMCFcEnkkGM1IWiHySDDasrRXyE10QyQ46y0tU5EJJ++gUC6Q0vNXTXDDLL2TikxwS0+6pxBGgvflaWHXFO221bOIenPo7emlkT//x1+I7aALTAC/AajDQOhR48xUAAAAAElFTkSuQmCC",
+			
+			--Zero arrow
+			'_Overvieww without Target'[Assessment Arrows] <= 0.149 && '_Overvieww without Target'[Assessment Arrows] >= -0.149,"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAsCAYAAADxRjE/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMkSURBVGhD7ZfPaxNBHMXfbJK2VFv7Iy0FS0FEFMSTZ/8A8eDRXlVEqSBaUS/eBPHek1LPHvwDvOpRQRFRrIpStaWCFG2LbdJmO743u7Gl7DZpswwI+4Evs7ObzLz5zndeNsYS/GcEcftfkYv2RS7aF7loX+SifZGL9oUf0XYZCJfiTuv4EV35CMxPAkvP2Amjey3gKdMG+PkAmL1A8Y9azrof0YaiC92c7RPst4vAj3tAdTp+uHNSRPMVe53ZCBd53fp2/qMq/azvhbvA3DjL5Slv7vx1PvlPgF0Ffj1mLb7iJ/qAIoOZsmYvW0bQCVPYw7YenVFrCvEAW6i8B6bPAmvPAQ7t6GKER2DL1zjFaLQTTZIsen0F+H4VqLEOa+xrP9ja5XYuoJ/RA1Ps5USMEvtBD68ZJS4uUBlwgVpYoEVSXW0GduY2TO01hbsZogR3sKmWgIExmMHL7B+KnjUgXfTsLWZ7YmMSIfEKlqiL+nW9VaIrjNVO2MI+txCjXQr4YOUdx51n8Plm9J02RscpoEzh3Sfd7e3YmehmSFqQZtCObRW8GVYXwoMsF2a9/5zbzTQ0ZLZIoMRJpBbMw+fqeDvB4g8j/Awzd53ucofjaMuSyV50K6hM2g/DFoeifgrZiK6XQZHBcxXVKIOm4rZdbYqxOPSMZxwdp4H9EzBDNzimBkimcU3LpiUoqVbrrSsBHj7nKPUDqGs6S2mAYywAi0/YzkbjbUYOskqXKV+ig4xR/IH4QTrJokP+AMxcYV0+hP3dRgH9FEQhsjhnbeXI+mR1Jd4LaGuyOufhsXe7a97XIqpTwFf+Eq692PBpoV3AMQqmvfbKq7UljUkWrXQsv6RNTdFv5bvyW/muxEiU+gzDSYxS3YDKW/64nN8QrTLi12zXKJ2C2e064T7WLCmiM2blDTPNlyWJltg1LnhwHKbMe23D8Yeap4k0ZYRyw2qxxeMwI5M8bDd3JVj4EW31DkDTLrAchu8DfWc4syvoXeGnPKpfGB/oFEeZ3ZH45u7xI1pZNjp98sjW8SM6Y/wdxAzJRfsiF+2LXLQvctG+yEX7AfgLlz/w/NeIE9EAAAAASUVORK5CYII=",
+			 
+			--Green arrow slight up
+			'_Overvieww without Target'[Assessment Arrows] < 0.95 && '_Overvieww without Target'[Assessment Arrows] > 0.149,"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAArAC4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiuS+Ntl4vvPh/dnwNe2Fn4hhHmQLeQiSO5wDmPJ4UnjDHIyMHg5H5kfE39u/43W/iS+0zV/E+p6Rd2UzwT2sMEdo0DqSCPkRW4I9a+dzviSjljSrU5O+zSVvS99zzcdmcMK0pxbv22/M/WSivhD/gkt4s8SfFD4n+LNZ1/Xtb1n+z9OS3QXt7LOiNNKGyAzEZxC30yfWvu+u7JszWYYVYqMeVO+j8nY6MFiliKSqpWTCmTzpbQvJIyxxxqWZmOAoHJJPpT6/O7/gp/wDtPeP18ZXngWSwuPDPhrGVKPltajzxIzjgxnH3B0wd2SMLGd5xTy3DPEVE30SXfzfQnHY2OFpe0krnW/ts/wDBUBNM+1eF/hrdCSfBiu9cTonYrb+v/XT/AL57NXz3+zf+w54x/az8P6/4iguVtYrZWNvcXoJ/tS64JiDZ44zlzkAleDk4yf2Nv2TtU/ap+JKWi+Za6DYMs2qX23PlR5+4ueDI2CFH1JyFNfrV4L8G6b8PPClhomj2sdlpmmxCG3hQcIo/mSckk8kkk8mvgsqy7E8QVnjsyb9krqKWi+Xkur6vQ+fwmGq5jN18T8HRf5Hy/wD8ElvhbqHw5+HnjT+1rKew1P8AtoafPDMu10MEYbBH1mNfWlIqBCSAAWOSQOp6f0pa/RcrwEcFhYYWDuo9fnc+kwmHVCkqS1sFcB+0X+zl4e/aX8Ay6JrsOJFBeyvUUedYy4+8p7g8bl6MPQgEd/RXVXoU69N0qqvF7pms4RnFwmrpnF/AL4F6L+zt8NbLw3okf7q3G+4uGUCS9mIG6V/c44HYAAcCu0oop0aMKVNUqStFaJDhCMIqEVZIKKKK0KP/2Q==",
+			 
+			 
+			--Red slight down
+			'_Overvieww without Target'[Assessment Arrows] < -0.149 && '_Overvieww without Target'[Assessment Arrows] >-0.95,"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAAtAC4DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKK/M3/AIK7f8FY5vC93qnwo+Gd7Lb6hEz2niHXISUe3YZV7W3bqG6h5B05VeckefmWZUcDRdat8l1b7I+k4V4Wx2f46OBwS85Se0Y9W/0W7eiP0yor4h/4JAf8FI1/ai8Dx+BPF94n/CfeH7cCGeRsNrlqgx5nvMgxvHVh8/Pz7ft6tMDjqWLoKvRej/DyZy8Q5Bi8lx88vxsbTj9zXSS7p/8AAeqYUUUV2HihXyj/AMFEf+CWfhf9tPR5dZ0v7N4c+INvH+51JUxDqOBxFcgcn0Eg+ZePvAba+rqK5sXhKOJpOjXjeLPVybOsblWLjjcBUcJx6rr5NbNPqmfzheK/BnxB/Yg+PUUOoW+o+FfGHhm6W5t5RxyDlZI2GVkjbB5GVYZBzyK/an9if/gpF4Q/ab/Zsu/GGs6jp/h3U/CduD4ogmk2R2RA/wBemeTFJg7ep3ZTkjnpP29P2Y/hn+0T8ENTf4kNa6RZ6HbSXMPiAkRz6PxyysfvKTjMZyG4AG7aR+AGuyx6DrGq2Gk6pPe6U8zQpOEaAX0SvlHaMk4ztVtpJwfpX55Vdfh7ENU2p053sm9fK/p32a/D+l8LHL/EvLFLEwdHE0Gk5JXVnuk3umteVu8XZ6q9/wCiX9lP9p3RP2ufhT/wmHh+C5t9LfULmyhW4wJXWGQqrkD7u9drbewYCvSq/P3/AIN5PG7av+zN4w0J33HR/EAuUGfuRzwIAP8AvqFz+NfoFX3eUYuWKwdOvPdrX12Z/PfGmTU8pzzE5fR+CEvdvq+VpNfg0FFFFeifLnC/tAfs3+EP2ofBS+HvGumzarpCTC4Ful7PbDzACAxMTqWxk4ByPavlnxx/wQI+CfiSM/2XeeMfD0n8P2e/jnQfUSxsx/76r7gorgxWV4TEvmr01J97a/fufQ5TxbnOVw9lgMTOnHflTfLf/Dt+B8z/ALAH/BOO2/YG1zxW+meLbzxBpvieK2U21zZCF7d4TKQ24OQ2RKR90dK+mKKK3wuFpYakqNFWiun49TgzfN8XmmKljcdPnqStd2SvZJLZJbJH/9k=",
+			--Yellow flat arrow
+			'_Overvieww without Target'[Assessment Arrows] <= 0.15 && '_Overvieww without Target'[Assessment Arrows] >=-0.15,
+			"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAsCAYAAADxRjE/AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMkSURBVGhD7ZfPaxNBHMXfbJK2VFv7Iy0FS0FEFMSTZ/8A8eDRXlVEqSBaUS/eBPHek1LPHvwDvOpRQRFRrIpStaWCFG2LbdJmO743u7Gl7DZpswwI+4Evs7ObzLz5zndeNsYS/GcEcftfkYv2RS7aF7loX+SifZGL9oUf0XYZCJfiTuv4EV35CMxPAkvP2Amjey3gKdMG+PkAmL1A8Y9azrof0YaiC92c7RPst4vAj3tAdTp+uHNSRPMVe53ZCBd53fp2/qMq/azvhbvA3DjL5Slv7vx1PvlPgF0Ffj1mLb7iJ/qAIoOZsmYvW0bQCVPYw7YenVFrCvEAW6i8B6bPAmvPAQ7t6GKER2DL1zjFaLQTTZIsen0F+H4VqLEOa+xrP9ja5XYuoJ/RA1Ps5USMEvtBD68ZJS4uUBlwgVpYoEVSXW0GduY2TO01hbsZogR3sKmWgIExmMHL7B+KnjUgXfTsLWZ7YmMSIfEKlqiL+nW9VaIrjNVO2MI+txCjXQr4YOUdx51n8Plm9J02RscpoEzh3Sfd7e3YmehmSFqQZtCObRW8GVYXwoMsF2a9/5zbzTQ0ZLZIoMRJpBbMw+fqeDvB4g8j/Awzd53ucofjaMuSyV50K6hM2g/DFoeifgrZiK6XQZHBcxXVKIOm4rZdbYqxOPSMZxwdp4H9EzBDNzimBkimcU3LpiUoqVbrrSsBHj7nKPUDqGs6S2mAYywAi0/YzkbjbUYOskqXKV+ig4xR/IH4QTrJokP+AMxcYV0+hP3dRgH9FEQhsjhnbeXI+mR1Jd4LaGuyOufhsXe7a97XIqpTwFf+Eq692PBpoV3AMQqmvfbKq7UljUkWrXQsv6RNTdFv5bvyW/muxEiU+gzDSYxS3YDKW/64nN8QrTLi12zXKJ2C2e064T7WLCmiM2blDTPNlyWJltg1LnhwHKbMe23D8Yeap4k0ZYRyw2qxxeMwI5M8bDd3JVj4EW31DkDTLrAchu8DfWc4syvoXeGnPKpfGB/oFEeZ3ZH45u7xI1pZNjp98sjW8SM6Y/wdxAzJRfsiF+2LXLQvctG+yEX7AfgLlz/w/NeIE9EAAAAASUVORK5CYII=",
+			--Cross IH4Q
+			ISBLANK('_Overvieww without Target'[Assessment Arrows]),
+			"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACkAAAAtCAAAAAAWmh08AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAFHSURBVDjL7ZRNS8NAEIb779MU24LWRhRaEfEqFDRaLNVC8eBBCoIiSkVIlCpSNbFNmu7azLuJaHa3XjwInUMy786T/ZiZTY7/1nIL8j+RLy7ZINFTaNfLkLcG7FHoHmT5Pbv6PkLbjFS4Ankp2ed4FbErUl2IhvREfQStycz3iuRXRvKzHwA9nbmHcPuKLAVVChc9PjTJayrzeYeZbG7Tey1UZ75JhOkU4lfe0dQosLA+PU+01bw3UqtF+rofJWDhaU6HhFVBHs/rpYEpSCvQk1Et3aetJztfJzJudKSbpyRtErn8oSYn64S0HzDpLlOSLQKWPL4H9EJFirR3OffL5JVe5aQoZSXui3N8tMOkJBrI6MU+q0OcyUhx5TampBxR0+csORJX7Pr7BaxHGbKByFayM7+Egc5Pkg1h43TEx8Db4v/5F+QnN/maFz9oBooAAAAASUVORK5CYII="
+			 
+			)
+			```
+		lineageTag: 0e486c0a-1638-4a36-93e1-cd84941b07fe
+		dataCategory: ImageUrl
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'YearValue WT' = ```
+			
+			var Max_Year1 = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD])) 
+			var min_year2 = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]))
+			var longterm = Max_Year1 - min_year2
+			
+			var Max_Year = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD])) 
+			var shortyear =   [MaxYearMinus3or5_Overvieww]
+			var min_year = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]))
+			var longtermYear = [Long_Term_Year]
+			
+			return
+			SWITCH(TRUE(),
+			             '_Overvieww without Target'[Year-Label]="Short Term" && ISBLANK(shortyear),"Time series too short",
+			             '_Overvieww without Target'[Year-Label]="Short Term" ,shortyear & "-" & Max_Year, 
+			              '_Overvieww without Target'[Year-Label]="Long Term" &&  not ISBLANK(longtermYear),longtermYear & "-" & Max_Year,
+			              '_Overvieww without Target'[Year-Label]="Long Term" && ISBLANK(longtermYear),"Time series too short"
+			              
+			              )
+			```
+		lineageTag: 7d0ce09a-9acd-4a45-8dbd-a8429eeda67a
+		summarizeBy: none
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Value'
+		dataType: double
+		lineageTag: 45ea45b5-a92b-4c59-ae44-17d8ede13f45
+		summarizeBy: sum
+		sourceColumn: Target Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorsName
+		dataType: string
+		lineageTag: 08e00d63-458e-4bd3-9b87-2975efcb5ace
+		summarizeBy: none
+		sourceColumn: IndicatorsName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: ea3520cd-a136-4650-8d24-0b853f6dc0dc
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Label
+		dataType: string
+		lineageTag: e91b85e5-e474-4c61-a99c-134f85a7c084
+		summarizeBy: none
+		sourceColumn: Year-Label
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAGR-Header
+		dataType: string
+		lineageTag: 40c32aae-97f1-4dc2-8875-01aa4067a89c
+		summarizeBy: none
+		sourceColumn: CAGR-Header
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '_Overvieww without Target' = m
+		mode: import
+		queryGroup: Overvieww
+		source =
+				/* let
+				    Source = PowerBI.Dataflows(null),
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Source{[workspaceId=workspaceID]}[Data],
+				    #"b0314bb4-944e-465c-8382-81f57da13967" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Indi_Overview"]}[Data],
+				    #"Overvieww without Target1" = #"b0314bb4-944e-465c-8382-81f57da13967"{[entity="Overvieww without Target"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(#"Overvieww without Target1", each ([Indicator] <> "SDG_03_41"))
+				in
+				    #"Filtered Rows" */
+				
+				  /*  let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("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", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Code = _t, Indicators = _t, SDGIndex = _t]),
+				    #"Replaced Value" = Table.ReplaceValue(Source,"[crim_thb_sex]","[SDG_16_70]",Replacer.ReplaceText,{"Code"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Replaced Value", {{"Code", type text}, {"Indicators", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type", {{"Indicators", "Code Name"}}),
+				    #"Merged Columns" = Table.CombineColumns(#"Renamed Columns", {"Code", "Code Name"}, Combiner.CombineTextByDelimiter(": ", QuoteStyle.None), "Indicators"),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Merged Columns", "Indicators", "Indicators - Copy"),
+				    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column", {"Indicators - Copy"}),
+				    #"Added Index" = Table.AddIndexColumn(#"Removed Columns", "Index", 1, 1, Int64.Type),
+				    #"Duplicated Column1" = Table.DuplicateColumn(#"Added Index", "Indicators", "Indicators - Copy"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column1", "Indicators - Copy", Splitter.SplitTextByDelimiter(":", QuoteStyle.Csv), {"Indicators - Copy.1", "Indicators - Copy.2", "Indicators - Copy.3"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter", {{"Indicators - Copy.1", type text}, {"Indicators - Copy.2", type text}, {"Indicators - Copy.3", type text}}),
+				    #"Split Column by Positions" = Table.SplitColumn(#"Changed Type1", "Indicators - Copy.1", Splitter.SplitTextByPositions({0}), {"Indicators - Copy.1.1"}),
+				    #"Split Column by Positions1" = Table.SplitColumn(#"Split Column by Positions", "Indicators - Copy.1.1", Splitter.SplitTextByPositions({1}), {"Indicators - Copy.1.1.1"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Positions1", {{"Indicators - Copy.1.1.1", type text}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type2", "Indicators - Copy.1.1.1", Splitter.SplitTextByDelimiter("]", QuoteStyle.Csv), {"Indicators - Copy.1.1.1.1", "Indicators - Copy.1.1.1.2"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter1", {{"Indicators - Copy.1.1.1.1", type text}, {"Indicators - Copy.1.1.1.2", type text}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type3", {"Indicators - Copy.1.1.1.2", "Indicators - Copy.2", "Indicators - Copy.3"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1", {{"Indicators - Copy.1.1.1.1", "Indicator"}, {"Indicators", "IndicatorsName"}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1", {"Index", "Indicator", "IndicatorsName"}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Reordered Columns", {{"SDGIndex", Int64.Type}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type4", {"Indicator"}, _Goal1_Overview, {"Indicator"}, "Goal1_Overview", JoinKind.LeftOuter),
+				    #"Expanded Goal1_Overview" = Table.ExpandTableColumn(#"Merged Queries", "Goal1_Overview", {"OBS_VALUE", "TIME_PERIOD", "Indicator"}, {"OBS_VALUE", "TIME_PERIOD", "Indicator.1"}),
+				    #"Grouped Rows" = Table.Group(#"Expanded Goal1_Overview", {"Index", "SDGIndex", "Indicator", "IndicatorsName"}, {{"MinYear", each List.Min([TIME_PERIOD]), type nullable number}, {"MaxYear", each List.Max([TIME_PERIOD]), type nullable number}}),
+				    #"Added Custom" = Table.AddColumn(#"Grouped Rows", "Short Term", each "Short Term"),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Long Term", each "Long Term"),
+				    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Added Custom1", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear"}, "Attribute", "Value"),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Unpivoted Columns", {"Value"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns2", {{"Attribute", "Year-Label"}}),
+				    #"Added Custom2" = Table.AddColumn(#"Renamed Columns2", "Observed", each "Observed"),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Required", each "Required"),
+				    #"Unpivoted Columns1" = Table.UnpivotOtherColumns(#"Added Custom3", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear", "Year-Label"}, "Attribute", "Value"),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Unpivoted Columns1", {"Value"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3", {{"Attribute", "CAGR-Header"}}),
+				    #"Merged queries 1" = Table.NestedJoin(#"Renamed Columns3", {"Indicator"}, #"Indicator Dimensions", {"Indicator"}, "Indicator Dimensions", JoinKind.LeftOuter),
+				    #"Expanded Indicator Dimensions" = Table.ExpandTableColumn(#"Merged queries 1", "Indicator Dimensions", {"Target Year", "Target Value", "Dimension"}, {"Target Year", "Target Value", "Dimension"}),
+				    #"Merged queries 2" = Table.NestedJoin(#"Expanded Indicator Dimensions", {"Indicator"}, SubThemes, {"Indicator"}, "SubThemes", JoinKind.LeftOuter),
+				    #"Expanded SubThemes" = Table.ExpandTableColumn(#"Merged queries 2", "SubThemes", {"SubThemes"}, {"SubThemes.1"}),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Expanded SubThemes", {"SubThemes.1", "Index", "SDGIndex", "Indicator", "IndicatorsName", "Dimension", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "Target Value", "Target Year"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns1", each [Target Value] = null),
+				    #"SortSubthemes Added Conditional Column" = Table.AddColumn(#"Filtered Rows", "Sort Subthemes", each if [SubThemes.1] = "Multidimensional poverty" then 1 else if [SubThemes.1] = "Basic Needs" then 2 else if [SubThemes.1] = "Malnutrition" then 3 else if [SubThemes.1] = "Sustainable agricultural prodution" then 4 else if [SubThemes.1] = "Environmental impacts of agricultural production" then 5 else if [SubThemes.1] = "Healthy lives" then 6 else if [SubThemes.1] = "Health determinants" then 7 else if [SubThemes.1] = "Causes of death" then 8 else if [SubThemes.1] = "Access to health care" then 9 else if [SubThemes.1] = "Adult learning" then 10 else if [SubThemes.1] = "Gender based violence" then 11 else if [SubThemes.1] = "Employment" then 12 else if [SubThemes.1] = "Leadership positions" then 13 else if [SubThemes.1] = "Sanitation" then 14 else if [SubThemes.1] = "Water quality" then 15 else if [SubThemes.1] = "Water scarcity" then 16 else if [SubThemes.1] = "Energy consumption" then 17 else if [SubThemes.1] = "Energy supply" then 18 else if [SubThemes.1] = "Access to affordable energy" then 19 else if [SubThemes.1] = "Sustainable economic growth" then 20 else if [SubThemes.1] = " Employment " then 21 else if [SubThemes.1] = "Decent work" then 22 else if [SubThemes.1] = "R&D and innovation" then 23 else if [SubThemes.1] = "Sustainable industry" then 24 else if [SubThemes.1] = "Sustainable infrastructure" then 25 else if [SubThemes.1] = "Inequalities within countries" then 26 else if [SubThemes.1] = "Inequalities between countries" then 27 else if [SubThemes.1] = "Migration and social inclusion" then 28 else if [SubThemes.1] = "Quality of life in cities and communities" then 29 else if [SubThemes.1] = "Sustainable mobility" then 30 else if [SubThemes.1] = "Environmental impacts" then 31 else if [SubThemes.1] = "Consumption patterns" then 32 else if [SubThemes.1] = "Green economy" then 33 else if [SubThemes.1] = "Waste generation and management" then 34 else if [SubThemes.1] = "Climate mitigation" then 35 else if [SubThemes.1] = "Climate impacts and adaptation" then 36 else if [SubThemes.1] = "Financing climate action" then 37 else if [SubThemes.1] = "Ocean health" then 38 else if [SubThemes.1] = "Marine conservation" then 39 else if [SubThemes.1] = "Sustainable fisheries" then 40 else if [SubThemes.1] = "Ecosystem status" then 41 else if [SubThemes.1] = "Land degradation" then 42 else if [SubThemes.1] = "Biodiversity" then 43 else if [SubThemes.1] = "Peace and personal security" then 44 else if [SubThemes.1] = "Access to justice" then 45 else if [SubThemes.1] = "Trust in institutions" then 46 else if [SubThemes.1] = "Global partnership" then 47 else if [SubThemes.1] = "Financial governance within the EU" then 48 else if [SubThemes.1] = "Access to technology" then 49 else null),
+				    #"DimAdded Conditional Column1" = Table.AddColumn(#"SortSubthemes Added Conditional Column", "Dim", each if [Indicator] = "SDG_01_10" then -1 else if [Indicator] = "SDG_01_20" then -1 else if [Indicator] = "SDG_01_31" then -1 else if [Indicator] = "SDG_01_40" then -1 else if [Indicator] = "SDG_01_41" then -1 else if [Indicator] = "SDG_01_50" then -1 else if [Indicator] = "SDG_03_60" then -1 else if [Indicator] = "SDG_11_11*" then -1 else if [Indicator] = "SDG_10_30*" then -1 else if [Indicator] = "SDG_02_10" then -1 else if [Indicator] = "SDG_02_20" then 1 else if [Indicator] = "SDG_02_30" then 1 else if [Indicator] = "SDG_02_40" then 1 else if [Indicator] = "SDG_02_60" then -1 else if [Indicator] = "SDG_06_40*" then -1 else if [Indicator] = "SDG_15_50*" then -1 else if [Indicator] = "SDG_15_60*" then 1 else if [Indicator] = "SDG_03_11" then 1 else if [Indicator] = "SDG_03_20" then 1 else if [Indicator] = "SDG_03_30" then -1 else if [Indicator] = "SDG_03_41" then -1 else if [Indicator] = "SDG_03_42" then -1 else if [Indicator] = "SDG_08_60*" then -1 else if [Indicator] = "SDG_11_20*" then -1 else if [Indicator] = "SDG_04_60" then 1 else if [Indicator] = "SDG_03_60*" then -1 else if [Indicator] = "SDG_02_10*" then -1 else if [Indicator] = "SDG_05_10" then -1 else if [Indicator] = "SDG_05_20" then -1 else if [Indicator] = "SDG_05_30" then -1 else if [Indicator] = "SDG_05_50" then 1 else if [Indicator] = "SDG_05_60" then 1 else if [Indicator] = "SDG_04_10_Graph2" then -1 else if [Indicator] = "SDG_04_20_Graph" then -1 else if [Indicator] = "SDG_06_10" then -1 else if [Indicator] = "SDG_06_20" then 1 else if [Indicator] = "SDG_06_30" then -1 else if [Indicator] = "SDG_06_40" then -1 else if [Indicator] = "SDG_06_50" then -1 else if [Indicator] = "SDG_06_60" then -1 else if [Indicator] = "SDG_14_40*" then 1 else if [Indicator] = "SDG_07_10" then -1 else if [Indicator] = "SDG_07_11" then -1 else if [Indicator] = "SDG_07_20" then -1 else if [Indicator] = "SDG_07_30" then 1 else if [Indicator] = "SDG_07_40" then 1 else if [Indicator] = "SDG_07_50" then -1 else if [Indicator] = "SDG_07_60" then -1 else if [Indicator] = "SDG_08_10" then 1 else if [Indicator] = "SDG_08_11" then 1 else if [Indicator] = "SDG_08_20" then -1 else if [Indicator] = "SDG_08_30" then -1 else if [Indicator] = "SDG_08_40" then -1 else if [Indicator] = "SDG_08_60" then -1 else if [Indicator] = "SDG_01_41*" then -1 else if [Indicator] = "SDG_12_21*" then -1 else if [Indicator] = "SDG_09_10" then 1 else if [Indicator] = "SDG_09_30" then 1 else if [Indicator] = "SDG_09_40" then 1 else if [Indicator] = "SDG_09_50" then 1 else if [Indicator] = "SDG_09_60" then 1 else if [Indicator] = "SDG_09_70" then -1 else if [Indicator] = "SDG_04_20*" then 1 else if [Indicator] = "SDG_12_61*" then 1 else if [Indicator] = "SDG_17_60*" then 1 else if [Indicator] = "SDG_10_10" then -1 else if [Indicator] = "SDG_10_30" then -1 else if [Indicator] = "SDG_10_41" then -1 else if [Indicator] = "SDG_10_50" then 1 else if [Indicator] = "SDG_10_60" then 1 else if [Indicator] = "SDG_11_11" then -1 else if [Indicator] = "SDG_11_20" then -1 else if [Indicator] = "SDG_11_40" then -1 else if [Indicator] = "SDG_11_52" then -1 else if [Indicator] = "SDG_11_60" then 1 else if [Indicator] = "SDG_06_20*" then 1 else if [Indicator] = "SDG_09_50*" then 1 else if [Indicator] = "SDG_16_20*" then -1 else if [Indicator] = "SDG_11_32*" then -1 else if [Indicator] = "SDG_12_10" then -1 else if [Indicator] = "SDG_12_21" then -1 else if [Indicator] = "SDG_13_31*" then -1 else if [Indicator] = "SDG_12_41" then 1 else if [Indicator] = "SDG_12_51" then -1 else if [Indicator] = "SDG_12_61" then 1 else if [Indicator] = "SDG_07_30*" then 1 else if [Indicator] = "SDG_12_31" then -1 else if [Indicator] = "SDG_13_10" then -1 else if [Indicator] = "SDG_13_21" then -1 else if [Indicator] = "SDG_13_40" then -1 else if [Indicator] = "SDG_13_50" then 1 else if [Indicator] = "SDG_07_40*" then 1 else if [Indicator] = "SDG_13_31" then -1 else if [Indicator] = "SDG_14_10" then 1 else if [Indicator] = "SDG_14_21" then 1 else if [Indicator] = "SDG_14_30" then -1 else if [Indicator] = "SDG_14_40_Coastal_Water" then 1 else if [Indicator] = "SDG_14_50" then 1 else if [Indicator] = "SDG_14_60" then -1 else if [Indicator] = "SDG_15_10" then 1 else if [Indicator] = "SDG_15_20" then 1 else if [Indicator] = "SDG_11_32" then -1 else if [Indicator] = "SDG_15_50" then -1 else if [Indicator] = "SDG_15_60_CO_ALL" then 1 else if [Indicator] = "SDG_15_61" then 1 else if [Indicator] = "SDG_06_30*" then -1 else if [Indicator] = "SDG_06_50*" then -1 else if [Indicator] = "SDG_16_10" then -1 else if [Indicator] = "SDG_16_20" then -1 else if [Indicator] = "SDG_16_30" then 1 else if [Indicator] = "SDG_16_40" then 1 else if [Indicator] = "SDG_16_50" then 1 else if [Indicator] = "SDG_16_70" then -1 else if [Indicator] = "SDG_17_10" then 1 else if [Indicator] = "SDG_17_20" then 1 else if [Indicator] = "SDG_17_30" then 1 else if [Indicator] = "SDG_17_40" then -1 else if [Indicator] = "SDG_17_50" then 1 else if [Indicator] = "SDG_17_60" then 1 else if [Indicator] = "SDG_01_10a" then -1 else if [Indicator] = "SDG_01_20a" then -1 else if [Indicator] = "SDG_04_10a" then -1 else if [Indicator] = "SDG_08_20a" then -1 else if [Indicator] = "SDG_08_30a" then -1 else if [Indicator] = "SDG_05_40" then -1 else if [Indicator] = "SDG_05_40*" then -1 else if [Indicator] = "SDG_15_42*" then -1 else if [Indicator] = "SDG_15_42" then -1 else null),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"DimAdded Conditional Column1", {{"Dim", Int64.Type}}),
+				    #"Reordered Columns2" = Table.ReorderColumns(#"Changed Type5", {"Dim", "SubThemes.1", "Index", "SDGIndex", "IndicatorsName", "Indicator", "Dimension", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "Target Value", "Target Year", "Sort Subthemes"})
+				in
+				    #"Reordered Columns2" */
+				
+				    let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("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", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Code = _t, Indicators = _t, SDGIndex = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source, {{"Code", type text}, {"Indicators", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type", {{"Indicators", "Code Name"}}),
+				    #"Merged Columns" = Table.CombineColumns(#"Renamed Columns", {"Code", "Code Name"}, Combiner.CombineTextByDelimiter(": ", QuoteStyle.None), "Indicators"),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Merged Columns", "Indicators", "Indicators - Copy"),
+				    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column", {"Indicators - Copy"}),
+				    #"Added Index" = Table.AddIndexColumn(#"Removed Columns", "Index", 1, 1, Int64.Type),
+				    #"Duplicated Column1" = Table.DuplicateColumn(#"Added Index", "Indicators", "Indicators - Copy"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column1", "Indicators - Copy", Splitter.SplitTextByDelimiter(":", QuoteStyle.Csv), {"Indicators - Copy.1", "Indicators - Copy.2", "Indicators - Copy.3"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter", {{"Indicators - Copy.1", type text}, {"Indicators - Copy.2", type text}, {"Indicators - Copy.3", type text}}),
+				    #"Split Column by Positions" = Table.SplitColumn(#"Changed Type1", "Indicators - Copy.1", Splitter.SplitTextByPositions({0}), {"Indicators - Copy.1.1"}),
+				    #"Split Column by Positions1" = Table.SplitColumn(#"Split Column by Positions", "Indicators - Copy.1.1", Splitter.SplitTextByPositions({1}), {"Indicators - Copy.1.1.1"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Positions1", {{"Indicators - Copy.1.1.1", type text}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type2", "Indicators - Copy.1.1.1", Splitter.SplitTextByDelimiter("]", QuoteStyle.Csv), {"Indicators - Copy.1.1.1.1", "Indicators - Copy.1.1.1.2"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter1", {{"Indicators - Copy.1.1.1.1", type text}, {"Indicators - Copy.1.1.1.2", type text}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type3", {"Indicators - Copy.1.1.1.2", "Indicators - Copy.2", "Indicators - Copy.3"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1", {{"Indicators - Copy.1.1.1.1", "Indicator"}, {"Indicators", "IndicatorsName"}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1", {"Index", "Indicator", "IndicatorsName"}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Reordered Columns", {{"SDGIndex", Int64.Type}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type4", {"Indicator"}, _Goal1_Overview, {"Indicator"}, "_Goal1_Overview", JoinKind.LeftOuter),
+				    #"Expanded _Goal1_Overview" = Table.ExpandTableColumn(#"Merged Queries", "_Goal1_Overview", {"OBS_VALUE", "TIME_PERIOD", "Indicator"}, {"OBS_VALUE", "TIME_PERIOD", "Indicator.1"}),
+				    #"Grouped Rows" = Table.Group(#"Expanded _Goal1_Overview", {"Index", "SDGIndex", "Indicator", "IndicatorsName"}, {{"MinYear", each List.Min([TIME_PERIOD]), type nullable number}, {"MaxYear", each List.Max([TIME_PERIOD]), type nullable number}}),
+				    #"Added Custom" = Table.AddColumn(#"Grouped Rows", "Short Term", each "Short Term"),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Long Term", each "Long Term"),
+				    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Added Custom1", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear"}, "Attribute", "Value"),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Unpivoted Columns", {"Value"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns2", {{"Attribute", "Year-Label"}}),
+				    #"Added Custom2" = Table.AddColumn(#"Renamed Columns2", "Observed", each "Observed"),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Required", each "Required"),
+				    #"Unpivoted Columns1" = Table.UnpivotOtherColumns(#"Added Custom3", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear", "Year-Label"}, "Attribute", "Value"),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Unpivoted Columns1", {"Value"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3", {{"Attribute", "CAGR-Header"}}),
+				    #"Changed column type" = Table.TransformColumnTypes(#"Renamed Columns3", {{"MinYear", Int64.Type}, {"MaxYear", Int64.Type}}),
+				    #"Merged queries 1" = Table.NestedJoin(#"Changed column type", {"Indicator"}, #"Indicator Dimensions", {"Indicator"}, "Indicator Dimensions", JoinKind.LeftOuter),
+				    #"Expanded Indicator Dimensions" = Table.ExpandTableColumn(#"Merged queries 1", "Indicator Dimensions", {"Target Year", "Target Value", "Dimension"}, {"Target Year", "Target Value", "Dimension"}),
+				    #"Merged queries 2" = Table.NestedJoin(#"Expanded Indicator Dimensions", {"Indicator"}, SubThemes, {"Indicator"}, "SubThemes", JoinKind.LeftOuter),
+				    #"Expanded SubThemes" = Table.ExpandTableColumn(#"Merged queries 2", "SubThemes", {"SubThemes"}, {"SubThemes.1"}),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Expanded SubThemes", {"SubThemes.1", "Index", "SDGIndex", "Indicator", "IndicatorsName", "Dimension", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "Target Value", "Target Year"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns1", each [Target Value] = null),
+				    #"SortSubthemes Added Conditional Column" = Table.AddColumn(#"Filtered Rows", "Sort Subthemes", each if [SubThemes.1] = "Multidimensional poverty" then 1 else if [SubThemes.1] = "Basic Needs" then 2 else if [SubThemes.1] = "Malnutrition" then 3 else if [SubThemes.1] = "Sustainable agricultural prodution" then 4 else if [SubThemes.1] = "Environmental impacts of agricultural production" then 5 else if [SubThemes.1] = "Healthy lives" then 6 else if [SubThemes.1] = "Health determinants" then 7 else if [SubThemes.1] = "Causes of death" then 8 else if [SubThemes.1] = "Access to health care" then 9 else if [SubThemes.1] = "Adult learning" then 10 else if [SubThemes.1] = "Gender based violence" then 11 else if [SubThemes.1] = "Employment" then 12 else if [SubThemes.1] = "Leadership positions" then 13 else if [SubThemes.1] = "Sanitation" then 14 else if [SubThemes.1] = "Water quality" then 15 else if [SubThemes.1] = "Water scarcity" then 16 else if [SubThemes.1] = "Energy consumption" then 17 else if [SubThemes.1] = "Energy supply" then 18 else if [SubThemes.1] = "Access to affordable energy" then 19 else if [SubThemes.1] = "Sustainable economic growth" then 20 else if [SubThemes.1] = " Employment " then 21 else if [SubThemes.1] = "Decent work" then 22 else if [SubThemes.1] = "R&D and innovation" then 23 else if [SubThemes.1] = "Sustainable industry" then 24 else if [SubThemes.1] = "Sustainable infrastructure" then 25 else if [SubThemes.1] = "Inequalities within countries" then 26 else if [SubThemes.1] = "Inequalities between countries" then 27 else if [SubThemes.1] = "Migration and social inclusion" then 28 else if [SubThemes.1] = "Quality of life in cities and communities" then 29 else if [SubThemes.1] = "Sustainable mobility" then 30 else if [SubThemes.1] = "Environmental impacts" then 31 else if [SubThemes.1] = "Consumption patterns" then 32 else if [SubThemes.1] = "Green economy" then 33 else if [SubThemes.1] = "Waste generation and management" then 34 else if [SubThemes.1] = "Climate mitigation" then 35 else if [SubThemes.1] = "Climate impacts and adaptation" then 36 else if [SubThemes.1] = "Financing climate action" then 37 else if [SubThemes.1] = "Ocean health" then 38 else if [SubThemes.1] = "Marine conservation" then 39 else if [SubThemes.1] = "Sustainable fisheries" then 40 else if [SubThemes.1] = "Ecosystem status" then 41 else if [SubThemes.1] = "Land degradation" then 42 else if [SubThemes.1] = "Biodiversity" then 43 else if [SubThemes.1] = "Peace and personal security" then 44 else if [SubThemes.1] = "Access to justice" then 45 else if [SubThemes.1] = "Trust in institutions" then 46 else if [SubThemes.1] = "Global partnership" then 47 else if [SubThemes.1] = "Financial governance within the EU" then 48 else if [SubThemes.1] = "Access to technology" then 49 else null),
+				    #"DimAdded Conditional Column1" = Table.AddColumn(#"SortSubthemes Added Conditional Column", "Dim", each if [Indicator] = "SDG_01_10" then -1 else if [Indicator] = "SDG_01_20" then -1 else if [Indicator] = "SDG_01_31" then -1 else if [Indicator] = "SDG_01_40" then -1 else if [Indicator] = "SDG_01_41" then -1 else if [Indicator] = "SDG_01_50" then -1 else if [Indicator] = "SDG_03_60" then -1 else if [Indicator] = "SDG_11_11*" then -1 else if [Indicator] = "SDG_10_30*" then -1 else if [Indicator] = "SDG_02_10" then -1 else if [Indicator] = "SDG_02_20" then 1 else if [Indicator] = "SDG_02_30" then 1 else if [Indicator] = "SDG_02_40" then 1 else if [Indicator] = "SDG_02_60" then -1 else if [Indicator] = "SDG_06_40*" then -1 else if [Indicator] = "SDG_15_50*" then -1 else if [Indicator] = "SDG_15_60*" then 1 else if [Indicator] = "SDG_03_11" then 1 else if [Indicator] = "SDG_03_20" then 1 else if [Indicator] = "SDG_03_30" then -1 else if [Indicator] = "SDG_03_41" then -1 else if [Indicator] = "SDG_03_42" then -1 else if [Indicator] = "SDG_08_60*" then -1 else if [Indicator] = "SDG_11_20*" then -1 else if [Indicator] = "SDG_04_60" then 1 else if [Indicator] = "SDG_03_60*" then -1 else if [Indicator] = "SDG_02_10*" then -1 else if [Indicator] = "SDG_05_10" then -1 else if [Indicator] = "SDG_05_20" then -1 else if [Indicator] = "SDG_05_30" then -1 else if [Indicator] = "SDG_05_50" then 1 else if [Indicator] = "SDG_05_60" then 1 else if [Indicator] = "SDG_04_10_Graph2" then -1 else if [Indicator] = "SDG_04_20_Graph" then -1 else if [Indicator] = "SDG_06_10" then -1 else if [Indicator] = "SDG_06_20" then 1 else if [Indicator] = "SDG_06_30" then -1 else if [Indicator] = "SDG_06_40" then -1 else if [Indicator] = "SDG_06_50" then -1 else if [Indicator] = "SDG_06_60" then -1 else if [Indicator] = "SDG_14_40*" then 1 else if [Indicator] = "SDG_07_10" then -1 else if [Indicator] = "SDG_07_11" then -1 else if [Indicator] = "SDG_07_20" then -1 else if [Indicator] = "SDG_07_30" then 1 else if [Indicator] = "SDG_07_40" then 1 else if [Indicator] = "SDG_07_50" then -1 else if [Indicator] = "SDG_07_60" then -1 else if [Indicator] = "SDG_08_10" then 1 else if [Indicator] = "SDG_08_11" then 1 else if [Indicator] = "SDG_08_20" then -1 else if [Indicator] = "SDG_08_30" then -1 else if [Indicator] = "SDG_08_40" then -1 else if [Indicator] = "SDG_08_60" then -1 else if [Indicator] = "SDG_01_41*" then -1 else if [Indicator] = "SDG_12_21*" then -1 else if [Indicator] = "SDG_09_10" then 1 else if [Indicator] = "SDG_09_30" then 1 else if [Indicator] = "SDG_09_40" then 1 else if [Indicator] = "SDG_09_50" then 1 else if [Indicator] = "SDG_09_60" then 1 else if [Indicator] = "SDG_09_70" then -1 else if [Indicator] = "SDG_04_20*" then 1 else if [Indicator] = "SDG_12_61*" then 1 else if [Indicator] = "SDG_17_60*" then 1 else if [Indicator] = "SDG_10_10" then -1 else if [Indicator] = "SDG_10_30" then -1 else if [Indicator] = "SDG_10_41" then -1 else if [Indicator] = "SDG_10_50" then 1 else if [Indicator] = "SDG_10_60" then 1 else if [Indicator] = "SDG_11_11" then -1 else if [Indicator] = "SDG_11_20" then -1 else if [Indicator] = "SDG_11_40" then -1 else if [Indicator] = "SDG_11_52" then -1 else if [Indicator] = "SDG_11_60" then 1 else if [Indicator] = "SDG_06_20*" then 1 else if [Indicator] = "SDG_09_50*" then 1 else if [Indicator] = "SDG_16_20*" then -1 else if [Indicator] = "SDG_15_41*" then -1 else if [Indicator] = "SDG_12_10" then -1 else if [Indicator] = "SDG_12_21" then -1 else if [Indicator] = "SDG_12_30" then -1 else if [Indicator] = "SDG_12_41" then 1 else if [Indicator] = "SDG_12_51" then -1 else if [Indicator] = "SDG_12_61" then 1 else if [Indicator] = "SDG_07_30*" then 1 else if [Indicator] = "cei_gsr010" then -1 else if [Indicator] = "SDG_13_10" then -1 else if [Indicator] = "SDG_13_21" then -1 else if [Indicator] = "SDG_13_40" then -1 else if [Indicator] = "SDG_13_50" then 1 else if [Indicator] = "SDG_07_40*" then 1 else if [Indicator] = "SDG_12_30*" then -1 else if [Indicator] = "SDG_14_10" then 1 else if [Indicator] = "SDG_14_21" then 1 else if [Indicator] = "SDG_14_30" then -1 else if [Indicator] = "SDG_14_40_Coastal_Water" then 1 else if [Indicator] = "SDG_14_50" then 1 else if [Indicator] = "SDG_14_60" then -1 else if [Indicator] = "SDG_15_10" then 1 else if [Indicator] = "SDG_15_20" then 1 else if [Indicator] = "SDG_15_41" then -1 else if [Indicator] = "SDG_15_50" then -1 else if [Indicator] = "SDG_15_60_CO_ALL" then 1 else if [Indicator] = "SDG_15_61" then 1 else if [Indicator] = "SDG_06_30*" then -1 else if [Indicator] = "SDG_06_50*" then -1 else if [Indicator] = "SDG_16_10" then -1 else if [Indicator] = "SDG_16_20" then -1 else if [Indicator] = "SDG_16_30" then 1 else if [Indicator] = "SDG_16_40" then 1 else if [Indicator] = "SDG_16_50" then 1 else if [Indicator] = "crim_thb_sex" then -1 else if [Indicator] = "SDG_17_10" then 1 else if [Indicator] = "SDG_17_20" then 1 else if [Indicator] = "SDG_17_30" then 1 else if [Indicator] = "SDG_17_40" then -1 else if [Indicator] = "SDG_17_50" then 1 else if [Indicator] = "SDG_17_60" then 1 else if [Indicator] = "SDG_01_10a" then -1 else if [Indicator] = "SDG_01_20a" then -1 else if [Indicator] = "SDG_04_10a" then -1 else if [Indicator] = "SDG_08_20a" then -1 else if [Indicator] = "SDG_08_30a" then -1 else if [Indicator] = "lfsa_igar" then -1 else if [Indicator] = "lfsa_igar*" then -1 else if [Indicator] = "HLTH_SILC_17" then 1 else if [Indicator] = "SDG_09_70" then -1 else if [Indicator] = "SDG_10_20" then -1 else if [Indicator] = "SDG_13_70a" then 1 else if [Indicator] = "SDG_14_51" then -1 else if [Indicator] = "SDG_15_11" then 1 else if [Indicator] = "SDG_17_31" then 1 else if [Indicator] = "SDG_10_20" then -1 else if [Indicator] = "SDG_15_42" then -1 else if [Indicator] = "SDG_15_42*" then -1 else null),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"DimAdded Conditional Column1", {{"Dim", Int64.Type}, {"Sort Subthemes", Int64.Type}}),
+				    #"Reordered Columns2" = Table.ReorderColumns(#"Changed Type5", {"Dim", "SubThemes.1", "Index", "SDGIndex", "IndicatorsName", "Indicator", "Dimension", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "Target Value", "Target Year", "Sort Subthemes"})
+				in
+				    #"Reordered Columns2"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

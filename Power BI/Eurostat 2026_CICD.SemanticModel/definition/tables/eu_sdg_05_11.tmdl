@@ -1,0 +1,182 @@
+table eu_sdg_05_11
+	lineageTag: 400176b7-057f-448e-a1e9-d012e3015c47
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 340cd5b5-9493-4d9a-a77e-8bd1a76fe4aa
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: dcdd770a-9656-48c9-ba23-f6685fb0c201
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: faca2dae-38db-417e-a075-9428f71cbecb
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Unit
+		dataType: string
+		lineageTag: f2fdf577-ac51-41da-8905-f65740b33563
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 3e43c8ca-9a6c-40c5-9662-7f2dfda8113d
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column age
+		dataType: string
+		lineageTag: c90e8053-7d93-46aa-a482-3d0fb7b660ef
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 22a5c2dd-6c0f-426c-ab84-babb87ed7f07
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: eb88e2e1-a790-4d64-aad1-da587bedebb9
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column nace_r2
+		dataType: string
+		lineageTag: 8556b999-9383-44b2-a2ab-27f744d4c96b
+		summarizeBy: none
+		sourceColumn: nace_r2
+
+		annotation SummarizationSetBy = Automatic
+
+	column wstatus
+		dataType: string
+		lineageTag: ee95a1e5-c751-424d-aa33-fb9135f38dd4
+		summarizeBy: none
+		sourceColumn: wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column org_inst
+		dataType: string
+		lineageTag: 0194aaf8-6bdd-4f0d-9331-93e5ca29cb42
+		summarizeBy: none
+		sourceColumn: org_inst
+
+		annotation SummarizationSetBy = Automatic
+
+	column M
+		dataType: double
+		lineageTag: b5485435-4319-4dcf-97a0-9e2b74a7ae18
+		summarizeBy: sum
+		sourceColumn: M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F
+		dataType: double
+		lineageTag: a61d1af6-1ca8-408e-bd1e-81bd41be4f39
+		summarizeBy: sum
+		sourceColumn: F
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Modified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 03ddfa57-6899-42ef-8ef1-7abab72c2096
+		summarizeBy: none
+		sourceColumn: Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duplicate
+		dataType: string
+		lineageTag: ec8d2ff4-261d-4180-9808-28e782d4f4be
+		summarizeBy: none
+		sourceColumn: Duplicate
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 66c147a0-ef10-46f1-9b4e-a2f4d0bf558f
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column prof_pos
+		dataType: string
+		lineageTag: 811eb69d-8d49-4b1f-94b4-f544b2d72e37
+		summarizeBy: none
+		sourceColumn: prof_pos
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryIndex
+		dataType: double
+		lineageTag: 425564b4-c754-41f4-9627-24336ecda549
+		summarizeBy: sum
+		sourceColumn: CountryIndex
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition eu_sdg_05_11 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 5'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 5"]}[Data],
+				    Goal5_ = #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b"{[entity="Goal5",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal5_,{{"UpdatedFromDate", type date}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([IndicatorValue] = "SDG_05_11"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

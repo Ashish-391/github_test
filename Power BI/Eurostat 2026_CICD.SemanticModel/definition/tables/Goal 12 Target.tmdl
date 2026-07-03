@@ -1,0 +1,213 @@
+table 'Goal 12 Target'
+	lineageTag: 79d55973-40d4-44a4-8a5f-ccd7600545aa
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 8643be2d-af8a-492d-b669-f63e106bf115
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: ef515312-3731-4193-a789-0f32ea8c5e58
+		summarizeBy: none
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 5a4efcbe-6e44-43b3-b0b5-17746d9a3c79
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 77256eed-ef72-41ca-875a-0503a63d9621
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column hazard
+		dataType: string
+		lineageTag: 5553fa64-a6ff-4bb7-aa85-fb878cabf834
+		summarizeBy: none
+		sourceColumn: hazard
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: a5d8dab4-34cc-4615-a098-b6af38c33f13
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column cons_fp
+		dataType: string
+		lineageTag: aaee68c6-a807-48e9-a8f2-ad72eb273ab5
+		summarizeBy: none
+		sourceColumn: cons_fp
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: 29486f7d-af57-4ee9-8576-f1f117285b65
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: a6c9f786-6d8d-4ba7-9a0f-317317d43665
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column deg_urb
+		dataType: string
+		lineageTag: a723882b-4574-4900-baaf-d3a17e607c6d
+		summarizeBy: none
+		sourceColumn: deg_urb
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: f0583a3e-deeb-4f81-9d7f-fbe9717b4741
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column wstatus
+		dataType: string
+		lineageTag: d8954b80-3275-4c2f-bbd2-613df867d685
+		summarizeBy: none
+		sourceColumn: wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column src_crf
+		dataType: string
+		lineageTag: 2b16009c-c653-4e8e-ba3f-51b848f8cdc0
+		summarizeBy: none
+		sourceColumn: src_crf
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 099d8921-c302-48e3-acfa-f903e034352c
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 4779bf8e-0fd2-46af-89da-a03d62cbb04e
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_env
+		dataType: string
+		lineageTag: dc1aa62b-c527-4c67-945a-d5ee1ee4b622
+		summarizeBy: none
+		sourceColumn: indic_env
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indic-pH Name'
+		dataType: string
+		lineageTag: 139a97c6-31c8-4e88-a06f-b25e391e56b7
+		summarizeBy: none
+		sourceColumn: Indic-pH Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: f2388b68-9b93-44cc-a99e-0b0bd59d8273
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column areaprot
+		dataType: string
+		lineageTag: 783867c9-f388-4743-b0d4-5621295f4063
+		summarizeBy: none
+		sourceColumn: areaprot
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg
+		dataType: string
+		lineageTag: bb4ab28a-3e80-45c8-8d72-f89107fe142a
+		summarizeBy: none
+		sourceColumn: fishreg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EU Fish Stock'
+		dataType: string
+		lineageTag: 7bf9e4b8-7b25-455b-8d62-dd0e1ce4371f
+		summarizeBy: none
+		sourceColumn: EU Fish Stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'hazard Code'
+		dataType: string
+		lineageTag: cfbbc737-cb32-40e8-a9ca-c91daf585e89
+		summarizeBy: none
+		sourceColumn: hazard Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column seabasin
+		dataType: string
+		lineageTag: 1cbeb1fc-2cb9-47d2-8c69-fda197f070d8
+		summarizeBy: none
+		sourceColumn: seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Goal 12 Target' = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"f0a1dd21-1cd9-4ebb-88f3-b63161580006" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All_SDG 12 to 14"]}[Data],
+				    #"Goal 12 Target_" = #"f0a1dd21-1cd9-4ebb-88f3-b63161580006"{[entity="Goal 12 Target",version=""]}[Data],
+				    #"Replaced Value" = Table.ReplaceValue(#"Goal 12 Target_","EIB","European Investment Bank",Replacer.ReplaceText,{"Geo"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","COMM","European Commission",Replacer.ReplaceText,{"Geo"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","Sustainable fishing level"," ",Replacer.ReplaceText,{"EU Fish Stock"}),
+				    #"Appended Query" = Table.Combine({#"Replaced Value2", SDG_13_11_eu, SDG_13_70a_eu, SDG_14_51_eu})
+				in
+				    #"Appended Query"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

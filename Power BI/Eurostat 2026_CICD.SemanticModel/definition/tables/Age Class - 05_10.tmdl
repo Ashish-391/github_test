@@ -1,0 +1,41 @@
+table 'Age Class - 05_10'
+	lineageTag: 2e7192c6-ea67-4a55-91bb-4cec2242d63e
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: cfb74997-8856-4565-b924-d44e77544880
+		summarizeBy: none
+		sourceColumn: Index
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Age Class'
+		dataType: string
+		lineageTag: 05a8eb83-b23b-4dd1-92c9-ffe46af76dc2
+		summarizeBy: none
+		sourceColumn: Age Class
+		sortByColumn: Index
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Age Class - 05_10' = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("Tck7DoAgDADQqzSdGfi0qBfwDoYwODAakmo8v4LBdH0vJXRocJV6gGO4KkwEW9nlxGwS+v/mdn5RF8YF2y7oo3HUj/TxOO7H+uJ70X4AVaDeRTDnBw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Index = _t, #"Age Class" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Index", Int64.Type}, {"Age Class", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,71 @@
+table BW_Goal2_10
+	lineageTag: 8bcdd66c-d558-42fc-a890-85e231e3a689
+
+	column Sorting =
+			
+			var indicator = "SDG_02_10"
+			Var maxDate = CALCULATE(MAX(Goal2[UpdatedFromDate]),Goal2[IndicatorValue]=indicator)
+			var maxyear = CALCULATE(MAX(Goal2[Year]),Goal2[IndicatorValue]=indicator,Goal2[CountryAbrv]="EU27_2020",Goal2[UpdatedFromDate]=maxDate)
+			/* var maxyear = CALCULATE(MAX(All_Goal2_EUGraph[Year]),FILTER(All_Goal2_EUGraph,(All_Goal2_EUGraph[CountryAbrv]="EU27_2020" || All_Goal2_EUGraph[CountryAbrv]="EU_V") && All_Goal2_EUGraph[IndicatorValue]=SELECTEDVALUE(All_Goal2_EUGraph[IndicatorValue]))) */
+			RETURN
+			IF(BW_Goal2_10[Year]=maxyear,maxyear&BW_Goal2_10[Value],BLANK())
+		dataType: double
+		lineageTag: 87d54b0c-4ff4-4d5f-ad32-2c7b2ae249fc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year
+		formatString: 0
+		lineageTag: 44912971-8715-4e9e-a9ee-9544eb4e9491
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 48f6dcfb-9498-4133-8c9b-ed0e2578fe06
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 10482d58-6a13-46be-b8fe-0726d45b706e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BW_Goal2_10 = calculated
+		mode: import
+		source =
+				
+				
+				var indicator = "SDG_02_10"
+				var unit = "Obese"
+				Var maxDate = CALCULATE(MAX(Goal2[UpdatedFromDate]),Goal2[IndicatorValue]=indicator)
+				var maxyear = CALCULATE(MAX(Goal2[Year]),Goal2[IndicatorValue]=indicator,Goal2[CountryAbrv]="EU27_2020",Goal2[UpdatedFromDate]=maxDate,Goal2[Bmi_Indicator]=unit)
+				RETURN
+				SELECTCOLUMNS(
+				FILTER
+				(Goal2,(Goal2[Year]= maxyear
+				||
+				Goal2[Year]=maxyear-5
+				) && Goal2[IndicatorValue]=indicator && Goal2[UpdatedFromDate]=maxDate && Goal2[Bmi_Indicator]=unit )
+				,
+				"Year", 'Goal2'[Year],
+				
+				        "Value", 'Goal2'[Value],
+				
+				        "Geo", 'Goal2'[CountryAbrv])
+
+	annotation PBI_Id = 10906bd3a15e4bca9bf025bea3da49d0
+

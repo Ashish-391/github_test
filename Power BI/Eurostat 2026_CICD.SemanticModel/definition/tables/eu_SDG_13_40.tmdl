@@ -1,0 +1,86 @@
+table eu_SDG_13_40
+	lineageTag: ce5db4bc-258c-42cb-8308-dbace619afb5
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: aeec1ef4-a38d-4ef1-a5e0-278ddd901a8d
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: c77d579c-0b81-4702-89b6-a94ec3d69b84
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 9945bdac-755a-49d7-bffd-2eafe6e559c1
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9937b8af-feb7-4372-8ee0-41ee8fe1a527
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: c1a08eb5-fb64-44bc-903b-1ff867199e35
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: a12a274d-8ec5-4d92-b80c-cd8bdff4b1f5
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 9247c40d-4a84-4894-83d3-8ace59edc394
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_SDG_13_40 = m
+		mode: import
+		queryGroup: EU-Goal1\EU_Goal13
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+				    SDG_13_40_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="SDG_13_40",version=""]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(#"SDG_13_40_",{ "Year", "Unit", "Value", "UpdatedFromDate", "IndicatorValue",  "CountryAbrv", "statinfo"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Removed Other Columns",{{"CountryAbrv", type text}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed Type2",{{"Year", Int64.Type}, {"Unit", type text}, {"Value", type number}, {"UpdatedFromDate", type date}, {"IndicatorValue", type text}, {"statinfo", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([statinfo] = "AVG_30Y") and ([Unit] = "EUR_HAB_KP"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

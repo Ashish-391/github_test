@@ -1,0 +1,102 @@
+table SDG_04_10*
+	lineageTag: cc1b8953-ecb8-44bb-8847-5c0c77f477ef
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: ed6e1f9a-22f1-48bc-bf1f-041111e60680
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 859b474c-6f13-44ea-898d-02ae780aa7bf
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 45662bc3-ed03-4c16-bb96-812020816ff4
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		lineageTag: 9af8c339-46a7-4f51-b6bb-b9ea3c2246ae
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unit
+		dataType: string
+		lineageTag: 8a6be996-7fb3-4ed8-8faa-9a2b530b6359
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column M
+		dataType: double
+		lineageTag: 1c2b0863-da50-44b5-8666-fabf43a64b76
+		summarizeBy: sum
+		sourceColumn: M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F
+		dataType: double
+		lineageTag: 22c12e8d-54a1-4f6a-bb33-826cd4d64ec0
+		summarizeBy: sum
+		sourceColumn: F
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		dataType: double
+		lineageTag: 32f5db48-a618-4a40-af3b-84fc5d6aea35
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RecordCount
+		dataType: double
+		lineageTag: 8ca9a316-c78b-4c9c-afb9-b4e8eb89ef9b
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_04_10* = m
+		mode: import
+		queryGroup: 'Goal 5'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 5"]}[Data],
+				    #"SDG_04_10*_" = #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b"{[entity="SDG_04_10*",version=""]}[Data]
+				in
+				    #"SDG_04_10*_"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

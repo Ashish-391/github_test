@@ -1,0 +1,95 @@
+table All_SDG_16_40_
+	lineageTag: 68cd691d-21ec-4324-a732-81a06f27814e
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 09fade55-1518-473e-b45e-421edcae3b0f
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: 21ae3a67-e569-4887-9356-15243a586615
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fairly good'
+		dataType: double
+		lineageTag: d27f37fe-bed8-4b95-a352-2719b35e84a3
+		summarizeBy: sum
+		sourceColumn: Fairly good
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Very good'
+		dataType: double
+		lineageTag: 3ad10390-05f9-49e2-9f9e-6eb38e168523
+		summarizeBy: sum
+		sourceColumn: Very good
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VG_FG
+		dataType: double
+		lineageTag: c6dd586f-d475-4112-83f1-e56425ef1b1a
+		summarizeBy: sum
+		sourceColumn: VG_FG
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Max_Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 16339abb-480f-46fb-a001-49ec9264542c
+		summarizeBy: sum
+		sourceColumn: Max_Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_16_40_ = m
+		mode: import
+		queryGroup: 'Goal 16'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"54160ba5-ece8-403d-b118-e4aebdc9f20f" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"f8ccb2db-71ff-4814-8fa2-999e593495b1" = #"54160ba5-ece8-403d-b118-e4aebdc9f20f"{[dataflowName="All_SDG 15-17"]}[Data],
+				    All_SDG_16_40_ = #"f8ccb2db-71ff-4814-8fa2-999e593495b1"{[entity="All_SDG_16_40",version=""]}[Data],
+				    #"Renamed Columns" = Table.RenameColumns(All_SDG_16_40_,{{"lev_perc", "Level of perception"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns","VGOOD","Very good",Replacer.ReplaceText,{"Level of perception"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","FBAD","Fairly bad",Replacer.ReplaceText,{"Level of perception"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","FGOOD","Fairly good",Replacer.ReplaceText,{"Level of perception"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","VBAD","Very bad",Replacer.ReplaceText,{"Level of perception"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","UNK","Don’t know",Replacer.ReplaceText,{"Level of perception"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Replaced Value4", each ([Level of perception] <> "VB_FB" and [Level of perception] <> "VG_FG")),
+				    #"Added Conditional Column" = Table.AddColumn(#"Filtered Rows", "Sort level", each if [Level of perception] = "Very good" then 1 else if [Level of perception] = "Fairly good" then 2 else if [Level of perception] = "Fairly bad" then 3 else if [Level of perception] = "Very bad" then 4 else if [Level of perception] = "Don’t know" then 5 else null),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Sort level", Int64.Type}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "OBS_VALUE", "OBS_VALUE - Copy"),
+				    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column",{"OBS_VALUE - Copy"}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Removed Columns", each ([Level of perception] = "Fairly good" or [Level of perception] = "Very good")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows1",{"TIME_PERIOD", "OBS_VALUE", "Geo", "Level of perception"}),
+				    #"Pivoted Column" = Table.Pivot(#"Removed Other Columns", List.Distinct(#"Removed Other Columns"[#"Level of perception"]), "Level of perception", "OBS_VALUE"),
+				    #"Added Custom" = Table.AddColumn(#"Pivoted Column", "VG_FG", each [Fairly good] + [Very good]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"VG_FG", type number}}),
+				    #"Added Custom1" = Table.AddColumn(#"Changed Type1", "Max_Year", each List.Max(#"Changed Type1"[TIME_PERIOD])),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom1",{{"Max_Year", Int64.Type}}),
+				    Filteredrows = Table.SelectRows(#"Changed Type2", each [TIME_PERIOD]=[Max_Year])
+				in
+				    Filteredrows
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

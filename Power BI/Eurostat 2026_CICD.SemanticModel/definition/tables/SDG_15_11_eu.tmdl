@@ -1,0 +1,87 @@
+table SDG_15_11_eu
+	lineageTag: ec9519c9-55b5-43c4-b560-d0ac7306862b
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f5c1b4b-c98d-46bb-a74e-4c6ccf79823f
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 06965502-97ff-49ed-84a0-63349fbdff2f
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: 8ab8dc87-b11b-4534-b661-2ca6e9e8c8dc
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: 666fe25b-26c7-42fa-b2c5-3016eed33b8c
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: a451fd3f-7bca-4fa4-8c96-c27a8b0df310
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: adbcc55a-80a5-4032-84fe-2797dcfd0ef0
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_fo
+		dataType: string
+		lineageTag: 76f55f56-bd95-4a78-bfca-fbedfcd6134f
+		summarizeBy: none
+		sourceColumn: indic_fo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 8055b249-7646-470f-8291-e075b6cfef43
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_15_11_eu = m
+		mode: import
+		queryGroup: 'New indicators 2026'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2db96d17-b148-4d11-80f4-26b75cb98f00" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="ALL_SDG_New Indicators"]}[Data],
+				    SDG_15_11_ = #"2db96d17-b148-4d11-80f4-26b75cb98f00"{[entity="SDG_15_11",version=""]}[Data]
+				in
+				    SDG_15_11_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,142 @@
+table SDG_11_11*
+	lineageTag: 6678e77e-863d-44e0-8365-3560163892e7
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 22a63688-d97b-49aa-8fd4-e2985978721e
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 6f83e772-e1c2-4daa-b1fd-b86d6e7ba863
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: 2d0c6f06-63cb-41a0-af33-be1c451ccba7
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: 5d71d764-385a-48b9-9b22-4c4d0752c867
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 42e5ee98-d900-4fa5-991d-8ae6cf9e3fe1
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: ac6d3b48-4866-44d3-8ef3-b320e94c73c5
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: bb350a96-576c-488d-9c12-392fdea3c768
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 713c2bcc-2d11-4493-b966-536502fd3a14
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column INCGRP
+		dataType: string
+		lineageTag: 39bd5910-cdd8-4ae0-9421-c58e983246d8
+		summarizeBy: none
+		sourceColumn: INCGRP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: daeaeb76-0261-4256-a79e-db9732e2b9d7
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cities
+		dataType: double
+		lineageTag: 1f370998-892d-43e5-84e9-04f58678b16a
+		summarizeBy: sum
+		sourceColumn: Cities
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Towns and suburbs'
+		dataType: double
+		lineageTag: 034f3cde-2314-4928-9f50-f8957080cafc
+		summarizeBy: sum
+		sourceColumn: Towns and suburbs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Rural areas'
+		dataType: double
+		lineageTag: cc9d583d-d44f-49c4-adac-8c97f28f045c
+		summarizeBy: sum
+		sourceColumn: Rural areas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_11_11* = m
+		mode: import
+		queryGroup: 'Goal 1'
+		source =
+				let
+				    Source = Xml.Tables(Web.Contents("https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/SDG_11_11?format=SDMX_2.1_STRUCTURED")),
+				    Table1 = Source{1}[Table],
+				    Table2 = Table1{0}[Table],
+				    Table3 = Table2{0}[Table],
+				    Table4 = Table3{0}[Table],
+				    #"Changed Type" = Table.TransformColumnTypes(Table4,{{"Attribute:geo", type text}, {"Attribute:unit", type text}, {"Attribute:sex", type text}, {"Attribute:freq", type text}, {"Attribute:age", type text}, {"Attribute:incgrp", type text}}),
+				    #"Expanded Obs" = Table.ExpandTableColumn(#"Changed Type", "Obs", {"Attribute:TIME_PERIOD", "Attribute:OBS_VALUE", "Attribute:OBS_FLAG"}, {"Obs.Attribute:TIME_PERIOD", "Obs.Attribute:OBS_VALUE", "Obs.Attribute:OBS_FLAG"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Obs",{{"Obs.Attribute:TIME_PERIOD", "TIME_PERIOD"}, {"Obs.Attribute:OBS_VALUE", "OBS_VALUE"}, {"Obs.Attribute:OBS_FLAG", "OBS_FLAG"}, {"Attribute:geo", "Geo"}, {"Attribute:unit", "Unit"}, {"Attribute:sex", "Sex"}, {"Attribute:freq", "Freq"}, {"Attribute:age", "Age"}, {"Attribute:incgrp", "INCGRP"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Indicator", each "sdg_11_11*"),
+				    #"Filtered Rows" = Table.SelectRows(#"Added Custom", each ([Geo] = "EU27_2020") and ([INCGRP] = "TOTAL")),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows",{{"TIME_PERIOD", Int64.Type}, {"OBS_VALUE", type number}, {"OBS_FLAG", type text}, {"Indicator", type text}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type1", {"TIME_PERIOD"}, SDG_ilc_mdho06d, {"TIME_PERIOD"}, "SDG_ilc_mdho06d", JoinKind.RightOuter),
+				    #"Expanded SDG_ilc_mdho06d" = Table.ExpandTableColumn(#"Merged Queries", "SDG_ilc_mdho06d", {"Cities", "Towns and suburbs", "Rural areas"}, {"SDG_ilc_mdho06d.Cities", "SDG_ilc_mdho06d.Towns and suburbs", "SDG_ilc_mdho06d.Rural areas"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Expanded SDG_ilc_mdho06d",{{"SDG_ilc_mdho06d.Cities", "Cities"}, {"SDG_ilc_mdho06d.Towns and suburbs", "Towns and suburbs"}, {"SDG_ilc_mdho06d.Rural areas", "Rural areas"}})
+				in
+				    #"Renamed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

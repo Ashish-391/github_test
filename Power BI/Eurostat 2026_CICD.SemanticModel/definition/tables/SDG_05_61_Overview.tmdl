@@ -1,0 +1,66 @@
+table SDG_05_61_Overview
+	lineageTag: 353632a3-6197-4cab-bf27-7d80b9c28752
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 321acc08-43f6-4c48-b871-028fa9bdf1f7
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 77f4dc81-e84e-427c-b0f4-9e78952733b5
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 9f772aea-668d-4262-a2c1-ff1903af0e82
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 5bddbb53-d9ce-421e-8f45-f40c82f06f9b
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 77291c60-5503-4f32-8bff-becc62e232d8
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_05_61_Overview = m
+		mode: import
+		queryGroup: 'New indicators 2026'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2db96d17-b148-4d11-80f4-26b75cb98f00" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="ALL_SDG_New Indicators"]}[Data],
+				    SDG_05_61_ = #"2db96d17-b148-4d11-80f4-26b75cb98f00"{[entity="SDG_05_61",version=""]}[Data],
+				    #"Added Custom" = Table.AddColumn(SDG_05_61_, "Indicator", each "sdg_05_61"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Indicator", type text}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type",{"TIME_PERIOD", "OBS_VALUE", "Geo", "Unit", "Indicator"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

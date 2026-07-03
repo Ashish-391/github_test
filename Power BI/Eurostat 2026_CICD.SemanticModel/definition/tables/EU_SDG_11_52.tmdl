@@ -1,0 +1,96 @@
+table EU_SDG_11_52
+	lineageTag: 3ab42145-600d-4905-a5f7-180adbfd102f
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: fd74bba6-b421-446a-9d19-4ca962ae3a1e
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: cb5f82f1-af2c-48a5-88aa-ee5ac4c8b065
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		lineageTag: 67a1e69f-6d94-4214-9687-05aca7109ffb
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 2529042c-cb5a-4b97-8ff7-da61ea37aed1
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: bb62abcc-4e75-4778-ae4f-cce0712a0e4c
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		lineageTag: 7d8c11e8-70a7-45c6-b2f9-19fae6c865d0
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column airpol
+		dataType: string
+		lineageTag: ad7da834-31d9-4296-9341-5731b244aab3
+		summarizeBy: none
+		sourceColumn: airpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_he
+		dataType: string
+		lineageTag: a3a7fac9-c1bb-4f31-8f87-fd4c31a1c5cb
+		summarizeBy: none
+		sourceColumn: indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 804a0ecc-a0db-4966-b947-bd3379b685e8
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_SDG_11_52 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 3'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 3"]}[Data],
+				    SDG_11_52_ = #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a"{[entity="SDG_11_52",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_11_52_, each ([Unit] = "RT"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,73 @@
+table EU_SDG_07_30
+	lineageTag: 29eed8d1-8984-4107-a0be-a71cea55d502
+
+	column Year
+		dataType: double
+		lineageTag: 4f552e53-13bd-4a66-b9cc-a4e5fb577064
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: fb11118e-d7f0-443e-9360-7da2fdee9763
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: b6c370e5-7ce0-472e-b434-6a95d2086c8b
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 8eed6dbd-4b2f-4d78-b30b-87f4d4841b72
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 9775b796-065d-4951-bee4-44f3132a99df
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: bcfbd82f-2e4c-4ce1-b448-a81e204727e3
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_SDG_07_30 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 7'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"69f78a02-1390-4995-9d19-f85df1dc3e57" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 7"]}[Data],
+				    SDG_07_30_ = #"69f78a02-1390-4995-9d19-f85df1dc3e57"{[entity="SDG_07_30",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_07_30_, each ([Unit] = "PPS_KGOE"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

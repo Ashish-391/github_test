@@ -1,0 +1,48 @@
+table SDG_14_50_Indicenv
+	lineageTag: cd70594d-ad53-411f-9ba3-d2b8ccb59c30
+
+	column indic_env
+		dataType: string
+		isHidden
+		lineageTag: d304d724-f1af-4f5d-8761-f3386ebcabc1
+		summarizeBy: none
+		sourceColumn: indic_env
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indic
+		dataType: string
+		isHidden
+		lineageTag: 329f148d-2369-46c4-8c0c-ab52ec69dd57
+		summarizeBy: none
+		sourceColumn: Indic
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_14_50_Indicenv = m
+		mode: import
+		queryGroup: 'Goal 14'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"de1f9020-5499-439f-bf05-88aa5cba45fe" = Source{[Id="de1f9020-5499-439f-bf05-88aa5cba45fe"]}[Items],
+				//     #"Removed Other Columns" = Table.SelectColumns(#"de1f9020-5499-439f-bf05-88aa5cba45fe",{"indic_env"}),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"indic_env", type text}}),
+				//     #"Removed Duplicates" = Table.Distinct(#"Changed Type"),
+				//     #"Added Conditional Column" = Table.AddColumn(#"Removed Duplicates", "Indic", each if [indic_env] = "PH_GLB" then "Global pH value" else null),
+				//     #"Changed Type1" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Indic", type text}, {"indic_env", type text}})
+				// in
+				//     #"Changed Type1"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_14_50_Indicenv_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_14_50_Indicenv",version=""]}[Data]
+				in
+				    SDG_14_50_Indicenv_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,133 @@
+table SDG_08_60
+	isHidden
+	lineageTag: dd4a765c-6b0a-438c-9fd1-f8941e081139
+
+	column Year
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: 860b7cb8-031c-4943-8c07-6a524852ab7b
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: db74897f-7ef0-449e-be3b-39c1303d803c
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: 2a61e5d9-53b9-44e9-a597-12d802c1f79e
+		summarizeBy: none
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		isHidden
+		lineageTag: 44104e73-2f4d-4219-a6e4-438571dc830a
+		summarizeBy: none
+		sourceColumn: sex
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: ee01f94d-6707-48d1-8a71-35e909e8b29c
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 11ffae5b-5a27-4099-aefd-97c5ff7d48cd
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 655d630d-872d-4fb3-a4b9-4250477bf73a
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column nace_r2
+		dataType: string
+		isHidden
+		lineageTag: aa1fd5ee-a769-4e0c-9223-3768b31702c1
+		summarizeBy: none
+		sourceColumn: nace_r2
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column severity
+		dataType: string
+		isHidden
+		lineageTag: 6d952c7e-08a0-4475-b261-47c52c3ea32b
+		summarizeBy: none
+		sourceColumn: severity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a14d6c1-1043-4d8d-bef8-923665333252
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_08_60 = m
+		mode: import
+		queryGroup: 'Goal 3'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 3"]}[Data],
+				    SDG_08_60_ = #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a"{[entity="SDG_08_60",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_08_60_, each ([sex] = "T"))
+				in
+				    #"Filtered Rows"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

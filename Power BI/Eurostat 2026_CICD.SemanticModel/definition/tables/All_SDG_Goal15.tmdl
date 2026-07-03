@@ -1,0 +1,216 @@
+table All_SDG_Goal15
+	lineageTag: 2c48758b-64c1-4143-863d-bb97c6db540a
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 4031edf7-992a-4eff-acaa-88d85f6a96ae
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 77fb71b7-7b59-4d27-bda1-20b0a98a53b3
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 5584ccfd-0c5b-4e14-8f8d-bb09dad0adb7
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: fe255a5a-ebb7-4062-8b79-875536a1f24b
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column landcover
+		dataType: string
+		lineageTag: c3122b7c-9730-46e7-8ba5-253a6e0bc951
+		summarizeBy: none
+		sourceColumn: landcover
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 17e6519b-d717-4ad8-bf50-75280a7ba848
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: 243a5ded-d145-4f87-8efd-3817000d7979
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: 2ef777ed-5b95-4d65-8c0f-fbabd3e905a0
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: d65e1ded-d229-4b7b-aec4-862d581043ae
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 3525121e-46b3-4b5d-9f0d-fa859f5930bf
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column icd10
+		dataType: string
+		lineageTag: 630df983-aa31-48d6-86bf-219e6779d3a2
+		summarizeBy: none
+		sourceColumn: icd10
+
+		annotation SummarizationSetBy = Automatic
+
+	column lev_perc
+		dataType: string
+		lineageTag: 9bf4c0d1-4b0a-405e-8c30-cd13d4551444
+		summarizeBy: none
+		sourceColumn: lev_perc
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'lev_perc - Name'
+		dataType: string
+		lineageTag: bec32b50-0969-4fd1-be95-f0947de87317
+		summarizeBy: none
+		sourceColumn: lev_perc - Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column leg_stat
+		dataType: string
+		lineageTag: 7cd7aced-d343-4fee-ae8e-47598bbf58e1
+		summarizeBy: none
+		sourceColumn: leg_stat
+
+		annotation SummarizationSetBy = Automatic
+
+	column partner
+		dataType: string
+		lineageTag: 1e594d91-c6ec-460e-839f-9ff5e9d6f91d
+		summarizeBy: none
+		sourceColumn: partner
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:unit
+		dataType: string
+		lineageTag: d97c1b78-4bd2-4d99-9363-c35a39e5f303
+		summarizeBy: none
+		sourceColumn: Attribute:unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column fin_source
+		dataType: string
+		lineageTag: 7cf25ff9-3aa8-494f-82d5-931feb9b2077
+		summarizeBy: none
+		sourceColumn: fin_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column fin_source-Name
+		dataType: string
+		lineageTag: 726b9fa2-2c13-4c41-9e02-289d8cd79fae
+		summarizeBy: none
+		sourceColumn: fin_source-Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column sitc06
+		dataType: string
+		lineageTag: 0dc66353-04b7-4ab5-ad53-0b7e5a6c02a8
+		summarizeBy: none
+		sourceColumn: sitc06
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'partner - Name'
+		dataType: string
+		lineageTag: 0cf41fd6-5854-4d16-a845-1d1eee89bfca
+		summarizeBy: none
+		sourceColumn: partner - Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column na_item
+		dataType: string
+		lineageTag: 4ae422a3-2fa8-4b4a-a686-0e245627f22f
+		summarizeBy: none
+		sourceColumn: na_item
+
+		annotation SummarizationSetBy = Automatic
+
+	column sector
+		dataType: string
+		lineageTag: 27e406ef-db6c-4314-9727-344ea8d4e8a4
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:tax
+		dataType: string
+		lineageTag: 629e9d74-cad0-45f4-be55-68ff2c895652
+		summarizeBy: none
+		sourceColumn: Attribute:tax
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_fo
+		dataType: string
+		lineageTag: 4bc57ac6-8799-4eb6-b470-0bd53084225b
+		summarizeBy: none
+		sourceColumn: indic_fo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_Goal15 = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"bbfabca1-d350-48fd-8881-823670e9be16" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All_SDG 15-17"]}[Data],
+				    #"All_SDG_Goal 15_" = #"bbfabca1-d350-48fd-8881-823670e9be16"{[entity="All_SDG_Goal 15",version=""]}[Data],
+				    #"Appended Query" = Table.Combine({#"All_SDG_Goal 15_", All_SDG_15_11})
+				in
+				    #"Appended Query"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

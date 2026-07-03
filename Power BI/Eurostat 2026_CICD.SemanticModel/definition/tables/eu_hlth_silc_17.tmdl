@@ -1,0 +1,175 @@
+table eu_hlth_silc_17
+	lineageTag: a44e3466-5454-4261-be2a-1fd4ea7b5d1c
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 9e1b81a3-d2d4-4e4c-9079-4fad8de596fa
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 9426d9e6-cf3f-4b57-980d-d8e9cdd3e9ca
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a2cab1c7-8466-4fc0-9848-cd3e479e255c
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: double
+		lineageTag: 1d179539-223c-48d1-a054-e0b52a2a853b
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unit
+		dataType: string
+		lineageTag: 3844a2e1-66ed-4fb2-adf5-c78af1803f09
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 7f59e7b7-0364-4c0b-8d9f-0338eb7d7135
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sex
+		dataType: string
+		lineageTag: 042a202f-cb2b-4d73-972f-f36cb51d664f
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		lineageTag: 1fedb9ab-22f9-467b-abfb-93bb02180936
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: double
+		lineageTag: e634af5a-31fb-45cf-b51e-fef02b61c523
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column icd10
+		dataType: string
+		lineageTag: 5aebb778-250d-4627-ac96-62242308b6b0
+		summarizeBy: none
+		sourceColumn: icd10
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		dataType: string
+		lineageTag: 40cf826f-519e-4f41-a802-b7bbd0e1b031
+		summarizeBy: none
+		sourceColumn: Mortality
+
+		annotation SummarizationSetBy = Automatic
+
+	column nace_r2
+		dataType: string
+		lineageTag: 816c3af2-8736-49c7-bdea-ccc4e5575e17
+		summarizeBy: none
+		sourceColumn: nace_r2
+
+		annotation SummarizationSetBy = Automatic
+
+	column severity
+		dataType: string
+		lineageTag: 4692bc42-e6f1-48c3-b41a-1de41afe12c2
+		summarizeBy: none
+		sourceColumn: severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: 777d2aeb-92e0-49a7-ade2-196a2a29a89a
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column hhtyp
+		dataType: string
+		lineageTag: a00327e1-1a2e-4cee-934a-49f68b7de55a
+		summarizeBy: none
+		sourceColumn: hhtyp
+
+		annotation SummarizationSetBy = Automatic
+
+	column tra_infr
+		dataType: string
+		lineageTag: 455d09fd-5a44-46b3-8aed-9fcbf382aa49
+		summarizeBy: none
+		sourceColumn: tra_infr
+
+		annotation SummarizationSetBy = Automatic
+
+	column airpol
+		dataType: string
+		lineageTag: d92f6403-f597-467c-a4db-aef317ddb983
+		summarizeBy: none
+		sourceColumn: airpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_he
+		dataType: string
+		lineageTag: ece5381c-d86f-4998-bbeb-1ba68c4d822b
+		summarizeBy: none
+		sourceColumn: indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_hlth_silc_17 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 3'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 3"]}[Data],
+				    Goal3_ = #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a"{[entity="Goal3",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal3_,{{"UpdatedFromDate", type date}, {"Value", type number}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([IndicatorValue] = "HLTH_SILC_17") and ([indic_he] = "HE_BIRTH"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

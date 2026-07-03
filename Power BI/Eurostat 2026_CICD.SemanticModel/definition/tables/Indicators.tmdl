@@ -1,0 +1,122 @@
+table Indicators
+	lineageTag: a49f5c5a-95ae-4861-96cf-c3be87ea194e
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: e8c96cd8-5bff-4ec6-b937-08ca89e8a6c5
+		summarizeBy: none
+		sourceColumn: Index
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column SDGIndex
+		dataType: int64
+		formatString: 0
+		lineageTag: 077973cb-b76c-490c-ad79-c5f7fa9b4830
+		summarizeBy: none
+		sourceColumn: SDGIndex
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Target-Description = IF(ISBLANK(Indicators[Target Year]),Indicators[Description],CONCATENATE(Indicators[Description]," [Target]"))
+		lineageTag: 05228d5f-ec78-4be7-bf68-dd2ce47f702a
+		summarizeBy: none
+		sortByColumn: Indicator
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: ed683f78-01ba-434c-9574-aeb560a8d77c
+		summarizeBy: sum
+		sourceColumn: Target Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: 55144ec4-039f-495d-add0-b317427af5b0
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Value'
+		dataType: double
+		lineageTag: d1ae9a23-9b58-411e-8d3e-2890923e61c5
+		summarizeBy: sum
+		sourceColumn: Target Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Indicator
+		dataType: string
+		lineageTag: 43f35145-c6dc-472d-8f28-bf37ba3365e5
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorsName
+		dataType: string
+		lineageTag: 00bda33b-aea5-4f07-b805-c48e261975af
+		summarizeBy: none
+		sourceColumn: IndicatorsName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 33e5bb53-f46e-4810-b821-e280b9237064
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Indicators = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				
+				    Source = PowerPlatform.Dataflows(null),
+				
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				
+				    #"2182f1ac-b015-4bb6-91e0-33a86e05578c" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="Indi_Overview"]}[Data],
+				
+				    Indicators_ = #"2182f1ac-b015-4bb6-91e0-33a86e05578c"{[entity="Indicators",version=""]}[Data],
+				
+				    #"Removed Columns" = Table.RemoveColumns(Indicators_,{"Sort_Indicator"}),
+				
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each ([Indicator] <> "SDG_03_41"))
+				in
+				    #"Filtered Rows"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

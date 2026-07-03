@@ -1,0 +1,101 @@
+table SDG_14_40_Inland
+	lineageTag: e5e470ba-056f-4492-bec7-7892d5706de2
+
+	column Year
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: 0e50ff13-e459-4967-af74-30e8d8cafd84
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: 2cfa8a53-37a4-41d0-85ca-65c53019825e
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: d3e85838-bbc4-4a02-b7e9-ede20e5cf0a7
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: b00f35c8-39d4-445e-b987-54011c91a27b
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: f6458ff5-e02f-4a0a-b721-ca76e3db2a5b
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column aquaenv
+		dataType: string
+		isHidden
+		lineageTag: 44eb49d6-9501-4152-9581-eb5453b0f3cf
+		summarizeBy: none
+		sourceColumn: aquaenv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 2b18d40c-a2c5-4566-bf72-d7fb0afeb957
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		formatString: 0
+		lineageTag: d76578f7-fee1-4971-b537-085bb67a40a6
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 9636d88c-9421-45f1-9ad1-d56fb9efcf2f
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_14_40_Inland = m
+		mode: import
+		queryGroup: 'Goal 6'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"8fb7278b-0754-41cb-8022-dde497cf7fbf" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 6"]}[Data],
+				    SDG_14_40_Inland_ = #"8fb7278b-0754-41cb-8022-dde497cf7fbf"{[entity="SDG_14_40_Inland",version=""]}[Data]
+				in
+				    SDG_14_40_Inland_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

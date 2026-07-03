@@ -1,0 +1,78 @@
+table BW_Goal17_10
+	lineageTag: c41ecd93-7353-4253-a4f0-faee8300c457
+
+	column Year
+		formatString: 0
+		lineageTag: 54798e2c-b9ea-4104-ab5f-0fe19ceb6cd0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: b440d988-e02e-4e93-98d6-6bf810d40305
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 91d6e5e6-5d67-4d77-a1ff-d76c8a657497
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_17_10"
+			var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[TIME_PERIOD]),'All_SDG_Goal5-12'[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal17_10[Year]=maxTime_Period,maxTime_Period&BW_Goal17_10[Value],BLANK())
+		dataType: double
+		lineageTag: 84d6e2ca-d20a-4dfc-86ca-85768ec69918
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal17_10 = calculated
+		mode: import
+		source = ```
+				
+				
+				var indicator = "SDG_17_10"
+				var partner = "ODA" 
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Geo]="EU27_2020", 'All_SDG_Goal5-12'[partner] = partner)
+				
+				RETURN
+				
+				    SELECTCOLUMNS (
+				
+				        FILTER
+				
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				
+				||
+				
+				'All_SDG_Goal5-12'[Time_Period]=maxTime_Period-5
+				
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator && 'All_SDG_Goal5-12'[partner] = partner),
+				
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				
+				    )
+				```
+
+	annotation PBI_Id = c7d94c496019458ca9e5667f19ccc681
+

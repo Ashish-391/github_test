@@ -1,0 +1,78 @@
+table SDG_10_50
+	lineageTag: e71ca37f-63a5-416b-b31e-9c449765e643
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 718bf618-b46f-4b32-aef9-6a516bd2b716
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 3627ed56-c3fa-4543-810d-ab2f981c9a8e
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 61b1e6f4-abfb-46fa-93ae-6c0655a2d360
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 0f02fd9d-96c2-403b-8787-be39032c5e09
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 13f049d3-7726-4c81-be06-77da30022db3
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 2f5c1569-8cd4-442e-a552-da340f7e4391
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_10_50 = m
+		mode: import
+		queryGroup: 'Goal 10'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"01ac67f9-8931-4690-be8c-906c66ded44b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 10"]}[Data],
+				    SDG_10_50_ = #"01ac67f9-8931-4690-be8c-906c66ded44b"{[entity="SDG_10_50",version=""]}[Data]
+				in
+				    SDG_10_50_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

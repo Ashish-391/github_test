@@ -1,0 +1,205 @@
+table 'Goal 2 Target'
+	lineageTag: 527d7f15-3b70-4ba6-9702-b69d85605904
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e3772b0-7d53-4334-89f4-f86c9ebec8c2
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 063cfabb-5637-4499-ae82-283e35bc4f99
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: b0a81fdb-5e08-4b0b-b4d4-b79f5fb3e9ae
+		summarizeBy: none
+		sourceColumn: Geo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 32b0946f-bc9c-416f-8224-09db8cd145b0
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 5f05b37a-8d79-401a-b5f7-69f2e714dd85
+		summarizeBy: none
+		sourceColumn: Freq
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column BMI
+		dataType: string
+		lineageTag: a40325c0-5c13-44fe-96f5-def37b1fc251
+		summarizeBy: none
+		sourceColumn: BMI
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 759182ab-9254-444c-893c-19a9a438c58a
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'BMI Indicator'
+		dataType: string
+		lineageTag: 349dfaf0-1047-4ccf-8e00-60b745f722e1
+		summarizeBy: none
+		sourceColumn: BMI Indicator
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TIME_PERIOD - Copy'
+		dataType: int64
+		formatString: 0
+		lineageTag: d393a398-618a-4c22-8b77-405b7ab2ef1c
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD - Copy
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: 2988c6b6-4c3e-4240-9cea-d900bdc9375f
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: ccdbe119-1d88-4c5b-bd87-d72d393fe575
+		summarizeBy: none
+		sourceColumn: Age
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Watpol
+		dataType: string
+		lineageTag: dcc6c2c1-d6e7-4eef-b7ae-b6b547a3a8e8
+		summarizeBy: none
+		sourceColumn: Watpol
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Comspec
+		dataType: string
+		lineageTag: bafc2ab8-24c0-4ca8-8f54-947bf0fc0a96
+		summarizeBy: none
+		sourceColumn: Comspec
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bird Species'
+		dataType: string
+		lineageTag: 65c4f832-0a6a-4a1f-97ee-c04533d33a30
+		summarizeBy: none
+		sourceColumn: Bird Species
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d9aaf2e-779d-4773-a51a-e153e9e06371
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		lineageTag: b7f0838f-1623-4ef1-bdcb-f485ebe8e3db
+		summarizeBy: count
+		sourceColumn: ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Attribute:subst_cat
+		dataType: string
+		lineageTag: 35a175f0-b6e9-4606-aa69-dc467b992980
+		summarizeBy: none
+		sourceColumn: Attribute:subst_cat
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:indic_agr
+		dataType: string
+		lineageTag: dcc9d4d7-328e-4883-af40-2812c759ed81
+		summarizeBy: none
+		sourceColumn: Attribute:indic_agr
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Goal 2 Target' = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"f7527d26-ad3a-43a1-9857-77dedffbaaf0" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All_SDG_Goal 2-3-4"]}[Data],
+				    #"Goal 2 Target_" = #"f7527d26-ad3a-43a1-9857-77dedffbaaf0"{[entity="Goal 2 Target",version=""]}[Data]
+				in
+				    #"Goal 2 Target_"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

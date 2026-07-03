@@ -1,0 +1,73 @@
+table TargetValues_ForGoals
+	lineageTag: 16c37f00-6930-4d34-adda-6a4b2e231f7a
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 92231215-a818-4aea-b6c0-fbb31aa03351
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: c0db238f-6fa2-4998-b6dc-e33290e9a5ee
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: b9180a1b-44ba-4538-95b0-ebc9bfc30f9d
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		lineageTag: b83da3de-b897-4452-8f8b-88bd5b6d2b1d
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: ee9de021-f406-4d13-8eb3-9af9387c986d
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 568f5c86-bb16-4507-a8e5-c682b36b9844
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TargetValues_ForGoals = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = SharePoint.Tables(SharepointLocation, [Implementation="2.0", ViewMode="Default"]),
+				    #"f6250192-bc41-4dca-bbab-956947afa755" = Source{[Title="Target Values"]}[Items],
+				    #"Changed Type1" = Table.TransformColumnTypes(#"f6250192-bc41-4dca-bbab-956947afa755",{{"Target Value", type number}, {"Indicator Name", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Indicator Name", "IndicatorValue"}, {"Age", "age"}, {"Target Value", "Value"}, {"Target Year", "Year"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Dimension", Int64.Type}, {"Year", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

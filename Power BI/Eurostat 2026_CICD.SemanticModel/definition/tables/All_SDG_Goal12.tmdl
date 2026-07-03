@@ -1,0 +1,152 @@
+table All_SDG_Goal12
+	lineageTag: bd56342b-4f0b-4ce4-86e0-694fa1e0b508
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: e86b44f2-6430-4556-a5cf-2dc4f887d895
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: ff4090b6-3e12-4d28-81d6-1a9f56f94394
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: f2954304-a14c-4f96-806c-e263a7d3394d
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 66fdcd27-7665-4bd7-918b-b4b8d759e2f6
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column hazard
+		dataType: string
+		lineageTag: 56af3422-3270-4b25-96bc-76691463104a
+		summarizeBy: none
+		sourceColumn: hazard
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 850f04cc-45b7-4788-b38a-e578822f45c5
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: 4c321ae9-6c40-476e-b00d-dac55839cb84
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column cons_fp
+		dataType: string
+		lineageTag: c7c25b7d-b086-4a11-9ed3-61ede3bfbf8f
+		summarizeBy: none
+		sourceColumn: cons_fp
+
+		annotation SummarizationSetBy = Automatic
+
+	column deg_urb
+		dataType: string
+		lineageTag: d3b10aeb-61b0-43d1-92d2-c65257fba885
+		summarizeBy: none
+		sourceColumn: deg_urb
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 5db2d46c-3076-4d69-9e9b-a43da6606d57
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column areaprot
+		dataType: string
+		lineageTag: 6de3c88a-8498-4e96-863c-5718c4a755a0
+		summarizeBy: none
+		sourceColumn: areaprot
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_env
+		dataType: string
+		lineageTag: 140aa7b6-86f0-402e-961d-7317b905e7a9
+		summarizeBy: none
+		sourceColumn: indic_env
+
+		annotation SummarizationSetBy = Automatic
+
+	column src_crf
+		dataType: string
+		lineageTag: c1911c09-8500-43b5-af47-7ea74f571364
+		summarizeBy: none
+		sourceColumn: src_crf
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 87ceb0f8-664b-4535-ae6f-9373d3bb8087
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column stk_flow
+		dataType: string
+		lineageTag: eea46aa5-2275-4b15-b37f-5acbca96bdbd
+		summarizeBy: none
+		sourceColumn: stk_flow
+
+		annotation SummarizationSetBy = Automatic
+
+	column seabasin
+		dataType: string
+		lineageTag: a331b010-1464-4f4d-9221-06d92dbd3206
+		summarizeBy: none
+		sourceColumn: seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_Goal12 = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"889aad26-6923-4487-93ce-fe8568b9da95" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="All_SDG 12 to 14"]}[Data],
+				    All_SDG_Goal12_ = #"889aad26-6923-4487-93ce-fe8568b9da95"{[entity="All_SDG_Goal12",version=""]}[Data],
+				    #"Appended Query" = Table.Combine({All_SDG_Goal12_, All_SDG_13_11, All_SDG_13_70a, All_SDG_14_51})
+				in
+				    #"Appended Query"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

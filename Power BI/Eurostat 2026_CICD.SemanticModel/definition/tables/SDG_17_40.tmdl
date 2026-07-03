@@ -1,0 +1,103 @@
+table SDG_17_40
+	lineageTag: b1cd042e-84af-42ed-9d5c-6ffb2a689877
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 88cc79df-f891-45a7-8370-a643868628dd
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: b3191a24-d757-4138-958b-e433caf317b5
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 65473a31-bc31-4cc2-8027-8737b441f4a9
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: ba026dd1-191a-41d2-a58d-c61a2e7bee85
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 1c923edc-fec2-4c8b-b5fa-b13f2057fe69
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: f9025b82-b30b-4e38-9a47-4fe2ad3e26b9
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 043a8dae-e5fd-4fbf-9908-0a9f65488ede
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sector
+		dataType: string
+		lineageTag: efe6b051-4106-47f9-b596-5212351915f5
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column na_item
+		dataType: string
+		lineageTag: 707d05fb-2b06-4538-9d57-8ac4735632ff
+		summarizeBy: none
+		sourceColumn: na_item
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_17_40 = m
+		mode: import
+		queryGroup: 'Goal 17'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_17_40_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_17_40",version=""]}[Data]
+				in
+				    SDG_17_40_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

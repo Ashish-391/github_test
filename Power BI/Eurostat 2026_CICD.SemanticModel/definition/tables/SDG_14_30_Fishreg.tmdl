@@ -1,0 +1,53 @@
+table SDG_14_30_Fishreg
+	isHidden
+	lineageTag: f8f1a117-91af-46eb-920f-4b27d237dbe2
+
+	column Fishreg
+		dataType: string
+		isHidden
+		lineageTag: 68bd101c-e81b-47e5-bbee-0f34b1e6fef9
+		summarizeBy: none
+		sourceColumn: Fishreg
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg_1
+		dataType: string
+		lineageTag: 0cf8f0bc-f499-47c5-aa77-6da0f06095d5
+		summarizeBy: none
+		sourceColumn: fishreg_1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_14_30_Fishreg = m
+		mode: import
+		queryGroup: 'Goal 14'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"0d3b7721-b3ec-44d5-937d-1fb959c3c236" = Source{[Id="0d3b7721-b3ec-44d5-937d-1fb959c3c236"]}[Items],
+				//     #"Renamed Columns" = Table.RenameColumns(#"0d3b7721-b3ec-44d5-937d-1fb959c3c236",{{"ID", "ID.1"}}),
+				//     #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"fishreg"}),
+				//     #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				//     #"Added Conditional Column" = Table.AddColumn(#"Removed Duplicates", "Fishreg", each if [fishreg] = "27_37" then "EU total marine areas" else if [fishreg] = "27" then "Atlantic, Northeast" else if [fishreg] = "37" then "Mediterranean and Black Sea" else null),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Fishreg", type text}, {"fishreg", type text}}),
+				//     #"Renamed Columns1" = Table.RenameColumns(#"Changed Type",{{"fishreg", "fishreg_1"}})
+				// in
+				//     #"Renamed Columns1"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_14_30_Fishreg_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_14_30_Fishreg",version=""]}[Data]
+				in
+				    SDG_14_30_Fishreg_
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

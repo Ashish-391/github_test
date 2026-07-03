@@ -1,0 +1,84 @@
+table SDG
+	excludeFromModelRefresh
+	lineageTag: a6e32d0f-48c3-44db-b467-9d7113b2a37b
+
+	measure Nav2 =
+			SWITCH (
+			    TRUE (),
+			    SELECTEDVALUE ( SDG[Index] ) = 1, "Comparison",
+			    SELECTEDVALUE ( SDG[Index] ) = 2, "Eurostat 2",
+			    SELECTEDVALUE ( SDG[Index] ) = 3, "Eurostat 3",
+			    SELECTEDVALUE ( SDG[Index] ) = 4, "Eurostat 4",
+			    SELECTEDVALUE ( SDG[Index] ) = 5, "Eurostat 5",
+			    SELECTEDVALUE ( SDG[Index] ) = 6, "Eurostat 6",
+			    SELECTEDVALUE ( SDG[Index] ) = 7, "Eurostat 7",
+			    SELECTEDVALUE ( SDG[Index] ) = 8, "Eurostat 8",
+			    SELECTEDVALUE ( SDG[Index] ) = 9, "Eurostat 9",
+			    SELECTEDVALUE ( SDG[Index] ) = 10, "Eurostat 10",
+			    SELECTEDVALUE ( SDG[Index] ) = 11, "Eurostat 11",
+			    SELECTEDVALUE ( SDG[Index] ) = 12, "Eurostat 12",
+			    SELECTEDVALUE ( SDG[Index] ) = 13, "Eurostat 13",
+			    SELECTEDVALUE ( SDG[Index] ) = 14, "Eurostat 14",
+			    SELECTEDVALUE ( SDG[Index] ) = 15, "Eurostat 15",
+			    SELECTEDVALUE ( SDG[Index] ) = 16, "Eurostat 16",
+			    SELECTEDVALUE ( SDG[Index] ) = 17, "Eurostat 17"
+			)
+		lineageTag: 2f2436b0-c88e-47e3-96d2-49af1b4a26a0
+
+	measure Nav_Stats =
+			SWITCH (
+			    TRUE (),
+			    SELECTEDVALUE ( SDG[Index] ) = 1, "Statistics",
+			    SELECTEDVALUE ( SDG[Index] ) = 2, "Statistics 2",
+			    SELECTEDVALUE ( SDG[Index] ) = 3, "Statistics 3",
+			    SELECTEDVALUE ( SDG[Index] ) = 4, "Statistics 4",
+			    SELECTEDVALUE ( SDG[Index] ) = 5, "Statistics 5",
+			    SELECTEDVALUE ( SDG[Index] ) = 6, "Statistics 6",
+			    SELECTEDVALUE ( SDG[Index] ) = 7, "Statistics 7",
+			    SELECTEDVALUE ( SDG[Index] ) = 8, "Statistics 8",
+			    SELECTEDVALUE ( SDG[Index] ) = 9, "Statistics 9",
+			    SELECTEDVALUE ( SDG[Index] ) = 10, "Statistics 10",
+			    SELECTEDVALUE ( SDG[Index] ) = 11, "Statistics 11",
+			    SELECTEDVALUE ( SDG[Index] ) = 12, "Statistics 12",
+			    SELECTEDVALUE ( SDG[Index] ) = 13, "Statistics 13",
+			    SELECTEDVALUE ( SDG[Index] ) = 14, "Statistics 14",
+			    SELECTEDVALUE ( SDG[Index] ) = 15, "Statistics 15",
+			    SELECTEDVALUE ( SDG[Index] ) = 16, "Statistics 16",
+			    SELECTEDVALUE ( SDG[Index] ) = 17, "Statistics 17"
+			)
+		lineageTag: f035d734-babc-43b6-bfc3-efc439ce3ec2
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: f36aeeb1-4d14-4f7f-a2ed-985c2d6f2be4
+		summarizeBy: none
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column SDG
+		dataType: string
+		lineageTag: 1a711fa4-d402-4526-9131-053839fd122a
+		summarizeBy: none
+		sourceColumn: SDG
+		sortByColumn: Index
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("XZHLTsMwEEV/ZdR1K9GW8liiIlVICBXYUXXhOpPE4MwEPxr17xk7hYTuLN9z53Fnt5tsWFmYwwxeGFo+ogunyX56/l/I/wc6hjpShW4QliJsmAuoUdlQg6ICOrR2dkBD1cBdC/calTXhBFhErYJhGuRVKoNUoAP87rFBvBFxbVERdCoIkXp4RSZcFLkV7qEs2RXqYDFjOtuQ0FWjgncCPqJGCtCx+8okaiZujIbKcRfqAb4X+ImK6IM7TcEQ8TH3zS5DpVOiRB2iw8E0vxLXW1oUE3TeyaAfISnrdymrDOV5dQb6sblpIl0aFrmmb5m8yQZ5xKb9G6Z1LA3/ZzJf5vBMI8mBuhTTVZ5NiXBAy10f70he/crSwEqHkZRuskWlcQqfsoPRfd4SBVMlG8tXiKnbeIF0oK1yQc7ha9N6kFtBqBEqkQXc/wA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [SDG = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"SDG", type text}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Changed Type", "Index", 1, 1, Int64.Type),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Index",{"Index", "SDG"})
+				in
+				    #"Reordered Columns"
+
+	annotation PBI_ResultType = Table
+

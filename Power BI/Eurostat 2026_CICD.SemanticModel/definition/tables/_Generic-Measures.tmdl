@@ -1,0 +1,322 @@
+table _Generic-Measures
+	lineageTag: 9f54d4c6-6791-4cd8-8d67-8be48491a8ad
+
+	measure MaxYearMinus3or5 = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			VAR MaxYearVal = [1CY]
+			/* VAR MaxYearMinus5Val = IF((MaxYearVal - 5)=2020,MaxYearVal-4,MaxYearVal-5)
+			VAR MaxYearMinus4Val = IF(( MaxYearVal - 4)=2020,MaxYearVal-3,MaxYearVal-4)
+			VAR MaxYearMinus3Val = IF(( MaxYearVal - 3)=2020, MaxYearVal-4,MaxYearVal-3)
+			Var MaxYearMinus6Val = MaxYearVal - 6 */
+			VAR ExcludedYear = 2020
+			
+			VAR MaxYearMinus5Val =
+			    VAR y1 = MaxYearVal - 5
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus4Val =
+			    VAR y1 = MaxYearVal - 4
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus3Val =
+			    VAR y1 = MaxYearVal - 3
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus6Val =
+			    VAR y1 = MaxYearVal - 6
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			Var sd = BLANK()
+			
+			RETURN
+			    if( indicator = "SDG_15_10",(IF( 
+			        CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_03_30",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_15_50*",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_15_50",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_10_60",sd,
+			        If(CALCULATE(COUNTROWS(FILTER(Goal1, Goal1[Year] = MaxYearMinus5Val && Goal1[CountryAbrv]="EU27_2020")), ALLEXCEPT(Goal1, Goal1[IndicatorValue])) > 0,
+			        CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus5Val,Goal1[CountryAbrv]="EU27_2020"),
+			        If(CALCULATE(COUNTROWS(FILTER(Goal1, Goal1[Year] = MaxYearMinus4Val && Goal1[CountryAbrv]="EU27_2020")), ALLEXCEPT(Goal1, Goal1[IndicatorValue])) > 0,
+			        CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus4Val ,Goal1[CountryAbrv]="EU27_2020"),
+			         CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus3Val,Goal1[CountryAbrv]="EU27_2020")
+			    ))))))),
+			    IF( 
+			        CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_03_30",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_15_50*",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_15_50",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_10_60",sd,
+			        If(CALCULATE(COUNTROWS(FILTER(Goal1, Goal1[Year] = MaxYearMinus5Val && Goal1[CountryAbrv]=countrySelect)), ALLEXCEPT(Goal1, Goal1[IndicatorValue])) > 0,
+			        CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus5Val,Goal1[CountryAbrv]=countrySelect),
+			        If(CALCULATE(COUNTROWS(FILTER(Goal1, Goal1[Year] = MaxYearMinus4Val && Goal1[CountryAbrv]=countrySelect)), ALLEXCEPT(Goal1, Goal1[IndicatorValue])) > 0,
+			        CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus4Val ,Goal1[CountryAbrv]=countrySelect),
+			         CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus3Val,Goal1[CountryAbrv]=countrySelect)
+			    )))))))
+			```
+		lineageTag: da27423d-e49d-4b0b-b91f-e539bd4787fa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ShortTermValue = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			VAR MaxYearVal = [1CY]
+			/* VAR MaxYearMinus3Val = IF(( MaxYearVal - 3)=2020, MaxYearVal-4,MaxYearVal-3)
+			VAR MaxYearMinus4Val = MaxYearVal - 4
+			VAR MaxYearMinus5Val = MaxYearVal - 5
+			Var MaxYearMinus6Val = MaxYearVal - 6 */
+			VAR ExcludedYear = 2020
+			
+			VAR MaxYearMinus5Val =
+			    VAR y1 = MaxYearVal - 5
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus4Val =
+			    VAR y1 = MaxYearVal - 4
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus3Val =
+			    VAR y1 = MaxYearVal - 3
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus6Val =
+			    VAR y1 = MaxYearVal - 6
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			Var sd = BLANK()
+			
+			Var MaxYearMinus3or5_15_10 =  if(indicator = "SDG_15_10", IF( 
+			        CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_03_30",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_15_50*",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_15_50",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_10_60",sd,
+			        If(CALCULATE(COUNTROWS(FILTER(Goal1, Goal1[Year] = MaxYearMinus5Val && Goal1[CountryAbrv]="EU27_2020")), ALLEXCEPT(Goal1, Goal1[IndicatorValue])) > 0,
+			        CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus5Val,Goal1[CountryAbrv]="EU27_2020"),
+			        If(CALCULATE(COUNTROWS(FILTER(Goal1, Goal1[Year] = MaxYearMinus4Val && Goal1[CountryAbrv]="EU27_2020")), ALLEXCEPT(Goal1, Goal1[IndicatorValue])) > 0,
+			        CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus4Val ,Goal1[CountryAbrv]="EU27_2020"),
+			         CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus3Val,Goal1[CountryAbrv]="EU27_2020")
+			    )))))))
+			
+			Var MaxYearMinus3or5 =   IF( 
+			        CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_03_30",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_15_50*",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_15_50",CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(Goal1[IndicatorValue]))="SDG_10_60",sd,
+			        If(CALCULATE(COUNTROWS(FILTER(Goal1, Goal1[Year] = MaxYearMinus5Val && Goal1[CountryAbrv]=countrySelect)), ALLEXCEPT(Goal1, Goal1[IndicatorValue])) > 0,
+			        CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus5Val,Goal1[CountryAbrv]=countrySelect),
+			        If(CALCULATE(COUNTROWS(FILTER(Goal1, Goal1[Year] = MaxYearMinus4Val && Goal1[CountryAbrv]=countrySelect)), ALLEXCEPT(Goal1, Goal1[IndicatorValue])) > 0,
+			        CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus4Val ,Goal1[CountryAbrv]=countrySelect),
+			         CALCULATE(MAX(Goal1[Year]), Goal1[Year] = MaxYearMinus3Val,Goal1[CountryAbrv]=countrySelect)
+			    ))))))
+			RETURN
+			if(indicator = "SDG_15_10",CALCULATE(MAX(Goal1[Value]),Goal1[Year]=MaxYearMinus3or5_15_10,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]="EU27_2020"),
+			CALCULATE(MAX(Goal1[Value]),Goal1[Year]=MaxYearMinus3or5,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]=countrySelect))
+			```
+		lineageTag: 8cd09ecf-5241-41d7-b83e-455ac63f4cbc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Geo = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = IF(indicator="SDG_15_10" || indicator = "SDG_15_20" || indicator = "SDG_15_60","EU27_2020",
+			CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")))
+			RETURN
+			SWITCH(SELECTEDVALUE('Datapoints-List'[Index]),
+			                            /* 1,IF([CY]=BLANK(),"-",FORMAT([CY_value],"0")),
+			                            2,IF([PY]=BLANK(),"-",FORMAT([PY_value],"0")),
+			                           // 3,IF([TY]=BLANK(),"-",FORMAT([TY],"0")),
+			                            4,IF([St]=BLANK(),"-",FORMAT([ST_Value],"0")),
+			                            5,IF([LT]=BLANK(),"",FORMAT([LT_value],"0")),
+			                            6,[YoY_Value],
+			                            7,IF([ST]=BLANK(),"-",[ChangeShort_value]),
+			                            8,[ChangeLongValue],
+			                            17,[PeakValue],
+			                            18,[LowValue],
+			                            19,[ChangePeakValue],
+			                            20,[ChangeLowValue],
+			                            21,[Covid19ImpactValue],
+			                            22,[CovidImpactValue],
+			                            23,[CovidRecovery_Value],
+			                             9,[CAGRShortTerm_Observed],
+			                             12,[CAGRLongTerm_Observed], */
+			                             24,[BestEU_Country],
+			                             25,[BestEU_Country2],
+			                            26,[BestEU_Country3],
+			                            27,[WorstEU_Country],
+			                            28,[WorstEU_Country2],
+			                            29,[WorstEU_Country3],
+			                            IF(country<>BLANK(),country,"EU27_2020")
+			                           /* 10,[CAGRShortTermRequired],
+			                            11,[CAGRShortRatio],
+			                            
+			                            13,[CAGRLongTermRequired],
+			                            14,[CAGRLongRatio],
+			                            
+			                            
+			                            23,[CovidRecoverLabel],
+			                            ,
+			                            
+			                             */
+			                        )
+			```
+		lineageTag: e5085cb9-5595-46d1-a30c-216e07bda925
+
+	measure Units = ```
+			
+			var Unitt = IF(SELECTEDVALUE(Goal1[Unit])=BLANK(),"PC", SELECTEDVALUE(Goal1[Unit]))
+			var BW_unit = IF(SELECTEDVALUE(eu_Goal1[Unit])=BLANK(),"PC", SELECTEDVALUE(eu_Goal1[Unit]))
+			var Unit_LT = IF(CONTAINSSTRING(Unitt, "PC") || Unitt = "I10" || Unitt = "I00" || Unitt = "RT_INC" || Unitt = "I06" || Unitt = "PB" || Unitt = "RAT" || Unitt = "FSTK_BMA_I03" || unitt = "FSTK_MBMED" , "pp","%")
+			var unit = [Unit 2]
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			RETURN
+			SWITCH(SELECTEDVALUE('Datapoints-List'[Index]),
+			//Category = Value 
+			                            1,IF([CY_value]=BLANK(),"",Unitt),
+			                            2,IF([PY_value]=BLANK(),"-",Unitt),
+			                            3,IF([3TY]=BLANK(),"-",Unitt),
+			                            4,IF([ST_Value]=BLANK(),"-",Unitt),
+			                            5,IF([LT_value]=BLANK(),"",Unitt),
+			                            17,IF(indicator="SDG_05_10","-",IF([PeakValue]=BLANK(),"-",Unitt)),
+			                            18,IF(indicator="SDG_05_10","-",IF([LowValue]=BLANK(),"-",Unitt)),
+			//Category = Change Since
+			                            6,IF([PY_value]=BLANK(),"-",Unit_LT),
+			                            7,IF(indicator="SDG_05_10","-",IF([ChangeShort_value]=BLANK(),"-",Unit_LT)),
+			                            8,IF(ISBLANK([ChangeLongValue]),"-",Unit_LT),
+			                            19,IF(ISBLANK([ChangePeakValue]),"-",Unit_LT),
+			                            20,IF([ChangeLowValue]="" ,"-",Unit_LT),
+			                            21,IF(ISBLANK([Covid19ImpactValue]),"-",Unit_LT),
+			                            22,IF([CovidImpactValue]=BLANK(),"-",Unit_LT),
+			                            23,IF([CovidRecovery_Value]=BLANK(),"-",Unit_LT),
+			//Category = CAGR
+			                             9,IF([CAGRShortTerm_Observed]=BLANK() || [ST_Value]=BLANK(),"-","% per year"),
+			                             12,IF(ISBLANK([LT_value]),"-","% per year"),
+			                             10,IF([CAGRShortTerm_Required]=BLANK(),"-","% per year"),
+			                             11,IF([3TY]=BLANK() || [ST_Value]=BLANK(),"-","%"),
+			                             13,IF([CAGRLongTerm_Required]=BLANK(),"-","% per year"),
+			                             14,IF([3TY]=BLANK() || [CAGRRatio_LongTerm]=BLANK(),"-","%"),
+			//Category = MS Comparison
+			                             24,IF(ISBLANK([BestEU_Value]),"-",BW_unit),
+			                             25,IF(ISBLANK([BestEU_Value2]),"-",BW_unit),
+			                            26,IF(ISBLANK([BestEU_Value3]),"-",BW_unit),
+			                            27,IF(ISBLANK([WorstEU_Value]),"-", IF([WorstEU_Value]=0,BW_unit, IF([WorstEU_Value]=BLANK(),"-",BW_unit))),
+			                            28,IF(ISBLANK([WorstEU_Value]),"-",IF([WorstEU_Value2]=0,BW_unit, IF([WorstEU_Value2]=BLANK(),"-",BW_unit))),
+			                            29,IF(ISBLANK([WorstEU_Value]),"-",IF([WorstEU_Value3]=0,BW_unit, IF([WorstEU_Value3]=BLANK(),"-",BW_unit)))
+			                           /*
+			                            23,[CovidRecoverLabel]
+			                             */
+			                        )
+			```
+		lineageTag: e2d2638e-1e38-45ea-862f-dec17cfb372c
+
+	measure MaxxYear = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			RETURN
+			CALCULATE(
+			    MAX(Goal1[Year]),
+			    ALLEXCEPT(Indicators,  Indicators[Indicator]),Goal1[CountryAbrv]=countrySelect,Goal1[UpdatedFromDate]=MAX(Goal1[UpdatedFromDate])
+			)
+			
+			```
+		formatString: 0
+		lineageTag: fa34366b-9bae-496c-8746-034904c47217
+
+	measure MaxYearMinus3or5_Overvieww = ```
+			
+			VAR MaxYearVal = [MaxxYear_Overview]
+			/* VAR MaxYearMinus3Val = IF(( MaxYearVal - 3)=2020, MaxYearVal-4,MaxYearVal-3)
+			VAR MaxYearMinus4Val = MaxYearVal - 4
+			VAR MaxYearMinus5Val = MaxYearVal - 5
+			Var MaxYearMinus6Val = MaxYearVal - 6 */
+			VAR ExcludedYear = 2020
+			
+			VAR MaxYearMinus5Val =
+			    VAR y1 = MaxYearVal - 5
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus4Val =
+			    VAR y1 = MaxYearVal - 4
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus3Val =
+			    VAR y1 = MaxYearVal - 3
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus6Val =
+			    VAR y1 = MaxYearVal - 6
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			Var sd = BLANK()
+			
+			RETURN
+			    IF( 
+			        CALCULATE(MAX(_Goal1_Overview[Indicator]))="SDG_03_30",CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), _Goal1_Overview[TIME_PERIOD] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(_Goal1_Overview[Indicator]))="SDG_15_50*",CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), _Goal1_Overview[TIME_PERIOD] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(_Goal1_Overview[Indicator]))="SDG_15_50",CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), _Goal1_Overview[TIME_PERIOD] = MaxYearMinus6Val),
+			        IF( CALCULATE(MAX(_Goal1_Overview[Indicator]))="SDG_10_60",sd,
+			        If(CALCULATE(COUNTROWS(FILTER(_Goal1_Overview, _Goal1_Overview[TIME_PERIOD] = MaxYearMinus5Val)), ALLEXCEPT(Indicators, Indicators[Indicator])) > 0,
+			        CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), _Goal1_Overview[TIME_PERIOD] = MaxYearMinus5Val),
+			        If(CALCULATE(COUNTROWS(FILTER(_Goal1_Overview, _Goal1_Overview[TIME_PERIOD] = MaxYearMinus4Val)), ALLEXCEPT(Indicators, Indicators[Indicator])) > 0,
+			        CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), _Goal1_Overview[TIME_PERIOD] = MaxYearMinus4Val),
+			         CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]), _Goal1_Overview[TIME_PERIOD] = MaxYearMinus3Val)
+			    ))))))
+			```
+		formatString: 0
+		lineageTag: 8f43fa8f-8b01-4221-bcaf-34264f7425d6
+
+	measure 'Unit 2' = SELECTEDVALUE(eu_Goal1[Unit])
+		lineageTag: 062aa576-bf6a-4fb2-9a1a-9b5971b25a76
+
+	measure MaxxYear_Overview =
+			
+			var a = SELECTEDVALUE(_Goal1_Overview[Indicator])
+			RETURN
+			CALCULATE(
+			    MAX(_Goal1_Overview[TIME_PERIOD]),
+			    ALLEXCEPT(Indicators,  Indicators[Indicator])
+			)
+		formatString: 0
+		lineageTag: e38503cd-c974-446f-8502-0ae5bd956763
+
+	measure 'Special-Color Formatting_06_60' = IF(MAX('Datapoints-List'[Index])=9 || MAX('Datapoints-List'[Index])=12 , 2,IF(_Values[Value_Calculation]<0,1))
+		formatString: 0
+		lineageTag: 479844e6-108a-437e-bced-7dd243395332
+
+	measure 'Red Formatting 14_60' = ```
+			IF(MAX('Datapoints-List'[Index]) = 9,2,
+			                        IF(MAX('Datapoints-List'[Index]) = 12,3,
+			                                IF([Value_Calculation] < 0,1)  
+			))
+			 
+			```
+		formatString: 0
+		lineageTag: 0a239e8f-8d7e-42a0-ba60-e450d7f07d20
+
+	partition _Generic-Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

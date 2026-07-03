@@ -1,0 +1,94 @@
+table SDG_ilc_mdho06d
+	isHidden
+	lineageTag: 47739a6c-8cce-4893-8a03-38e88b0e2119
+
+	column TIME_PERIOD
+		dataType: double
+		isHidden
+		lineageTag: 5cfd276a-429c-44ff-aeb6-6b3402042da3
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cities
+		dataType: double
+		isHidden
+		lineageTag: 7d0dd922-eeb7-4fa9-b033-1c399c4590c2
+		summarizeBy: sum
+		sourceColumn: Cities
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Towns and suburbs'
+		dataType: double
+		isHidden
+		lineageTag: d0765f65-4033-4d49-8499-31f13df96ea9
+		summarizeBy: sum
+		sourceColumn: Towns and suburbs
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Rural areas'
+		dataType: double
+		isHidden
+		lineageTag: 74ee4343-b346-4662-b933-60e41a02341c
+		summarizeBy: sum
+		sourceColumn: Rural areas
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		isHidden
+		lineageTag: 2c16b23c-1df2-4747-9f04-d6e547db4315
+		summarizeBy: none
+		sourceColumn: Geo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 693e164c-e051-4a76-ad62-634d7b0c86f0
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_ilc_mdho06d = m
+		mode: import
+		queryGroup: 'Goal 1'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"238281b2-c170-4491-b22a-2ad63536f76a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 1"]}[Data],
+				    SDG_ilc_mdho06d_ = #"238281b2-c170-4491-b22a-2ad63536f76a"{[entity="SDG_ilc_mdho06d",version=""]}[Data]
+				in
+				    SDG_ilc_mdho06d_
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

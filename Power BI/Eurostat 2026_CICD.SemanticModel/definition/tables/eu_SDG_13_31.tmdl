@@ -1,0 +1,72 @@
+table eu_SDG_13_31
+	lineageTag: 124a12a2-8be7-4e48-8ddf-39dddc446e06
+
+	column Year
+		dataType: double
+		lineageTag: 6acb24d4-cc05-4c23-8117-e7379bca46fd
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 94bdd5cd-f7a0-4ef2-a332-fbf30d45a535
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		lineageTag: c66e5b06-714f-4942-a65a-828116483c9e
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 214db690-1553-4c64-b9ad-b87f011b2b90
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 72c41e7a-202d-4506-a716-4b00d99640b7
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 80be7abf-b8b5-4b97-bd14-134e8786ec3a
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_SDG_13_31 = m
+		mode: import
+		queryGroup: EU-Goal1\EU_Goal13
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+				    SDG_13_31_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="SDG_13_31",version=""]}[Data]
+				in
+				    SDG_13_31_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

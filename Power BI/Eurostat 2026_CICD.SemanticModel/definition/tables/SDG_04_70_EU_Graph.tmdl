@@ -1,0 +1,100 @@
+table SDG_04_70_EU_Graph
+	lineageTag: f5607694-0629-475e-a7aa-ec456c40a950
+
+	column TIME_PERIOD
+		dataType: string
+		lineageTag: 0d8d4ae9-dd18-49bb-aafb-1aadb043a651
+		summarizeBy: none
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: string
+		lineageTag: ff8f3d71-c450-49f1-a364-8eea76235cbf
+		summarizeBy: none
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: f1a26cfe-b316-485d-85d5-eb102503d93a
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 5f0ee5e5-fd14-4a15-bd2e-c123b1d10fda
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indic_is
+		dataType: string
+		lineageTag: 0ff25f3b-a801-456a-8383-619c06bb0e45
+		summarizeBy: none
+		sourceColumn: Indic_is
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ind_type
+		dataType: string
+		lineageTag: 6005733e-bbb0-44f0-8b03-6a0c87bc42d5
+		summarizeBy: none
+		sourceColumn: Ind_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: a75f7289-3294-43aa-afa2-4e26c76be50a
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 3ced14f9-c1fb-47e1-b112-3cf46bca3910
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: 069bef4b-fee7-491f-97fc-d7a3dc02b722
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIME-PERIOD
+		dataType: string
+		lineageTag: 376cb928-b88f-4394-8c7a-e971371855a5
+		summarizeBy: none
+		sourceColumn: TIME-PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_04_70_EU_Graph = m
+		mode: import
+		queryGroup: 'Goal 4'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows([]),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cc0fa450-fa6f-471a-bef0-4056b78f3912" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 4"]}[Data],
+				    SDG_04_70_EU_Graph_ = #"cc0fa450-fa6f-471a-bef0-4056b78f3912"{[entity="SDG_04_70_EU_Graph",version=""]}[Data]
+				in
+				    SDG_04_70_EU_Graph_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

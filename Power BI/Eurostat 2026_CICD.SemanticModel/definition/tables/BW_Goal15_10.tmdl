@@ -1,0 +1,77 @@
+table BW_Goal15_10
+	lineageTag: ffa5c246-c613-4984-b53c-f9aa2f84fc2e
+
+	column Year
+		formatString: 0
+		lineageTag: b0be001c-8ba7-416b-a6b6-42d04da2917b
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 13bf5dea-c5d5-482f-8248-1cc8c282df19
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: f24767a8-0f9e-41ee-89d1-83c1e9ed1085
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_15_10"
+			var maxTime_Period = CALCULATE(MAX(All_SDG_Goal15[TIME_PERIOD]),All_SDG_Goal15[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal15_10[Year]=maxTime_Period,maxTime_Period&BW_Goal15_10[Value],BLANK())
+		dataType: double
+		lineageTag: 214da468-6e80-4ed0-b244-2d700a79704e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal15_10 = calculated
+		mode: import
+		source =
+				
+				
+				var indicator = "SDG_15_10"
+				var landcover = "TOT_FAO"
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal15'[Time_Period]),'All_SDG_Goal15'[Indicator]=indicator,'All_SDG_Goal15'[Geo]="EU27_2020", 'All_SDG_Goal15'[landcover] = landcover)
+				
+				RETURN
+				
+				    SELECTCOLUMNS (
+				
+				        FILTER
+				
+				('All_SDG_Goal15',('All_SDG_Goal15'[Time_Period]= maxTime_Period
+				
+				||
+				
+				'All_SDG_Goal15'[Time_Period]=maxTime_Period-3
+				
+				) && 'All_SDG_Goal15'[Indicator]=indicator && 'All_SDG_Goal15'[landcover] = landcover),
+				
+				        "Year", 'All_SDG_Goal15'[Time_Period],
+				
+				        "Value", 'All_SDG_Goal15'[OBS_VALUE],
+				
+				        "Geo", 'All_SDG_Goal15'[Geo]
+				
+				    )
+
+	annotation PBI_Id = 5b3bbcd467e24094b3e24a259b0b62c8
+

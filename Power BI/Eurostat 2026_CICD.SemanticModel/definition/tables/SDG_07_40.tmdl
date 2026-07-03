@@ -1,0 +1,100 @@
+table SDG_07_40
+	lineageTag: 9e11c170-0170-4c3a-97d0-023ec053603a
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 643c5e5f-93de-4e4a-91d9-68f64cb202ed
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: b8a29d00-907d-4feb-afc9-8d2c2a307765
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 730fe7ab-d9c1-4a38-bb3a-c143dfb2a295
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 4e119907-80b5-41a0-9be6-8529cecbcf15
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 66aa38c6-12cc-4fac-a889-27b9c92e0435
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 95593158-ddeb-479b-a86f-c6fe61eb5089
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column nrg_bal
+		dataType: string
+		isHidden
+		lineageTag: 4e286d3c-70d2-46e6-9161-99e52c8dc498
+		summarizeBy: none
+		sourceColumn: nrg_bal
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: ac52c63c-2709-4cb9-a60e-ab6abe89daf0
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_07_40 = m
+		mode: import
+		queryGroup: 'Goal 7'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"69f78a02-1390-4995-9d19-f85df1dc3e57" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 7"]}[Data],
+				    SDG_07_40_ = #"69f78a02-1390-4995-9d19-f85df1dc3e57"{[entity="SDG_07_40",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SDG_07_40_,{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

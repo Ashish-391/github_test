@@ -1,0 +1,121 @@
+table All_SDG_11_11_EUGraph
+	lineageTag: ed7d4d3f-d7f4-426e-a777-62d4ad5ea426
+
+	column TIME_PERIOD
+		formatString: 0
+		lineageTag: 607d6e83-c6c1-46cf-ac68-79b552f0558f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: All_sdg_11_11[TIME_PERIOD]
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		lineageTag: cae08013-1bd2-48ec-9cc8-14ac1152625a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: All_sdg_11_11[OBS_VALUE]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_FLAG
+		lineageTag: abc18a85-ca77-43fb-a2af-617788b48360
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_sdg_11_11[OBS_FLAG]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		lineageTag: cbb9a805-7ebd-4e01-adb6-812e714b26af
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_sdg_11_11[Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		lineageTag: e66edbc6-0221-4223-982a-58cfd68cc52e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_sdg_11_11[Unit]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		lineageTag: ae9597d1-017b-4143-8827-96a5f196b3c3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_sdg_11_11[Sex]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		lineageTag: 3383e541-ae62-43c6-8424-49ac4362eb12
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_sdg_11_11[Freq]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		lineageTag: 56211c02-5539-4782-91cf-63369467d7e5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_sdg_11_11[Age]
+
+		annotation SummarizationSetBy = Automatic
+
+	column INCGRP
+		lineageTag: e46ea944-7e91-443a-93a7-2fb05c29410e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_sdg_11_11[INCGRP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		lineageTag: f0067f07-f581-4ae9-b814-b3d91c8156c0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_sdg_11_11[Indicator]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting = ```
+			
+			var maxYear = CALCULATE(MAX(All_sdg_11_11[TIME_PERIOD]),All_sdg_11_11[Geo]="EU27_2020")
+			RETURN
+			IF
+			(All_SDG_11_11_EUGraph[TIME_PERIOD]=
+			maxYear,
+			maxYear&All_SDG_11_11_EUGraph[OBS_VALUE],
+			BLANK
+			())
+			
+			```
+		dataType: double
+		lineageTag: d7f76648-636f-4450-903e-2d07f1ec04d7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition All_SDG_11_11_EUGraph = calculated
+		mode: import
+		source = ```
+				
+				var maxYear = CALCULATE(MAX(All_sdg_11_11[TIME_PERIOD]),All_sdg_11_11[Geo]="EU27_2020")
+				RETURN
+				FILTER
+				(All_SDG_11_11,(All_SDG_11_11[TIME_PERIOD]=
+				maxYear) || All_SDG_11_11[TIME_PERIOD]= (maxYear - 5)
+				)
+				
+				```
+
+	annotation PBI_Id = 254fbce81bb048649faa000d6caea0ee
+

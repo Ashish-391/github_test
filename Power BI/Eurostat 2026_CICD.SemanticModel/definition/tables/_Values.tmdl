@@ -1,0 +1,716 @@
+table _Values
+	lineageTag: 088c4dc6-1330-43ea-a4d8-36c2fccfa59f
+
+	measure CY_value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var CY = CALCULATE(MAX('Goal1'[Year]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]))
+			RETURN
+			if(indicator ="SDG_15_10",CALCULATE(MAX(Goal1[Value]),Goal1[Year]=CY,Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate])),
+			CALCULATE(MAX(Goal1[Value]),Goal1[Year]=CY,Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate])))
+			```
+		lineageTag: 431e3aeb-1f7d-4f94-9575-1ab06a5168dd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure PY_value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var CY = CALCULATE(MAX('Goal1'[Year]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]))
+			var py = [2PY]
+			RETURN
+			if(indicator = "SDG_15_10",CALCULATE(MAX(Goal1[Value]),Goal1,Goal1[Year]=py,Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate])),
+			CALCULATE(MAX(Goal1[Value]),Goal1,Goal1[Year]=py,Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate])))
+			```
+		lineageTag: f9e8b99a-c7b9-49da-b380-1195cc7cb3ae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ST_Value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			//VAR MaxYearVal = [1CY]
+			//VAR MaxYearMinus5Val = MaxYearVal - 5
+			var ShortTermYear = [4ST]
+			RETURN
+			if(indicator = "SDG_15_10",CALCULATE(MAX(Goal1[Value]),Goal1[Year]=ShortTermYear,Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate])),
+			CALCULATE(MAX(Goal1[Value]),Goal1[Year]=ShortTermYear,Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate])))
+			```
+		lineageTag: c345f422-aabf-44cf-864c-a4fc4761e76b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure LT_value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			VAR Max_Year = CALCULATE(MAX(Goal1[Year]),ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]=countrySelect)
+			VAR Max_Year15_10 = CALCULATE(MAX(Goal1[Year]),ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]="EU27_2020")
+			var min_year = CALCULATE(MIN(Goal1[Year]),ALLSELECTED(Goal1[UpdatedFromDate]))
+			//var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			//var value = CALCULATE(MAX(Goal1[Value]
+			var longtermCalc = 
+			IF(indicator="SDG_15_50",Max_Year -16,
+			IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 15 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-15,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 14 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-14,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 13 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-13,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 12 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-12,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 11 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-11,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 10 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-10,BLANK()
+			     )))))
+			     
+			     ))
+			
+			var longtermCalc_15_10 = 
+			IF(indicator="SDG_15_50",Max_Year -16,
+			IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year15_10 - 15 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]="EU27_2020")) > 0,
+			     Max_Year15_10-15,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year15_10 - 14 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]="EU27_2020")) > 0,
+			     Max_Year15_10-14,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year15_10 - 13 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]="EU27_2020")) > 0,
+			     Max_Year15_10-13,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year15_10 - 12 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]="EU27_2020")) > 0,
+			     Max_Year15_10-12,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year15_10 - 11 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]="EU27_2020")) > 0,
+			     Max_Year15_10-11,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year15_10 - 10 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]="EU27_2020")) > 0,
+			     Max_Year15_10-10,BLANK()
+			     )))))
+			     
+			     ))
+			
+			
+			RETURN
+			
+			if( indicator = "SDG_15_10",CALCULATE(MAX(Goal1[Value]),Goal1[Year]=longtermCalc_15_10,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]="EU27_2020"),
+			CALCULATE(MAX(Goal1[Value]),Goal1[Year]=longtermCalc,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]=countrySelect))
+			```
+		lineageTag: 579c4248-477b-46a5-b98e-9aad36b4ef21
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YoY_Value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var unit = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			var unit15_10 = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			//var unit2 = CONTAINSSTRING(unit,"PC")
+			RETURN
+			if(indicator = "SDG_15_10",IF(CONTAINSSTRING(unit15_10,"PC"),IF(ISBLANK([PY_value]),BLANK(),ROUND([CY_value]-[PY_value],4)),IF(unit15_10="I10" || unit15_10 = "I00" || unit15_10="RT" || unit15_10="RT_INC" || unit15_10="RAT" || unit15_10 = "FSTK_BMA_I03" || unit15_10 = "FSTK_MBMED" ,IF([PY_value]=0,BLANK(),ROUND([CY_value]-[PY_value],4)),IF([PY_value]=0,BLANK(),ROUND((([CY_value]/[PY_value])-1)*100,4)))),
+			
+			IF(CONTAINSSTRING(unit,"PC"),IF(ISBLANK([PY_value]),BLANK(),ROUND([CY_value]-[PY_value],4)),IF(unit="I10" || unit = "I00" ||  unit="RT_INC" || unit="RAT" || unit = "FSTK_BMA_I03" || unit = "FSTK_MBMED" ,IF([PY_value]=0,BLANK(),ROUND([CY_value]-[PY_value],4)),IF([PY_value]=0,BLANK(),ROUND((([CY_value]/[PY_value])-1)*100,4)))))
+			//SWITCH(unit,"PC",IF([PY_value]=0,BLANK(),[CY_value]-[PY_value]),"I10",IF([PY_value]=0,BLANK(),[CY_value]-[PY_value]),IF([PY_value]=0,BLANK(),ROUND((([CY_value]/[PY_value])-1)*100,2)))
+			```
+		lineageTag: 2cc66bc2-c0e5-4707-aff5-0559fb1f6147
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure PeakValue = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var maxvalue = CALCULATE(MAX(Goal1[Value]),ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]=countrySelect,Goal1[IndicatorValue]=indicator)
+			var peakyear = CALCULATE(MAX(Goal1[Year]),Goal1[Value]=maxvalue,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator,Goal1[CountryAbrv]=countrySelect)
+			RETURN
+			if( indicator = "SDG_15_10", CALCULATE(MAX(Goal1[Value]),Goal1[Year]=peakyear,Goal1[IndicatorValue]=indicator,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]="EU27_2020"),
+			CALCULATE(MAX(Goal1[Value]),Goal1[Year]=peakyear,Goal1[IndicatorValue]=indicator,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]=countrySelect))
+			```
+		lineageTag: ad6b9381-06b4-4385-9c20-c9b70fe0f8c8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure LowValue = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var minvalue = CALCULATE(MIN(Goal1[Value]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			var lowyear = CALCULATE(MAX(Goal1[Year]),Goal1[Value]=minvalue,Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			
+			var minvalue15_10 = CALCULATE(MIN(Goal1[Value]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			var lowyear15_10 = CALCULATE(MAX(Goal1[Year]),Goal1[Value]=minvalue15_10,Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			
+			RETURN
+			if(indicator = "SDG_15_10",CALCULATE(MAX(Goal1[Value]),Goal1[Year]=lowyear15_10,Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator),
+			CALCULATE(MAX(Goal1[Value]),Goal1[Year]=lowyear,Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator))
+			```
+		lineageTag: 31c5c3a2-33d8-4f68-9db0-6bb7e81ef9a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ChangeShort_value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var unit = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]))
+			var unit15_10 = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]))
+			RETURN
+			
+			if(indicator = "SDG_15_10",IF(CONTAINSSTRING(unit15_10,"PC"),[CY_value]-[ST_Value],IF(unit15_10="I10" || unit15_10 = "I00" || unit15_10 = "RT" || unit15_10="RT_INC" || unit15_10="RAT" || unit15_10 = "FSTK_BMA_I03" || unit15_10 = "FSTK_MBMED",[CY_value]-[ST_Value],IF([ST_Value]=0,BLANK(),(([CY_value]/[ST_Value])-1)*100))),
+			
+			IF(CONTAINSSTRING(unit,"PC"),[CY_value]-[ST_Value],IF(unit="I10" || unit = "I00" || unit="RT_INC" || unit="RAT" || unit = "FSTK_BMA_I03" || unit = "FSTK_MBMED",[CY_value]-[ST_Value],IF([ST_Value]=0,BLANK(),(([CY_value]/[ST_Value])-1)*100))))
+			/* SWITCH(unit,"PC",[CY_value]-[ST_Value],"I10",[CY_value]-[ST_Value],
+			IF([ST_Value]=0,BLANK(),(([CY_value]/[ST_Value])-1)*100)) */
+			```
+		lineageTag: e0266318-bd82-4373-b671-beeaa01c3ad0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ChangeLongValue = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var unit = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]))
+			var unit15_10 = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]))
+			
+			RETURN
+			
+			if(indicator = "SDG_15_10",  IF([LT_value]=0,BLANK(),
+			IF(CONTAINSSTRING(unit15_10, "PC"),[CY_value]-[LT_value],If(unit15_10="I10" || unit15_10 = "I00" || unit15_10="RT_INC" || unit15_10="RAT" || unit15_10 = "FSTK_MBMED" || unit15_10 = "FSTK_BMA_I03",[CY_value]-[LT_value],((([CY_value]/[LT_value])-1)*100)))) ,
+			
+			 IF([LT_value]=0,BLANK(),
+			IF(CONTAINSSTRING(unit , "PC"),[CY_value]-[LT_value],If(unit="I10" || unit = "I00"  || unit="RT_INC" || unit="RAT" || unit = "FSTK_MBMED" || unit = "FSTK_BMA_I03",[CY_value]-[LT_value],((([CY_value]/[LT_value])-1)*100)))))
+			```
+		lineageTag: db71e173-1b34-4ade-8b02-72bbf07f5926
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ChangePeakValue = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var unit = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]))
+			var unit15_10 = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]))
+			RETURN
+			if( indicator ="SDG_15_10",
+			IF(indicator="SDG_04_20" || indicator="SDG_04_20*" ,ROUND([CY_value]-[PeakValue],4),
+			IF(CONTAINSSTRING(unit15_10,"PC"),[CY_value]-[PeakValue],IF(unit15_10="I10" || unit15_10= "I00" || unit15_10= "RT" || unit15_10="RT_INC" || unit15_10="RAT" || unit15_10 = "FSTK_BMA_I03" || unit15_10 = "FSTK_MBMED",[CY_value]-[PeakValue],(DIVIDE([CY_value]-[PeakValue],[PeakValue])*100)))),
+			
+			
+			IF(indicator="SDG_04_20" || indicator="SDG_04_20*" ,ROUND([CY_value]-[PeakValue],4),
+			IF(CONTAINSSTRING(unit,"PC"),[CY_value]-[PeakValue],IF(unit="I10" || unit = "I00" || unit="RT_INC" || unit="RAT" || unit = "FSTK_BMA_I03" || unit = "FSTK_MBMED",[CY_value]-[PeakValue],(DIVIDE([CY_value]-[PeakValue],[PeakValue])*100)))))
+			
+			
+			
+			
+			
+			/* SWITCH(unit,"PC",[CY_value]-[PeakValue],"I10",[CY_value]-[PeakValue],
+			ROUND(DIVIDE([CY_value]-[PeakValue],[PeakValue])*100,2)) */
+			```
+		lineageTag: 7b562bd8-3e6f-40e0-b925-304e679f47f2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ChangeLowValue = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var unit = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]))
+			var unit15_10 = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]))
+			
+			var finalValue = If(CONTAINSSTRING(unit,"PC"),[CY_value]-[LowValue],If(unit="I10" || unit = "I00"  || unit="RT_INC" || unit="RAT" || unit = "FSTK_BMA_I03" || unit = "FSTK_MBMED",[CY_value]-[LowValue],ROUND(DIVIDE([CY_value]-[LowValue],[LowValue])*100,2)))
+			
+			var finalValue15_10 = If(CONTAINSSTRING(unit15_10,"PC"),[CY_value]-[LowValue],If(unit15_10="I10" || unit15_10 = "I00" || unit15_10 = "RT" || unit15_10="RT_INC" || unit15_10="RAT" || unit15_10 = "FSTK_BMA_I03" || unit15_10 = "FSTK_MBMED",[CY_value]-[LowValue],ROUND(DIVIDE([CY_value]-[LowValue],[LowValue])*100,2)))
+			
+			RETURN
+			if(indicator = "SDG_15_10",IF([LowValue]=BLANK(),"",finalValue15_10),
+			IF([LowValue]=BLANK(),"",finalValue))
+			/* SWITCH(unit,"PC",[CY_value]-[LowValue],"I10",[CY_value]-[LowValue],
+			ROUND(DIVIDE([CY_value]-[LowValue],[LowValue])*100,2)) */
+			```
+		lineageTag: 7d33634c-59a3-4bb1-8640-55c01ea513b1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Covid19Value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			RETURN
+			if(indicator = "SDG_15_10",CALCULATE(MAX(Goal1[Value]),Goal1[Year]=2019,Goal1[IndicatorValue]=indicator,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]="EU27_2020"),
+			CALCULATE(MAX(Goal1[Value]),Goal1[Year]=2019,Goal1[IndicatorValue]=indicator,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]=countrySelect))
+			```
+		lineageTag: 37c8cb24-0917-4fa0-9b31-b50e1b35b373
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Covid20Value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			RETURN
+			if(indicator ="SDG_15_10",CALCULATE(MAX(Goal1[Value]),Goal1[Year]=2020,Goal1[IndicatorValue]=indicator,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]="EU27_2020"),
+			CALCULATE(MAX(Goal1[Value]),Goal1[Year]=2020,Goal1[IndicatorValue]=indicator,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]=countrySelect))
+			```
+		lineageTag: 517a98c9-8d4c-4272-be5a-e87abcae9a78
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CovidImpactValue = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var unit = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]))
+			var unit15_10 = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]))
+			var finalValue = IF(CONTAINSSTRING(unit,"PC"),[CY_value]-[Covid19Value],IF(unit="I10" || unit = "I00" || unit="RT_INC"|| unit="RAT" || unit = "FSTK_BMA_I03" || unit = "FSTK_MBMED",[CY_value]-[Covid19Value],(([CY_value]-[Covid19Value])/[Covid19Value])*100))
+			
+			var finalValue15_10 = IF(CONTAINSSTRING(unit15_10,"PC"),[CY_value]-[Covid19Value],IF(unit15_10="I10" || unit15_10 = "I00" || unit15_10 = "RT" || unit15_10="RT_INC"|| unit15_10="RAT" ||unit15_10 = "FSTK_BMA_I03" || unit15_10 = "FSTK_MBMED",[CY_value]-[Covid19Value],(([CY_value]-[Covid19Value])/[Covid19Value])*100))
+			
+			RETURN
+			if(indicator ="SDG_15_10",IF([Covid19Value]=BLANK(),"",finalValue15_10),
+			IF([Covid19Value]=BLANK(),"",finalValue))
+			/* SWITCH(unit,"PC",[CY_value]-[Covid19Value],"I10",[CY_value]-[Covid19Value],
+			ROUND((([CY_value]-[Covid19Value])/[Covid19Value])*100,2)) */
+			```
+		lineageTag: 0812fcc6-274e-4e94-8879-0de872aa5645
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Covid19ImpactValue = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var unit = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			var unit15_10 = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			
+			var finalValue = IF(CONTAINSSTRING(unit,"PC"),[Covid20Value]-[Covid19Value],
+			        IF(unit="I10" || unit = "I00" || unit="RT_INC"|| unit="RAT" || unit = "FSTK_MBMED" || unit = "FSTK_BMA_I03",[Covid20Value]-[Covid19Value],(([Covid20Value]-[Covid19Value])/[Covid19Value])*100))
+			
+			var finalValue15_10 = IF(CONTAINSSTRING(unit15_10,"PC"),[Covid20Value]-[Covid19Value],
+			        IF(unit15_10="I10" || unit15_10 = "I00" || unit15_10= "RT" || unit15_10="RT_INC"|| unit15_10="RAT" || unit15_10 = "FSTK_MBMED" || unit15_10= "FSTK_BMA_I03",[Covid20Value]-[Covid19Value],(([Covid20Value]-[Covid19Value])/[Covid19Value])*100))
+			RETURN
+			if( indicator ="SDG_15_10",IF([Covid19Value]=BLANK() || [Covid20Value]=BLANK() ,"",finalValue15_10),
+			IF([Covid19Value]=BLANK() || [Covid20Value]=BLANK() ,"",finalValue))
+			/* SWITCH(unit,"PC",[Covid20Value]-[Covid19Value],"I10",[Covid20Value]-[Covid19Value],
+			(([Covid20Value]-[Covid19Value])/[Covid19Value])*100) */
+			```
+		lineageTag: 76361b07-e885-42ca-bb78-0a809522d3c4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CovidRecovery_Value = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var unit = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			var unit15_10 = CALCULATE(MAX('Goal1'[Unit]),Goal1[CountryAbrv]="EU27_2020",ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator)
+			
+			var finalValue = IF(CONTAINSSTRING(unit ,"PC"),[CY_value]-[Covid20Value],IF(unit= "I10" || unit = "I00" || unit="RT_INC"|| unit="RAT" || unit = "FSTK_BMA_I03" || unit = "FSTK_MBMED",[CY_value]-[Covid20Value],((([CY_value]-[Covid20Value])/[Covid20Value])*100)))
+			
+			var finalValue15_10 = IF(CONTAINSSTRING(unit15_10 ,"PC"),[CY_value]-[Covid20Value],IF(unit15_10= "I10" || unit15_10 = "I00" || unit15_10 ="RT" || unit15_10="RT_INC"|| unit15_10="RAT" || unit15_10 = "FSTK_BMA_I03" || unit15_10 = "FSTK_MBMED",[CY_value]-[Covid20Value],((([CY_value]-[Covid20Value])/[Covid20Value])*100)))
+			
+			RETURN
+			
+			if(indicator ="SDG_15_10",IF((indicator="SDG_04_70" || indicator="SDG_04_40" || indicator="SSG_04_40" || indicator="SMG_04_40" || indicator="SDG_15_50") && [Covid20Value]=BLANK(),"",
+			IF(([Covid20Value]=BLANK() && [CY_value]=BLANK()) || [Covid20Value]=BLANK() ,"",finalValue15_10)),
+			
+			IF((indicator="SDG_04_70" || indicator="SDG_04_40" || indicator="SSG_04_40" || indicator="SMG_04_40" || indicator="SDG_15_50") && [Covid20Value]=BLANK(),"",
+			IF(([Covid20Value]=BLANK() && [CY_value]=BLANK()) || [Covid20Value]=BLANK() ,"",finalValue))
+			/* SWITCH(unit,"PC",[CY_value]-[Covid20Value],/* "I10",[CY_value]-[Covid20Value], */
+			ROUND((([CY_value]-[Covid20Value])/[Covid20Value])*100,2)) */)
+			```
+		lineageTag: b1bc6201-6c3c-49b6-9dca-ca3afa3a0a20
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CAGRShortTerm_Observed =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var shortExpo = [1CY]-[MaxYearMinus3or5]
+			var expo = 1/shortExpo
+			RETURN
+			IF([4ST]=BLANK() || indicator="SDG_10_60",BLANK(), IF(indicator= "SDG_06_60" || indicator= "SDG_14_60" || indicator= "SDG_15_42",((([Moving Avgg]/[ShortTerm Moving Avgg])^(expo)-1)*100),
+			 ((([CY_value]/[ShortTermValue])^(expo)-1)*100)))
+		lineageTag: c77e8de8-25ab-46bd-8f54-6d9e975bc4ff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CAGRLongTerm_Observed = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			var Max_Year = CALCULATE(MAX('Goal1'[Year]),Goal1[CountryAbrv]=countrySelect,ALLSELECTED(Goal1[UpdatedFromDate]))
+			var longexpo = 
+			IF(indicator="SDG_15_50",16,
+			IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 15 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     15,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 14 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     14,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 13 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     13,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 12 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     12,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 11 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     11,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 10 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     10,BLANK()
+			     )))))
+			     
+			     ))
+			
+			var longexpo14_60 = 
+			IF(indicator="SDG_15_50",16,
+			IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 15 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=country)) > 0,
+			     15,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 14 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=country)) > 0,
+			     14,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 13 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=country)) > 0,
+			     13,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 12 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=country)) > 0,
+			     12,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 11 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=country)) > 0,
+			     11,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 10 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=country)) > 0,
+			     10,BLANK()
+			     )))))
+			     
+			     ))
+			var longexpo15_42 = 
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 14 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     14,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 13 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     13,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 12 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     12,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 11 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     11,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 10 && NOT ISBLANK(Goal1[Value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     10,BLANK()
+			     )))))
+			var expo = 1/longexpo
+			var expo14_60 = 1/longexpo14_60
+			var expo15_42=1/longexpo15_42
+			RETURN
+			IF(ISBLANK([5LT]),BLANK(),
+			IF(indicator="SDG_15_42", ((([Moving Avgg]/[Long Term Moving Avgg])^expo15_42)-1)*100,
+			IF(indicator="SDG_06_60" ,((([Moving Avgg]/[Long Term Moving Avgg])^expo)-1)*100,if(indicator="SDG_14_60",((([Moving Avgg]/[Long Term Moving Avgg])^expo14_60)-1)*100,
+			(((([CY_value]/[LT_value])^(expo))-1)*100)))))
+			```
+		lineageTag: 61a92b6a-7900-48b6-8c4d-6b687a244c92
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Value_Calculation = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			RETURN
+			SWITCH(SELECTEDVALUE('Datapoints-List'[Index]),
+			                            1,IF([1CY]=BLANK(),"",[CY_value]),
+			                            2,IF([2PY]=BLANK(),"",[PY_value]),
+			                            3,IF([3TY]=BLANK(),"",[Target_Value]),
+			                            4,IF([4St]=BLANK(),"",[ST_Value]),
+			                            5,IF([5LT]=BLANK(),"",[LT_value]),
+			                            6,IF([2PY]=BLANK(),"",[YoY_Value]),
+			                            7,IF(indicator="SDG_05_10","",IF([4ST]=BLANK(),"",[ChangeShort_value])),
+			                            8,[ChangeLongValue],
+			                            17,IF(indicator="SDG_05_10","",[PeakValue]),
+			                            18,IF(indicator="SDG_05_10","",[LowValue]),
+			                            19,IF(indicator="SDG_05_10","",[ChangePeakValue]),
+			                            20,IF(indicator="SDG_05_10","",[ChangeLowValue]),
+			                            21,[Covid19ImpactValue],
+			                            22,[CovidImpactValue],
+			                            23,[CovidRecovery_Value],
+			                             9,IF([4St]=BLANK() ,"",[CAGRShortTerm_Observed]),
+			                             12,IF([5LT]=BLANK() ,"",[CAGRLongTerm_Observed]),
+			                             24,[BestEU_Value],
+			                             25,[BestEU_Value2],
+			                            26,[BestEU_Value3],
+			                            27,[WorstEU_Value],
+			                            28,[WorstEU_Value2],
+			                            29,[WorstEU_Value3],
+			                            10,IF([3TY]=BLANK()||[4St]=BLANK() ,"",[CAGRShortTerm_Required]),
+			                            11,IF([3TY]=BLANK()||[4St]=BLANK(),"",[CAGRRatio_ShortTerm]),
+			                            
+			                            13,IF([3TY]=BLANK()||[5LT]=BLANK(),"",[CAGRLongTerm_Required]),
+			                            14,IF([3TY]=BLANK()||[5LT]=BLANK(),"",[CAGRRatio_LongTerm])
+			                            
+			                            
+			                            /*23,[CovidRecoverLabel],
+			                            ,
+			                            
+			                             */
+			                        )
+			```
+		lineageTag: 5263f465-46f2-415f-920d-1f4245a3c988
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Target_Value =
+			
+			var indicator = CALCULATE(SELECTEDVALUE(Goal1[IndicatorValue]),USERELATIONSHIP(Goal1[IndicatorValue],'Target Values'[Indicator Name]))
+			RETURN
+			CALCULATE(ROUND(MAX('Target Values'[Target Value]),2),'Target Values'[Indicator Name]=indicator)
+		lineageTag: 226ae6be-0963-4782-ab54-e050328ef813
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CAGRShortTerm_Required =
+			
+			var targetExpo = [3TY]-[MaxYearMinus3or5]
+			var expo = 1/targetExpo
+			var round_UP = ROUND(([Target_Value]/[ShortTermValue])^(expo),5)
+			RETURN
+			IF([3TY]=BLANK() || [MaxYearMinus3or5]=BLANK(),BLANK(),
+			/* ROUND(round_UP-1,4)*100 */
+			 (((([Target_Value]/[ShortTermValue])^(expo))-1)*100)
+			)
+		lineageTag: eb1f68e6-8a3f-4104-9cf9-9312e21dc7bf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CAGRRatio_ShortTerm = ROUND((([CAGRShortTerm_Observed]/[CAGRShortTerm_required])*100),3)
+		lineageTag: 682469b5-6426-4755-894d-9b28508aca30
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CAGRLongTerm_Required = ```
+			
+			var targetExpo = [3TY]-[5LT]
+			var expo = 1/targetExpo
+			RETURN
+			IF([3TY]=BLANK() || [5LT]=BLANK(),BLANK(), ((([Target_Value]/[LT_value])^(expo)-1)*100))
+			
+			```
+		lineageTag: e924228a-1d67-488d-ac8b-e470c7d935c9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CAGRRatio_LongTerm = ( ([CAGRLongTerm_Observed]/[CAGRLongTerm_Required])*100)
+		lineageTag: 0222296c-cbc9-4c20-adcd-aa21f6051307
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Moving Avgg' = ```
+			
+			VAR indicator = "SDG_06_60"
+			VAR currentIndicatorValue = SELECTEDVALUE(Goal1[IndicatorValue])
+			VAR CURRENT_YEAR = CALCULATE(
+			    MAX(Goal1[Year]),
+			    ALLSELECTED(Goal1[UpdatedFromDate]),
+			    Goal1[IndicatorValue] = indicator,
+			    Goal1[CountryAbrv] = "EU27_2020"
+			)
+			VAR CurrentYear14_60 = CALCULATE(
+			    MAX(Goal1[Year]),
+			    ALLSELECTED(Goal1[UpdatedFromDate]),
+			    Goal1[IndicatorValue] = "SDG_14_60",
+			    Goal1[CountryAbrv] = "EU_V"
+			)
+			VAR CurrentYear15_42 = CALCULATE(
+			    MAX(Goal1[Year]),
+			    ALLSELECTED(Goal1[UpdatedFromDate]),
+			    Goal1[IndicatorValue] = "SDG_15_42",
+			    Goal1[CountryAbrv] = "EU27_2020"
+			)
+			RETURN 
+			
+			IF(
+			    currentIndicatorValue = indicator,
+			    AVERAGEX(
+			        FILTER(
+			            Goal1,
+			            Goal1[Year] >= CURRENT_YEAR - 3 && Goal1[Year] <= CURRENT_YEAR &&
+			            Goal1[IndicatorValue] = indicator &&
+			            Goal1[CountryAbrv] = "EU27_2020"
+			        ),
+			        Goal1[Value]
+			    ),
+			if(currentIndicatorValue = "SDG_14_60",
+			    AVERAGEX(
+			        FILTER(
+			            Goal1,
+			            Goal1[Year] >= CurrentYear14_60 - 3 && Goal1[Year] <= CurrentYear14_60 &&
+			            Goal1[IndicatorValue] = "SDG_14_60" &&
+			            Goal1[CountryAbrv] = "EU_V"
+			        ),
+			        Goal1[Value]
+			    ),
+			if(currentIndicatorValue = "SDG_15_10",
+			    AVERAGEX(
+			        FILTER(
+			            Goal1,
+			            Goal1[Year] >= CURRENT_YEAR - 3 && Goal1[Year] <= CURRENT_YEAR &&
+			            Goal1[IndicatorValue] = "SDG_15_10" &&
+			            Goal1[CountryAbrv] = "EU27_2020"
+			        ),
+			        Goal1[Value]
+			    ),
+			if(currentIndicatorValue = "SDG_15_42",
+			    AVERAGEX(
+			        FILTER(
+			            Goal1,
+			            Goal1[Year] >= CurrentYear15_42 - 9 && Goal1[Year] <= CurrentYear15_42 &&
+			            Goal1[IndicatorValue] = "SDG_15_42" &&
+			            Goal1[CountryAbrv] = "EU27_2020"
+			        ),
+			        Goal1[Value]
+			)))))
+			```
+		lineageTag: e71cd431-e655-45af-930b-c254eb503099
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'ShortTerm Moving Avgg' =
+			
+			
+			// var indicator = "SDG_06_60"
+			// VAR CURRENT_YEAR = CALCULATE(MAX(Goal1[Year])-5,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator,Goal1[CountryAbrv]="EU27_2020")
+			// VAR CURRENT_YEAR14_60 = CALCULATE(MAX(Goal1[Year])-5,ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue] = "SDG_14_60",Goal1[CountryAbrv]="EU_V")
+			// RETURN
+			// if(Goal1[IndicatorValue] = indicator,
+			// AVERAGEX(FILTER(Goal1,(Goal1[Year]>=CURRENT_YEAR-3 && Goal1[Year]<=CURRENT_YEAR) && (ALLSELECTED(Goal1[UpdatedFromDate]) && (Goal1[IndicatorValue]=indicator") && Goal1[CountryAbrv]="EU27_2020")),Goal1[Value])), (AVERAGEX(FILTER(Goal1,(Goal1[Year]>=CURRENT_YEAR-3 && Goal1[Year]<=CURRENT_YEAR) && (ALLSELECTED(Goal1[UpdatedFromDate]) && (Goal1[IndicatorValue] = "SDG_14_60") && Goal1[CountryAbrv]="EU_V")),Goal1[Value])
+			// )
+			
+			
+			
+			
+			VAR indicator = "SDG_06_60"
+			VAR currentIndicatorValue = SELECTEDVALUE(Goal1[IndicatorValue])
+			VAR CURRENT_YEAR = CALCULATE(
+			    MAX(Goal1[Year]) - 5,
+			    ALLSELECTED(Goal1[UpdatedFromDate]),
+			    Goal1[IndicatorValue] = indicator,
+			    Goal1[CountryAbrv] = "EU27_2020"
+			)
+			VAR CURRENT_YEAR14_60 = CALCULATE(
+			    MAX(Goal1[Year]) - 5,
+			    ALLSELECTED(Goal1[UpdatedFromDate]),
+			    Goal1[IndicatorValue] = "SDG_14_60",
+			    Goal1[CountryAbrv] = "EU_V"
+			)
+			VAR CURRENT_YEAR15_42 = CALCULATE(
+			    MAX(Goal1[Year]) - 5,
+			    ALLSELECTED(Goal1[UpdatedFromDate]),
+			    Goal1[IndicatorValue] = "SDG_15_42",
+			    Goal1[CountryAbrv] = "EU27_2020"
+			)
+			RETURN
+			IF(
+			    currentIndicatorValue = indicator,
+			    AVERAGEX(
+			        FILTER(
+			            Goal1,
+			            Goal1[Year] >= CURRENT_YEAR - 3 && Goal1[Year] <= CURRENT_YEAR &&
+			            Goal1[IndicatorValue] = indicator &&
+			            Goal1[CountryAbrv] = "EU27_2020"
+			        ),
+			        Goal1[Value]
+			    ),
+			IF( currentIndicatorValue = "SDG_14_60",
+			    AVERAGEX(
+			        FILTER(
+			            Goal1,
+			            Goal1[Year] >= CURRENT_YEAR14_60 - 3 && Goal1[Year] <= CURRENT_YEAR14_60 &&
+			            Goal1[IndicatorValue] = "SDG_14_60" &&
+			            Goal1[CountryAbrv] = "EU_V"
+			        ),
+			        Goal1[Value]
+			    ),
+			if( currentIndicatorValue = "SDG_15_10",
+			    AVERAGEX(
+			        FILTER(
+			            Goal1,
+			            Goal1[Year] >= CURRENT_YEAR - 3 && Goal1[Year] <= CURRENT_YEAR &&
+			            Goal1[IndicatorValue] = "SDG_15_10" &&
+			            Goal1[CountryAbrv] = "EU27_2020"
+			        ),
+			        Goal1[Value]
+			    ),
+			IF(currentIndicatorValue = "SDG_15_42",
+			    AVERAGEX(
+			        FILTER(
+			            Goal1,
+			            Goal1[Year] >= CURRENT_YEAR15_42 - 9 && Goal1[Year] <= CURRENT_YEAR15_42 &&
+			            Goal1[IndicatorValue] = "SDG_15_42" &&
+			            Goal1[CountryAbrv] = "EU27_2020"
+			        ),
+			        Goal1[Value]
+			)
+			)
+			)))
+		lineageTag: 45a7c94a-599f-4300-bd3e-5ccba276199e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Long Term Moving Avgg' = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+			var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+			VAR Max_Year = CALCULATE(MAX(Goal1[Year]),ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]=countrySelect,Goal1[IndicatorValue]=indicator)
+			var Max_Year15_42 = CALCULATE(MAX(Goal1[Year]),ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[CountryAbrv]="EU27_2020",Goal1[IndicatorValue]="SDG_15_42")
+			var min_year = CALCULATE(MIN(Goal1[Year]),ALLSELECTED(Goal1[UpdatedFromDate]),Goal1[IndicatorValue]=indicator,Goal1[CountryAbrv]=countrySelect)
+			var CURRENT_YEAR = 
+			IF(indicator="SDG_15_50",Max_Year-16,
+			IF(indicator="SDG_15_42",Max_Year15_42-14,
+			 IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 15 && NOT ISBLANK(Goal1[Value]) && Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-15,
+			     IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 14 && NOT ISBLANK(Goal1[value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-14,
+			        IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 13 && NOT ISBLANK(Goal1[value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-13,
+			            IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 12 && NOT ISBLANK(Goal1[value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-12,
+			                IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 11 && NOT ISBLANK(Goal1[value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-11,
+			                    IF( COUNTROWS(FILTER(Goal1,Goal1[Year] = Max_Year - 10 && NOT ISBLANK(Goal1[value])&& Goal1[CountryAbrv]=countrySelect)) > 0,
+			     Max_Year-10,
+			     BLANK()
+			                        )
+			                    )
+			                )
+			            )
+			        )
+			     
+			     )
+			))
+			
+			RETURN
+			IF(indicator="SDG_15_42",AVERAGEX(FILTER(Goal1,(Goal1[Year]>=CURRENT_YEAR-9 && Goal1[Year]<=CURRENT_YEAR) && (ALLSELECTED(Goal1[UpdatedFromDate]) && Goal1[IndicatorValue]=indicator&& Goal1[CountryAbrv]=countrySelect)),Goal1[Value]),
+			if( indicator = "SDG_14_60",AVERAGEX(FILTER(Goal1,(Goal1[Year]>=CURRENT_YEAR-3 && Goal1[Year]<=CURRENT_YEAR) && (ALLSELECTED(Goal1[UpdatedFromDate]) && Goal1[IndicatorValue]="SDG_14_60" && Goal1[CountryAbrv]=country)),Goal1[Value]), if(indicator <> "SDG_14_60",
+			AVERAGEX(FILTER(Goal1,(Goal1[Year]>=CURRENT_YEAR-3 && Goal1[Year]<=CURRENT_YEAR) && (ALLSELECTED(Goal1[UpdatedFromDate]) && Goal1[IndicatorValue]=indicator && Goal1[CountryAbrv]=countrySelect)),Goal1[Value]))))
+			```
+		lineageTag: f7230439-8277-4784-8e1a-f399a08a282e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition _Values = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

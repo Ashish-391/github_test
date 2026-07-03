@@ -1,0 +1,81 @@
+table SDG_14_51_eu
+	lineageTag: 944b252f-dc8a-4835-87d2-3665978cbb35
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 982005e4-ad64-47bb-9aa8-9f3fce2fd9da
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: f5dc7a58-fe35-47e3-a994-728747201f61
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 49662c3b-28c0-4c4c-87c9-2f0d429fb70e
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unit
+		dataType: string
+		lineageTag: 76b910a0-4f92-4415-81b8-6be55028de70
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 2dd535fd-be1b-4838-b953-58648d7d9e92
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column seabasin
+		dataType: string
+		lineageTag: e13bbeaa-bfea-4970-98fe-b931b0ca4052
+		summarizeBy: none
+		sourceColumn: seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 637b6c37-8459-4f7f-97e5-a950a43d995c
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_14_51_eu = m
+		mode: import
+		queryGroup: 'New indicators 2026'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2db96d17-b148-4d11-80f4-26b75cb98f00" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="ALL_SDG_New Indicators"]}[Data],
+				    SDG_14_51_ = #"2db96d17-b148-4d11-80f4-26b75cb98f00"{[entity="SDG_14_51",version=""]}[Data],
+				    #"Added Custom" = Table.AddColumn(SDG_14_51_, "Indicator", each "sdg_14_51"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Indicator", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

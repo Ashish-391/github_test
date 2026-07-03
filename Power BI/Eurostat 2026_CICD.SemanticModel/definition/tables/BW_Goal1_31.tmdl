@@ -1,0 +1,58 @@
+table BW_Goal1_31
+	lineageTag: c80dd18f-83df-41b5-903a-1d22012b287f
+
+	column Value
+		lineageTag: 994eb0e9-6224-4f70-bbe3-99cb5db6bf80
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		lineageTag: 128a3d8a-729e-41c3-becb-56381ea04f3b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [CountryAbrv]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting = IF(BW_Goal1_31[TIME_PERIOD]=MAX(BW_Goal1_31[TIME_PERIOD]),MAX(BW_Goal1_31[TIME_PERIOD])&BW_Goal1_31[Value],BLANK())
+		dataType: double
+		lineageTag: 38be43f2-84ce-40dc-a0ee-2c40ae21009d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TIME_PERIOD
+		formatString: 0
+		lineageTag: cb48bc85-2d71-4287-9f54-a072d7f9d188
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [TIME_PERIOD]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BW_Goal1_31 = calculated
+		mode: import
+		source =
+				
+				VAR indicator = "SDG_01_31"
+				VAR maxYear = CALCULATE(MAX(All_SDG_Goal1[TIME_PERIOD]), All_SDG_Goal1[Indicator] = indicator, All_SDG_Goal1[Geo] = "EU27_2020", All_SDG_Goal1[Unit] = "PC")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER (
+				            All_SDG_Goal1,
+				            (All_SDG_Goal1[TIME_PERIOD] = maxYear || All_SDG_Goal1[TIME_PERIOD] = maxYear - 5) && All_SDG_Goal1[Indicator] = indicator && All_SDG_Goal1[Unit] = "PC" )
+				        ,
+				        "TIME_PERIOD", All_SDG_Goal1[TIME_PERIOD],
+				        "Value", All_SDG_Goal1[OBS_VALUE],
+				        "CountryAbrv", All_SDG_Goal1[Geo]
+				    )
+
+	annotation PBI_Id = 4da6358423c349bdbfdc9bbfc4b41165
+

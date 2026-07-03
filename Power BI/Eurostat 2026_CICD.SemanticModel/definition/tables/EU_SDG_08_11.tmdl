@@ -1,0 +1,91 @@
+table EU_SDG_08_11
+	lineageTag: 6e5034da-3b0a-4bcb-b3e8-8a83ba76ab60
+
+	column Year
+		dataType: int64
+		lineageTag: 2f1c0a49-1f81-4f28-9bc1-4e8f20309240
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 014bd329-94a5-4c3b-ad9a-404a1c94845f
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: de9681af-4dcd-4673-b624-df3f0b3a0cbe
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: c5ff1999-203f-4de0-b5e6-81cc50d28c10
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column indic
+		dataType: string
+		lineageTag: 2d0f556c-1cc4-49ad-8ab0-3e00f4328932
+		summarizeBy: none
+		sourceColumn: indic
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 2166056b-27f0-454f-a9f2-d5e47437b616
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: a8ef384c-da45-44b6-ac0b-ecc9a8a8dee9
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: b8e8a681-38e4-4b9c-a5b5-1d75ab9a6d01
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition EU_SDG_08_11 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 8'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"31375fdf-94e1-4ae0-a1b0-e759391261d1" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 8"]}[Data],
+				    SDG_08_11_ = #"31375fdf-94e1-4ae0-a1b0-e759391261d1"{[entity="SDG_08_11",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_08_11_, each ([indic] = "INV_TOT"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

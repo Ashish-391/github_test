@@ -1,0 +1,175 @@
+table All_SDG_Goal4
+	lineageTag: 542231d9-bebf-4d1d-b2aa-f1fd65c57a10
+
+	measure CurrentYear_sdg_04_40_Maths = ```
+			CALCULATE(MIN(All_SDG_Goal4[OBS_VALUE]),All_SDG_Goal4[TIME_PERIOD]= MAX(All_SDG_Goal4[TIME_PERIOD]),All_SDG_Goal4[Field] ="EF461") 
+			```
+		lineageTag: 3bf79afc-c035-4bfc-8ada-f700a9dc84b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CurrentYear_sdg_04_40_Reading = ```
+			CALCULATE(MIN(All_SDG_Goal4[OBS_VALUE]),All_SDG_Goal4[TIME_PERIOD]= MAX(All_SDG_Goal4[TIME_PERIOD]),All_SDG_Goal4[Field] ="READ") 
+			```
+		lineageTag: b11a8d02-2d94-49e3-8f7a-30692dd1f6aa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CurrentYear_sdg_04_40_Sci = ```
+			CALCULATE(MIN(All_SDG_Goal4[OBS_VALUE]),All_SDG_Goal4[TIME_PERIOD]= MAX(All_SDG_Goal4[TIME_PERIOD]),All_SDG_Goal4[Field] ="SCI") 
+			```
+		lineageTag: 44c0b58b-4129-4f22-8b5f-6b283b211adf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: cd703fd8-c56f-410a-bd5c-affc6d7c0478
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 12fc67e9-0e4e-438e-a0b8-8c3985f3b9bd
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: 212cd0f8-ad6a-418f-afca-3f6c88276b96
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: fe6eafbe-0c7e-4f43-9732-2224d68ff3b7
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 14bf42c1-ae75-4845-aec2-b82dbee5b87a
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: 889e5d62-59f9-48e8-95ac-c7195d631338
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 8ba54b0a-2b22-475c-be88-04173a508958
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Wstatus
+		dataType: string
+		lineageTag: 833cc0f6-32f7-474a-acf9-74cb61968981
+		summarizeBy: none
+		sourceColumn: Wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: d5867724-5d00-40d7-816e-f2b77936d8a7
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: fe5df1c6-3361-4ccc-b26b-d15eb0769f8c
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column ISCED11
+		dataType: string
+		lineageTag: 857fd121-7c22-49d5-8e4b-41bdfc63dcd6
+		summarizeBy: none
+		sourceColumn: ISCED11
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indic_is
+		dataType: string
+		lineageTag: 92d99a2f-4b47-4e12-88f5-8e34c00d4e44
+		summarizeBy: none
+		sourceColumn: Indic_is
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ind_type
+		dataType: string
+		lineageTag: a2befc60-066f-4f73-9f41-89026c3c320e
+		summarizeBy: none
+		sourceColumn: Ind_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Field
+		dataType: string
+		lineageTag: ae8b47e7-6b77-4e16-ab8a-79444a8f6af7
+		summarizeBy: none
+		sourceColumn: Field
+
+		annotation SummarizationSetBy = Automatic
+
+	column seabasin
+		dataType: string
+		lineageTag: 658ba324-5c1a-4c0a-8281-ec1d24d116d7
+		summarizeBy: none
+		sourceColumn: seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_Goal4 = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				// let
+				//     Source = PowerPlatform.Dataflows(null),
+				//     Workspaces = Source{[Id="Workspaces"]}[Data],
+				//     #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId="c7d6b588-fe82-40f0-aea3-7929f303084b"]}[Data],
+				//     #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowId="aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"]}[Data],
+				//     All_SDG_Goal4_ = #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"{[entity="All_SDG_Goal4",version=""]}[Data]
+				// in
+				//     All_SDG_Goal4_
+				
+				
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="All_SDG_Goal 2-3-4"]}[Data],
+				    All_SDG_Goal4_ = #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"{[entity="All_SDG_Goal4",version=""]}[Data],
+				    #"Appended Query" = Table.Combine({All_SDG_Goal4_, All_SDG_14_51})
+				in
+				    #"Appended Query"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

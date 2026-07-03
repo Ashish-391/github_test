@@ -1,0 +1,113 @@
+table EU_Goal6
+	lineageTag: 193929b2-386c-4e8f-be94-474cdf0e3320
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 276b4cae-a308-45a7-8a98-89eda38aa544
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: abacc040-2d5f-4048-9e5b-635f328699fd
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 56c0feea-61ae-4596-8443-d87d26fe556e
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 6ab18c52-59b1-4d98-ab5e-84d3d5a6732a
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 2ec8c049-04bb-4551-b424-6c1aebf418ab
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 663b5e3b-1e40-4ad2-b542-fd6b0bea7f1d
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column watpol
+		dataType: string
+		lineageTag: 3fd78692-0ade-466e-b60a-e62193d37dd5
+		summarizeBy: none
+		sourceColumn: watpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column aquaenv
+		dataType: string
+		lineageTag: 6aa546eb-8c67-4f50-b29a-83f6c90f45fb
+		summarizeBy: none
+		sourceColumn: aquaenv
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		formatString: 0
+		lineageTag: 0ada39db-3362-45ca-a125-aabb7ff4a9d1
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column ww_tp
+		dataType: string
+		lineageTag: 09cf1749-7459-451d-aec2-59834172cc50
+		summarizeBy: none
+		sourceColumn: ww_tp
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 18aa2ac4-ce60-4824-bb4a-1113ef13db94
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_Goal6 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 6'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"8fb7278b-0754-41cb-8022-dde497cf7fbf" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 6"]}[Data],
+				    Goal6_ = #"8fb7278b-0754-41cb-8022-dde497cf7fbf"{[entity="Goal6",version=""]}[Data]
+				in
+				    Goal6_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

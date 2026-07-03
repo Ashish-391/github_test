@@ -1,0 +1,64 @@
+table Dims2-9
+	lineageTag: 82dab0a8-4402-450c-af00-5956f4420022
+
+	column Dims3
+		lineageTag: f44b3eba-4c00-4879-b680-0d169c81f535
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Dims3 Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Dims3 Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dims3 Fields'
+		isHidden
+		lineageTag: 4b79e8e5-d8bc-45fa-b789-f5d51b96f9a7
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Dims3 Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dims3 Order'
+		isHidden
+		formatString: 0
+		lineageTag: 775b1e5e-8519-4b99-aedc-a4f3da5118df
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dims2-9 = calculated
+		mode: import
+		source =
+				
+				{
+				    ("Body Mass Index", NAMEOF('Goal1'[Bmi_Indicator]), 0),
+				    ("NA", NAMEOF('Goal1'[NA]), 1),
+				    ("Age",NAMEOF(Goal1[age]),2),
+				    ("Bird Species",NAMEOF(Goal1[comspec]),3),
+				    ("Indicator",NAMEOF(Goal1[indic]),4),
+				    ("Sex",NAMEOF(Goal1[sex]),5),
+				    ("Environment Indicator",NAMEOF(Goal1[indic_env]),6),
+				    ("Sector of Performance",NAMEOF(Goal1[sectperf]),7),
+				    ("Cooperation partners",NAMEOF(Goal1[coop_ptn]),8),
+				    ("Vehicle",NAMEOF(Goal1[vehicle]),9),
+				    ("Mode of transport",NAMEOF(Goal1[tra_mode]),10),
+				    ("Air pollutants and greenhouse gases",NAMEOF(Goal1[airpol]),11),
+				    ("Type of expenditure",NAMEOF(Goal1[ty]),12),
+				    ("Territorial Topology",NAMEOF(Goal1[terrtypo]),13),
+				    ("National accounts indicator",NAMEOF(Goal1[na_item]),14),
+				    ("Applicant type",NAMEOF(Goal1[asyl_app]),15)
+				    //("Land cover",NAMEOF(Goal1[landcover]),16)
+				}
+
+	annotation PBI_Id = 097b5a7260af45d28717f481c053f0a8
+

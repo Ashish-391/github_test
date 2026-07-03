@@ -1,0 +1,96 @@
+table eu_sdg_16_70
+	lineageTag: 80ea2f17-08b8-4c19-9d54-90e32f994417
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 2c31a5c5-7c92-4cef-a568-ccbf8eda013b
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: b796717b-8e9d-43ea-8786-3451f30f4bab
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 3eaa260a-312e-4a46-a216-d0569307f4aa
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: ee3aabe7-f8bb-49ef-9478-fa8f232b573a
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: f837156c-7ce5-4d53-b76a-3a4f150429d6
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		lineageTag: 005b3d7a-80cf-4652-b0a5-6e650e54417e
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: e8bd483d-e755-419f-af58-d222569c4372
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column leg_stat
+		dataType: string
+		lineageTag: 0c4950f5-73c2-4a99-894b-c427d64f2c67
+		summarizeBy: none
+		sourceColumn: leg_stat
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 1e846429-956b-44e6-91fc-ee9af49d96ef
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition eu_sdg_16_70 = m
+		mode: import
+		queryGroup: EU_Goal16
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_16_70_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_16_70",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_16_70_, each ([Unit] = "P_HTHAB") and ([sex] = "T") and ([leg_stat] = "PER_VICT"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

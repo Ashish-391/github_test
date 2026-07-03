@@ -1,0 +1,112 @@
+table All_SDG_01_10a
+	lineageTag: a6b74599-6b0e-4f8d-aa90-561abe6fcfe6
+
+	measure Cities_01_10A =
+			
+			var indicator = "SDG_01_10A"
+			var maxYear = CALCULATE(MAX('All_SDG_01_10a'[TIME_PERIOD]),'All_SDG_01_10a'[Geo]="EU27_2020")
+			RETURN
+			CALCULATE(MIN('All_SDG_01_10a'[OBS_VALUE]),'All_SDG_01_10a'[TIME_PERIOD]= MAXX(ALL(SDG_01_10a_Graph),'SDG_01_10a_Graph'[Year]),All_SDG_01_10a[deg_urb] ="DEG1")
+		lineageTag: 73bb4953-d79c-4dd4-86dc-ebbf4cdee8f3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Rural_01_10A = ```
+			CALCULATE(MIN('All_SDG_01_10a'[OBS_VALUE]),'All_SDG_01_10a'[TIME_PERIOD]= MAXX(ALL(SDG_01_10a_Graph),'SDG_01_10a_Graph'[Year]),All_SDG_01_10a[deg_urb] ="DEG3") 
+			```
+		lineageTag: a5e2ddad-5511-4c9d-aaf5-f5a5299c1732
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Towns_and_Subs_01_10A = ```
+			CALCULATE(MIN('All_SDG_01_10a'[OBS_VALUE]),'All_SDG_01_10a'[TIME_PERIOD]= MAXX(ALL(SDG_01_10a_Graph),'SDG_01_10a_Graph'[Year]),All_SDG_01_10a[deg_urb] ="DEG2") 
+			```
+		lineageTag: db14f433-0d78-484d-a046-baa7a02c1d9b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: dc6b5f8b-387c-45a8-b1e9-9bc56ca4323d
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: fab9f9f0-a326-48b2-a481-2d013df10472
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 1623fa95-f8d6-4344-928c-fb8b1f6263f0
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 8e531eb9-0d49-40fe-b3b2-7d37337a8a62
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column deg_urb
+		dataType: string
+		lineageTag: 8d9266a9-fa9f-42a1-92ad-d4a112d89cd2
+		summarizeBy: none
+		sourceColumn: deg_urb
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: bc0c9b6c-841b-4b5e-973b-c7649986cdb9
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_01_10a = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				// let
+				//     Source = PowerPlatform.Dataflows(null),
+				//     Workspaces = Source{[Id="Workspaces"]}[Data],
+				//     #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId="c7d6b588-fe82-40f0-aea3-7929f303084b"]}[Data],
+				//     #"b7600a8a-ba18-4c20-9f15-761456ad4d74" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowId="b7600a8a-ba18-4c20-9f15-761456ad4d74"]}[Data],
+				//     All_SDG_01_10a_ = #"b7600a8a-ba18-4c20-9f15-761456ad4d74"{[entity="All_SDG_01_10a",version=""]}[Data]
+				// in
+				//     All_SDG_01_10a_
+				
+				
+				let
+				
+				    Source = PowerPlatform.Dataflows(null),
+				
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				
+				    #"b7600a8a-ba18-4c20-9f15-761456ad4d74" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="All_SDG 8-11"]}[Data],
+				
+				    All_SDG_01_10a_ = #"b7600a8a-ba18-4c20-9f15-761456ad4d74"{[entity="All_SDG_01_10a",version=""]}[Data]
+				
+				in
+				
+				    All_SDG_01_10a_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

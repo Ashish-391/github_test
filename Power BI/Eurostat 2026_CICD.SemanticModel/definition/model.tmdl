@@ -1,0 +1,492 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup 'Key Tables'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Goal 1'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Goal 2'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Goal 3'
+
+	annotation PBI_QueryGroupOrder = 17
+
+queryGroup 'Goal 4'
+
+	annotation PBI_QueryGroupOrder = 16
+
+queryGroup 'Goal 5'
+
+	annotation PBI_QueryGroupOrder = 15
+
+queryGroup 'Goal 6'
+
+	annotation PBI_QueryGroupOrder = 14
+
+queryGroup 'Goal 7'
+
+	annotation PBI_QueryGroupOrder = 13
+
+queryGroup 'Goal 8'
+
+	annotation PBI_QueryGroupOrder = 12
+
+queryGroup 'Goal 9'
+
+	annotation PBI_QueryGroupOrder = 11
+
+queryGroup 'Goal 10'
+
+	annotation PBI_QueryGroupOrder = 10
+
+queryGroup 'Goal 11'
+
+	annotation PBI_QueryGroupOrder = 9
+
+queryGroup 'Goal 12'
+
+	annotation PBI_QueryGroupOrder = 8
+
+queryGroup 'Goal 13'
+
+	annotation PBI_QueryGroupOrder = 7
+
+queryGroup 'Goal 14'
+
+	annotation PBI_QueryGroupOrder = 6
+
+queryGroup 'Goal 15'
+
+	annotation PBI_QueryGroupOrder = 5
+
+queryGroup 'Goal 16'
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup 'Goal 17'
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup EU-Goal1
+
+	annotation PBI_QueryGroupOrder = 18
+
+queryGroup Goal1-Graph
+
+	annotation PBI_QueryGroupOrder = 22
+
+queryGroup 'EU-Goal1\EU_Goal 2'
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'EU-Goal1\EU_Goal 3'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Overvieww
+
+	annotation PBI_QueryGroupOrder = 23
+
+queryGroup 'EU-Goal1\EU_Goal 4'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'EU-Goal1\EU_Goal 5'
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup 'EU-Goal1\EU_Goal 6'
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup 'EU-Goal1\EU_Goal 7'
+
+	annotation PBI_QueryGroupOrder = 5
+
+queryGroup 'EU-Goal1\EU_Goal 8'
+
+	annotation PBI_QueryGroupOrder = 6
+
+queryGroup 'Stats-EU Graphs'
+
+	annotation PBI_QueryGroupOrder = 24
+
+queryGroup 'EU-Goal1\EU_Goal 9'
+
+	annotation PBI_QueryGroupOrder = 7
+
+queryGroup 'EU-Goal1\EU_Goal 10'
+
+	annotation PBI_QueryGroupOrder = 8
+
+queryGroup 'EU-Goal1\EU_Goal 11'
+
+	annotation PBI_QueryGroupOrder = 9
+
+queryGroup 'EU-Goal1\EU_Goal 12'
+
+	annotation PBI_QueryGroupOrder = 10
+
+queryGroup EU-Goal1\EU_Goal13
+
+	annotation PBI_QueryGroupOrder = 11
+
+queryGroup 'EU_Goal 14'
+
+	annotation PBI_QueryGroupOrder = 19
+
+queryGroup EU_Goal15
+
+	annotation PBI_QueryGroupOrder = 20
+
+queryGroup EU_Goal16
+
+	annotation PBI_QueryGroupOrder = 21
+
+queryGroup 'New indicators 2026'
+
+	annotation PBI_QueryGroupOrder = 37
+
+queryGroup EU-Goal1\EU_Goal17
+
+	annotation PBI_QueryGroupOrder = 12
+
+annotation PBI_QueryOrder = ["Country-withEUs","Country EU_V","SDG","Indicators","Target Values","Goal1","SDG_01_10","SDG_01_20","SDG_01_31","SDG_01_40","SDG_01_41","SDG_01_50","Goal2","SDG_02_10_Excel","Sheet1","Goal3","SDG_02_20","SDG_02_30","SDG_02_40","SDG_02_60","SDG_03_30","SDG_03_41","SDG_03_42","SDG_03_60","SDG_10_30","SDG_11_11","SDG_06_40","SDG_15_50","SDG_15_60","Unit-15_60","Goal4","SDG_04_20","SDG_04_31","SDG_04_40","SDG_04_60","SDG_04_70","SSG_04_40","SMG_04_40","SDG_08_60","SDG_11_40","SDG_11_52","SDG_11_20","Scheduler Timestamp","Goal5","SDG_05_20","SDG_05_30","SDG_05_40","SDG_05_50","Goal6","SDG_06_20","SDG_06_30","SDG_06_50","Age Class - 05_10","SDG_06_60","SDG_14_40","Goal7","SDG_07_20","SDG_07_40","SDG_07_50","SDG_07_60","Goal8","SDG_08_20","SDG_08_30","SDG_08_40","SDG_14_40_Inland","Goal9","SDG_09_30","SDG_09_50","SDG_09_60","SDG_09_70","SDG_12_61","SDG_17_60","Goal10","SDG_10_41","SDG_10_50","SDG_10_60","Goal11","SDG_16_20","Goal12","SDG_12_30","SDG_12_51","SDG_12_41","cei_gsr010","Goal13","SDG_13_21","SDG_13_40","eu_SDG_13_50","SDG_13_60","Goal14","SDG_14_21","SDG_14_30","SDG_14_50","SDG_14_60","SDG_14_50_Indicenv","SDG_14_30_Fishreg","SDG_14_21_Fishreg","eu_SDG_14_10","Goal15","SDG_15_20","SDG_15_61","Goal16","SDG_16_30","SDG_16_40","eu_SDG_16_50","crim_thb_sex","Goal17","SDG_17_20","SDG_17_30","SDG_17_40","SDG_17_50","sdg_12_10_Hazard","SDG_15_60_CO_ALL","Unit-15_61","Datapoints-List","Goal 1 - Goal 17","Indicator Dimensions","Indicators_Name","Indicators_Name (2)","Indicator_Bridge","EU Member States","eu_Goal1","eu_SDG_01_10","eu_SDG_01_20","eu_SDG_01_31","eu_SDG_01_40","eu_SDG_01_41","eu_SDG_01_50","eu_SDG_10_30","eu_SDG_11_11","_StatsYear","_Values","_Generic-Measures","_BestWorst_Data","Goal1Graph","SDG_01_20Graph","eu_SDG_01_31 (2)","eu_SDG_01_40 (2)","eu_SDG_01_41 (2)","eu_SDG_01_50 (2)","eu_SDG_10_30 (2)","eu_SDG_11_11 (2)","SubThemes","OverviewwOld","Overvieww Target_Old","Overvieww without Target_Old","TargetValues_ForGoals","Goal 1 Target","Goal 2 Target","Goal 3 Target","Goal 4 Target","Goal 8 Target","eu_SDG_03_60","SDG_ilc_mdho06d","Country-FullNames","All_sdg_11_11","SDG_11_11*","EU_Goal2","EU_SDG_02_20","EU_SDG_02_30","EU_SDG_02_60","EU_SDG_15_50","Unit-15_60 (2)","Goal 5-9 Target","Goal 15 Target","Indicators_BW","All_SDG_Goal_2","EU_Goal3","EU_SDG_03_60 (2)","EU_SDG_03_42","EU_SDG_03_30","EU_SDG_11_40","All_SDG_Goal3","_Overvieww","_Overvieww Target","_Overvieww without Target","_Goal1_Overview","EU_Goal4","All_SDG_Goal4","SDG_04_70_EU_Graph","Target_sdg_04_40","EU_Goal5","SDG_04_10*","SDG_04_20*","EU_SDG_11_52","EU_Goal6","SDG_06_40 (2)","eu_Goal7","EU_SDG_07_11","EU_SDG_07_30","eu_Goal8","EU_SDG_12_21","EU_SDG_08_11","All_SDG_Goal8-9-10","All_SDG_Goal5-12","All_SDG_Goal15","EU_Goal9","eu_SDG_09_40","eu_SDG_12_61","SDG_01_10a","SDG_01_20a","SDG_04_10a","SDG_08_20a","SDG_08_30a","EU_Goal10","All_SDG_01_10a","SDG_01_10a_Graph","EU_Goal11","EU_SDG_11_32","EU_cei_gsr010","Goal 12 Target","All_SDG_Goal12","All_SDG_Goal1","eu_Goal13","eu_SDG_13_21","eu_SDG_13_40","eu_SDG_14_60","eu_SDG_15_10","eu_SDG_16_30","eu_sdg_16_70","SDG_16_10","All_SDG_16_40_","Eu_Graph16_40","EU_SDG_17_10","EU_SDG_17_40","EU_SDG_15_20","SDG_04_10_Graph","SDG_04_20_Graph","EU_SDG_05_10","EU_SDG_12_31","eu_SDG_13_31","SDG_03_70","eu_SDG_15_42","SDG_02_53","Goal1 target new","All_SDG_05_11","All_SDG_05_61","All_SDG_13_11","All_SDG_13_70a","All_SDG_14_51","All_SDG_15_11","All_SDG_17_31","hlth_silc_17","SDG_05_11_eu","SDG_05_61_eu","SDG_13_11_eu","SDG_13_70a_eu","SDG_14_51_eu","SDG_15_11_eu","SDG_17_31_eu","SDG_hlth_silc_17_eu","eu_sdg_17_31","eu_SDG_15_11","eu_sdg_14_51","eu_hlth_silc_17","eu_sdg_05_11","eu_sdg_13_70a","eu_sdg_05_61","SDG_10_20_eu","SDG_05_61_Overview","SharepointLocation","workspaceID"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+
+ref table 'Country EU_V'
+ref table SDG
+ref table Indicators
+ref table Goal2
+ref table Goal1
+ref table SDG_02_40
+ref table Goal3
+ref table SDG_03_30
+ref table SDG_03_42
+ref table SDG_03_60
+ref table Country-withEUs
+ref table SDG_01_20
+ref table SDG_01_31
+ref table SDG_01_40
+ref table SDG_01_41
+ref table SDG_10_30
+ref table SDG_11_11
+ref table SDG_01_50
+ref table SDG_06_40
+ref table Unit-15_60
+ref table Goal4
+ref table SDG_04_20
+ref table SDG_04_31
+ref table SDG_04_40
+ref table SDG_04_60
+ref table SDG_04_70
+ref table SSG_04_40
+ref table SMG_04_40
+ref table SDG_08_60
+ref table SDG_11_20
+ref table 'Scheduler Timestamp'
+ref table Goal5
+ref table SDG_05_20
+ref table SDG_05_30
+ref table Goal6
+ref table SDG_06_20
+ref table 'Age Class - 05_10'
+ref table SDG_06_30
+ref table SDG_06_50
+ref table SDG_06_60
+ref table SDG_14_40
+ref table SDG_07_20
+ref table SDG_07_40
+ref table SDG_07_50
+ref table Goal7
+ref table SDG_07_60
+ref table Goal8
+ref table SDG_08_20
+ref table SDG_08_30
+ref table SDG_08_40
+ref table SDG_14_40_Inland
+ref table Goal9
+ref table SDG_09_30
+ref table SDG_09_50
+ref table SDG_09_60
+ref table SDG_09_70
+ref table SDG_17_60
+ref table Goal10
+ref table SDG_10_41
+ref table SDG_10_50
+ref table SDG_10_60
+ref table Goal11
+ref table SDG_16_20
+ref table Goal12
+ref table SDG_12_51
+ref table SDG_12_41
+ref table Goal13
+ref table eu_SDG_13_50
+ref table Goal14
+ref table SDG_14_21
+ref table SDG_14_30
+ref table SDG_14_60
+ref table SDG_14_50_Indicenv
+ref table SDG_14_30_Fishreg
+ref table SDG_14_21_Fishreg
+ref table Goal15
+ref table SDG_15_20
+ref table SDG_15_61
+ref table Goal16
+ref table SDG_16_30
+ref table SDG_16_40
+ref table eu_SDG_16_50
+ref table Goal17
+ref table SDG_17_20
+ref table SDG_17_40
+ref table SDG_17_50
+ref table sdg_12_10_Hazard
+ref table SDG_15_60_CO_ALL
+ref table Unit-15_61
+ref table Indicators_Name
+ref table Datapoints-List
+ref table 'EU Member States'
+ref table eu_Goal1
+ref table eu_SDG_01_20
+ref table eu_SDG_01_31
+ref table eu_SDG_01_40
+ref table eu_SDG_01_41
+ref table eu_SDG_01_50
+ref table eu_SDG_10_30
+ref table eu_SDG_11_11
+ref table _StatsYear
+ref table _Values
+ref table _Generic-Measures
+ref table _BestWorst_Data
+ref table Dims
+ref table 'Indicator Dimensions'
+ref table SubThemes
+ref table 'Target Values'
+ref table TargetValues_ForGoals
+ref table 'Goal 1 Target'
+ref table eu_SDG_03_60
+ref table SDG_ilc_mdho06d
+ref table All_Goal1_Graph2
+ref table Country-FullNames
+ref table All_sdg_11_11
+ref table All_SDG_11_11_EUGraph
+ref table SDG_11_11*
+ref table EU_Goal2
+ref table EU_SDG_02_20
+ref table EU_SDG_02_30
+ref table EU_SDG_02_60
+ref table EU_SDG_15_50
+ref table 'Goal 2 Target'
+ref table Indicators_BW
+ref table Dims2-9
+ref table All_SDG_Goal_2
+ref table BW_Goal2_10
+ref table BW_Goal2_20
+ref table BW_Goal2_30
+ref table BW_Goal2_40
+ref table BW_Goal2_60
+ref table BW_Goal6_40
+ref table BW_Goal15_50
+ref table EU_Goal3
+ref table 'Goal 3 Target'
+ref table All_SDG_Goal3
+ref table BW_Goal3_11
+ref table BW_Goal3_20
+ref table BW_Goal3_30
+ref table BW_Goal3_42
+ref table BW_Goal3_60
+ref table BW_Goal8_60
+ref table BW_Goal11_20
+ref table BW_Goal11_40
+ref table BW_Goal11_52
+ref table _Overvieww
+ref table '_Overvieww Target'
+ref table '_Overvieww without Target'
+ref table _Goal1_Overview
+ref table BW_Goal1_10
+ref table BW_Goal1_20
+ref table BW_Goal1_31
+ref table BW_Goal1_40
+ref table BW_Goal1_41
+ref table BW_Goal1_50
+ref table BW_Goal10_30
+ref table EU_Goal4
+ref table EU_SDG_11_40
+ref table All_SDG_Goal4
+ref table 'Goal 4 Target'
+ref table BW_Goal4_10
+ref table BW_Goal4_20
+ref table BW_Goal4_31
+ref table BW_Goal4_60
+ref table SDG_04_70_EU_Graph
+ref table BW_Goal4_70
+ref table Target_sdg_04_40
+ref table EU_Goal5
+ref table 'Goal 5-9 Target'
+ref table All_SDG_Goal5-12
+ref table BW_Goal5_10
+ref table BW_Goal5_20
+ref table BW_Goal5_30
+ref table BW_Goal5_50
+ref table BW_Goal5_60
+ref table SDG_04_10*
+ref table SDG_04_20*
+ref table EU_SDG_11_52
+ref table EU_Goal6
+ref table BW_Goal6_10
+ref table BW_Goal6_20
+ref table BW_Goal6_30
+ref table BW_Goal6_50
+ref table BW_Goal6_60
+ref table BW_Goal14_40
+ref table eu_Goal7
+ref table EU_SDG_07_11
+ref table EU_SDG_07_30
+ref table BW_Goal7_10
+ref table BW_Goal7_11
+ref table BW_Goal7_20
+ref table BW_Goal7_30
+ref table BW_Goal7_40
+ref table BW_Goal7_50
+ref table BW_Goal7_60
+ref table eu_Goal8
+ref table EU_SDG_12_21
+ref table EU_SDG_08_11
+ref table All_SDG_Goal8-9-10
+ref table 'Goal 8 Target'
+ref table BW_Goal8_20
+ref table BW_Goal8_11
+ref table BW_Goal8_30
+ref table BW_Goal8_40
+ref table BW_Goal12_21
+ref table EU_Goal9
+ref table eu_SDG_09_40
+ref table eu_SDG_12_61
+ref table BW_Goal9_10
+ref table BW_Goal9_30
+ref table BW_Goal9_40
+ref table BW_Goal9_50
+ref table BW_Goal9_60
+ref table BW_Goal9_70
+ref table BW_Goal12_61
+ref table BW_Goal17_60
+ref table EU_Goal10
+ref table BW_Goal10_10
+ref table BW_Goal10_41
+ref table BW_Goal10_50
+ref table BW_Goal10_60
+ref table All_SDG_01_10a
+ref table SDG_01_10a_Graph
+ref table EU_Goal11
+ref table EU_SDG_11_32
+ref table BW_Goal11_60
+ref table BW_Goal16_20
+ref table BW_Goal11_32
+ref table 'Goal 12 Target'
+ref table All_SDG_Goal12
+ref table BW_Goal13_31
+ref table BW_Goal12_41
+ref table BW_Goal12_51
+ref table BW_Goal12_31
+ref table All_SDG_Goal1
+ref table eu_Goal13
+ref table eu_SDG_13_21
+ref table eu_SDG_13_40
+ref table BW_Goal13_10
+ref table BW_Goal13_21
+ref table BW_Goal13_40
+ref table BW_Goal13_50
+ref table eu_SDG_14_10
+ref table eu_SDG_14_60
+ref table BW_Goal14_10
+ref table BW_Goal14_60
+ref table 'Goal 15 Target'
+ref table All_SDG_Goal15
+ref table eu_SDG_15_10
+ref table BW_Goal15_20
+ref table BW_Goal15_10
+ref table eu_SDG_16_30
+ref table SDG_16_10
+ref table eu_sdg_16_70
+ref table BW_Goal16_10
+ref table BW_Goal16_30
+ref table BW_Goal16_40
+ref table BW_Goal16_50
+ref table BW_Goal16_70
+ref table All_SDG_16_40_
+ref table Eu_Graph16_40
+ref table All_SDG_16_40_EUGraph
+ref table EU_SDG_17_10
+ref table EU_SDG_17_40
+ref table BW_Goal17_10
+ref table BW_Goal17_40
+ref table BW_Goal17_50
+ref table EU_SDG_15_20
+ref table SDG_04_10_Graph
+ref table SDG_04_20_Graph
+ref table eu_SDG_01_10
+ref table 'EU_SDG_03_60 (2)'
+ref table EU_SDG_03_30
+ref table EU_SDG_05_10
+ref table EU_SDG_03_42
+ref table EU_SDG_12_31
+ref table eu_SDG_13_31
+ref table BW_Goal3_70
+ref table SDG_03_70
+ref table BW_Goal5_40
+ref table BW_Goal15_42
+ref table eu_SDG_15_42
+ref table BW_Goal2_53
+ref table SDG_02_53
+ref table 'Goal 1 - Goal 17'
+ref table 'Goal1 target new'
+ref table All_SDG_05_11
+ref table All_SDG_05_61
+ref table All_SDG_13_11
+ref table All_SDG_13_70a
+ref table All_SDG_14_51
+ref table All_SDG_15_11
+ref table All_SDG_17_31
+ref table hlth_silc_17
+ref table SDG_05_11_eu
+ref table SDG_05_61_eu
+ref table SDG_13_11_eu
+ref table SDG_13_70a_eu
+ref table SDG_14_51_eu
+ref table SDG_15_11_eu
+ref table SDG_17_31_eu
+ref table SDG_hlth_silc_17_eu
+ref table 'BW_Goal hlth_silc_17'
+ref table BW_Goal5_11
+ref table BW_Goal5_61
+ref table BW_Goal13_11
+ref table BW_Goal13_70a
+ref table BW_Goal15_11
+ref table BW_Goal17_31
+ref table BW_Goal14_51
+ref table eu_sdg_17_31
+ref table eu_SDG_15_11
+ref table eu_sdg_14_51
+ref table eu_hlth_silc_17
+ref table eu_sdg_05_11
+ref table eu_sdg_13_70a
+ref table eu_sdg_05_61
+ref table SDG_10_20_eu
+ref table SDG_05_61_Overview
+
+ref cultureInfo en-US
+

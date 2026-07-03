@@ -1,0 +1,67 @@
+table BW_Goal11_32
+	lineageTag: f125bff4-f7e3-492b-9d7f-43ef8bd95aef
+
+	column Year
+		formatString: 0
+		lineageTag: 92222227-fe8a-4c60-a326-c02b224cd0b7
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 036fb485-c660-46d1-8d7b-9b8bbd251f5d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 62c0bbaa-fc35-4ca0-bbf4-ac65c43f0c6e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			// IF(BW_Goal15_41[Year]=MAX(BW_Goal15_41[Year]),(MAX(BW_Goal15_41[Year])&BW_Goal15_41[Value]),BLANK())
+			
+			var indicator = "SDG_11_32"
+			var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal11_32[Year]=maxTime_Period,maxTime_Period&BW_Goal11_32[Value],BLANK())
+		dataType: double
+		lineageTag: 5b92c289-4ccc-4728-b2ef-6e7870148a93
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal11_32 = calculated
+		mode: import
+		source =
+				
+				var indicator = "SDG_11_32"
+				//Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Geo]="EU27_2020")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				||
+				'All_SDG_Goal5-12'[Time_Period]=maxTime_Period-5
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator),
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				    )
+
+	annotation PBI_Id = a01d9429ac2f496fba414104ffefb62c
+

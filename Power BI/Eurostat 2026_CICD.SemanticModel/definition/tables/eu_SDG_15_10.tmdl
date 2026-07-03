@@ -1,0 +1,126 @@
+table eu_SDG_15_10
+	lineageTag: 3b7ec382-c456-4fb8-bc8d-550bb61c5b61
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: e17fc558-eecc-4cba-8099-b2d0ddf7417b
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: ba87b43f-b7d8-4d5d-9540-e66364d278c9
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 73c4d714-5585-4b44-9f59-7beb559c2e2e
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: a6792a50-dee9-4b6c-8391-dd62aac58923
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7654490f-acff-4643-8a99-2584ddeab0eb
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Unit
+		dataType: string
+		lineageTag: bbc0ea79-b4b7-453c-8002-0644582c4763
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column areaprot
+		dataType: string
+		lineageTag: c75ccaf6-46ef-4bf7-83cd-4d10f7d829c0
+		summarizeBy: none
+		sourceColumn: areaprot
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 2fb5c074-0aba-4f51-9a6a-c281f432c112
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitName
+		dataType: string
+		lineageTag: 3066ae44-d7a4-4148-beed-3c82a50829c2
+		summarizeBy: none
+		sourceColumn: UnitName
+
+		annotation SummarizationSetBy = Automatic
+
+	column comspec
+		dataType: string
+		lineageTag: 5056175d-56a4-4ddb-b26f-414ef0fe533f
+		summarizeBy: none
+		sourceColumn: comspec
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 6bc6cc3a-9059-40f7-a45a-da1f98fcfdd6
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Forestryindicators
+		dataType: string
+		lineageTag: 84d9002c-d3a6-4501-a556-c4f2138f3ae1
+		summarizeBy: none
+		sourceColumn: Forestryindicators
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_SDG_15_10 = m
+		mode: import
+		queryGroup: 'Goal 15'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    Goal15_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="Goal15",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal15_,{{"UpdatedFromDate", type date}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([IndicatorValue] = "SDG_15_10") and ([landcover] = "TOT_FAO"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

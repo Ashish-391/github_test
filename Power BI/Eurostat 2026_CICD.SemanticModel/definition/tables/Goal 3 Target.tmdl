@@ -1,0 +1,208 @@
+table 'Goal 3 Target'
+	lineageTag: f480be0a-19e5-41ff-88c4-7941af2aaf5d
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: b07e24fa-4b15-4330-9fd6-5460517c275d
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 2d0f579c-b2e4-40db-bbf7-01888d824b41
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 6ff8f168-6129-48ee-ae7a-23c2bce1c689
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: ec7f0133-2782-437a-8cfa-b29b7700afbd
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: e951795e-bcd7-404b-94b0-f1f6e2436078
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 02831441-5dd1-4351-a307-ce182b6d48c2
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indic_he
+		dataType: string
+		lineageTag: 0b722288-f3fa-4a37-950d-b755bb01c4e7
+		summarizeBy: none
+		sourceColumn: Indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: 9d3a7e16-452a-4c58-b6ab-2425e3c589c4
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantile
+		dataType: string
+		lineageTag: ad926649-39d4-454c-ae95-d002b0ba39d3
+		summarizeBy: none
+		sourceColumn: Quantile
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: f1af162b-aaf7-4a67-8db5-747b269d481b
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Levels
+		dataType: string
+		lineageTag: efcebc69-881d-49c7-99af-84df9cb52f39
+		summarizeBy: none
+		sourceColumn: Levels
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		dataType: string
+		lineageTag: 08a3b8a6-b258-4e8d-bbd7-69b23d4903f0
+		summarizeBy: none
+		sourceColumn: Mortality
+
+		annotation SummarizationSetBy = Automatic
+
+	column ICD10
+		dataType: string
+		lineageTag: a90d848d-57fd-42cb-9bb5-8790f591e04a
+		summarizeBy: none
+		sourceColumn: ICD10
+
+		annotation SummarizationSetBy = Automatic
+
+	column INGCRP
+		dataType: string
+		lineageTag: 4558c8d4-e6b1-4140-b349-db515cdc3494
+		summarizeBy: none
+		sourceColumn: INGCRP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cities
+		dataType: double
+		lineageTag: aa629cdf-182c-495d-bb17-2a3e1528d127
+		summarizeBy: sum
+		sourceColumn: Cities
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Towns and suburbs'
+		dataType: double
+		lineageTag: 9b84286b-2507-4821-8f68-ca1e0f19c333
+		summarizeBy: sum
+		sourceColumn: Towns and suburbs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Rural areas'
+		dataType: double
+		lineageTag: c5772602-8365-41d5-8608-fb5b949b8a36
+		summarizeBy: sum
+		sourceColumn: Rural areas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TRA_INFR
+		dataType: string
+		lineageTag: 91821484-eb71-497f-aae9-278f22777625
+		summarizeBy: none
+		sourceColumn: TRA_INFR
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: c7e95150-78e1-4cb0-a1df-8f613e555bd6
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: c02c8d43-7340-4e8f-83bb-59d8235ee4db
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Effect
+		dataType: string
+		lineageTag: 5af12723-ac6f-4d61-95f7-6adcd90514ad
+		summarizeBy: none
+		sourceColumn: Effect
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'indic_he 2'
+		dataType: string
+		lineageTag: f831f448-95ad-42f3-ad96-35b7b37eb391
+		summarizeBy: none
+		sourceColumn: indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Goal 3 Target' = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"f7527d26-ad3a-43a1-9857-77dedffbaaf0" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All_SDG_Goal 2-3-4"]}[Data],
+				    #"Goal 3 Target_" = #"f7527d26-ad3a-43a1-9857-77dedffbaaf0"{[entity="Goal 3 Target",version=""]}[Data],
+				    #"Appended Query" = Table.Combine({#"Goal 3 Target_", SDG_hlth_silc_17_eu})
+				in
+				    #"Appended Query"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
