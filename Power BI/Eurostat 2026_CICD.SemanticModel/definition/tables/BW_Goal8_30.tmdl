@@ -1,0 +1,61 @@
+table BW_Goal8_30
+	lineageTag: f0abc64b-990d-4bc9-8ee6-bc0a5315a1d8
+
+	column Year
+		formatString: 0
+		lineageTag: 41ecc8dd-ffed-43fe-97c4-8e0426746ac0
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 8aa82cbc-ae0a-4c04-8571-fcb2389affb6
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 7ed063d4-41f1-49b6-8d8d-a7de6b8d8e23
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting = IF(BW_Goal8_30[Year]=MAX(BW_Goal8_30[Year]),(MAX(BW_Goal8_30[Year])&BW_Goal8_30[Value]),BLANK())
+		dataType: double
+		lineageTag: b84b5f05-0687-4b53-ae8c-452db41cfde8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal8_30 = calculated
+		mode: import
+		source =
+				
+				var indicator = "SDG_08_30"
+				
+				//Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Geo]="EU27_2020")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				||
+				'All_SDG_Goal5-12'[Time_Period]=maxTime_Period-5
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator),
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				    )
+
+	annotation PBI_Id = fc281a9868ae46fca04d7b5b82a69024
+

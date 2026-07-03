@@ -1,0 +1,28 @@
+table 'Scheduler Timestamp'
+	lineageTag: d59c0e06-704f-4f73-98bc-b951b832466e
+
+	column 'Date Time'
+		dataType: dateTime
+		formatString: dd-mm-yy hh:nn:ss AM/PM
+		lineageTag: 8ab80b00-c7be-443d-a668-598049438525
+		summarizeBy: none
+		sourceColumn: Date Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition 'Scheduler Timestamp' = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				Source = DateTime.LocalNow(),
+				    #"Converted to Table" = #table(1, {{Source}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Date Time"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns",{{"Date Time", type datetime}})
+				in
+				#"Changed Type"
+
+	annotation PBI_ResultType = Table
+

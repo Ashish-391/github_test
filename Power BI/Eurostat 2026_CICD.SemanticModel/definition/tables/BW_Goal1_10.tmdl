@@ -1,0 +1,86 @@
+table BW_Goal1_10
+	lineageTag: ac19e256-1f3b-4aa4-9222-7af5d74c8836
+
+	column Year
+		lineageTag: 5ead7714-c562-4138-bbe0-8f18e39cdfaa
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		dataType: double
+		lineageTag: 681f6220-da0e-4cc6-ad93-c834ca2f354f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Sorting = IF(BW_Goal1_10[Year]=MAX(BW_Goal1_10[Year]),MAX(BW_Goal1_10[Year])&BW_Goal1_10[Value],BLANK())
+		dataType: double
+		lineageTag: 9de639bc-785f-4f6d-8810-b595c8ef4ad2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: d3f11d76-bcec-4c10-b9cc-41d2050acdc1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BW_Goal1_10 = calculated
+		mode: import
+		source = ```
+				
+				-------------------------------------------------------------------------------------------
+				
+				var maxYear = CALCULATE(MAX(All_SDG_Goal1[TIME_PERIOD]),All_SDG_Goal1[Geo]="EU27_2020",All_SDG_Goal1[Indicator] = "SDG_01_10", All_SDG_Goal1[Age] = "TOTAL", All_SDG_Goal1[Unit] = "PC")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				(All_SDG_Goal1,(All_SDG_Goal1[TIME_PERIOD]= maxYear
+				||
+				All_SDG_Goal1[TIME_PERIOD]=maxYear-5
+				) && All_SDG_Goal1[Indicator] = "SDG_01_10" && All_SDG_Goal1[Age] = "TOTAL" && All_SDG_Goal1[Unit] = "PC" ),
+				        "Year", All_SDG_Goal1[TIME_PERIOD],
+				        "Value",All_SDG_Goal1[OBS_VALUE],
+				        "Geo", All_SDG_Goal1[Geo]
+				    )
+				
+				------------------------------------------------------------------------------------------
+				
+				
+				
+				
+				// var indicator = "SDG_13_10"
+				// var unit = "T_HAB"
+				// var sect="TOTXMEMONIA"
+				// //Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				// var maxTime_Period = CALCULATE(MAX(All_SDG_Goal12[TIME_PERIOD]),All_SDG_Goal12[Indicator]=indicator,All_SDG_Goal12[Geo]="EU27_2020",All_SDG_Goal12[Unit]=unit,All_SDG_Goal12[src_crf]=sect)
+				// RETURN
+				//     SELECTCOLUMNS (
+				//         FILTER
+				// (All_SDG_Goal12,(All_SDG_Goal12[TIME_PERIOD]= 2022
+				// ||
+				// All_SDG_Goal12[TIME_PERIOD]=2022-5
+				// ) && All_SDG_Goal12[Indicator]=indicator && All_SDG_Goal12[Unit]=unit && All_SDG_Goal12[src_crf]=sect ),
+				//         "Year", All_SDG_Goal12[TIME_PERIOD],
+				//         "Value", All_SDG_Goal12[OBS_VALUE],
+				//         "Geo", All_SDG_Goal12[Geo]
+				//     ) 
+				
+				```
+
+	annotation PBI_Id = fcabb4fe71f54173bcfe1bb3e2e16255
+

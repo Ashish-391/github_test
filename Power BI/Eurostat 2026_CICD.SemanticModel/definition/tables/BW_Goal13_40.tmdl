@@ -1,0 +1,70 @@
+table BW_Goal13_40
+	lineageTag: 68fa0dfd-ed6d-45bd-b185-b6e26820381f
+
+	column Year
+		formatString: 0
+		lineageTag: 5faaa48a-eba1-40c1-a9cd-9dd6f295dfee
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 3772c869-5cc3-46a0-8529-9113dc67360e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 5c9a2582-cb73-4f46-96f9-a90d53f2441c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_13_40"
+			var maxTime_Period = CALCULATE(MAX(All_SDG_Goal12[TIME_PERIOD]),All_SDG_Goal12[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal13_40[Year]=maxTime_Period,maxTime_Period&BW_Goal13_40[Value],BLANK())
+		dataType: double
+		lineageTag: 9b433c88-b010-440e-b013-cdbd43f966de
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal13_40 = calculated
+		mode: import
+		source = ```
+				
+				
+				var indicator = "SDG_13_40"
+				var stat = "AVG_30Y"
+				var unit = "EUR_HAB_KP"
+				//Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX(All_SDG_Goal12[TIME_PERIOD]),All_SDG_Goal12[Indicator]=indicator,All_SDG_Goal12[Geo]="EU27_2020",All_SDG_Goal12[unit]=unit,All_SDG_Goal12[statinfo] = stat)
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				(All_SDG_Goal12,(All_SDG_Goal12[TIME_PERIOD]= maxTime_Period
+				||
+				All_SDG_Goal12[TIME_PERIOD]=maxTime_Period-5
+				) && All_SDG_Goal12[Indicator]=indicator && All_SDG_Goal12[Unit]=unit && All_SDG_Goal12[statinfo] = stat),
+				        "Year", All_SDG_Goal12[TIME_PERIOD],
+				        "Value", All_SDG_Goal12[OBS_VALUE],
+				        "Geo", All_SDG_Goal12[Geo]
+				    ) 
+				
+				```
+
+	annotation PBI_Id = bc471a455b6c491ba89e08697b9df72d
+

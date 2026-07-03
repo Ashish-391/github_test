@@ -1,0 +1,67 @@
+table BW_Goal8_11
+	lineageTag: fd75f796-e6f6-49b1-921d-a5a75e1d4268
+
+	column Year
+		formatString: 0
+		lineageTag: e7d5ea2b-3a7f-4383-9885-e8c3b0e58bbd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 6746db30-cfe3-49ae-9023-1508309ad7f3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 959911c6-d34c-4e85-ada6-016f0712c48a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_08_11"
+			//var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-6-7'[Time_Period]),'All_SDG_Goal5-6-7'[Indicator]=indicator,'All_SDG_Goal5-6-7'[Geo]="EU27_2020")
+			RETURN
+			
+			IF(BW_Goal8_11[Year]=MAX(BW_Goal8_11[Year]),(MAX(BW_Goal8_11[Year])&BW_Goal8_11[Value]),BLANK())
+		dataType: double
+		lineageTag: 06e5365c-20b8-4cb1-98de-75e167cd5a1a
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal8_11 = calculated
+		mode: import
+		source =
+				
+				var indicator = "SDG_08_11"
+				
+				//Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Geo]="EU27_2020",'All_SDG_Goal5-12'[indic]="INV_TOT")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				||
+				'All_SDG_Goal5-12'[Time_Period]=maxTime_Period-5
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator && 'All_SDG_Goal5-12'[indic]="INV_TOT"),
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				    )
+
+	annotation PBI_Id = e8becc4a73be42b582c79f51cc410830
+

@@ -1,0 +1,98 @@
+table SDG_09_70
+	lineageTag: 8cc794f4-b33c-4807-8d99-205e8d9b2198
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 710f62fa-60fa-4015-a040-011eb78e59c4
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: deb5ac33-4db1-425f-9b76-8b91057b973a
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 999349dc-f303-41a1-adee-9bd62f511f13
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 01c8d27d-0f05-4d3b-9e6a-97779f7f9e07
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 27602aeb-b521-4226-b117-266c2e4bed1c
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: d5c0ed2f-cfea-45f1-af14-7a1827bec2aa
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column airpol
+		dataType: string
+		isHidden
+		lineageTag: 16b4a8f4-c524-4bbf-8304-6b4a42f12049
+		summarizeBy: none
+		sourceColumn: airpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: d2b7b8e3-4314-4d01-b0cd-ef413c9c9718
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_09_70 = m
+		mode: import
+		queryGroup: 'Goal 9'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"e7dd114e-bbb6-4bb8-8411-634dc72935be" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 9"]}[Data],
+				    SDG_09_70_ = #"e7dd114e-bbb6-4bb8-8411-634dc72935be"{[entity="SDG_09_70",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_09_70_, each ([airpol] = "PM2_5")),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"IndicatorValue", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

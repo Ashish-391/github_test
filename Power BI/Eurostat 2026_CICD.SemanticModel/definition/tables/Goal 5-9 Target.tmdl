@@ -1,0 +1,491 @@
+table 'Goal 5-9 Target'
+	lineageTag: 5e9ffb94-de55-4f0c-8e8c-d6aa225b647c
+
+	measure Total_RMC = CALCULATE(SUM('Goal 5-9 Target'[OBS_VALUE]), 'Goal 5-9 Target'[Material] = "Total",'Goal 5-9 Target'[Indicator]="SDG_12_21")
+		lineageTag: 8c305295-cde0-47d8-8ea5-a10ce00ce0ef
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e1f2444-4abb-4f18-8222-86e635a4b79f
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 56d588a9-3811-483e-8026-23fe6ef2b5c3
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 260bab5e-5597-4991-b271-7ffc668499a8
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: ca9dc91b-2237-4ad8-b5fe-437641a5e8a5
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 333c32fd-a1c0-4178-842d-7fb2206ed95b
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: fd3e98fb-e535-4344-8b96-c44036b9f98a
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: d6712ace-1563-4dc2-be47-de9349d02c53
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: 4adc093f-9057-4831-9a37-39ebd4444004
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column Wstatus
+		dataType: string
+		lineageTag: 8f29b3cc-d325-40f9-9c4b-669d4720f070
+		summarizeBy: none
+		sourceColumn: Wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: a0251f86-ed4b-4e19-a925-c607789d212a
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Org_inst
+		dataType: string
+		lineageTag: 49538a54-edb0-43eb-b6ef-f618895246c7
+		summarizeBy: none
+		sourceColumn: Org_inst
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason
+		dataType: string
+		lineageTag: b15d5001-8eec-4e74-896c-5b055847c651
+		summarizeBy: none
+		sourceColumn: reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: a0471b6b-84b0-4a5c-9374-bf51c20c806e
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: double
+		formatString: 0
+		lineageTag: 66ab9c52-e386-4c7b-aab8-d743bd8ccfb8
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aquatic environment'
+		dataType: string
+		lineageTag: 69d2d85c-9514-493a-a646-cac53b849920
+		summarizeBy: none
+		sourceColumn: Aquatic environment
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: a312c923-4a86-4889-a30d-a7f867c2593c
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column SIEC
+		dataType: string
+		lineageTag: d73da655-c651-4add-9967-4bf93bf80a53
+		summarizeBy: none
+		sourceColumn: SIEC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Energy Balance'
+		dataType: string
+		lineageTag: 7d74e539-8d79-4226-bd35-97778aa9d289
+		summarizeBy: none
+		sourceColumn: Energy Balance
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit2
+		dataType: string
+		lineageTag: e2212d09-6b48-42dd-9ea4-e30648769091
+		summarizeBy: none
+		sourceColumn: Unit2
+
+		annotation SummarizationSetBy = Automatic
+
+	column na_item
+		dataType: string
+		lineageTag: a7aaf1f5-1f55-4ee0-9891-108b7ab3cde3
+		summarizeBy: none
+		sourceColumn: na_item
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_em
+		dataType: string
+		lineageTag: 6329683f-380f-408a-8f16-9649e3b34607
+		summarizeBy: none
+		sourceColumn: indic_em
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicators
+		dataType: string
+		lineageTag: 83d5dbb1-d837-43ac-8006-7ac7671c52e0
+		summarizeBy: none
+		sourceColumn: Indicators
+
+		annotation SummarizationSetBy = Automatic
+
+	column Material
+		dataType: string
+		lineageTag: ef94d113-38a4-4fa5-9f4f-90b54edd4932
+		summarizeBy: none
+		sourceColumn: Material
+
+		annotation SummarizationSetBy = Automatic
+
+	column Environment_Indicator
+		dataType: string
+		lineageTag: 561f17ef-c273-4f0a-a873-e4f1eaadeb1d
+		summarizeBy: none
+		sourceColumn: Environment_Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column terrtypo
+		dataType: string
+		lineageTag: cfe636f7-f7b6-425c-a17d-7df44ac4a492
+		summarizeBy: none
+		sourceColumn: terrtypo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sector of Performance'
+		dataType: string
+		lineageTag: 64b51af4-68fc-4a8a-93fc-a41a3bba67c2
+		summarizeBy: none
+		sourceColumn: Sector of Performance
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sector of Perfomance'
+		dataType: string
+		lineageTag: 9bd88b9b-0266-49c4-9932-cbbe78d2aae0
+		summarizeBy: none
+		sourceColumn: Sector of Perfomance
+
+		annotation SummarizationSetBy = Automatic
+
+	column Coop_ptn
+		dataType: string
+		lineageTag: 93f44205-a3f8-438c-a0bc-7e7c718c6f60
+		summarizeBy: none
+		sourceColumn: Coop_ptn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vehicle
+		dataType: string
+		lineageTag: 02625dda-7ad4-49be-a326-ca0a5de5255f
+		summarizeBy: none
+		sourceColumn: Vehicle
+
+		annotation SummarizationSetBy = Automatic
+
+	column tra_mode
+		dataType: string
+		lineageTag: 71bc976d-b763-4344-8d1b-01fc984ffd2a
+		summarizeBy: none
+		sourceColumn: tra_mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Airpollution
+		dataType: string
+		lineageTag: e36de3ee-9d97-46cb-a457-e2b184ffd50e
+		summarizeBy: none
+		sourceColumn: Airpollution
+
+		annotation SummarizationSetBy = Automatic
+
+	column ty
+		dataType: string
+		lineageTag: 94323e3e-f5bf-472e-ac59-10183b1c794f
+		summarizeBy: none
+		sourceColumn: ty
+
+		annotation SummarizationSetBy = Automatic
+
+	column nace_r2
+		dataType: string
+		lineageTag: a6424e49-90f1-4205-b2e0-9fa33cdfde1b
+		summarizeBy: none
+		sourceColumn: nace_r2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Applicant type'
+		dataType: string
+		lineageTag: 5d88d128-90f6-4851-91fa-d23d9b1d3471
+		summarizeBy: none
+		sourceColumn: Applicant type
+
+		annotation SummarizationSetBy = Automatic
+
+	column citizen
+		dataType: string
+		lineageTag: 96ae9e50-1157-4775-89fa-ab183975639e
+		summarizeBy: none
+		sourceColumn: citizen
+
+		annotation SummarizationSetBy = Automatic
+
+	column training
+		dataType: string
+		lineageTag: 8a3d283b-a5a2-4018-864b-fb7f12b39d2f
+		summarizeBy: none
+		sourceColumn: training
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'wstatus 2'
+		dataType: string
+		lineageTag: e032bce7-17f1-4952-b005-5a04eba9a1cd
+		summarizeBy: none
+		sourceColumn: wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column deg_urb
+		dataType: string
+		lineageTag: 7fd91a68-e2ed-4096-9103-b2ed6bc976eb
+		summarizeBy: none
+		sourceColumn: deg_urb
+
+		annotation SummarizationSetBy = Automatic
+
+	column hazard
+		dataType: string
+		lineageTag: d8e2042e-89bd-4c95-b510-dc6eed502989
+		summarizeBy: none
+		sourceColumn: hazard
+
+		annotation SummarizationSetBy = Automatic
+
+	column cons_fp
+		dataType: string
+		lineageTag: 342e1a5d-d334-4b98-bd17-58abc644b281
+		summarizeBy: none
+		sourceColumn: cons_fp
+
+		annotation SummarizationSetBy = Automatic
+
+	column src_crf
+		dataType: string
+		lineageTag: d58a0835-22bf-4110-b49a-2606e35c420a
+		summarizeBy: none
+		sourceColumn: src_crf
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 7a9030fb-c89d-4ca0-9e05-846f836af0b2
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_env
+		dataType: string
+		lineageTag: aea119f8-f174-4c62-af6e-6f28c007bbcb
+		summarizeBy: none
+		sourceColumn: indic_env
+
+		annotation SummarizationSetBy = Automatic
+
+	column areaprot
+		dataType: string
+		lineageTag: 318425ea-b608-4ac7-bf52-ce4ff65d4121
+		summarizeBy: none
+		sourceColumn: areaprot
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg
+		dataType: string
+		lineageTag: e37907bd-d120-4c3b-9619-93ca6debdc3a
+		summarizeBy: none
+		sourceColumn: fishreg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EU Fish Stock'
+		dataType: string
+		lineageTag: 5d8d0394-064f-4373-b119-69ed857c46aa
+		summarizeBy: none
+		sourceColumn: EU Fish Stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:unit
+		dataType: string
+		lineageTag: a23f7421-6361-4250-950c-84a53bac9682
+		summarizeBy: none
+		sourceColumn: Attribute:unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'hazard Code'
+		dataType: string
+		lineageTag: 6b677e91-3b71-4659-94fd-8adc81082367
+		summarizeBy: none
+		sourceColumn: hazard Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:inet_tec
+		dataType: string
+		lineageTag: 349788cf-41f8-46a5-9357-29de33cebcf4
+		summarizeBy: none
+		sourceColumn: Attribute:inet_tec
+
+		annotation SummarizationSetBy = Automatic
+
+	column env_pa
+		dataType: string
+		lineageTag: d04fa049-4277-4b58-ad46-19c68c49ed24
+		summarizeBy: none
+		sourceColumn: env_pa
+
+		annotation SummarizationSetBy = Automatic
+
+	column seabasin
+		dataType: string
+		lineageTag: 451fcd59-798e-4595-b28c-26c025e81dd7
+		summarizeBy: none
+		sourceColumn: seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_ppp
+		dataType: string
+		lineageTag: 970babf0-2345-45ab-87bd-a3604d8a6424
+		summarizeBy: none
+		sourceColumn: indic_ppp
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:rskpovth
+		dataType: string
+		lineageTag: af65767c-b620-4197-9d52-365b17ec5ea0
+		summarizeBy: none
+		sourceColumn: Attribute:rskpovth
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:statinfo
+		dataType: string
+		lineageTag: 46681fb9-027f-4996-92ce-e5ea1e4d224f
+		summarizeBy: none
+		sourceColumn: Attribute:statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rskpovth
+		dataType: string
+		lineageTag: f0de1ac4-7d6b-4493-9145-7d9b1d98dd9d
+		summarizeBy: none
+		sourceColumn: Rskpovth
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:hhcomp
+		dataType: string
+		lineageTag: 34c77874-0f62-47e4-b8c1-8cb5c703cc8a
+		summarizeBy: none
+		sourceColumn: Attribute:hhcomp
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Goal 5-9 Target' = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"920dad29-ca8b-44ae-95de-219011930d3b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All SDG Goal 5-6-7"]}[Data],
+				    #"Goal 5-6 Target_" = #"920dad29-ca8b-44ae-95de-219011930d3b"{[entity="Goal 5-6 Target",version=""]}[Data],
+				#"Renamed Columns" = Table.RenameColumns(#"Goal 5-6 Target_",{{"nrg_bal", "Energy Balance"}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns","REN_TRA","Transport",Replacer.ReplaceText,{"Energy Balance"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","REN_ELC","Electricity",Replacer.ReplaceText,{"Energy Balance"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","REN_HEAT_CL","Heating and cooling",Replacer.ReplaceText,{"Energy Balance"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","REN","Total",Replacer.ReplaceText,{"Energy Balance"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","C0000X0350-0370","Solid fossil fuels",Replacer.ReplaceText,{"siec"}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Replaced Value4","O4000XBIO","Oil and petroleum products (excluding biofuel portion)",Replacer.ReplaceText,{"siec"}),
+				    #"Replaced Value6" = Table.ReplaceValue(#"Replaced Value5","TOTAL","Total",Replacer.ReplaceText,{"siec"}),
+				    #"Replaced Value7" = Table.ReplaceValue(#"Replaced Value6","G3000","Natural gas",Replacer.ReplaceText,{"siec"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Replaced Value7",{{"siec", "SIEC"}}),
+				    #"Appended Query" = Table.Combine({#"Renamed Columns2", #"Goal 8 Target", #"Goal 12 Target"}),
+				    #"Replaced Value8" = Table.ReplaceValue(#"Appended Query","LSA","Low-settled areas",Replacer.ReplaceText,{"terrtypo"}),
+				    #"Appended Query1" = Table.Combine({#"Replaced Value8", SDG_05_11_eu, SDG_05_61_eu, SDG_10_20_eu})
+				in
+				    #"Appended Query1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

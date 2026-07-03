@@ -1,0 +1,143 @@
+table All_sdg_11_11
+	isHidden
+	lineageTag: e52c505c-0f0d-452d-9c15-7717ff6f68be
+
+	column TIME_PERIOD
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f52b38dc-38af-422b-a039-7c3e2bf71df3
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		isHidden
+		lineageTag: f6a83585-c0ae-4805-8551-bb0fa40a68f2
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_FLAG
+		dataType: string
+		isHidden
+		lineageTag: 419f666a-a5e6-4175-be9c-640ddb3bd598
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		isHidden
+		lineageTag: 22b822b8-c9b5-4f2e-9f34-f3c66affdc87
+		summarizeBy: none
+		sourceColumn: Geo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 40468582-9871-4e94-ab7b-051757259855
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		isHidden
+		lineageTag: 16d17c53-0938-4c4c-a583-c76158278561
+		summarizeBy: none
+		sourceColumn: Sex
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		isHidden
+		lineageTag: 4157c850-3bd9-45f6-924e-6405102fa91e
+		summarizeBy: none
+		sourceColumn: Freq
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		isHidden
+		lineageTag: bfeef44c-56ce-48aa-b753-4e7ca9758803
+		summarizeBy: none
+		sourceColumn: Age
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column INCGRP
+		dataType: string
+		isHidden
+		lineageTag: c080c0e8-8f89-4711-81d9-5aade6b65057
+		summarizeBy: none
+		sourceColumn: INCGRP
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		isHidden
+		lineageTag: e97047c4-45db-457d-901b-0be8f655962a
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_sdg_11_11 = m
+		mode: import
+		queryGroup: 'Goal 1'
+		source =
+				let
+				    Source = Xml.Tables(Web.Contents("https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/SDG_11_11?format=SDMX_2.1_STRUCTURED")),
+				    Table1 = Source{1}[Table],
+				    Table2 = Table1{0}[Table],
+				    Table3 = Table2{0}[Table],
+				    Table4 = Table3{0}[Table],
+				    #"Changed Type" = Table.TransformColumnTypes(Table4,{{"Attribute:geo", type text}, {"Attribute:unit", type text}, {"Attribute:sex", type text}, {"Attribute:freq", type text}, {"Attribute:age", type text}, {"Attribute:incgrp", type text}}),
+				    #"Expanded Obs" = Table.ExpandTableColumn(#"Changed Type", "Obs", {"Attribute:TIME_PERIOD", "Attribute:OBS_VALUE", "Attribute:OBS_FLAG"}, {"Obs.Attribute:TIME_PERIOD", "Obs.Attribute:OBS_VALUE", "Obs.Attribute:OBS_FLAG"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Expanded Obs",{{"Obs.Attribute:TIME_PERIOD", "TIME_PERIOD"}, {"Obs.Attribute:OBS_VALUE", "OBS_VALUE"}, {"Obs.Attribute:OBS_FLAG", "OBS_FLAG"}, {"Attribute:geo", "Geo"}, {"Attribute:unit", "Unit"}, {"Attribute:sex", "Sex"}, {"Attribute:freq", "Freq"}, {"Attribute:age", "Age"}, {"Attribute:incgrp", "INCGRP"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Indicator", each "sdg_11_11"),
+				    #"Filtered Rows" = Table.SelectRows(#"Added Custom", each ([Geo] <> "UK")),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows",{{"TIME_PERIOD", Int64.Type}, {"OBS_VALUE", type number}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Changed Type1", each ([INCGRP] = "TOTAL") and ([Geo] <> "EA18" and [Geo] <> "EA19" and [Geo] <> "EU" and [Geo] <> "EU27_2007" and [Geo] <> "EU28"))
+				in
+				    #"Filtered Rows1"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

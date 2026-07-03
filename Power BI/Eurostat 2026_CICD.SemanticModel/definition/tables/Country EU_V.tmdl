@@ -1,0 +1,55 @@
+table 'Country EU_V'
+	isHidden
+	excludeFromModelRefresh
+	lineageTag: cb9d0993-1a26-483f-a78a-c506cee5da0c
+
+	column CountryCode
+		dataType: string
+		isHidden
+		lineageTag: 95b543c2-bd3d-407d-afcd-2ae4df76709e
+		summarizeBy: none
+		sourceColumn: CountryCode
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		isHidden
+		lineageTag: 97026bdc-d2be-4ba1-bc2b-e1ad02cdba55
+		summarizeBy: none
+		sourceColumn: Country
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeoKey
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7a46877b-cb9d-414a-956d-e2b2bf29d2bc
+		summarizeBy: count
+		sourceColumn: GeoKey
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Country EU_V' = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("LY9bS8NAEEb/yrBPFgpijZc8tlKoTSmSEBFCkCEZ7EKZKXsp1F/v7ODb4Rz4ZncY3Lb//nRLt81BLoQMPXthFdXKjcvB7T+U93hBc4/m2l65zTF6LLIy2bTKneR0gkYCIZT0ZKnvlHU30QxdwkSxtGdrh3flg6fplIhjIm93Xqx9NcqNRLkK3GWeKcD/yhGTvjJCR1MOPt3gTTJP/gwtRTnnEuFhVVX3db0oe6+2t1krbySyR0CeYUfhl37k6tn+Ubtx/AM=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [CountryCode = _t, Country = _t, GeoKey = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"CountryCode", type text}, {"Country", type text}, {"GeoKey", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,101 @@
+table SDG_14_21
+	lineageTag: 95ed4a68-3b2f-4ea9-bce9-405f06b6b8da
+
+	column Year
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: b12e05cd-d5d4-4e56-9c69-d8254ad13e6a
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: 57533a37-bf67-49d3-89d5-37f9f91fc4a2
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 97ba205b-cdae-4213-815d-22b74d2cad3e
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 4a91686d-2b24-4a9c-88fc-7e9056d573dc
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 5ebcbb1e-6fa9-4f1e-9d3c-5134db58fb98
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg
+		dataType: string
+		isHidden
+		lineageTag: e82cf6bd-958c-4d0d-8ae8-b31caad88086
+		summarizeBy: none
+		sourceColumn: fishreg
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 2d03c877-8fe6-4248-9d20-a5378b147dfb
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EU Fish Stock'
+		dataType: string
+		lineageTag: 9b52d5e9-b339-4b0d-bb41-dd8d49cbc329
+		summarizeBy: none
+		sourceColumn: EU Fish Stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: b2161d85-762e-4a6e-b4e2-aebc5677b735
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_14_21 = m
+		mode: import
+		queryGroup: 'Goal 14'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_14_21_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_14_21",version=""]}[Data]
+				in
+				    SDG_14_21_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

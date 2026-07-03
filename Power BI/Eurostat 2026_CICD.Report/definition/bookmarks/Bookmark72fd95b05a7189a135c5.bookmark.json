@@ -1,0 +1,4814 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "sdg_05_10",
+  "name": "Bookmark72fd95b05a7189a135c5",
+  "options": {
+    "targetVisualNames": []
+  },
+  "explorationState": {
+    "version": "1.11",
+    "activeSection": "ReportSectionc8e56b1995c62c54d396",
+    "sections": {
+      "ReportSectionc8e56b1995c62c54d396": {
+        "visualContainers": {
+          "7f9d27d6c91296599166": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "ffeaf751be8865706d3b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "48cdf62d0fb2aec82e07",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Scheduler Timestamp"
+                            }
+                          },
+                          "Property": "Date Time"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "dd25d696084a76034286": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filterc4b981e42870031e0803",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter9429191bc2c33667687e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_50"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter4bb48c40b7360a0ceb8c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_50"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterc66b564b24b0509763be",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal5_50"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "d921fe9eb3ef8b8c5879",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_40"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "0cfc16c3dabca5eac616",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal5_40"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c2bfba460d9aeefb734d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_40"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "6de87cd9a59d6b924562": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter1de62d4f04c3505464be",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterb3a5b69c6594811e0aa8",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterba6b2d40bac6e644ed00",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "f294651d006a80ecce73",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Sex"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "b66c552410143b3bb835": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "1ef72fbda2074da01ce4": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {}
+            }
+          },
+          "fdcd0cf62e23a22c00ac": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "5eb1660db497424b505a": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "c11023e08ea9e351aa40": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "5d732d537b004b54e8b2": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "b62c7eff8016c02d3ea1": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter2f07c910f9c6fb5a0228",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "s",
+                        "Entity": "SDG",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Not": {
+                            "Expression": {
+                              "In": {
+                                "Expressions": [
+                                  {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "s"
+                                        }
+                                      },
+                                      "Property": "SDG"
+                                    }
+                                  }
+                                ],
+                                "Values": [
+                                  [
+                                    {
+                                      "Literal": {
+                                        "Value": "null"
+                                      }
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SDG"
+                        }
+                      },
+                      "Property": "SDG"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "s",
+                                "Entity": "SDG",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "s"
+                                            }
+                                          },
+                                          "Property": "SDG"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'Goal 5 - Gender equality'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SDG"
+                        }
+                      },
+                      "Property": "SDG"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "d25be649e8a1adb31c05": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "a3e86f10d174430ebc14": {
+            "singleVisual": {
+              "visualType": "bookmarkNavigator",
+              "objects": {}
+            }
+          },
+          "f34731440a9ed29c050c": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "a981fd59239d8e15e964": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filtere22319e91b5693fc5fa8",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "Datapoints-List",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Not": {
+                            "Expression": {
+                              "In": {
+                                "Expressions": [
+                                  {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "d"
+                                        }
+                                      },
+                                      "Property": "Category"
+                                    }
+                                  }
+                                ],
+                                "Values": [
+                                  [
+                                    {
+                                      "Literal": {
+                                        "Value": "null"
+                                      }
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Datapoints-List"
+                        }
+                      },
+                      "Property": "Category"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter0c46e4fbd759cd316ff5",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Datapoints-List"
+                        }
+                      },
+                      "Property": "Data Points"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter27789353499a833d3b4c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Generic-Measures"
+                        }
+                      },
+                      "Property": "Geo"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter45b0ac9ae5dd0927a082",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_StatsYear"
+                        }
+                      },
+                      "Property": "Year_Calculation"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter64d1827690db197fcebe",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Values"
+                        }
+                      },
+                      "Property": "Value_Calculation"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter7229ed98f358cd805fb0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Generic-Measures"
+                        }
+                      },
+                      "Property": "Units"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterb2f0a2ac280003505d84",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "g",
+                        "Entity": "Goal1",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "g"
+                                    }
+                                  },
+                                  "Property": "IndicatorValue"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "IndicatorValue"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter3e4b03255b900994ea09",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "Dims",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "d"
+                                    }
+                                  },
+                                  "Property": "Dims Fields"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'''Goal1''[Age Name]'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Dims"
+                        }
+                      },
+                      "Property": "Dims"
+                    }
+                  },
+                  "howCreated": 1,
+                  "cachedDisplayNames": [
+                    {
+                      "id": {
+                        "scopeId": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Column": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Entity": "Dims"
+                                  }
+                                },
+                                "Property": "Dims Fields"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "'''Goal1''[Age Name]'"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "displayName": "Age"
+                    }
+                  ]
+                },
+                {
+                  "name": "Filter5d20f043da0fffe74e76",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "Unit"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterfa3eaac0906c568e70ca",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "age"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "af6119d3a4554ae9610a",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "g",
+                        "Entity": "Goal1",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "g"
+                                    }
+                                  },
+                                  "Property": "Age Name"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Total'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "Age Name"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "5525f14fa8c61c8ff714",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "org_inst"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Datapoints-List"
+                        }
+                      },
+                      "Property": "Category"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Datapoints-List"
+                        }
+                      },
+                      "Property": "Data Points"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "Age Name"
+                    }
+                  }
+                ]
+              },
+              "projections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Datapoints-List"
+                        }
+                      },
+                      "Property": "Category"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Datapoints-List"
+                        }
+                      },
+                      "Property": "Data Points"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "Age Name"
+                    }
+                  }
+                ],
+                "Values": [
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_StatsYear"
+                        }
+                      },
+                      "Property": "Year_Calculation"
+                    }
+                  },
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Generic-Measures"
+                        }
+                      },
+                      "Property": "Geo"
+                    }
+                  },
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Values"
+                        }
+                      },
+                      "Property": "Value_Calculation"
+                    }
+                  },
+                  {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Generic-Measures"
+                        }
+                      },
+                      "Property": "Units"
+                    }
+                  }
+                ]
+              },
+              "parameters": {
+                "Rows": [
+                  {
+                    "expr": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Dims"
+                          }
+                        },
+                        "Property": "Dims"
+                      }
+                    },
+                    "index": 2,
+                    "length": 1
+                  }
+                ]
+              },
+              "expansionStates": [
+                {
+                  "roles": [
+                    "Rows"
+                  ],
+                  "levels": [
+                    {
+                      "queryRefs": [
+                        "Datapoints-List.Category"
+                      ],
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "Datapoints-List.Data Points"
+                      ],
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "Goal1.Age Name"
+                      ],
+                      "isCollapsed": true
+                    }
+                  ],
+                  "root": {
+                    "identityValues": null
+                  }
+                }
+              ]
+            }
+          },
+          "b1a483e7200498b138d9": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filtere7a485c4530ee6012a2c",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "g",
+                        "Entity": "Goal1",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "g"
+                                    }
+                                  },
+                                  "Property": "IndicatorValue"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "IndicatorValue"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter1f41d7e0472c41a3d298",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "UpdatedFromDate"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "g",
+                                "Entity": "Goal1",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "g"
+                                            }
+                                          },
+                                          "Property": "UpdatedFromDate"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "datetime'2024-04-19T00:00:00'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "selection": [
+                    {
+                      "properties": {
+                        "strictSingleSelect": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "true"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "UpdatedFromDate"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "UpdatedFromDate"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "3bc64c50015070a30025": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "174dfcaae447787360b2": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter682f9e86da279b9be9d0",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "c",
+                        "Entity": "Country-FullNames",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Not": {
+                            "Expression": {
+                              "In": {
+                                "Expressions": [
+                                  {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "c"
+                                        }
+                                      },
+                                      "Property": "Country"
+                                    }
+                                  }
+                                ],
+                                "Values": [
+                                  [
+                                    {
+                                      "Literal": {
+                                        "Value": "null"
+                                      }
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter6b2771b27d42b5172448",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal1_10"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterc5c8e4f810d07a0d309b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_10"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter2a5ee28492ca0a7d060a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_10"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "02bc21b16f55d1179444",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_10"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_10"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "7ff4c8046cb2d0390b64": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter2ebaf0735239638338ab",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filtercf5f067f5062409de203",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Age"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter59859c69d44b12146064",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "g",
+                        "Entity": "Goal 5-9 Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "g"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'sdg_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "170b766fc170a0723364",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "Age Sort"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "barChart",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "Age Sort"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Age"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "af7dc7623ce032e00799": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "a42fb4962b701d37c155": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filtera01732d6a8df9d28f723",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter6a78e2971d0e679807d5",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Year-Label"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Long Term'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww"
+                        }
+                      },
+                      "Property": "Year-Label"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterfb8c913d7b7307b7a6c0",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Indicators"
+                        }
+                      },
+                      "Property": "Target-Description"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "5ec867bbcbe9c4ac7e57",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Overvieww"
+                            }
+                          },
+                          "Property": "YearValue2"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "d4c313d63c2927020c20": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filteredc680c5050438775137",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Year-Label"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Short Term'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww Target"
+                        }
+                      },
+                      "Property": "Year-Label"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter89975814e52ba692323c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww Target"
+                        }
+                      },
+                      "Property": "CAGR_Target"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter1bf5ea721854eccb5b53",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "i",
+                        "Entity": "Indicators",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Indicators"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterd91888f60765eb9915d1",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww Target"
+                        }
+                      },
+                      "Property": "CAGR -Required HeaderT"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "tableEx",
+              "objects": {}
+            }
+          },
+          "f4ba87f34402035605a8": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter55669b1b1b30a5d182d0",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "i",
+                        "Entity": "Indicators",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "i"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_01_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Indicators"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filteredc680c5050438775137",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Year-Label"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Long Term'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww Target"
+                        }
+                      },
+                      "Property": "Year-Label"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterd91888f60765eb9915d1",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "CAGR -Required HeaderT"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Observed'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww Target"
+                        }
+                      },
+                      "Property": "CAGR -Required HeaderT"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "8c41ed1d6d1c721c8b2c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww Target"
+                        }
+                      },
+                      "Property": "CAGR_Target"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "tableEx",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww Target"
+                        }
+                      },
+                      "Property": "CAGR_Target"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "1b15023d42cb85d50040": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filterb4161dded424fd37befb",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Indicators"
+                        }
+                      },
+                      "Property": "Target-Description"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter938e3c870020dde8e2e1",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Year-Label"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Short Term'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww"
+                        }
+                      },
+                      "Property": "Year-Label"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter68d268cbd9d2d5ca063a",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "CAGR -Required HeaderT"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Observed'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww Target"
+                        }
+                      },
+                      "Property": "CAGR -Required HeaderT"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter12a1dd938b77247758c1",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "a9d6ed943c26d2028b7c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Overvieww"
+                            }
+                          },
+                          "Property": "YearValue2"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "e88a418f810a17690366": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "a1907518a6a27bcd88c5": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filtera01732d6a8df9d28f723",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterb4161dded424fd37befb",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Indicators"
+                        }
+                      },
+                      "Property": "Target-Description"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter938e3c870020dde8e2e1",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Year-Label"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Short Term'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww"
+                        }
+                      },
+                      "Property": "Year-Label"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "180f6f88729b7ddc77fa",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Overvieww"
+                            }
+                          },
+                          "Property": "YearValue2"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "fc52f0ade799ae280bc1": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "ad7e29890ea33d17b073": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filtera01732d6a8df9d28f723",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterb4161dded424fd37befb",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Indicators"
+                        }
+                      },
+                      "Property": "Target-Description"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter6a78e2971d0e679807d5",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Year-Label"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Long Term'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww"
+                        }
+                      },
+                      "Property": "Year-Label"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "c17640924beeae7c5b4a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Overvieww"
+                            }
+                          },
+                          "Property": "YearValue2"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "2561348b299072d52620": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filteref8690a6d8719d08ca81",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww without Target"
+                        }
+                      },
+                      "Property": "Icon Trend"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter7c93b5fe308a67098745",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww without Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww without Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterdae65ecde7c37803e030",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww without Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Year-Label"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Long Term'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww without Target"
+                        }
+                      },
+                      "Property": "Year-Label"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "tableEx",
+              "objects": {}
+            }
+          },
+          "a750a2cb39253e33c931": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter5cfa580ccc62f4f11497",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww without Target"
+                        }
+                      },
+                      "Property": "Icon Trend"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterc1261dfae8f5dd45fc80",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww without Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Year-Label"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'Short Term'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww without Target"
+                        }
+                      },
+                      "Property": "Year-Label"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter97c95e494b88bb05148d",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "o",
+                        "Entity": "_Overvieww without Target",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "o"
+                                    }
+                                  },
+                                  "Property": "Indicator"
+                                }
+                              }
+                            ],
+                            "Values": [
+                              [
+                                {
+                                  "Literal": {
+                                    "Value": "'SDG_05_10'"
+                                  }
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww without Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "tableEx",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Overvieww without Target"
+                        }
+                      },
+                      "Property": "Icon Trend"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "0ee3384bd03893698cd7": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "af5c8b5ac9ee7047c3b6": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter18a6fa9951d3fb7bcf48",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 1 Target"
+                        }
+                      },
+                      "Property": "Unit"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter8b313995232a5740a2d6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filtercdad4f3a9ba85baa7483",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter9f2b234178003dcc28d2",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "54cf9547324986513903": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filtercdd956407eb007a6a903",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter8386212a0082c1700a7c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_20"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter85c51e6b24332cc0204a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal5_20"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter6cfab710709b0e0b405b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_20"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "7c8369405eca206868c3": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filtere9939563e6a850dd62a3",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter92f5496826374536e842",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_31"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter1487f3108ca7aa5bd0db",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal5_30"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filtera46da756326d55cd31da",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_30"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "05b3302981a0c8a2bd3a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_30"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "4e3463f79636cd9c28b7": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter222ff195c38127e0c353",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter63daaa8476a09bd0747c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter35846f4955809332338b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Geo"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter00e795963c146004020a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "90493a3d751154271474": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "f81ff7b7cc726b3c52c2": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filterc4b981e42870031e0803",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter9429191bc2c33667687e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_50"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter4bb48c40b7360a0ceb8c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_50"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterc66b564b24b0509763be",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal5_50"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "5b7a53ee5d00b9770a6a": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter1de62d4f04c3505464be",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterb3a5b69c6594811e0aa8",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterba6b2d40bac6e644ed00",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "c5a5adada3e71990cd60": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "655b67d90bd5402489a4": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "4ef8e01776c5599ea445": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter6772bf2c930054900b26",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All_Goal1_Graph2"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterf5c3bcadc359c0d0be4e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "All_Goal1_Graph2"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter6576c984984d1ab40a80",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter50c55e24b4906d8c61a9",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "All_Goal1_Graph2"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterb487022a50b305999a6d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal1_41"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterd91bbc087b6e3ba0577b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_41"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterc930a2fa099471076ab4",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_41"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "ea0e0f8f5ce49dd6e672",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_60"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "53b850273a933a23773f",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal5_60"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e93d6aca1f1b1feefe13",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_60"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "a0495b30668b70009b50": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter08aeee845c9211a97d1c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Geo"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter62b74511461b203c6d24",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterc81a2a65840507716b82",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter1343ae1ccc76937c8114",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "e2128b4560b928929616": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filterf188bd0348dde408074b",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "IndicatorValue"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter20182427010c550cb706",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter25f07d050a38a0e737c8",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal1"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "35332101f2f4e7ce53b7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SDG_04_10_Graph"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "cdc96cce5a79c55fac8f",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SDG_04_10_Graph"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SDG_04_10_Graph"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "c650657509118603106a": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "e1f83817b665a4cc780c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filterf036e88430370e5a624a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter983a2ca16720ae68d276",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal1"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filtere6c0b96a6361ed0b1bbe",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal1"
+                        }
+                      },
+                      "Property": "IndicatorValue"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter1a9d0621a2a56540eb93",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal1"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "4d4da6c02e8278b470ea",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SDG_04_20_Graph"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "d84e297f28cec5cdd38d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SDG_04_20_Graph"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SDG_04_20_Graph"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "603c78f80ee71e022b60": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "b94a179765e5715d9d9d": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "4f91fb3e076dd6d0c9ab": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter32aa7e9b0104052a1628",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter1551204f450b366b2b07",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All_Goal1_Graph2"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter2fbe2cb029b6c92c5028",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "All_SDG_11_11_EUGraph"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filterf7749ce3c3e90da8a10e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All_SDG_11_11_EUGraph"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter50d3fa72bddd9c354081",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "All_SDG_11_11_EUGraph"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "7704306df25b42672818",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "All_SDG_11_11_EUGraph"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "bc00a75e7b3756e9a8a7": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filtere7cbc3235d48d2204aae",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 1 Target"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterda348b17d566f0c47dd7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 1 Target"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter8a505b47199b86bb3f2f",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 1 Target"
+                        }
+                      },
+                      "Property": "age"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter18a6fa9951d3fb7bcf48",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 1 Target"
+                        }
+                      },
+                      "Property": "Unit"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter6a265820c95420040103",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SDG_11_11*"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter71adb070c45c380e890a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SDG_11_11*"
+                            }
+                          },
+                          "Property": "Towns and suburbs"
+                        }
+                      },
+                      "Function": 0
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterca9a4e601cc8bbcc8483",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SDG_11_11*"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter0017140031a7a0e0b500",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SDG_11_11*"
+                            }
+                          },
+                          "Property": "Rural areas"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter1016aaafd8920d0702ba",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SDG_11_11*"
+                            }
+                          },
+                          "Property": "Cities"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "356e008b2247a2b6a656",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "SDG_11_11*"
+                            }
+                          },
+                          "Property": "Towns and suburbs"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "lineChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "SDG_11_11*"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "e82b218c6a4cf867485a": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "e14d5f76b13595f794ea": {
+            "filters": {
+              "byName": {
+                "36a7c1c3cec5245afa53": {
+                  "name": "36a7c1c3cec5245afa53",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              },
+              "byExpr": [
+                {
+                  "name": "Filter2ebaf0735239638338ab",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "56d0dc6fe855f8de8453",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "Age Sort"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "barChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Age"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "752b9ec8fc702a514f0f": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter682f9e86da279b9be9d0",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter6b2771b27d42b5172448",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal1_10"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterc5c8e4f810d07a0d309b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_10"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter2a5ee28492ca0a7d060a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_10"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "bbd18948f80ec3dd1af1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_10"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "369d22710415ef68f88b": {
+            "filters": {
+              "byName": {
+                "db1d8fd75431862e4b8e": {
+                  "name": "db1d8fd75431862e4b8e",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Indicator"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              },
+              "byExpr": [
+                {
+                  "name": "d23aad66e23ee42f2987",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "Prof_pos"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "17c1e91fb445fac16cf2",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "Goal 5-9 Target"
+                            }
+                          },
+                          "Property": "OBS_VALUE"
+                        }
+                      },
+                      "Function": 2
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c9dfebca3d018266b494",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "barChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Goal 5-9 Target"
+                        }
+                      },
+                      "Property": "TIME_PERIOD"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "90709dcd6a7bd612418e": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "0648c3ae68effdb70f34": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter682f9e86da279b9be9d0",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "Filter6b2771b27d42b5172448",
+                  "type": "Advanced",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "BW_Goal1_10"
+                        }
+                      },
+                      "Property": "Year"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filterc5c8e4f810d07a0d309b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_10"
+                            }
+                          },
+                          "Property": "Sorting"
+                        }
+                      },
+                      "Function": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "Filter2a5ee28492ca0a7d060a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal1_10"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "2b5ab2cdd6d8ebb3e979",
+                  "type": "Advanced",
+                  "expression": {
+                    "Aggregation": {
+                      "Expression": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "BW_Goal5_10"
+                            }
+                          },
+                          "Property": "Value"
+                        }
+                      },
+                      "Function": 4
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "clusteredColumnChart",
+              "objects": {},
+              "activeProjections": {
+                "Category": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Country-FullNames"
+                        }
+                      },
+                      "Property": "Country"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "9c82d524626006b96142": {
+            "isHidden": true
+          },
+          "0fb0f00378e1d5dee2ab": {
+            "isHidden": false
+          },
+          "f98de6eea1da2a0b5885": {
+            "isHidden": true
+          },
+          "58154146cc68ee876890": {
+            "isHidden": false
+          },
+          "e3e6ee1996b028b980a1": {
+            "isHidden": true
+          },
+          "2b3985f57730dd371325": {
+            "isHidden": true
+          },
+          "81c6cdc728c00950a9d9": {
+            "isHidden": true
+          },
+          "4cf380d5baa35427c710": {
+            "isHidden": true
+          },
+          "a5b291fbac9560c6cb01": {
+            "isHidden": true
+          },
+          "387300b5e53722174078": {
+            "isHidden": true
+          },
+          "063c4a08a07407b0b75d": {
+            "isHidden": true
+          },
+          "a872fed2a75bd2248575": {
+            "isHidden": true
+          },
+          "6a2fecb6c3dfec31e2e0": {
+            "isHidden": true
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "visible": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

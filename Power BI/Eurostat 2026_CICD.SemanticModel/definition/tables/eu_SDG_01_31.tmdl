@@ -1,0 +1,171 @@
+table eu_SDG_01_31
+	isHidden
+	lineageTag: 2dec2abe-4334-42f7-93a5-f61c6f053cc8
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 673575bf-08f4-44a1-9ce5-9ea8c5633959
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4998f9ae-7ac6-4435-994b-fe1d44058799
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 4c0963f0-d7e1-4f0a-8974-d0b292f282e1
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 157d83c3-ee49-4024-81aa-c82b38ba400f
+		summarizeBy: sum
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column age
+		dataType: string
+		isHidden
+		lineageTag: 0e925212-d216-404d-b90b-d8becc7a36b9
+		summarizeBy: none
+		sourceColumn: age
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: a712b06c-8e8b-4203-aa65-229a24d13cd8
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 71e54350-b925-4735-b2bc-1c80b07820cf
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: 51320c3b-a463-46a7-aca2-d12626be1f51
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 9b5c1710-4640-4ea5-99fd-83a367182cec
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_il
+		dataType: string
+		lineageTag: 0734a263-104e-439e-aefc-8057d135654c
+		summarizeBy: none
+		sourceColumn: indic_il
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cities
+		dataType: double
+		lineageTag: 313ebf8a-14d3-46e0-a9e6-6f0f9b186ab3
+		summarizeBy: sum
+		sourceColumn: Cities
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Towns and suburbs'
+		dataType: double
+		lineageTag: 23add074-aa0a-40f0-9805-b15df93512c6
+		summarizeBy: sum
+		sourceColumn: Towns and suburbs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Rural areas'
+		dataType: double
+		lineageTag: d7e96814-5c86-46a6-9638-9d1cb190a261
+		summarizeBy: sum
+		sourceColumn: Rural areas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedToDate
+		dataType: string
+		lineageTag: 2f1f72e1-4062-4f0c-b2df-50c17ed0c016
+		summarizeBy: none
+		sourceColumn: UpdatedToDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_SDG_01_31 = m
+		mode: import
+		queryGroup: EU-Goal1
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"238281b2-c170-4491-b22a-2ad63536f76a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 1"]}[Data],
+				    #"Goal 1_" = #"238281b2-c170-4491-b22a-2ad63536f76a"{[entity="Goal 1",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(#"Goal 1_", each ([Unit] = "PC") and ([age] = "TOTAL")),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"UpdatedFromDate", type date}}),
+				    #"Filtered Rows2" = Table.SelectRows(#"Changed Type", each ([IndicatorValue] = "SDG_01_31"))
+				in
+				    #"Filtered Rows2"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

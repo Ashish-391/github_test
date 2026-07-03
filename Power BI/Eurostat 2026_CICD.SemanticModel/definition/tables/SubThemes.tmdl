@@ -1,0 +1,71 @@
+table SubThemes
+	lineageTag: 8366d2ce-2321-422f-8f36-c418ee2c7d07
+
+	column 'Goal Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 02cf2e8f-18a2-44dd-9533-d087a858d9af
+		summarizeBy: none
+		sourceColumn: Goal Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-ThemesIndex
+		dataType: double
+		lineageTag: 69fc8b0d-57fb-42c5-b7b4-cd42ea23cb35
+		summarizeBy: sum
+		sourceColumn: Sub-ThemesIndex
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SubThemes
+		dataType: string
+		lineageTag: 9ba9a07a-d77a-45a9-9d2d-14bf3b87d5db
+		summarizeBy: none
+		sourceColumn: SubThemes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: f7d58db8-9e64-4544-b35d-40bff899a19a
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicator Index'
+		dataType: int64
+		formatString: 0
+		lineageTag: 19c9b731-5fce-47e6-ae94-0559cc806fca
+		summarizeBy: sum
+		sourceColumn: Indicator Index
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SubThemes = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				/* let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("rZlRb9s2EMe/CpHHoBhMSrKTxzTJsgHJui0d9tAVBiPRNleJ8igpgb9970iRogyvpuy8KIjy+x/J4/F4p3z5ckEvPlzQn/D51JWtLGQlVCNrxUuyrV+Fbnfwp+e7h+WMLuns4uuHaRI2XZLQyZJ0+ihpOAqD50feyJz8JkTRDFQ2O04ly/ns8ihGwX3UYggwO01eqq7VsoVJOnPMudli+HzumpZLxV9KQfhayxxW12lcla6Lbixm54iTc8RpKE7gea9epa4VbEILCllted42pF4dsJSPTc3fy9QcZnX5PrZoBtHwfrbGMRMRs3QG22M1OHJi9ucXwct2QwrRCl3BPqk2CMt+N2Noiic1NE49viOlfBWBWUrjOBYOj89b3jXCeKcQvN0MZMqiSRpHXnn/HkMp9SESgWbMoim8Sg16U8C2kVJwraRau/FTF8IWROd/hr2UXO+IgFjgYZCmzlUWxuedXEuMqOabLMtmABchSH2iOWCSRpN9vo0g0wibT9Hkc0ha3yN/k+eiaUhbk40N15xrEeba+COAqdTuVwavMjORB6EKockLb0RBXmVdCpV785lzm+XNCa+2Zb3DAz5ASQzEQggX9ig4jNxs5BZOdmNyfjPg2TR8HuLohvtDIbB80Hy7YcdR1qOGnMP7uXHWM1cQhuOE2nvoxxALIRzzbw7bQ/7reCmHW3juPHmUSyO5LIajqT/yFkw82ECw5SOLvaMX8GZhlnuvhF7vSA7b0VXbcNkL55tImE6A2RTLSQizAW667bbcDVwayWUhl4zOKF+tal2Y+kAY8aDqPXcFb65soATFhICJ1xWkhLWu38K8TU9T0ckqCrVSX5BZGTt4kK+c638MJTFQGkLoxzuRA0Deav0tvLmOU1i/2rlfw6trs+Q//+lmMza/I1wVRCpVv44O5bVzbbQi9TWBlSR7fpVqpXnTaihtOp+i6cJfvROmlk6c2rVzuFXsl6pSFfCb3g34YgIOkTGnkxcOg2SzE0T9dsPmQCE4M4v/VQmbsSQUIW+y3UgFB71T0Cn4AsuUg6cqXfPTK9m+8kW0b0IclNKTB83GSvTPk1xrs69mm5s6l1hFq7zsmqBYnnkfmWLZVst/2JSONVopV+hektsZoKm8rqpOmd+dFeqSxJlWMvYeVtg7rGjuz6czsx/YVf0iw4tv6JTjBCamx0P8b9cTXv7TJDCtvQ2OUCT9NuAKqO2mb4e7kGx5C/e5r5hMsp8ocJEeKYB+q08akQpzUU9SwKSS8Srwx4PGo2ovuVEKG5G2xmlaQdZ4UQ+nruKKr0VwUYE2PUOb9VoUUdsg3paygvKKVBC+6zCPg9OclyNxNsG6qXAuJ5lPxuZZgLvmHtfNC75t96TpeCH442dsR3JoC0neG+H5WORyIhb81HZKn3LBVd/7OBAL1uVtDVvAy6WpVCNl0fbnYxAX/sS1VMJUmEKPrl/q20vH7192K9lsRJj+U79z8Qp3v2HnQm33dp/XzQ4CsSKgbDsP+8YtAjZtx+UEOtuj0TmPGAaFgOurGHkGE1M87ds+B6NXPsq6kK/Q+gWJ27eTx8E5RMqn5c3jYyzf7wu2QtR2dL8LngsT6FugzbeoRuSdDnS+D5ysYyfqFmMdunVoQ/6FSJK+j6e+sYyk0zGNzvqsAcI7WCqA2y7sv6lvNCn2RNR2ZA9l/YJf7bhulW3cHe4bw1icTcOTMc6G1AOKNX5FxF+Eq83ajSD3fw3y9Dz5nivG/WEr8o2qy9o3hnRxasVr/gHBT6shzX8iTtWmZ4x7dca42FXyiC9No7bycO+Z7X0HP/5tf++LfJZM+0y3mE1Igv333yMfYwwIi/j6HQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Goal Index" = _t, #"Sub-ThemesIndex" = _t, SubThemes = _t, Indicator = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Goal Index", Int64.Type}, {"SubThemes", type text}, {"Indicator", type text}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Changed Type", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Indicator Index"}}),
+				    #"Sorted Rows" = Table.Sort(#"Renamed Columns",{{"Indicator Index", Order.Ascending}})
+				in
+				    #"Sorted Rows" */
+				    let
+				    Source = PowerBI.Dataflows(null),
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Source{[workspaceId=workspaceID]}[Data],
+				    #"2182f1ac-b015-4bb6-91e0-33a86e05578c" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="Indi_Overview"]}[Data],
+				    SubThemes1 = #"2182f1ac-b015-4bb6-91e0-33a86e05578c"{[entity="SubThemes"]}[Data]
+				in
+				    SubThemes1
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

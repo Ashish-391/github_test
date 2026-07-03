@@ -1,0 +1,103 @@
+table eu_sdg_13_70a
+	lineageTag: b0ee31be-6d87-47fa-adda-ed78d05d0910
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 33bb79b2-1fca-4b19-9139-a5190f4180ba
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		lineageTag: ce9fd4d0-ae1d-4c69-8a80-1bb8c52d9e2e
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unit
+		dataType: string
+		lineageTag: bb4bc8bf-a342-4b78-a8a3-00439abd9ded
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 352d5075-0544-4453-8b45-84e842d6f867
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e207585f-dc44-488b-b79a-2d76a9237e36
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: c80df6f2-d0a7-4bff-80d1-5f2f6977cd9c
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: d999532a-750f-40ac-8d3f-e64ada902405
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column statinfo
+		dataType: string
+		lineageTag: 8997a047-247d-41d9-b3fd-7b5a132bb8da
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column src_crf
+		dataType: string
+		lineageTag: 62375d7c-a103-491f-b487-946c1d5d7ce6
+		summarizeBy: none
+		sourceColumn: src_crf
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_sdg_13_70a = m
+		mode: import
+		queryGroup: EU-Goal1\EU_Goal13
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+				    Goal13_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="Goal13",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal13_,{{"UpdatedFromDate", type date}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([IndicatorValue] = "SDG_13_70A"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

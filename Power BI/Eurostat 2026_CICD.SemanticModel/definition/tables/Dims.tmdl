@@ -1,0 +1,81 @@
+table Dims
+	lineageTag: 1f90ecba-8385-4b55-8f25-6b5f257fd96d
+
+	column Dims
+		lineageTag: f37e217c-67ba-4dd0-a03f-db31259f044f
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Dims Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Dims Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dims Fields'
+		isHidden
+		lineageTag: 3ce7b0fe-daf8-471b-ab6c-e9779052248d
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Dims Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dims Order'
+		isHidden
+		formatString: 0
+		lineageTag: b200ac89-f498-4aa8-8229-e39b5dfea5ab
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dims = calculated
+		mode: import
+		source =
+				{
+				    ("Age", NAMEOF('Goal1'[age]), 0),
+				    ("incgrp", NAMEOF('Goal1'[incgrp]), 1),
+				    ("indic_il", NAMEOF('Goal1'[indic_il]), 2),
+				    ("Sex", NAMEOF('Goal1'[sex]), 3),
+				    ("Body Mass Index", NAMEOF('Goal1'[Bmi_Indicator]), 4),
+				    ("Sex",NAMEOF(Goal1[sex]),5),
+				    ("Mortality",NAMEOF(Goal1[Mortality]),6),
+				    ("Income situation in relation to the risk of poverty threshold",NAMEOF(Goal1[incgrp]),7),
+				    ("Transport infrastructure",NAMEOF(Goal1[tra_infr]),8),
+				    ("NA",NAMEOF(Goal1[NA]),9),
+				    ("Ind_type",NAMEOF(Goal1[ind_type]),10),
+				    ("Field",NAMEOF(Goal1[field]),11),
+				   // ("Age",NAMEOF(Goal1[Age Name]),12),
+				    ("Activity and employment status",NAMEOF(Goal1[wstatus]),13),
+				    ("National and international organizations and institutions",NAMEOF(Goal1[org_inst]),14),
+				   // ("Professional position",NAMEOF(Goal1[prof_pos]),15),
+				    ("Aquatic Environment",NAMEOF(Goal1[aquaenv]),16),
+				    ("Energy Balance",NAMEOF(Goal1[nrg_bal]),17),
+				    ("Standard international energy product classification",NAMEOF(Goal1[siec]),18),
+				    ("Vehicle",NAMEOF(Goal1[vehicle]),19),
+				    ("Environment Indicator",NAMEOF(Goal1[indic_env]),20),
+				    ("Hazard class",NAMEOF(Goal1[hazard]),21),
+				    ("Type of expenditure",NAMEOF(Goal1[ty]),22),
+				    ("Consumption footprint",NAMEOF(Goal1[cons_fp]),23),
+				    //("Source sectors for greenhouse gas emissions",NAMEOF(Goal1[src_crf]),24),
+				    ("Statistical Information",NAMEOF(Goal1[statinfo]),25),
+				    ("Level of perception",NAMEOF(Goal1[lev_perc]),26),
+				    ("Legal status",NAMEOF(Goal1[leg_stat]),27),
+				    ("Geopolitical entity (partner)",NAMEOF(Goal1[partner]),28),
+				    ("Financial source",NAMEOF(Goal1[fin_source]),29),
+				    ("Territorial typology",NAMEOF(Goal1[terrtypo]),30),
+				    ("Income situation in relation to the risk of poverty threshold",NAMEOF(Goal1[indic_il]),31),
+				    ("Health Indicator",NAMEOF(Goal1[indic_he]),32),
+				    ("Seabasin",NAMEOF(Goal1[Seabasin]),33)
+				
+				}
+
+	annotation PBI_Id = 0746759d9d5f4086853838c129a29b10
+

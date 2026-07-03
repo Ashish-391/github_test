@@ -1,0 +1,55 @@
+table Country-withEUs
+	lineageTag: 835c8b99-0fce-4cdd-b5f0-3c969e354a88
+
+	column CountryCode
+		dataType: string
+		lineageTag: 370e309f-9a8c-4360-91ae-5eacf0eb631c
+		summarizeBy: none
+		sourceColumn: CountryCode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: 8767157e-d98d-4e00-9f82-2087fea2d488
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeoKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 79c962a9-c076-43ca-8b0a-8f18956d2830
+		summarizeBy: count
+		sourceColumn: GeoKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Country-withEUs = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Json.Document(Web.Contents("https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sdg_01_20?format=JSON&lang=EN")),
+				    dimension = Source[dimension],
+				    geo = dimension[geo],
+				    category = geo[category],
+				    label = category[label],
+				    #"Converted to Table" = Record.ToTable(label),
+				    #"Added Index" = Table.AddIndexColumn(#"Converted to Table", "Index", 0, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "GeoKey"}, {"Value", "Country"}, {"Name", "CountryCode"}}),
+				    #"Appended Query" = Table.Combine({#"Renamed Columns", #"Country EU_V"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Appended Query",{{"CountryCode", type text}, {"Country", type text}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"CountryCode", Order.Ascending}}),
+				    #"Removed Duplicates" = Table.Distinct(#"Sorted Rows", {"CountryCode"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Duplicates", each ([CountryCode] <> "EA19" and [CountryCode] <> "EA20" and [CountryCode] <> "EU" and [CountryCode] <> "EU27_2007" and [CountryCode] <> "EU28")),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows",{{"Country", "Geo"}}),
+				    #"Sorted Rows1" = Table.Sort(#"Renamed Columns1",{{"GeoKey", Order.Ascending}})
+				in
+				    #"Sorted Rows1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

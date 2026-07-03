@@ -1,0 +1,104 @@
+table EU_SDG_03_42
+	lineageTag: 49751f57-07ac-4673-bff3-e5ed5bd99802
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: d3c9e305-802f-4130-b907-d312e4e2f183
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: fedf8fcf-016f-43d5-85ba-9b5ec1534a73
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 0bdf4ffa-d914-415b-ab04-8ae8c4d16c9a
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		lineageTag: 7887cc58-9051-48b2-848f-0217029f2262
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unit
+		dataType: string
+		lineageTag: 9a915098-16ac-450d-8e23-ea3c7c454c7b
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		lineageTag: 43fa985d-b75b-423d-ba0b-51f3d7dbc9bf
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 92a48959-1586-4841-8c7a-d1dcb8a2b083
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		dataType: string
+		lineageTag: e90119ac-4990-4218-9909-c9ad920d8cd4
+		summarizeBy: none
+		sourceColumn: Mortality
+
+		annotation SummarizationSetBy = Automatic
+
+	column icd10
+		dataType: string
+		lineageTag: 50f2f760-9e57-4350-bcaa-a8cf29629ea5
+		summarizeBy: none
+		sourceColumn: icd10
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 6b4fb8d9-4e3c-491b-b911-209e2e0227e4
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_SDG_03_42 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 3'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 3"]}[Data],
+				    SDG_03_42_ = #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a"{[entity="SDG_03_42",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_03_42_, each ([Mortality] = "TOTAL"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

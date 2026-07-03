@@ -1,0 +1,96 @@
+table SDG_14_60
+	lineageTag: d1852a85-b633-49ec-8857-2ce7614e9385
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5b76d3bf-8c6e-4e20-88c8-52c5a2621722
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 70059f09-1500-40b0-811d-523c43d0d96f
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 925759c5-6d7d-4af2-a59c-124074e59649
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 78132984-3946-4edc-afe3-475503b7bf69
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: e4003261-3916-4f19-bb88-bb88e54657a3
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 0f1d3f33-f45c-4a72-9d77-50bf2ccf4bc8
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: fd20f583-4180-4315-84cd-9ac7546f193b
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_14_60 = m
+		mode: import
+		queryGroup: 'Goal 14'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"cfccb448-522d-42c4-9715-b04f535705d7" = Source{[Id="cfccb448-522d-42c4-9715-b04f535705d7"]}[Items],
+				//     #"Removed Other Columns" = Table.SelectColumns(#"cfccb448-522d-42c4-9715-b04f535705d7",{"Year", "Unit", "Value", "RecordCount", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "CountryAbrv", "Created"}),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Year", Int64.Type}, {"Unit", type text}, {"Value", type number}, {"RecordCount", Int64.Type}, {"UpdatedFromDate", type date}, {"UpdatedToDate", type date}, {"IndicatorValue", type text}, {"CountryAbrv", type text}, {"Created", type date}}),
+				//     #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Unit] = "KM2"))
+				// in
+				//     #"Filtered Rows"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_14_60_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_14_60",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_14_60_, each ([Unit] = "KM2"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,129 @@
+table SDG_10_30
+	isHidden
+	lineageTag: d619fb4a-be00-4482-bf78-167d38880909
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 61daa5a0-8795-4bdc-84b2-4bcb5a9dfd04
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: bdc10723-f69b-4755-b5d9-b0de483c0f98
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: ef6b00e1-693b-40f2-9c8c-4cc83163890a
+		summarizeBy: sum
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sex
+		dataType: string
+		isHidden
+		lineageTag: eab35a59-d53d-48ab-9126-0751b34b5ab0
+		summarizeBy: none
+		sourceColumn: sex
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		isHidden
+		lineageTag: f9565cbe-572d-4f9f-8ba4-c5d437f1e7df
+		summarizeBy: none
+		sourceColumn: age
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 647a8c3f-0747-44a9-a494-2a68e0a4609d
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: ab9c281a-b7d3-4517-a740-48164a6b4c5d
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 3feca1cf-cb0d-4f24-8b51-73d59dbe5ff3
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_il
+		dataType: string
+		isHidden
+		lineageTag: b7a23cbd-0508-49b9-b5e6-42686e407057
+		summarizeBy: none
+		sourceColumn: indic_il
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_10_30 = m
+		mode: import
+		queryGroup: 'Goal 1'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"238281b2-c170-4491-b22a-2ad63536f76a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 1"]}[Data],
+				    SDG_10_30_ = #"238281b2-c170-4491-b22a-2ad63536f76a"{[entity="SDG_10_30",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SDG_10_30_,{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

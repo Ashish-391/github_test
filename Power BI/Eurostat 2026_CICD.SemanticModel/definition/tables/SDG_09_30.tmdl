@@ -1,0 +1,109 @@
+table SDG_09_30
+	lineageTag: 92dc3d79-d46e-4cec-b07f-76064a44e57c
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1504d411-d3fe-4513-ab63-363e2d298ae8
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 8030bac5-e9bb-4ad5-8747-ce70bc6947ac
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 71256187-dcca-4435-88e5-5de6bd16ccb7
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 4b2fddcf-3c68-40c7-a1cb-66400c9f1dc7
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: e8348cc1-fff7-401b-b4e4-0ed8f3ad0790
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 774c1b1a-7eb9-4775-81c4-3705f6fd5a24
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column sectperf
+		dataType: string
+		isHidden
+		lineageTag: b06d612e-e1c0-4927-85f3-8870dcc851f7
+		summarizeBy: none
+		sourceColumn: sectperf
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: c1e6abd2-0513-4126-9380-2b47c7276dfc
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 70119097-bede-4cff-9636-4d3b075a6140
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_09_30 = m
+		mode: import
+		queryGroup: 'Goal 9'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"e7dd114e-bbb6-4bb8-8411-634dc72935be" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 9"]}[Data],
+				    SDG_09_30_ = #"e7dd114e-bbb6-4bb8-8411-634dc72935be"{[entity="SDG_09_30",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_09_30_, each ([sectperf] = "TOTAL")),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

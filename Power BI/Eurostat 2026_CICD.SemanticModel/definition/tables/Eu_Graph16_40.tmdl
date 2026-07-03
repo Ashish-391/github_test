@@ -1,0 +1,147 @@
+table Eu_Graph16_40
+	lineageTag: 733d06ca-5489-4a71-9bb4-c249049ea3f5
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 54a32a42-7549-478a-a35a-efc9cf6375ae
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 6a99c27f-3825-4aae-b445-21131bbf128d
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_FLAG
+		dataType: string
+		lineageTag: b3ce150c-759f-4f9c-8638-100ce6744e26
+		summarizeBy: none
+		sourceColumn: OBS_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: d0012f2d-f6dd-4843-a937-5e2d9ea17061
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 0361a44e-0988-4beb-85c6-a5e441b35833
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Level of perception'
+		dataType: string
+		lineageTag: cade4c07-f96b-4656-b61b-4c10db40ebe0
+		summarizeBy: none
+		sourceColumn: Level of perception
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 03fec895-6fc2-4c83-80ee-82e6449c6730
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 9ce956dc-e50d-4486-ba32-7ae959bc13f2
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'lev_perc - Name'
+		dataType: string
+		lineageTag: d5c213cd-ed2a-466a-89b6-ab2059b8cc54
+		summarizeBy: none
+		sourceColumn: lev_perc - Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort level'
+		dataType: int64
+		formatString: 0
+		lineageTag: 765dcfbb-de77-4873-834d-52c05995094b
+		summarizeBy: sum
+		sourceColumn: Sort level
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'All_SDG_16_40 (2).VG_FG'
+		dataType: double
+		lineageTag: 49d90ad9-a024-4aa2-84b7-b82e4e3f9da7
+		summarizeBy: sum
+		sourceColumn: All_SDG_16_40 (2).VG_FG
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Eu_Graph16_40 = m
+		mode: import
+		queryGroup: 'Goal 16'
+		source =
+				let
+				
+				    Source = PowerPlatform.Dataflows(null),
+				
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				
+				    #"54160ba5-ece8-403d-b118-e4aebdc9f20f" = Workspaces{[workspaceId=workspaceID]}[Data],
+				
+				    #"f8ccb2db-71ff-4814-8fa2-999e593495b1" = #"54160ba5-ece8-403d-b118-e4aebdc9f20f"{[dataflowName="All_SDG 15-17"]}[Data],
+				
+				    All_SDG_16_40_ = #"f8ccb2db-71ff-4814-8fa2-999e593495b1"{[entity="All_SDG_16_40",version=""]}[Data],
+				
+				    #"Renamed Columns" = Table.RenameColumns(All_SDG_16_40_,{{"lev_perc", "Level of perception"}}),
+				
+				    #"Replaced Value" = Table.ReplaceValue(#"Renamed Columns","VGOOD","Very good",Replacer.ReplaceText,{"Level of perception"}),
+				
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","FBAD","Fairly bad",Replacer.ReplaceText,{"Level of perception"}),
+				
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","FGOOD","Fairly good",Replacer.ReplaceText,{"Level of perception"}),
+				
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","VBAD","Very bad",Replacer.ReplaceText,{"Level of perception"}),
+				
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","UNK","Don’t know",Replacer.ReplaceText,{"Level of perception"}),
+				
+				    #"Filtered Rows" = Table.SelectRows(#"Replaced Value4", each ([Level of perception] <> "VB_FB" and [Level of perception] <> "VG_FG")),
+				
+				    #"Added Conditional Column" = Table.AddColumn(#"Filtered Rows", "Sort level", each if [Level of perception] = "Very good" then 1 else if [Level of perception] = "Fairly good" then 2 else if [Level of perception] = "Fairly bad" then 3 else if [Level of perception] = "Very bad" then 4 else if [Level of perception] = "Don’t know" then 5 else null),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Sort level", Int64.Type}}),
+				
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "OBS_VALUE", "OBS_VALUE - Copy"),
+				
+				    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column",{"OBS_VALUE - Copy"}),
+				    #"Sorted Rows" = Table.Sort(#"Removed Columns",{{"TIME_PERIOD", Order.Descending}}),
+				
+				    #"Merged Queries" = Table.NestedJoin(#"Sorted Rows", {"Geo"}, All_SDG_16_40_, {"Geo"}, "All_SDG_16_40 (2)", JoinKind.LeftOuter),
+				
+				    #"Expanded All_SDG_16_40 (2)" = Table.ExpandTableColumn(#"Merged Queries", "All_SDG_16_40 (2)", {"VG_FG"}, {"All_SDG_16_40 (2).VG_FG"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Expanded All_SDG_16_40 (2)",{{"All_SDG_16_40 (2).VG_FG", type number}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

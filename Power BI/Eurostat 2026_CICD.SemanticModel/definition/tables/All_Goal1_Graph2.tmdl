@@ -1,0 +1,703 @@
+table All_Goal1_Graph2
+	lineageTag: 06688c08-d1e7-47ab-ae5f-5dd13da607d7
+
+	column IndicatorValue
+		lineageTag: 0b9a96f3-bb57-4848-8b44-a3c42bd4c5e7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[IndicatorValue]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 53c8ed0e-c90e-459f-94fe-beda3d8b11a8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 0a800d55-ed8d-477c-8fd9-994904d42ed8
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RecordCount
+		formatString: 0
+		lineageTag: 2a2c4780-066b-4e0b-b1dc-e63b0c40a40e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[RecordCount]
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		lineageTag: 30bf7dc6-7854-4b41-95cd-fe3fbcfaff1d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[age]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		lineageTag: 593283b2-364f-4669-9edc-bd38029b36db
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Unit]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created
+		formatString: General Date
+		lineageTag: 96a1d51f-f39a-4438-b3d8-b1bca61127a1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Created]
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		lineageTag: 7e4a9a15-fa85-4bee-94e7-cc7e781bbb44
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[incgrp]
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		lineageTag: 186285c1-6e8b-48e3-93f7-f7f7d3dcc5bb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[sex]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		lineageTag: ecf35cb7-d4a1-4f0b-9b15-76c21ff930b2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[CountryAbrv]
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_il
+		lineageTag: 05278891-7735-4205-9600-26e4f1a6c5d8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[indic_il]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateColumn
+		formatString: General Date
+		lineageTag: 2e50397b-0884-4655-9813-5eb8a4cc02c4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[DateColumn]
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		formatString: General Date
+		lineageTag: b4335f1c-feee-498c-9ddd-a0c8d7774a50
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[UpdatedFromDate]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var maxyear = CALCULATE(MAX(Goal1[Year]),Goal1[CountryAbrv]="EU27_2020",Goal1[UpdatedFromDate]=MAX(Goal1[UpdatedFromDate]))
+			RETURN
+			IF(All_Goal1_Graph2[Year]=maxyear,maxyear&All_Goal1_Graph2[Value],BLANK())
+		dataType: double
+		lineageTag: 37d451b4-de3b-4c93-bf6f-e1d29b7e0d67
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cities
+		lineageTag: 2645f1d4-5096-486b-ab4b-4a356e24297f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[Cities]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Towns and suburbs'
+		lineageTag: df6dca62-739d-4f87-b803-ded0897a6cb1
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[Towns and suburbs]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Rural areas'
+		lineageTag: 53e4ed72-9bb2-4135-ab99-fd115338a349
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[Rural areas]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bmi
+		lineageTag: 04fa6700-b840-4e1b-9af5-8574ce4c0745
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Bmi]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bmi_Indicator
+		lineageTag: 9687361a-55aa-434c-90ea-5e450bd664b6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Bmi_Indicator]
+
+		annotation SummarizationSetBy = Automatic
+
+	column NA
+		formatString: 0
+		lineageTag: 86d5f580-1ac3-45f9-b4b7-5303c57e8d38
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[NA]
+
+		annotation SummarizationSetBy = Automatic
+
+	column clc18
+		lineageTag: ab51ee1c-84b6-4caa-8096-aa924fddf03a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[clc18]
+
+		annotation SummarizationSetBy = Automatic
+
+	column levels
+		lineageTag: da56c998-1517-495f-99a3-36c6468d252f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[levels]
+
+		annotation SummarizationSetBy = Automatic
+
+	column watpol
+		lineageTag: 54de38be-d8bd-43d5-a70f-5f0bbd7ac2bb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[watpol]
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		lineageTag: 7c10fb5c-bc17-4a55-adf5-c06d1f14c00f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[statinfo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column comspec
+		lineageTag: 265707a2-d005-4f9f-8159-71e7befc1553
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[comspec]
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitName
+		lineageTag: a7e6dae1-c8a1-4ded-b037-b0285e137481
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[UnitName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column icd10
+		lineageTag: 1a000ffc-4d0d-477e-a9ab-b2643e0bccdf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[icd10]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		lineageTag: 2c176d3a-9237-4ef7-b7d0-15abb436c0a0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Mortality]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nace_r2
+		lineageTag: e3b3b316-9a03-4162-89c0-1b73475f533b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[nace_r2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column severity
+		lineageTag: 43cf8558-56be-4aef-a6ba-706c9022d47d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[severity]
+
+		annotation SummarizationSetBy = Automatic
+
+	column tra_infr
+		lineageTag: 6c954d31-e475-4641-934e-a1853e39e166
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[tra_infr]
+
+		annotation SummarizationSetBy = Automatic
+
+	column airpol
+		lineageTag: 486f781d-a38a-4400-b3c6-655713673a04
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[airpol]
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_he
+		lineageTag: e795d747-ce9b-42b3-a5a2-247b15ea623b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[indic_he]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ind_type
+		lineageTag: 47f2c1d3-60d0-4337-95d7-8c62bafdab4f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[ind_type]
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_is
+		lineageTag: 9d0fc9d6-c714-455f-9a27-909a3a3c7950
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[indic_is]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duplicate
+		lineageTag: 8e36ea0b-0597-4d04-8397-878affb0b6d2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Duplicate]
+
+		annotation SummarizationSetBy = Automatic
+
+	column field
+		lineageTag: 77ddf9ad-4da0-4ded-9b5c-ff5aa670822b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[field]
+
+		annotation SummarizationSetBy = Automatic
+
+	column wstatus
+		lineageTag: b60cbba5-bbb6-4119-a43a-b1006cf44351
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[wstatus]
+
+		annotation SummarizationSetBy = Automatic
+
+	column org_inst
+		lineageTag: 4aa0047b-74c3-4f69-8534-88d7212089ce
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[org_inst]
+
+		annotation SummarizationSetBy = Automatic
+
+	column aquaenv
+		lineageTag: 43325b27-c5b6-47f2-bd41-332b9835aa21
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[aquaenv]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nrg_bal
+		lineageTag: 9fc2a683-7ba8-45b6-9140-0d3c73276259
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[nrg_bal]
+
+		annotation SummarizationSetBy = Automatic
+
+	column siec
+		lineageTag: 9a0684d2-7ef6-4b3b-972a-230c3e4ada1e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[siec]
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic
+		lineageTag: d6ea3637-68a5-46c4-a10d-b42ee3e2f82a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[indic]
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_env
+		lineageTag: ce204452-e697-45e8-a9ab-5a5a53ae3ea0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[indic_env]
+
+		annotation SummarizationSetBy = Automatic
+
+	column sectperf
+		lineageTag: 1ac286a9-5f60-4ec8-93fe-1d6d38b8f20f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[sectperf]
+
+		annotation SummarizationSetBy = Automatic
+
+	column coop_ptn
+		lineageTag: 028c7528-cd73-413b-8f1f-06e321ac8f0a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[coop_ptn]
+
+		annotation SummarizationSetBy = Automatic
+
+	column vehicle
+		lineageTag: b82e7169-4bd2-4ac2-98c2-0a1934fa05b9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[vehicle]
+
+		annotation SummarizationSetBy = Automatic
+
+	column tra_mode
+		lineageTag: d0a93345-00dd-46c5-b043-6f89045c4082
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[tra_mode]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ty
+		lineageTag: ab80da6b-6453-4f7d-b949-a694cb38790b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[ty]
+
+		annotation SummarizationSetBy = Automatic
+
+	column terrtypo
+		lineageTag: e5a36b14-e04d-4cb8-95c4-3cf1f97ff0a0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[terrtypo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column na_item
+		lineageTag: 3db10461-ce13-4802-be15-b22418225b03
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[na_item]
+
+		annotation SummarizationSetBy = Automatic
+
+	column asyl_app
+		lineageTag: 3600da4b-79c4-4057-8923-356b49396eb0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[asyl_app]
+
+		annotation SummarizationSetBy = Automatic
+
+	column hazard
+		lineageTag: 51c24227-d61f-49c6-903f-5ac35352729a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[hazard]
+
+		annotation SummarizationSetBy = Automatic
+
+	column cons_fp
+		lineageTag: 9eec3578-7a1a-4fb8-a0d1-f361f5009c8c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[cons_fp]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		formatString: 0
+		lineageTag: 45779cd5-4c19-45f4-ae8d-c9667550e7f4
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: Goal1[ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg
+		lineageTag: 1c6995a7-8dad-4f03-8aee-492e30c07582
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[fishreg]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		formatString: 0
+		lineageTag: 5495bc72-7a03-486b-b4a5-ce13d812f6f3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[Index]
+
+		annotation SummarizationSetBy = Automatic
+
+	column areaprot
+		lineageTag: 5e1a8498-1c2e-4950-9172-d42210175933
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[areaprot]
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedToDate
+		lineageTag: 2bb7eb5c-58ae-481b-999b-6c82fc86cdaf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[UpdatedToDate]
+
+		annotation SummarizationSetBy = Automatic
+
+	column lev_perc
+		lineageTag: bc607657-2a0a-42f4-8585-453671461f06
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[lev_perc]
+
+		annotation SummarizationSetBy = Automatic
+
+	column leg_stat
+		lineageTag: ff9fef8b-0754-4b5f-8968-f81bef7858e9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[leg_stat]
+
+		annotation SummarizationSetBy = Automatic
+
+	column partner
+		lineageTag: a66f23b7-9ab1-428f-98ba-82efc0d1eae2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[partner]
+
+		annotation SummarizationSetBy = Automatic
+
+	column fin_source
+		lineageTag: 560124f7-6d2f-4eba-834b-7bc589145321
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[fin_source]
+
+		annotation SummarizationSetBy = Automatic
+
+	column subst_cat
+		lineageTag: b88b9e85-35db-4414-9532-2c82943e1468
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[subst_cat]
+
+		annotation SummarizationSetBy = Automatic
+
+	column M
+		lineageTag: 7a237d7d-1a64-48fa-9fcd-cf42283deefb
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[M]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F
+		lineageTag: cb753218-7df2-4601-9b19-22a11b84cedd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[F]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryCode
+		lineageTag: 8e4e8128-c0dd-4c22-b460-961792ffff9d
+		summarizeBy: count
+		isNameInferred
+		sourceColumn: Goal1[CountryCode]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'EU Fish Stock'
+		lineageTag: e11ca744-7a04-461f-8b1f-7035a9ecd93c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[EU Fish Stock]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		lineageTag: da3af856-7351-4c41-950e-eb5b26153fc6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Title]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modified
+		formatString: General Date
+		lineageTag: 92d28ddf-1363-4a94-b961-d177af3b11bf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Modified]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Color Tag'
+		lineageTag: c9b77b9a-0542-4d40-af06-92bcc63a205c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Color Tag]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Compliance Asset Id'
+		lineageTag: ab5a6c54-8295-496c-9f7c-e7b63e844615
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Compliance Asset Id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column isced11
+		lineageTag: 03bd5ebc-b097-44a4-a7c0-4c4117900552
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[isced11]
+
+		annotation SummarizationSetBy = Automatic
+
+	column training
+		lineageTag: fbc49bbc-fd45-4d79-bfa7-34cb3dbfeb16
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[training]
+
+		annotation SummarizationSetBy = Automatic
+
+	column hhtyp
+		lineageTag: f0f81b2b-bdda-44a7-aa5c-9fb2d779cf32
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[hhtyp]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ww_tp
+		lineageTag: d0b4e458-3153-4f07-9a94-05dc5df8fecf
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[ww_tp]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Seabasin
+		lineageTag: 4321bfc1-b391-4192-a9a9-f3ab91bec200
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Seabasin]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Forestryindicators
+		lineageTag: 26c53120-b095-47d4-9be6-d978e986bdc3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[Forestryindicators]
+
+		annotation SummarizationSetBy = Automatic
+
+	column sector
+		lineageTag: 745d6a1e-fc4b-4d8f-b5d0-7d7c026b23d1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[sector]
+
+		annotation SummarizationSetBy = Automatic
+
+	column prof_pos
+		lineageTag: 7086d028-e01d-477b-92ad-f546580b57d6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[prof_pos]
+
+		annotation SummarizationSetBy = Automatic
+
+	column src_crf
+		lineageTag: 609868b8-f206-4be9-8a36-669d3f044bc1
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Goal1[src_crf]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryIndex
+		lineageTag: 88415aae-15fd-4382-a2dc-c9f8df3814a5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Goal1[CountryIndex]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition All_Goal1_Graph2 = calculated
+		mode: import
+		source = ```
+				
+				var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+				var country = CALCULATE( CALCULATE(MAX(Goal1[CountryAbrv]),Goal1[IndicatorValue]=indicator),CONTAINSSTRING(Goal1[CountryAbrv],"EU_V")) 
+				var countrySelect = IF(country<>BLANK(),country,"EU27_2020")
+				var maxyear = CALCULATE(MAX(Goal1[Year]),Goal1[CountryAbrv]="EU27_2020",Goal1[UpdatedFromDate]=MAX(Goal1[UpdatedFromDate]))
+				RETURN
+				FILTER(Goal1,((Goal1[Year]=maxyear || Goal1[Year] = maxyear-5 ) && Goal1[UpdatedFromDate]=MAX(Goal1[UpdatedFromDate])))
+				```
+
+	annotation PBI_Id = 58b7cd6943d940ceaa78c48d12d9e056
+

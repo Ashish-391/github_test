@@ -1,0 +1,54 @@
+table sdg_12_10_Hazard
+	isHidden
+	lineageTag: 7f24a204-105a-4136-a65b-f181ede8fb29
+
+	column Hazard
+		dataType: string
+		isHidden
+		lineageTag: dae4ebc3-8f49-4748-b68a-51c6d1755792
+		summarizeBy: none
+		sourceColumn: Hazard
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column hazard_1
+		dataType: string
+		lineageTag: c86265f8-4f60-4fc4-8b89-252d9cca0fa7
+		summarizeBy: none
+		sourceColumn: hazard_1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sdg_12_10_Hazard = m
+		mode: import
+		queryGroup: 'Goal 12'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"97e7db15-bbb3-4a95-b97e-1bdca4d20026" = Source{[Id="97e7db15-bbb3-4a95-b97e-1bdca4d20026"]}[Items],
+				//     #"Renamed Columns" = Table.RenameColumns(#"97e7db15-bbb3-4a95-b97e-1bdca4d20026",{{"ID", "ID.1"}}),
+				//     #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"hazard"}),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"hazard", type text}}),
+				//     #"Added Conditional Column" = Table.AddColumn(#"Changed Type", "Hazard", each if [hazard] = "HAZ_NHAZ" then "Hazardous and non-hazardous - Total" else if [hazard] = "HAZ" then "Hazardous" else if [hazard] = "HLTH" then "Hazardous health" else if [hazard] = "ENV" then "Hazardous to the environment" else null),
+				//     #"Renamed Columns1" = Table.RenameColumns(#"Added Conditional Column",{{"hazard", "hazard_1"}}),
+				//     #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns1",{{"Hazard", type text}}),
+				//     #"Removed Duplicates" = Table.Distinct(#"Changed Type1", {"hazard_1"})
+				// in
+				//     #"Removed Duplicates"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+				    sdg_12_10_Hazard_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="sdg_12_10_Hazard",version=""]}[Data]
+				in
+				    sdg_12_10_Hazard_
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

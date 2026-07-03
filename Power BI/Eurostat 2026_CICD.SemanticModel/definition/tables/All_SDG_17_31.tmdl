@@ -1,0 +1,79 @@
+table All_SDG_17_31
+	lineageTag: 87ed0656-4cfd-4834-834b-e597cd1d605d
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 3107c98c-f33a-4e7c-be1c-28554149389d
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 0f0e7ba3-3ff5-4ac0-9cb9-537ef28e3852
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: a888f96a-e1d3-4207-bb41-c782f628594e
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 7d198dc5-2a7d-4bff-9856-9aa308b8f53b
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column partner
+		dataType: string
+		lineageTag: b0d18f03-4024-4111-84c8-ed9711ce07cf
+		summarizeBy: none
+		sourceColumn: partner
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: d66db099-8b90-405e-994d-6ae351c7b2a6
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 4ba14ede-d655-4ebc-a4a9-e7e54382d0d5
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_17_31 = m
+		mode: import
+		queryGroup: 'New indicators 2026'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2db96d17-b148-4d11-80f4-26b75cb98f00" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="ALL_SDG_New Indicators"]}[Data],
+				    All_SDG_17_31_ = #"2db96d17-b148-4d11-80f4-26b75cb98f00"{[entity="All_SDG_17_31",version=""]}[Data]
+				in
+				    All_SDG_17_31_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

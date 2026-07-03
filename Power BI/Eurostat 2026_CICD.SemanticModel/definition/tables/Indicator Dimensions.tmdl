@@ -1,0 +1,108 @@
+table 'Indicator Dimensions'
+	lineageTag: e92404f0-d50e-4948-a440-0e03714ace0f
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 382c86d2-2108-4e36-8dea-379904fad33f
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column SDGIndex
+		dataType: int64
+		formatString: 0
+		lineageTag: 10d31b05-bb51-4068-88e1-936218341659
+		summarizeBy: sum
+		sourceColumn: SDGIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: bd26789f-2c71-48f8-8c04-f94e847c2e7e
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Year'
+		dataType: double
+		formatString: 0
+		lineageTag: f575c5bc-f8a9-4953-8f33-398b137f42ce
+		summarizeBy: sum
+		sourceColumn: Target Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: double
+		formatString: 0
+		lineageTag: 5e19ff56-70c6-4dbe-8d62-0af65f82267d
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Value'
+		dataType: double
+		lineageTag: 87205598-4888-4df8-8c6b-333029fa5cad
+		summarizeBy: sum
+		sourceColumn: Target Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Original Indi'
+		dataType: string
+		lineageTag: 94003fb7-9bc8-4e64-a5e3-40af1b8e583d
+		summarizeBy: none
+		sourceColumn: Original Indi
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dim
+		dataType: double
+		lineageTag: 26dc7dfc-0f63-48f0-ae09-1cd8aaa7ce63
+		summarizeBy: sum
+		sourceColumn: Dim
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Indicator Dimensions' = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				/* let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("fZhNS11BDIb/y12KyiTzvSwtuLF04aILkcOtSBVaWtRFf37PyZxzb/LmICjozWNm8iaTyXh/f6DDpXzffbmZAk0U5p9bSHH5jENcfr2iw8Pl/YEtyYtpfK1AtIC4MECyQHIeMgDOQ7FAdh6qBuJUwgUSTRE0B0yO6Evomw8ekhhAPlGEkmIFyALRAWwBkYLzWfMVixYrfitJE2V25MKhrBDKs2geKRbRsq2EFpbCHJF3sigbz9oToY9uASebfKCA6MJlsoSvEGYg2BFRE22vRjgphJZa90i2yBCeKFb2J6dYNrOwPQXeOWaL0mnbXhrl1z3WLCbaJVdB3C0mh7IXxORHhdXRBhxGFpOypew2F3njvn7MxY27+5hLdt2ClRN1NuTcY76izoGcapfSuCifNyTvHPzYLLHTA7slJIp8XVxIEqoCM4Ykpa0ACWn0iSAFNSjW1FIt083r8e+zq/oULcgriKsuKpfDqZ8oDYY9WzujvVh7RHu19oT2Zu0Z7d3aC9iF3+yUTD8cwCJr3RzU9Xj1eE7QwBgw+bPisGgxlCMna0c5crZ2kSPxdcZ1iuVQllyt3cmyyNo2e3NpzR3sZO3iT9kZmtKAyEJiqQ0pthRWgGis7BhKSdq+DAmQ4ZIVQPPt7ICybl489CEGZrZUDaX1CkiYmNIURnW9TCgE5LpdE6OuwdqxUCpZe0U7633MkwIGXaN1gBVUk7Wj7FVms7CtEFwJ1QKAC6ECkKDIpFQ04PbYAcBNyo1FZroDgADAA9sYgHEl2Wt9kBFIaRl4qQ80aVS6JmSnZUN0M6QNopjl9nxU2JCoU7ASWzNY9geoicyncZBdqnsAgEHmTgCM+aJfJ9hMZwClJjh6MAKYcckEQEEgb8Dj08v08+01uLCKdiHdGpTpIvFpkotDGdcUegNM9LmKc1twjaF3zcoVII3G3wGjqZzd8rq/HVkpEOwA+w0FBgIPGwWRfJu6aJ1EIwZAIQGH1UAhA4GtgUIBIoXp85/j2/vx1/T9+P70inwF3u++AYG9goIov41ElF2ZEwUgeF8BOU2aw85GUlWacPuVVGiizAp8mz7d3iKYEHSLZU3IEHaBSAHE9RsaL77TKOVHQZIHnyawmZK8+DThEi9/oglXqFJNmnDSyZNPiMfXl9/T+/OP6e3pH0Ki7zYi0Tr4heuKyZS3nwZdVPL004SPqgDho6pA+KgaEFLAfrIgNrei/A/nCL7GE04h7BEySNrzwgZpe14iINEji77qXeOkiWbAyzDCP/wH", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Index = _t, SDGIndex = _t, Indicator = _t, TargetValue = _t, #"Target Year" = _t, Dimension = _t]),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"TargetValue", "Target Year", "Dimension"}),
+				    #"DimAdded Conditional Column1" = Table.AddColumn(#"Removed Columns", "Dim", each if [Indicator] = "SDG_01_10" then -1 else if [Indicator] = "SDG_01_20" then -1 else if [Indicator] = "SDG_01_31" then -1 else if [Indicator] = "SDG_01_40" then -1 else if [Indicator] = "SDG_01_41" then -1 else if [Indicator] = "SDG_01_50" then -1 else if [Indicator] = "SDG_03_60" then -1 else if [Indicator] = "SDG_11_11*" then -1 else if [Indicator] = "SDG_10_30*" then -1 else if [Indicator] = "SDG_02_10" then -1 else if [Indicator] = "SDG_02_20" then 1 else if [Indicator] = "SDG_02_30" then 1 else if [Indicator] = "SDG_02_40" then 1 else if [Indicator] = "SDG_02_60" then -1 else if [Indicator] = "SDG_06_40*" then -1 else if [Indicator] = "SDG_15_50*" then -1 else if [Indicator] = "SDG_15_60*" then 1 else if [Indicator] = "SDG_03_11" then 1 else if [Indicator] = "SDG_03_20" then 1 else if [Indicator] = "SDG_03_30" then -1 else if [Indicator] = "SDG_03_41" then -1 else if [Indicator] = "SDG_03_42" then -1 else if [Indicator] = "SDG_08_60*" then -1 else if [Indicator] = "SDG_11_20*" then -1 else if [Indicator] = "SDG_04_60" then 1 else if [Indicator] = "SDG_03_60*" then -1 else if [Indicator] = "SDG_02_10*" then -1 else if [Indicator] = "SDG_05_10" then -1 else if [Indicator] = "SDG_05_20" then -1 else if [Indicator] = "SDG_05_30" then -1 else if [Indicator] = "SDG_05_50" then 1 else if [Indicator] = "SDG_05_60" then 1 else if [Indicator] = "SDG_04_10_Graph2" then -1 else if [Indicator] = "SDG_04_20_Graph" then -1 else if [Indicator] = "SDG_06_10" then -1 else if [Indicator] = "SDG_06_20" then 1 else if [Indicator] = "SDG_06_30" then -1 else if [Indicator] = "SDG_06_40" then -1 else if [Indicator] = "SDG_06_50" then -1 else if [Indicator] = "SDG_06_60" then -1 else if [Indicator] = "SDG_14_40*" then 1 else if [Indicator] = "SDG_07_10" then -1 else if [Indicator] = "SDG_07_11" then -1 else if [Indicator] = "SDG_07_20" then -1 else if [Indicator] = "SDG_07_30" then 1 else if [Indicator] = "SDG_07_40" then 1 else if [Indicator] = "SDG_07_50" then -1 else if [Indicator] = "SDG_07_60" then -1 else if [Indicator] = "SDG_08_10" then 1 else if [Indicator] = "SDG_08_11" then 1 else if [Indicator] = "SDG_08_20" then -1 else if [Indicator] = "SDG_08_30" then -1 else if [Indicator] = "SDG_08_40" then -1 else if [Indicator] = "SDG_08_60" then -1 else if [Indicator] = "SDG_01_41*" then -1 else if [Indicator] = "SDG_12_21*" then -1 else if [Indicator] = "SDG_09_10" then 1 else if [Indicator] = "SDG_09_30" then 1 else if [Indicator] = "SDG_09_40" then 1 else if [Indicator] = "SDG_09_50" then 1 else if [Indicator] = "SDG_09_60" then 1 else if [Indicator] = "SDG_09_70" then -1 else if [Indicator] = "SDG_04_20*" then 1 else if [Indicator] = "SDG_12_61*" then 1 else if [Indicator] = "SDG_17_60*" then 1 else if [Indicator] = "SDG_10_10" then -1 else if [Indicator] = "SDG_10_30" then -1 else if [Indicator] = "SDG_10_41" then -1 else if [Indicator] = "SDG_10_50" then 1 else if [Indicator] = "SDG_10_60" then 1 else if [Indicator] = "SDG_11_11" then -1 else if [Indicator] = "SDG_11_20" then -1 else if [Indicator] = "SDG_11_40" then -1 else if [Indicator] = "SDG_11_52" then -1 else if [Indicator] = "SDG_11_60" then 1 else if [Indicator] = "SDG_06_20*" then 1 else if [Indicator] = "SDG_09_50*" then 1 else if [Indicator] = "SDG_16_20*" then -1 else if [Indicator] = "SDG_15_41*" then -1 else if [Indicator] = "SDG_12_10" then -1 else if [Indicator] = "SDG_12_21" then -1 else if [Indicator] = "SDG_12_30" then -1 else if [Indicator] = "SDG_12_41" then 1 else if [Indicator] = "SDG_12_51" then -1 else if [Indicator] = "SDG_12_61" then 1 else if [Indicator] = "SDG_07_30*" then 1 else if [Indicator] = "cei_gsr010" then -1 else if [Indicator] = "SDG_13_10" then -1 else if [Indicator] = "SDG_13_21" then -1 else if [Indicator] = "SDG_13_40" then -1 else if [Indicator] = "SDG_13_50" then 1 else if [Indicator] = "SDG_07_40*" then 1 else if [Indicator] = "SDG_12_30*" then -1 else if [Indicator] = "SDG_14_10" then 1 else if [Indicator] = "SDG_14_21" then 1 else if [Indicator] = "SDG_14_30" then -1 else if [Indicator] = "SDG_14_40_Coastal_Water" then 1 else if [Indicator] = "SDG_14_50" then 1 else if [Indicator] = "SDG_14_60" then -1 else if [Indicator] = "SDG_15_10" then 1 else if [Indicator] = "SDG_15_20" then 1 else if [Indicator] = "SDG_15_41" then -1 else if [Indicator] = "SDG_15_50" then -1 else if [Indicator] = "SDG_15_60_CO_ALL" then 1 else if [Indicator] = "SDG_15_61" then 1 else if [Indicator] = "SDG_06_30*" then -1 else if [Indicator] = "SDG_06_50*" then -1 else if [Indicator] = "SDG_16_10" then -1 else if [Indicator] = "SDG_16_20" then -1 else if [Indicator] = "SDG_16_30" then 1 else if [Indicator] = "SDG_16_40" then 1 else if [Indicator] = "SDG_16_50" then 1 else if [Indicator] = "crim_thb_sex" then -1 else if [Indicator] = "SDG_17_10" then 1 else if [Indicator] = "SDG_17_20" then 1 else if [Indicator] = "SDG_17_30" then 1 else if [Indicator] = "SDG_17_40" then -1 else if [Indicator] = "SDG_17_50" then 1 else if [Indicator] = "SDG_17_60" then 1 else if [Indicator] = "SDG_01_10a" then -1 else if [Indicator] = "SDG_01_20a" then -1 else if [Indicator] = "SDG_04_10a" then -1 else if [Indicator] = "SDG_08_20a" then -1 else if [Indicator] = "SDG_08_30a" then -1 else if [Indicator] = "lfsa_igar" then -1 else if [Indicator] = "lfsa_igar*" then -1 else null),
+				    #"Merged Queries" = Table.NestedJoin(#"DimAdded Conditional Column1", {"Indicator"}, #"Target Values", {"Indicator Name"}, "Target Values", JoinKind.LeftOuter),
+				    #"Expanded Target Values" = Table.ExpandTableColumn(#"Merged Queries", "Target Values", {"Target Year", "Target Value", "Dimension"}, {"Target Year", "Target Value", "Dimension"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Target Values",{{"Index", Int64.Type}, {"SDGIndex", Int64.Type}, {"Indicator", type text}, {"Dim", type number}, {"Dimension", type number}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Target Value] <> 13400))
+				in
+				    #"Filtered Rows" */
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("fZg9axxBDIb/y5UmPkbSfJYhATcOKVykMOa4IpAikOD4/5Ndza5PerUYbLBPz2mldzQazT4/n+j0SX+fvj5cEl0oLX/3lGX9jJOs/97T6eXT84k9yatp/myAeEBdOCB7IAcPBYDgoXqgBA/NAnKp6Q6JbghaEqZAjDX13QdPSRygnxjCSLEB5AEJAHtApeBy03zDxGM1hpItURdHIR0qBqGyiBaR6hEr20ZYYSktGUUnq7Jy054IfQwPBNn0AwNISJfJE7FCmIHgQIgl+lGNcDYIrbUekeKRKTyRNI47p3q2sLIjJz7YZqvSeQ8vz/IbEeseU+1yqCAeHtNNOSpi+qfB2mwDASOPadlSCcEJ79y3jznZuaePueyfW7FyxK6G7ntcL7FroLs6LKmsypcdKQcbX7onDnrg8IRmUc41pKSpGrBgSlraBtCUZp9IWlCTYkut1XJ5eL3+/RWqPosHeQPxqavK9fTeT4wG0168ndFevV3Q3rw9o717e0H78PYKduV3O2XXDyewytp2B23bXkNuCzQxBky/VgMmHkM5SvZ2lKMUb1c5Mp8LPqd6DmUpzduDLKusfbf3sKxlgJ28Xf0ZO0NTmhB5SC2tI8WewgpQjY0dU6nZ2tchAVa4FgPQcjoHoG7Bq4cxxcCVrc1CeTsCMi5M7Qajth0mlBJywz8Ts27J27FQGnl7QzvbOJZJAZNu4h1gBbXs7Sh709ks7U9ItoS20asCEXJoAGSoMq0VC4QgBwAYpR5Z5MY7AAgA3LGdAZhnkj/XJylAas/AU32i2aLaNmF5enHEcFPaJKp73JGPBgGpOhVLsXfAhMGPqvw+DnLoFiMBwKDyIAcsk5yWYx7nDMEMBldaEywRFAALPjMDUBEoAAgC1QLarUHhoQrLLS/CqWtiHTDV516WthAawxiW1SNApYpnwGwq1u0cx6KolAhIbDeUGAjcapRU8H3oom0QFYyfUgYOi4FSAQIbA6UKRE6XL3+u/96uvy8/rm8/X5FvwMfoOxDYKSip8PtERCVUOVECgo8V0L1049YNdYeuGFyFgHUtLFEXCb5fPj8+IpgRRL3V+E7oEBbiqYCEdkPzxvc+SsVRkPTCZwnspaQ3PkuEldevWCJUqpaTJYJ0euWzhDkc97upXvpon5Bom/vSueFi6tXPgiEpvflZIiZVgYhJNSBiUh0ILeA4WBC7M1Ff4VzB17zBGYQjQg7JR17YIf3IiwAiEVn1Ndea+BKIxA5wisR3DWLfWCzXOR3ESxBHr3TmXtjmlj7j6Ep6s7O7Kr43OGJ8YC//AQ==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Index = _t, SDGIndex = _t, Indicator = _t, TargetValue = _t, #"Target Year" = _t, Dimension = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Index", Int64.Type}, {"SDGIndex", Int64.Type}, {"Indicator", type text}, {"TargetValue", type number}, {"Target Year", Int64.Type}, {"Dimension", Int64.Type}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"TargetValue", "Target Year", "Dimension"}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Removed Columns", "Indicator", "Indicator - Copy"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Duplicated Column",{{"Indicator - Copy", "Original Indi"}}),
+				    #"DimAdded Conditional Column1" = Table.AddColumn(#"Renamed Columns", "Dim", each if [Indicator] = "SDG_01_10" then -1 else if [Indicator] = "SDG_01_20" then -1 else if [Indicator] = "SDG_01_31" then -1 else if [Indicator] = "SDG_01_40" then -1 else if [Indicator] = "SDG_01_41" then -1 else if [Indicator] = "SDG_01_50" then -1 else if [Indicator] = "SDG_03_60" then -1 else if [Indicator] = "SDG_11_11*" then -1 else if [Indicator] = "SDG_10_30*" then -1 else if [Indicator] = "SDG_02_10" then -1 else if [Indicator] = "SDG_02_20" then 1 else if [Indicator] = "SDG_02_30" then 1 else if [Indicator] = "SDG_02_40" then 1 else if [Indicator] = "SDG_02_60" then -1 else if [Indicator] = "SDG_06_40*" then -1 else if [Indicator] = "SDG_15_50*" then -1 else if [Indicator] = "SDG_15_60*" then 1 else if [Indicator] = "SDG_03_11" then 1 else if [Indicator] = "SDG_03_20" then 1 else if [Indicator] = "SDG_03_30" then -1 else if [Indicator] = "SDG_03_41" then -1 else if [Indicator] = "SDG_03_42" then -1 else if [Indicator] = "SDG_08_60*" then -1 else if [Indicator] = "SDG_11_20*" then -1 else if [Indicator] = "SDG_04_60" then 1 else if [Indicator] = "SDG_03_60*" then -1 else if [Indicator] = "SDG_02_10*" then -1 else if [Indicator] = "SDG_05_10" then -1 else if [Indicator] = "SDG_05_20" then -1 else if [Indicator] = "SDG_05_30" then -1 else if [Indicator] = "SDG_05_50" then 1 else if [Indicator] = "SDG_05_60" then 1 else if [Indicator] = "SDG_04_10_Graph2" then -1 else if [Indicator] = "SDG_04_20_Graph" then -1 else if [Indicator] = "SDG_06_10" then -1 else if [Indicator] = "SDG_06_20" then 1 else if [Indicator] = "SDG_06_30" then -1 else if [Indicator] = "SDG_06_40" then -1 else if [Indicator] = "SDG_06_50" then -1 else if [Indicator] = "SDG_06_60" then -1 else if [Indicator] = "SDG_14_40*" then 1 else if [Indicator] = "SDG_07_10" then -1 else if [Indicator] = "SDG_07_11" then -1 else if [Indicator] = "SDG_07_20" then -1 else if [Indicator] = "SDG_07_30" then 1 else if [Indicator] = "SDG_07_40" then 1 else if [Indicator] = "SDG_07_50" then -1 else if [Indicator] = "SDG_07_60" then -1 else if [Indicator] = "SDG_08_10" then 1 else if [Indicator] = "SDG_08_11" then 1 else if [Indicator] = "SDG_08_20" then -1 else if [Indicator] = "SDG_08_30" then 1 else if [Indicator] = "SDG_08_40" then -1 else if [Indicator] = "SDG_08_60" then -1 else if [Indicator] = "SDG_01_41*" then -1 else if [Indicator] = "SDG_12_21*" then -1 else if [Indicator] = "SDG_09_10" then 1 else if [Indicator] = "SDG_09_30" then 1 else if [Indicator] = "SDG_09_40" then 1 else if [Indicator] = "SDG_09_50" then 1 else if [Indicator] = "SDG_09_60" then 1 else if [Indicator] = "SDG_09_70" then -1 else if [Indicator] = "SDG_04_20*" then 1 else if [Indicator] = "SDG_12_61*" then 1 else if [Indicator] = "SDG_17_60*" then 1 else if [Indicator] = "SDG_10_10" then -1 else if [Indicator] = "SDG_10_30" then -1 else if [Indicator] = "SDG_10_41" then -1 else if [Indicator] = "SDG_10_50" then 1 else if [Indicator] = "SDG_10_60" then 1 else if [Indicator] = "SDG_11_11" then -1 else if [Indicator] = "SDG_11_20" then -1 else if [Indicator] = "SDG_11_40" then -1 else if [Indicator] = "SDG_11_52" then -1 else if [Indicator] = "SDG_11_60" then 1 else if [Indicator] = "SDG_06_20*" then 1 else if [Indicator] = "SDG_09_50*" then 1 else if [Indicator] = "SDG_16_20*" then -1 else if [Indicator] = "SDG_15_41*" then -1 else if [Indicator] = "SDG_12_10" then -1 else if [Indicator] = "SDG_12_21" then -1 else if [Indicator] = "SDG_12_30" then -1 else if [Indicator] = "SDG_12_41" then 1 else if [Indicator] = "SDG_12_51" then -1 else if [Indicator] = "SDG_12_61" then 1 else if [Indicator] = "SDG_07_30*" then 1 else if [Indicator] = "cei_gsr010" then -1 else if [Indicator] = "SDG_13_10" then -1 else if [Indicator] = "SDG_13_21" then -1 else if [Indicator] = "SDG_13_40" then -1 else if [Indicator] = "SDG_13_50" then 1 else if [Indicator] = "SDG_07_40*" then 1 else if [Indicator] = "SDG_12_30*" then -1 else if [Indicator] = "SDG_14_10" then 1 else if [Indicator] = "SDG_14_21" then 1 else if [Indicator] = "SDG_14_30" then -1 else if [Indicator] = "SDG_14_40_Coastal_Water" then 1 else if [Indicator] = "SDG_14_50" then 1 else if [Indicator] = "SDG_14_60" then -1 else if [Indicator] = "SDG_15_10" then 1 else if [Indicator] = "SDG_15_20" then 1 else if [Indicator] = "SDG_15_41" then -1 else if [Indicator] = "SDG_15_50" then -1 else if [Indicator] = "SDG_15_60_CO_ALL" then 1 else if [Indicator] = "SDG_15_61" then 1 else if [Indicator] = "SDG_06_30*" then -1 else if [Indicator] = "SDG_06_50*" then -1 else if [Indicator] = "SDG_16_10" then -1 else if [Indicator] = "SDG_16_20" then -1 else if [Indicator] = "SDG_16_30" then 1 else if [Indicator] = "SDG_16_40" then 1 else if [Indicator] = "SDG_16_50" then 1 else if [Indicator] = "SDG_16_70" then -1 else if [Indicator] = "SDG_17_10" then 1 else if [Indicator] = "SDG_17_20" then 1 else if [Indicator] = "SDG_17_30" then 1 else if [Indicator] = "SDG_17_40" then -1 else if [Indicator] = "SDG_17_50" then 1 else if [Indicator] = "SDG_17_60" then 1 else if [Indicator] = "SDG_01_10a" then -1 else if [Indicator] = "SDG_01_20a" then -1 else if [Indicator] = "SDG_04_10a" then -1 else if [Indicator] = "SDG_08_20a" then -1 else if [Indicator] = "SDG_08_30a" then -1 else if [Indicator] = "lfsa_igar" then -1 else if [Indicator] = "lfsa_igar*" then -1 else if [Indicator] = "SDG_04_40" then -1 else if [Indicator] = "SSG_04_40" then -1 else if [Indicator] = "SMG_04_40" then -1 else if [Indicator] = "SDG_04_10" then -1 else if [Indicator] = "SDG_15_42" then -1 else if [Indicator] = "SDG_15_42*" then -1 else if [Indicator] = "SDG_02_53" then -1 else if [Indicator] = "SDG_03_70" then -1 else if [Indicator] = "SDG_11_32" then -1 else if [Indicator] = "SDG_12_31" then -1 else if [Indicator] = "SDG_11_32*" then -1 else if [Indicator] = "SDG_13_31" then -1 else if [Indicator] = "SDG_13_31*" then -1 else if [Indicator] = "hlth_silc_17" then 1 else if [Indicator] = "SDG_13_70a" then 1 else if [Indicator] = "SDG_14_51" then -1 else if [Indicator] = "SDG_15_11" then 1 else if [Indicator] = "SDG_17_31" then 1 else null),
+				    #"Replaced Value" = Table.ReplaceValue(#"DimAdded Conditional Column1","*","",Replacer.ReplaceText,{"Original Indi"}),
+				    #"Merged Queries" = Table.NestedJoin(#"Replaced Value", {"Original Indi"}, #"Target Values", {"Indicator Name"}, "Target Values", JoinKind.LeftOuter),
+				    #"Expanded Target Values" = Table.ExpandTableColumn(#"Merged Queries", "Target Values", {"Target Year", "Target Value", "Dimension"}, {"Target Year", "Target Value", "Dimension"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Expanded Target Values", each ([Indicator] <> "SDG_03_41")),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows",{{"Dim", type number}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

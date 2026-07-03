@@ -1,0 +1,52 @@
+table SDG_14_21_Fishreg
+	isHidden
+	lineageTag: 968794fa-85d1-496f-894c-36f98ff61954
+
+	column Fishreg
+		dataType: string
+		isHidden
+		lineageTag: 606bd71f-21e4-45e0-889b-749f1ada7a90
+		summarizeBy: none
+		sourceColumn: Fishreg
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg_1
+		dataType: string
+		lineageTag: dda6910c-55c0-47d2-a077-607d328a8831
+		summarizeBy: none
+		sourceColumn: fishreg_1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_14_21_Fishreg = m
+		mode: import
+		queryGroup: 'Goal 14'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"f76cb6bf-66a7-4d5a-8f7d-ed77a6aad1fc" = Source{[Id="f76cb6bf-66a7-4d5a-8f7d-ed77a6aad1fc"]}[Items],
+				//     #"Removed Other Columns" = Table.SelectColumns(#"f76cb6bf-66a7-4d5a-8f7d-ed77a6aad1fc",{"fishreg"}),
+				//     #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				//     #"Added Conditional Column" = Table.AddColumn(#"Removed Duplicates", "Fishreg", each if [fishreg] = "27_37" then "EU total marine areas" else if [fishreg] = "27" then "Atlantic, Northeast" else if [fishreg] = "37" then "Mediterranean and Black Sea" else null),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Fishreg", type text}, {"fishreg", type text}}),
+				//     #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"fishreg", "fishreg_1"}})
+				// in
+				//     #"Renamed Columns"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_14_21_Fishreg_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_14_21_Fishreg",version=""]}[Data]
+				in
+				    SDG_14_21_Fishreg_
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,168 @@
+table Goal15
+	lineageTag: d7408080-0f39-4e28-9c13-90eb2afd7385
+
+	measure obs_value_Goal15 =
+			var minDate = CALCULATE(Min('Goal15'[UpdatedFromDate]),ALLSELECTED('Goal15'[UpdatedFromDate]))
+			var maxDate = CALCULATE(MAX('Goal15'[UpdatedFromDate]),ALLSELECTED('Goal15'[UpdatedFromDate]))
+			var dateCheck = IF(maxDate in ALLSELECTED('Goal15'[UpdatedFromDate]),6,0)
+			//var datafilter = IF(dateCheck=0,CALCULATETABLE('Goal 15',FILTER('Goal 15','Goal 15'[UpdatedFromDate]<=maxDate)))
+			RETURN
+			
+			SWITCH(TRUE(),
+			        minDate<>maxDate,
+			            CALCULATE(MAX('Goal15'[Value]),/* 'Goal 15'[UpdatedDate]>minDate && */ 'Goal15'[UpdatedFromDate]=maxDate),
+			        minDate=maxDate,CALCULATE(MAX('Goal15'[Value]),'Goal15'[UpdatedFromDate]=maxDate))
+		lineageTag: 6a2ecd3c-24fb-4a4a-8e87-38aaed7b6201
+
+	measure Tooltip_color_Goal-15 =
+			
+			var minDate = CALCULATE(Min('Goal15'[UpdatedFromDate]),ALLSELECTED('Goal15'[UpdatedFromDate]))
+			var maxDate = CALCULATE(MAX('Goal15'[UpdatedFromDate]),ALLSELECTED('Goal15'[UpdatedFromDate]))
+			var minValue = CALCULATE(MAX('Goal15'[Value]),'Goal15'[UpdatedFromDate]=minDate)
+			var maxValue = CALCULATE(MAX('Goal15'[Value]),'Goal15'[UpdatedFromDate]=maxDate)
+			var countRowsTotal = COUNTROWS(FILTER('Goal15','Goal15'[UpdatedFromDate]>=minDate && 'Goal15'[UpdatedFromDate]<=maxDate))
+			
+			RETURN
+			//IF(countRowsTotal>2,IF(minValue<>maxValue,1,0),
+			IF(countRowsTotal>=2,
+			    IF(minValue=maxValue ,
+			        0,1),
+			
+			        0)
+		formatString: 0
+		lineageTag: faf7e696-ded3-4894-be5f-365f2555c254
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 1d3ab59f-a58e-4311-a6cb-7087a7f0c84f
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 006831dc-723b-4e73-b478-8145ed58a30a
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 0c9201a0-5f8c-4bb4-a811-830d6284d1f2
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 31771bc8-9a10-4a4b-bbb8-4509027a4750
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: dac11beb-4c78-4783-b7d1-6ce85f990111
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitName
+		dataType: string
+		lineageTag: fe630220-fdcc-4541-9e1b-4d01b726883e
+		summarizeBy: none
+		sourceColumn: UnitName
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: dd mmmm yyyy
+		lineageTag: 452f5989-6708-4430-a419-49f3d7fd6657
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column areaprot
+		dataType: string
+		lineageTag: 96f8af1c-ca6a-451b-b24f-79135d59b0d4
+		summarizeBy: none
+		sourceColumn: areaprot
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 1d6f143f-c8ab-4325-bf61-98a01d28ff3b
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column comspec
+		dataType: string
+		lineageTag: 86099274-33e6-4c0d-b684-9be9c73fbf8d
+		summarizeBy: none
+		sourceColumn: comspec
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: c06749ab-c0a1-445b-b0cd-5d8d115efe93
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Forestryindicators
+		dataType: string
+		lineageTag: 483650e2-0e73-4357-b89e-00bb548bb2a7
+		summarizeBy: none
+		sourceColumn: Forestryindicators
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Goal15 = m
+		mode: import
+		queryGroup: 'Goal 15'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"81d8f103-6d57-498e-8b59-2a87dea9b556" = Source{[Id="81d8f103-6d57-498e-8b59-2a87dea9b556"]}[Items],
+				//     #"Removed Other Columns" = Table.SelectColumns(#"81d8f103-6d57-498e-8b59-2a87dea9b556",{"Year", "Unit", "Value", "UpdatedDate", "IndicatorValue", "UpdatedToDate", "RecordCount", "CountryAbrv", "landcover", "Created"}),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Year", Int64.Type}, {"Unit", type text}, {"Value", type number}, {"UpdatedDate", type date}, {"IndicatorValue", type text}, {"UpdatedToDate", type date}, {"RecordCount", Int64.Type}, {"CountryAbrv", type text}, {"landcover", type text}, {"Created", type date}}),
+				//     #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([landcover] = "LCC1_2")),
+				//     #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"UpdatedDate", "UpdatedFromDate"}}),
+				//     #"Appended Query" = Table.Combine({#"Renamed Columns", SDG_15_20, SDG_15_61, SDG_15_60_CO_ALL})
+				// in
+				//     #"Appended Query"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    Goal15_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="Goal15",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal15_,{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

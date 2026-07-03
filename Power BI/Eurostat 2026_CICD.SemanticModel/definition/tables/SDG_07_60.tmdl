@@ -1,0 +1,86 @@
+table SDG_07_60
+	lineageTag: bc2b6811-6b5e-4335-9aba-3e75fb53a945
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 51f9bd1c-c6ae-4bf9-9643-19c0b78f3f64
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 9fdd52ca-d552-45d0-9df7-1fa4d28cf184
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 5343a505-74cb-4b2b-9704-5478b37bb2a2
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 516459d8-c5fa-4ca8-8e35-53772ee8c6b8
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 034b625e-8a64-4aed-91d2-083a15151689
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 7d41f277-8f98-4799-97ce-1aa03cd7f6e4
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: 7da7fe03-1116-4951-aa4d-daa853f17353
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_07_60 = m
+		mode: import
+		queryGroup: 'Goal 7'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"69f78a02-1390-4995-9d19-f85df1dc3e57" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 7"]}[Data],
+				    SDG_07_60_ = #"69f78a02-1390-4995-9d19-f85df1dc3e57"{[entity="SDG_07_60",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_07_60_, each ([incgrp] = "TOTAL"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

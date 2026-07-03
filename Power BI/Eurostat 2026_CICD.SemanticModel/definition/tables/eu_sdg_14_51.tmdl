@@ -1,0 +1,111 @@
+table eu_sdg_14_51
+	lineageTag: c2ed576a-40a8-423c-b763-beff293f7954
+
+	column Year
+		dataType: double
+		lineageTag: 6c9c09f5-ba16-4954-96c6-1e6bc92263d0
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 471bd930-f137-4286-b991-feb0fba42759
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: ee181f0c-6339-4a39-858d-ddbb3c9fe833
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 064baa7d-a48f-43cf-85db-1925757f8234
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 88f85fce-3aff-4449-b111-5c0679526b66
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 64e09842-d617-46d8-ac53-bcbf7b8650d9
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0bd3d3df-1fe4-4a39-8c01-d175c88c27f6
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fishreg
+		dataType: string
+		lineageTag: 79ef44d1-2984-40e4-a3f7-1f1a2b0e9f8d
+		summarizeBy: none
+		sourceColumn: fishreg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EU Fish Stock'
+		dataType: string
+		lineageTag: c99bc847-05dd-404e-9b60-9947fb270b62
+		summarizeBy: none
+		sourceColumn: EU Fish Stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column Seabasin
+		dataType: string
+		lineageTag: 776d86a8-a1d7-4868-9b35-999ddfa7be80
+		summarizeBy: none
+		sourceColumn: Seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_sdg_14_51 = m
+		mode: import
+		queryGroup: 'EU_Goal 14'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    Goal14_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="Goal14",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal14_,{{"UpdatedFromDate", type date}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([IndicatorValue] = "SDG_14_51") and ([Unit] = "NMOL_L"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

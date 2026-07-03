@@ -1,0 +1,114 @@
+table EU_SDG_17_10
+	lineageTag: 52028a23-0592-4d81-aa35-1890f8bf0de6
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 413b5694-317f-4509-a3b1-7f6bbbc309ee
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: d1aa2bd9-33cb-4ac4-8aec-2673072f13c6
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 31e9c7b9-4afa-472a-946f-b4686d30d0a8
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: bbb887e7-39fd-4601-823c-5c848bb78aed
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 4f7f7a22-7648-43a1-97a0-103ef7cd7ee7
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column partner
+		dataType: string
+		lineageTag: fe78dbb1-1a3e-42b2-8897-7b016d1febe3
+		summarizeBy: none
+		sourceColumn: partner
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 201cbbd0-b532-4753-a488-ca03c7382fa4
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column fin_source
+		dataType: string
+		lineageTag: 7b26598f-337e-474c-b166-95b38979c4d8
+		summarizeBy: none
+		sourceColumn: fin_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 1bbbdf22-303f-4038-a2f5-0a29831e447a
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sector
+		dataType: string
+		lineageTag: e7857345-1286-4f73-a47c-0617f8337189
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column na_item
+		dataType: string
+		lineageTag: ed83af10-6235-4b54-b417-ea8bc9a8e934
+		summarizeBy: none
+		sourceColumn: na_item
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_SDG_17_10 = m
+		mode: import
+		queryGroup: EU-Goal1\EU_Goal17
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    Goal17_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="Goal17",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(Goal17_, each ([IndicatorValue] = "SDG_17_10") and ([partner] = "ODA"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

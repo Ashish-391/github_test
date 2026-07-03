@@ -1,0 +1,66 @@
+table BW_Goal7_40
+	lineageTag: c2d1d9f7-bd02-436c-87d6-b1249fae38f0
+
+	column Year
+		formatString: 0
+		lineageTag: 7361ae96-7c5d-4d1c-a16b-d56aca90eb1e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 6f86ed65-8a5e-471f-b9df-a4409bf12d66
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 418a872e-a7bc-49fe-9a41-3e58d3daca64
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_07_40"
+			var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal7_40[Year]=maxTime_Period,maxTime_Period&BW_Goal7_40[Value],BLANK())
+		dataType: double
+		lineageTag: 0c002cad-331c-4928-a268-1822d14589df
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal7_40 = calculated
+		mode: import
+		source =
+				
+				var indicator = "SDG_07_40"
+				var unit = "REN"
+				//Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Geo]="EU27_2020",'All_SDG_Goal5-12'[nrg_bal]=unit)
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				||
+				'All_SDG_Goal5-12'[Time_Period]=maxTime_Period-5
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator &&'All_SDG_Goal5-12'[nrg_bal]=unit),
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				    )
+
+	annotation PBI_Id = fb52cb19c9964bb5ad29d6c1eb637ab0
+

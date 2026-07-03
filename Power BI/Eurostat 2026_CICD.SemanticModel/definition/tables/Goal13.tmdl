@@ -1,0 +1,183 @@
+table Goal13
+	lineageTag: 0229ed37-aae4-4002-a50f-05d06456efe2
+
+	measure obs_value_Goal13 =
+			VAR minDate =
+			    CALCULATE (
+			        MIN ( 'Goal13'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal13'[UpdatedFromDate] )
+			    )
+			VAR maxDate =
+			    CALCULATE (
+			        MAX ( 'Goal13'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal13'[UpdatedFromDate] )
+			    )
+			VAR dateCheck =
+			    IF (
+			        maxDate
+			            IN ALLSELECTED ( 'Goal13'[UpdatedFromDate] ),
+			        6,
+			        0
+			    ) //var datafilter = IF(dateCheck=0,CALCULATETABLE('Goal 13',FILTER('Goal 13','Goal 13'[UpdatedFromDate]<=maxDate)))
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        minDate <> maxDate,
+			            CALCULATE (
+			                MAX ( 'Goal13'[Value] ),
+			                /* 'Goal 13'[UpdatedDate]>minDate && */
+			                'Goal13'[UpdatedFromDate] = maxDate
+			            ),
+			        minDate = maxDate,
+			            CALCULATE (
+			                MAX ( 'Goal13'[Value] ),
+			                'Goal13'[UpdatedFromDate] = maxDate
+			            )
+			    )
+		lineageTag: ab04eee6-fdb7-4edd-9c09-a4e3786fa7ef
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Tooltip_color_Goal-13 =
+			VAR minDate =
+			    CALCULATE (
+			        MIN ( 'Goal13'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal13'[UpdatedFromDate] )
+			    )
+			VAR maxDate =
+			    CALCULATE (
+			        MAX ( 'Goal13'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal13'[UpdatedFromDate] )
+			    )
+			VAR minValue =
+			    CALCULATE (
+			        MAX ( 'Goal13'[Value] ),
+			        'Goal13'[UpdatedFromDate] = minDate
+			    )
+			VAR maxValue =
+			    CALCULATE (
+			        MAX ( 'Goal13'[Value] ),
+			        'Goal13'[UpdatedFromDate] = maxDate
+			    )
+			VAR countRowsTotal =
+			    COUNTROWS (
+			        FILTER (
+			            'Goal13',
+			            'Goal13'[UpdatedFromDate] >= minDate
+			                && 'Goal13'[UpdatedFromDate] <= maxDate
+			        )
+			    )
+			RETURN
+			    //IF(countRowsTotal>2,IF(minValue<>maxValue,1,0),
+			    IF (
+			        countRowsTotal >= 2,
+			        IF (
+			            minValue = maxValue,
+			            0,
+			            1
+			        ),
+			        0
+			    )
+		formatString: 0
+		lineageTag: d812ec6e-b418-45fb-abad-31aa9990518e
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 72766e21-8010-486a-b241-cb4969c3d06f
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: b9d9996d-1d5f-452b-b85f-adb9afeddd95
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 4c6bc250-c488-4603-a273-62f7194e75b5
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: dd mmmm yyyy
+		lineageTag: 493f7365-0a7e-4f1c-91bb-2d1cb329c5ad
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: fc72e866-e303-4bcb-ab54-529877729b22
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 02db9b8f-6d24-4744-85a9-e0b5470e22df
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column src_crf
+		dataType: string
+		lineageTag: 01732fa4-e101-4b83-8403-d141b6fbd535
+		summarizeBy: none
+		sourceColumn: src_crf
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 00691926-4ac0-40a3-b608-a0d94ff07a60
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 520a4ecf-0ac7-4a21-991e-a36aaf600e47
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Goal13 = m
+		mode: import
+		queryGroup: 'Goal 13'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+				    Goal13_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="Goal13",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal13_,{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

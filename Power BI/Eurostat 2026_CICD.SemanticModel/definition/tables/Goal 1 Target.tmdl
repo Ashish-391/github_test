@@ -1,0 +1,115 @@
+table 'Goal 1 Target'
+	lineageTag: f880e9fe-ad5f-479c-8e9a-7e1842fd41d7
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a76daa7-b7bf-4042-b468-1d16810bd288
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: dc774110-1de2-4f41-a8a0-77aab6aa398e
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: d869626e-1aa0-4376-8eca-4074af33229d
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column age
+		dataType: string
+		lineageTag: b42ee243-6d36-4583-aa0d-7705bccbf7b7
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: bcb7caaa-03b8-46c7-a328-37156ae52708
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 5955e47e-952b-4e29-a9da-ad38ba9f9969
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e0a0a386-038f-460b-b1d1-651be434d2be
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column sex
+		dataType: string
+		lineageTag: 76fa998f-e9cf-4351-8aaf-9eb77d77e406
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: 95d78998-12ac-40b4-b8b1-a56e7c82e138
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_il
+		dataType: string
+		lineageTag: 0b093924-68b1-4289-9f77-78617feb6002
+		summarizeBy: none
+		sourceColumn: indic_il
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Goal 1 Target' = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/TM-Eurostat_Sharepoint/", [Implementation="2.0", ViewMode="Default"]),
+				    #"c74d6288-4581-4efd-9c23-154da660c0ee" = Source{[Id="c74d6288-4581-4efd-9c23-154da660c0ee"]}[Items],
+				    #"Replaced Value1" = Table.ReplaceValue(#"c74d6288-4581-4efd-9c23-154da660c0ee",null,#date(2024, 1, 15),Replacer.ReplaceValue,{"UpdatedFromDate"}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Replaced Value1", each ([UpdatedFromDate] <> #date(2024, 1, 15)) and ([Unit] = "THS_PER")),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows1",{{"Year", Int64.Type}, {"Value", type number}, {"UpdatedFromDate", type date}}),
+				    #"Filtered Rows3" = Table.SelectRows(#"Changed Type1", each ([CountryAbrv] = "EU27_2020")),
+				    #"Appended Query" = Table.Combine({#"Filtered Rows3", SDG_01_20, SDG_01_31, SDG_01_40, SDG_01_41, SDG_01_50, SDG_10_30, SDG_11_11, SDG_03_60}),
+				    #"Appended Query1" = Table.Combine({#"Appended Query", TargetValues_ForGoals}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Appended Query1",{{"Year", Int64.Type}, {"Unit", type text}, {"age", type text}, {"IndicatorValue", type text}, {"CountryAbrv", type text}, {"UpdatedFromDate", type date}, {"Value", type number}}),
+				    #"Filtered Rows2" = Table.SelectRows(#"Changed Type", each [CountryAbrv] = "EU27_2020" or [CountryAbrv] = null or [CountryAbrv] = "EU_V"),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Filtered Rows2","M","Men",Replacer.ReplaceText,{"sex"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","T","Total",Replacer.ReplaceText,{"sex"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","F","Women",Replacer.ReplaceText,{"sex"}),
+				    #"Grouped Rows" = Table.Group(#"Replaced Value4", {"Year", "Unit", "IndicatorValue", "CountryAbrv", "age", "sex", "incgrp", "indic_il"}, {{"UpdatedFromDate", each List.Max([UpdatedFromDate]), type nullable date}, {"Value", each List.Max([Value]), type nullable number}})
+				in
+				    #"Grouped Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

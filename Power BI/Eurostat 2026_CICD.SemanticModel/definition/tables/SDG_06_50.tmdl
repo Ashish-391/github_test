@@ -1,0 +1,113 @@
+table SDG_06_50
+	isHidden
+	lineageTag: c8f75e1c-1a78-4417-a024-304f67c605fa
+
+	column Year
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: 3b777fc7-2307-4595-bf34-84afebbfc8d9
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: 8ce726ab-1f18-4584-b81a-119c7b0e2d06
+		summarizeBy: none
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 281db7f5-a1c0-49ad-a47a-01e0312862d9
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: a1e1e620-6289-4b1a-aa0c-f7aca60404e9
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: d1dece9a-7ec1-46b6-a5f0-520fa5b02796
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: b35306a7-2552-4df9-9e3d-bc01f50b7707
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		formatString: 0
+		lineageTag: bc657a63-5ca5-4277-8925-271f8aaeeab6
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column watpol
+		dataType: string
+		lineageTag: aa590b4c-c148-405c-a5de-54bdf64c2c5c
+		summarizeBy: none
+		sourceColumn: watpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: f2571e4c-bc76-4e4c-bc1a-10094c34c269
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_06_50 = m
+		mode: import
+		queryGroup: 'Goal 6'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"8fb7278b-0754-41cb-8022-dde497cf7fbf" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 6"]}[Data],
+				    SDG_06_50_ = #"8fb7278b-0754-41cb-8022-dde497cf7fbf"{[entity="SDG_06_50",version=""]}[Data]
+				in
+				    SDG_06_50_
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

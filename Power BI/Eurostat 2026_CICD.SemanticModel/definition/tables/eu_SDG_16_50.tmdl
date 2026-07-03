@@ -1,0 +1,87 @@
+table eu_SDG_16_50
+	lineageTag: 18d40110-00cd-42fd-af8b-66912e492928
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ff3f446f-78db-4e44-97ae-1b7368ffe1cd
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 7056de10-79a9-4b13-a7ae-ecb5fd8a7efc
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 03f4fde0-0999-49f5-8d5e-ab056cbcd20a
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 1a696500-5388-4fcd-9f78-99ffb3819d96
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 4cdae39e-5af8-4c47-981a-81ada111e45e
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: d8275d58-3084-435e-b96e-0b4aa905f21e
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 4e6c968d-dae3-4236-bc37-cf18e43a62c7
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition eu_SDG_16_50 = m
+		mode: import
+		queryGroup: EU_Goal16
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_16_50_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_16_50",version=""]}[Data]
+				in
+				    SDG_16_50_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

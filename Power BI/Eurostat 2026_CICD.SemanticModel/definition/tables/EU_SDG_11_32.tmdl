@@ -1,0 +1,82 @@
+table EU_SDG_11_32
+	lineageTag: a7507a71-7b4f-46e0-8852-22ceb8ec6e4d
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e8424ca-6744-4f8c-b1c3-0bd309a573ff
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: fd629f57-3768-4495-b664-641d7c0b9083
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 9c867404-0492-4929-9f69-2ac2811a5e74
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 340f6221-a8ba-4d8d-81c7-00d06ff5f3fd
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 0c8c3259-b51a-460d-96b2-be3ed3bd70bb
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 5712b6db-8ad5-4964-86e8-1665db3616b6
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 19c07b17-7ad6-4fc1-b004-2857496b20f4
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition EU_SDG_11_32 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 11'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+				    SDG_15_41_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="SDG_11_32",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_15_41_, each ([Unit] = "PC"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

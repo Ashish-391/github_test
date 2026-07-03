@@ -1,0 +1,116 @@
+table 'Goal 4 Target'
+	lineageTag: e6e866c7-8d70-4a98-b791-d5a5e22b0703
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: e7febc12-1595-4f19-af12-009ec69d41a7
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 41ea387d-b72d-4498-bb80-65c170ee7093
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: f650a16b-b634-4ed0-888a-f73ba9a931b7
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: ccb7a885-ad89-49b2-9a84-d275ca2d3ebd
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: 6fe171c6-0b2a-4da8-9419-eaf520b11325
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: b19c9408-2d6c-48ce-a7b2-7dc44c196df6
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Field
+		dataType: string
+		lineageTag: 37861c7c-e1d5-45d0-b52e-40507630b4e9
+		summarizeBy: none
+		sourceColumn: Field
+		sortByColumn: Field_Sort
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Field_Sort
+		dataType: string
+		lineageTag: 060b41da-aecf-4cba-85a7-1d44d79881d6
+		summarizeBy: none
+		sourceColumn: Field_Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ind_type
+		dataType: string
+		lineageTag: 096e94a9-810a-42dd-83b5-f9c42367768a
+		summarizeBy: none
+		sourceColumn: Ind_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a98ff54-5787-48b5-b79b-11a842cc2aaa
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 4f22d48c-605f-4ecd-a7a2-9ebbd35e59dd
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Goal 4 Target' = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"f7527d26-ad3a-43a1-9857-77dedffbaaf0" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All_SDG_Goal 2-3-4"]}[Data],
+				    #"Goal 4 Target_" = #"f7527d26-ad3a-43a1-9857-77dedffbaaf0"{[entity="Goal 4 Target",version=""]}[Data]
+				in
+				    #"Goal 4 Target_"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

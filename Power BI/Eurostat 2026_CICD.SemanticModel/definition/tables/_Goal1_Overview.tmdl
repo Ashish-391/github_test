@@ -1,0 +1,76 @@
+table _Goal1_Overview
+	lineageTag: 8c220a6b-e19c-44c4-9ab9-0d7fdad79a07
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: a4ba260f-ddb5-44d5-8138-9ac20d193823
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		formatString: 0.0000
+		lineageTag: bc290036-376d-4728-960f-7fce787fab87
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: 6f918653-0234-4fa3-9996-ba22cf50cffa
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 13bf3e0e-59f0-4861-8249-cd9653e93f4a
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: a3bb50cf-854f-4639-817a-f18880c4b8f9
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Goal1_Overview = m
+		mode: import
+		queryGroup: Overvieww
+		source =
+				/* let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2182f1ac-b015-4bb6-91e0-33a86e05578c" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="Indi_Overview"]}[Data],
+				    Goal1_Overview_ = #"2182f1ac-b015-4bb6-91e0-33a86e05578c"{[entity="Goal1_Overview",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(Goal1_Overview_, each ([Indicator] <> "SDG_03_41")),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"TIME_PERIOD", Int64.Type}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Changed Type", each ([Indicator] <> ""))
+				in
+				    #"Filtered Rows1" */
+				    let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"aeeada9e-65ed-451b-bbac-bf3624256a49" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="Ch - 1 to Ch- 3"]}[Data],
+				    Goal1_Overview_ = #"aeeada9e-65ed-451b-bbac-bf3624256a49"{[entity="Goal1_Overview",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(Goal1_Overview_, each ([Indicator] <> "SDG_03_41")),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"TIME_PERIOD", Int64.Type}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Changed Type", each ([Indicator] <> ""))
+				in
+				    #"Filtered Rows1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

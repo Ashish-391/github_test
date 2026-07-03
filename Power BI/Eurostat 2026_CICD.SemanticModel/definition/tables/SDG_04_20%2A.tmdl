@@ -1,0 +1,109 @@
+table SDG_04_20*
+	lineageTag: 1a025cd0-a38a-4232-bd4a-8a004bfad06b
+
+	column Year
+		dataType: double
+		lineageTag: 514172cc-c955-4d8d-a3a8-f7d6c590d59f
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Unit
+		dataType: string
+		lineageTag: b036211f-a590-4e26-aa40-28e21b568fc5
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 19e97af3-0650-45e4-91b7-bb4c5f3cd6d7
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 87688dbd-eb88-4227-8fbf-8051446ccdcc
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 2e692ce1-4c0d-4e46-8df2-df35e4c1f5a2
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column M
+		dataType: double
+		lineageTag: 8f6bf358-b3fc-49db-a132-d68db37da3f5
+		summarizeBy: sum
+		sourceColumn: M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F
+		dataType: double
+		lineageTag: c61d007f-ad00-48fe-ab97-53ee35bf3bdf
+		summarizeBy: sum
+		sourceColumn: F
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		dataType: double
+		lineageTag: b746f88f-a5e0-4ae8-85b4-909bf32cd0ac
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Modified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 282d9de6-a932-4271-85ee-0417ab99cd98
+		summarizeBy: none
+		sourceColumn: Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duplicate
+		dataType: string
+		lineageTag: ca477116-bdb3-4e79-a985-b8d83dcbc67c
+		summarizeBy: none
+		sourceColumn: Duplicate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_04_20* = m
+		mode: import
+		queryGroup: 'Goal 5'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 5"]}[Data],
+				    #"SDG_04_20*_" = #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b"{[entity="SDG_04_20*",version=""]}[Data]
+				in
+				    #"SDG_04_20*_"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

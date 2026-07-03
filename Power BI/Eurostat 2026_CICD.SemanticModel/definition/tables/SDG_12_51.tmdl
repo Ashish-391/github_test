@@ -1,0 +1,97 @@
+table SDG_12_51
+	lineageTag: 81ec0a74-4268-4c5e-849b-cd553122ed77
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 759a4515-45b9-46d6-9909-8cdd6a0d5fca
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 080dde1a-e2bc-4cf7-bc33-53e9b68f3689
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: a01bdf91-b7a7-443d-b91b-214f8f7b23d4
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: d34fb825-fecc-4103-afc6-eb7058941509
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 186882b5-8488-4551-a4a5-4ae3519034c5
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: add312e9-5f98-4c6a-a38e-ecc52ae8e873
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column hazard
+		dataType: string
+		isHidden
+		lineageTag: 9830c311-e33e-4f56-9c74-7f1de1659375
+		summarizeBy: none
+		sourceColumn: hazard
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 2aaff5ee-99b3-4959-b49d-5d2a27f4369d
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_12_51 = m
+		mode: import
+		queryGroup: 'Goal 12'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+				    SDG_12_51_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="SDG_12_51",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_12_51_, each ([hazard] = "HAZ_NHAZ"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

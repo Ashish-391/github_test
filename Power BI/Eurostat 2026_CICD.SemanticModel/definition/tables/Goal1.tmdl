@@ -1,0 +1,840 @@
+table Goal1
+	lineageTag: 28d9ef83-0219-4288-9fc7-cde9b288dfda
+
+	measure obs_value_Goal1 =
+			var unit = SELECTEDVALUE(Goal1[Unit])
+			var age = SELECTEDVALUE(Goal1[age])
+			VAR minDate =
+			    CALCULATE (
+			        MIN ( 'Goal1'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal1'[UpdatedFromDate] ),Goal1[Unit]=unit,Goal1[age] =age
+			    )
+			VAR maxDate =
+			    CALCULATE (
+			        MAX ( 'Goal1'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal1'[UpdatedFromDate] ),Goal1[Unit]=unit,Goal1[age] =age
+			    )
+			VAR dateCheck =
+			    IF (
+			        maxDate
+			            IN ALLSELECTED ( 'Goal1'[UpdatedFromDate] ),
+			        1,
+			        0
+			    ) //var datafilter = IF(dateCheck=0,CALCULATETABLE('Goal 1',FILTER('Goal 1','Goal 1'[UpdatedFromDate]<=maxDate)))
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        minDate <> maxDate,
+			            CALCULATE (
+			                MAX ( 'Goal1'[Value] ),
+			                /* 'Goal 1'[UpdatedDate]>minDate && */
+			                'Goal1'[UpdatedFromDate] = maxDate,Goal1[Unit]=unit,Goal1[age] =age
+			            ),
+			        minDate = maxDate,
+			            CALCULATE (
+			                MAX ( 'Goal1'[Value] ),
+			                'Goal1'[UpdatedFromDate] = maxDate,Goal1[Unit]=unit,Goal1[age] =age
+			            )
+			    )
+		lineageTag: 211a9bc9-0044-4d43-ad72-094609535f44
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Tooltip_obs_Goal1 =
+			
+			VAR minDate =
+			    CALCULATE (
+			        MIN ( 'Goal1'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal1'[UpdatedFromDate] )
+			    )
+			VAR maxDate =
+			    CALCULATE (
+			        MAX ( 'Goal1'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal1'[UpdatedFromDate] )
+			    )
+			VAR minValue =
+			    CALCULATE (
+			        MAX ( 'Goal1'[Value] ),
+			        'Goal1'[UpdatedFromDate] = minDate
+			    )
+			VAR maxValue =
+			    CALCULATE (
+			        MAX ( 'Goal1'[Value] ),
+			        'Goal1'[UpdatedFromDate] = maxDate
+			    )
+			VAR countRowsTotal =
+			    COUNTROWS (
+			        FILTER (
+			            'Goal1',
+			            'Goal1'[UpdatedFromDate] >= minDate
+			                && 'Goal1'[UpdatedFromDate] <= maxDate
+			        )
+			    )
+			RETURN
+			    IF (
+			        countRowsTotal >= 2,
+			        IF (
+			            minValue = maxValue,0,
+			
+			            1
+			        ),0
+			    )
+		lineageTag: cd558186-038d-4919-a0f9-b6c9a0667d42
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure mindate =
+			/* SELECTEDVALUE('Goal 1'[UpdatedFromDate]) */
+			CALCULATE (
+			    MIN ( 'Goal1'[UpdatedFromDate] ),
+			    ALLSELECTED ( 'Goal1'[UpdatedFromDate] )
+			)
+			/* var minDate = CALCULATE(Min('Goal 1'[UpdatedFromDate]),ALLSELECTED('Goal 1'[UpdatedFromDate]))
+			return
+			CALCULATE(MAX('Goal 1'[Value]),'Goal 1'[UpdatedFromDate]=minDate) */
+		formatString: General Date
+		lineageTag: e2ea545a-a67a-4c1b-aca4-bade12969767
+
+	measure maxdate =
+			CALCULATE (
+			    MAX ( 'Goal1'[UpdatedFromDate] ),
+			    ALLSELECTED ( 'Goal1'[UpdatedFromDate] )
+			) + 7
+		formatString: dd mmmm yyyy
+		lineageTag: 83e1f1a3-0bc3-42fa-8c61-5d90b195520a
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	measure CreatedDate = SELECTEDVALUE ( 'Goal1'[Created] )
+		formatString: General Date
+		lineageTag: e720e216-5546-4d34-847b-f427672abac7
+
+	measure datess =
+			VAR a =
+			    MAX ( 'Goal1'[UpdatedFromDate] )
+			VAR b = a - 14
+			RETURN
+			    IF (
+			        b = b,
+			        1,
+			        0
+			    )
+		formatString: 0
+		lineageTag: 037cb348-0e91-484c-a406-e7b3160f8a0b
+
+	measure dateFilter =
+			VAR dvalues =
+			    VALUES ( 'Goal1'[UpdatedFromDate] )
+			RETURN
+			    IF (
+			        dvalues,
+			        1,
+			        0
+			    )
+		formatString: 0
+		lineageTag: 71a8d938-0f65-465a-b4e3-f00c4433d6f4
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 261442bf-3b8c-45b3-ae79-dcfdc790554d
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 0f6d07b1-0f6b-4c79-9e06-4f757061bd0a
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 2d24b75e-6a2a-436a-9d5f-e40d23178986
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RecordCount
+		dataType: double
+		formatString: 0
+		lineageTag: 51cebdf7-0976-4d5f-b279-3a0e65dd2c8f
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		lineageTag: 22f38cf3-3e8d-4cbf-9d20-7bd5b4620b56
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: fa4a81f2-13d5-48d8-a542-13a2483b3259
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 400cd845-33f4-48c0-b044-fe0c43018197
+		summarizeBy: none
+		sourceColumn: Created
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: 330a1308-a456-4d2e-9d35-a0e402577a37
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 64855cc3-185c-4eb7-8fa3-ab57bafb68ed
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: b49e99cc-b926-4438-b971-c83b3d6bae82
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_il
+		dataType: string
+		lineageTag: 52211ad5-d814-4d96-ac19-6fd4a73c1458
+		summarizeBy: none
+		sourceColumn: indic_il
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateColumn =
+			var minDate = MIN('Goal1'[UpdatedFromDate])
+			var maxDate = MAX('Goal1'[UpdatedFromDate])
+			RETURN
+			SWITCH(TRUE(),'Goal1'[UpdatedFromDate]<minDate,BLANK(),'Goal1'[UpdatedFromDate]>maxDate,BLANK(), 'Goal1'[UpdatedFromDate])
+		formatString: dd mmmm yyyy
+		lineageTag: 23276dc3-a256-48ae-a3cc-64f747437af6
+		summarizeBy: none
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: dd mmmm yyyy
+		lineageTag: 879b7d08-3fac-47c6-ae75-0c0941966152
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Cities
+		dataType: double
+		lineageTag: 36ad1695-125f-44d9-b2e8-bd6eb9217e6b
+		summarizeBy: sum
+		sourceColumn: Cities
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Towns and suburbs'
+		dataType: double
+		lineageTag: d43f88ef-40aa-42c1-924e-4ff867787e40
+		summarizeBy: sum
+		sourceColumn: Towns and suburbs
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Rural areas'
+		dataType: double
+		lineageTag: 87c74fca-6598-4eb4-b369-7e0cf7395671
+		summarizeBy: sum
+		sourceColumn: Rural areas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Bmi
+		dataType: string
+		lineageTag: 88e05b4f-b659-4747-978e-f7d4b7a22bd7
+		summarizeBy: none
+		sourceColumn: Bmi
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bmi_Indicator
+		dataType: string
+		lineageTag: 99aa26c0-59bb-4ad3-9cc0-971c2dbe59de
+		summarizeBy: none
+		sourceColumn: Bmi_Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column NA
+		dataType: int64
+		formatString: 0
+		lineageTag: bafa11d0-0f5e-4d77-9f8e-697d88c36d76
+		summarizeBy: sum
+		sourceColumn: NA
+
+		annotation SummarizationSetBy = Automatic
+
+	column clc18
+		dataType: string
+		lineageTag: 6128e90f-c874-4108-af17-e4b17eb44746
+		summarizeBy: none
+		sourceColumn: clc18
+
+		annotation SummarizationSetBy = Automatic
+
+	column levels
+		dataType: string
+		lineageTag: 25992cde-2e28-4da1-a934-4bfc4194fffc
+		summarizeBy: none
+		sourceColumn: levels
+
+		annotation SummarizationSetBy = Automatic
+
+	column watpol
+		dataType: string
+		lineageTag: d59eec42-5c0a-4e81-bfa4-c852e9def833
+		summarizeBy: none
+		sourceColumn: watpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 4e432a62-9b34-42d7-bd93-7551bc336fc0
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column comspec
+		dataType: string
+		lineageTag: d7aecdea-06df-44bf-9628-28bc0bb727d0
+		summarizeBy: none
+		sourceColumn: comspec
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitName
+		dataType: string
+		lineageTag: 44bb9753-a175-40cf-bbeb-449312e285b3
+		summarizeBy: none
+		sourceColumn: UnitName
+
+		annotation SummarizationSetBy = Automatic
+
+	column icd10
+		dataType: string
+		lineageTag: da71ba7d-6bf6-4acf-aed4-564f5dc88e51
+		summarizeBy: none
+		sourceColumn: icd10
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		dataType: string
+		lineageTag: 4737d7a9-5eb2-4ccd-acc5-961322a03b18
+		summarizeBy: none
+		sourceColumn: Mortality
+
+		annotation SummarizationSetBy = Automatic
+
+	column nace_r2
+		dataType: string
+		lineageTag: b3d51062-124b-40b2-9e16-e3bb5566ec2f
+		summarizeBy: none
+		sourceColumn: nace_r2
+
+		annotation SummarizationSetBy = Automatic
+
+	column severity
+		dataType: string
+		lineageTag: a4baed8e-5cb1-43a0-ba25-e773154fbe5a
+		summarizeBy: none
+		sourceColumn: severity
+
+		annotation SummarizationSetBy = Automatic
+
+	column tra_infr
+		dataType: string
+		lineageTag: b05497c8-3dcf-4785-9b7a-434e97105cdd
+		summarizeBy: none
+		sourceColumn: tra_infr
+
+		annotation SummarizationSetBy = Automatic
+
+	column airpol
+		dataType: string
+		lineageTag: a19fe66f-2a51-457f-ac17-8894b7b77c37
+		summarizeBy: none
+		sourceColumn: airpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_he
+		dataType: string
+		lineageTag: 0eae955d-0ea6-4d9b-85e0-d96852858cc7
+		summarizeBy: none
+		sourceColumn: indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	column ind_type
+		dataType: string
+		lineageTag: a918f0c2-8f09-49f7-b41f-758a3b8683d2
+		summarizeBy: none
+		sourceColumn: ind_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_is
+		dataType: string
+		lineageTag: c608cfbf-3ec4-4bc9-881d-c2346d1c13b5
+		summarizeBy: none
+		sourceColumn: indic_is
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duplicate
+		dataType: string
+		lineageTag: 31d6ef2c-3a70-4d30-bac7-18f22f26e381
+		summarizeBy: none
+		sourceColumn: Duplicate
+
+		annotation SummarizationSetBy = Automatic
+
+	column field
+		dataType: string
+		lineageTag: 6162710b-3692-4eab-a656-337cdb678668
+		summarizeBy: none
+		sourceColumn: field
+
+		annotation SummarizationSetBy = Automatic
+
+	column wstatus
+		dataType: string
+		lineageTag: b6391337-86b3-4059-b8a3-fc29e0c2814e
+		summarizeBy: none
+		sourceColumn: wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column org_inst
+		dataType: string
+		lineageTag: f3ffaceb-a4a6-4000-9f9a-d7e00863b5bd
+		summarizeBy: none
+		sourceColumn: org_inst
+
+		annotation SummarizationSetBy = Automatic
+
+	column aquaenv
+		dataType: string
+		lineageTag: f4eae071-de92-4bd1-8367-493d3216569e
+		summarizeBy: none
+		sourceColumn: aquaenv
+
+		annotation SummarizationSetBy = Automatic
+
+	column nrg_bal
+		dataType: string
+		lineageTag: 5cec2ab3-6cbc-4580-b97f-cd9629e13e70
+		summarizeBy: none
+		sourceColumn: nrg_bal
+
+		annotation SummarizationSetBy = Automatic
+
+	column siec
+		dataType: string
+		lineageTag: 5d34f72e-4d15-4e3e-8b9f-c8fdaa50a3d2
+		summarizeBy: none
+		sourceColumn: siec
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic
+		dataType: string
+		lineageTag: 57c283c4-7139-4344-8ae0-83d627d1dcfb
+		summarizeBy: none
+		sourceColumn: indic
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_env
+		dataType: string
+		lineageTag: 56f39588-eeb3-4eed-8858-a7dbefe87c23
+		summarizeBy: none
+		sourceColumn: indic_env
+
+		annotation SummarizationSetBy = Automatic
+
+	column sectperf
+		dataType: string
+		lineageTag: 28b0d7a9-35bc-4755-af81-17cf4f0f2c4d
+		summarizeBy: none
+		sourceColumn: sectperf
+
+		annotation SummarizationSetBy = Automatic
+
+	column coop_ptn
+		dataType: string
+		lineageTag: 9d11c756-9473-422a-a6ec-349a2e08ffaa
+		summarizeBy: none
+		sourceColumn: coop_ptn
+
+		annotation SummarizationSetBy = Automatic
+
+	column vehicle
+		dataType: string
+		lineageTag: faaa21f4-03ac-4df6-a540-0db49fddf978
+		summarizeBy: none
+		sourceColumn: vehicle
+
+		annotation SummarizationSetBy = Automatic
+
+	column tra_mode
+		dataType: string
+		lineageTag: 844f7b2b-97b9-4a66-bf90-f8a98958300c
+		summarizeBy: none
+		sourceColumn: tra_mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column ty
+		dataType: string
+		lineageTag: 11a15c5b-a962-40e5-93f3-21140496c148
+		summarizeBy: none
+		sourceColumn: ty
+
+		annotation SummarizationSetBy = Automatic
+
+	column terrtypo
+		dataType: string
+		lineageTag: 1e5db290-6d6f-41cd-9d2e-25bd172c1ae5
+		summarizeBy: none
+		sourceColumn: terrtypo
+
+		annotation SummarizationSetBy = Automatic
+
+	column na_item
+		dataType: string
+		lineageTag: 5933bcb5-c9a9-48e9-9af3-4d71dc2c5bed
+		summarizeBy: none
+		sourceColumn: na_item
+
+		annotation SummarizationSetBy = Automatic
+
+	column asyl_app
+		dataType: string
+		lineageTag: c706f5a5-7e41-4828-a4eb-62e388e23470
+		summarizeBy: none
+		sourceColumn: asyl_app
+
+		annotation SummarizationSetBy = Automatic
+
+	column hazard
+		dataType: string
+		lineageTag: bddaa5d3-7046-48f1-b660-7c7d2efa76aa
+		summarizeBy: none
+		sourceColumn: hazard
+
+		annotation SummarizationSetBy = Automatic
+
+	column cons_fp
+		dataType: string
+		lineageTag: 61dea407-1d97-4951-952a-2cb515c717c1
+		summarizeBy: none
+		sourceColumn: cons_fp
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: double
+		formatString: 0
+		lineageTag: a10d032c-edb4-408c-9fbc-ff5f4efb6dec
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg
+		dataType: string
+		lineageTag: 44fea82c-d2b8-4eae-9e37-4e3699b6ab5f
+		summarizeBy: none
+		sourceColumn: fishreg
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c7582dc-5880-4f3f-92ee-ea34dae88bd4
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column areaprot
+		dataType: string
+		lineageTag: 4662eb2d-69b7-4ef2-90e3-214310c442ee
+		summarizeBy: none
+		sourceColumn: areaprot
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedToDate
+		dataType: string
+		lineageTag: ba7c29c8-8fa2-4115-850b-68969f52210b
+		summarizeBy: none
+		sourceColumn: UpdatedToDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column lev_perc
+		dataType: string
+		lineageTag: 758bbc10-c78d-4dbe-9934-b8fabd58abbe
+		summarizeBy: none
+		sourceColumn: lev_perc
+
+		annotation SummarizationSetBy = Automatic
+
+	column leg_stat
+		dataType: string
+		lineageTag: 11811448-62ff-48ce-b2a1-e946a5963820
+		summarizeBy: none
+		sourceColumn: leg_stat
+
+		annotation SummarizationSetBy = Automatic
+
+	column partner
+		dataType: string
+		lineageTag: 91ac18dc-7bbe-491c-aead-cc0c85920408
+		summarizeBy: none
+		sourceColumn: partner
+
+		annotation SummarizationSetBy = Automatic
+
+	column fin_source
+		dataType: string
+		lineageTag: cb263407-b88a-4434-b2f1-fdbe3205f738
+		summarizeBy: none
+		sourceColumn: fin_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column subst_cat
+		dataType: string
+		lineageTag: a96f4791-5438-4e2e-92cd-18c23d3d440e
+		summarizeBy: none
+		sourceColumn: subst_cat
+
+		annotation SummarizationSetBy = Automatic
+
+	column M
+		dataType: double
+		lineageTag: 0de3c517-20c3-4672-a888-518f1667d3cd
+		summarizeBy: sum
+		sourceColumn: M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F
+		dataType: double
+		lineageTag: 30a67a2f-bbae-419a-b25d-1cd4d089eadf
+		summarizeBy: sum
+		sourceColumn: F
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryCode
+		dataType: double
+		lineageTag: 7eb1acb9-b012-4c6c-a81d-cab0304acdb9
+		summarizeBy: count
+		sourceColumn: CountryCode
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'EU Fish Stock'
+		dataType: string
+		lineageTag: dbc907ca-d36b-425a-9db2-90db252a3229
+		summarizeBy: none
+		sourceColumn: EU Fish Stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 4d117a0d-d2a2-4587-b285-026a609a4b4d
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column Modified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d2f5fdcb-7646-4d61-a50a-947aa46a67ca
+		summarizeBy: none
+		sourceColumn: Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Color Tag'
+		dataType: string
+		lineageTag: ad981aa5-913f-4681-81f5-5bea827dee1b
+		summarizeBy: none
+		sourceColumn: Color Tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Compliance Asset Id'
+		dataType: string
+		lineageTag: b4a76b48-64ea-407e-8aa7-d5a23d0948cc
+		summarizeBy: none
+		sourceColumn: Compliance Asset Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column isced11
+		dataType: string
+		lineageTag: c7cf80ce-6d10-43e0-9284-22c7cffe4931
+		summarizeBy: none
+		sourceColumn: isced11
+
+		annotation SummarizationSetBy = Automatic
+
+	column training
+		dataType: string
+		lineageTag: 81c1d784-f21e-43c1-b00d-1552772c0569
+		summarizeBy: none
+		sourceColumn: training
+
+		annotation SummarizationSetBy = Automatic
+
+	column hhtyp
+		dataType: string
+		lineageTag: 911d810d-0e0e-450e-9abb-ba4f3bc9b91e
+		summarizeBy: none
+		sourceColumn: hhtyp
+
+		annotation SummarizationSetBy = Automatic
+
+	column ww_tp
+		dataType: string
+		lineageTag: 5c259b31-7994-4c74-8d3b-18d0b2d8bba7
+		summarizeBy: none
+		sourceColumn: ww_tp
+
+		annotation SummarizationSetBy = Automatic
+
+	column Seabasin
+		dataType: string
+		lineageTag: b69548ba-806f-4c8b-975c-999cd03e1c4e
+		summarizeBy: none
+		sourceColumn: Seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	column Forestryindicators
+		dataType: string
+		lineageTag: 03ce7e7a-9234-47a4-b8ca-ce2538bc4042
+		summarizeBy: none
+		sourceColumn: Forestryindicators
+
+		annotation SummarizationSetBy = Automatic
+
+	column sector
+		dataType: string
+		lineageTag: 04dba6df-0fa6-48c8-9221-85f16acae01c
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column prof_pos
+		dataType: string
+		lineageTag: bfc04223-4f7c-4eed-81da-5a130a8fcc96
+		summarizeBy: none
+		sourceColumn: prof_pos
+
+		annotation SummarizationSetBy = Automatic
+
+	column src_crf
+		dataType: string
+		lineageTag: 371cac88-66a5-4c9c-8f98-fef60a5f164f
+		summarizeBy: none
+		sourceColumn: src_crf
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryIndex
+		dataType: double
+		lineageTag: 78db4462-5b6f-402b-a6e9-d397e5b742ea
+		summarizeBy: sum
+		sourceColumn: CountryIndex
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Goal1 = m
+		mode: import
+		queryGroup: 'Goal 1'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"238281b2-c170-4491-b22a-2ad63536f76a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 1"]}[Data],
+				    #"Goal 1_" = #"238281b2-c170-4491-b22a-2ad63536f76a"{[entity="Goal 1",version=""]}[Data],
+				    #"Appended Query" = Table.Combine({#"Goal 1_", Goal2, Goal3, Goal4, Goal5, Goal6, Goal7, Goal8, Goal9, Goal10, Goal11, Goal12, Goal13, Goal14, Goal15, Goal16, Goal17}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Appended Query",{{"Value", type number}, {"Created", type datetime}, {"age", type text}, {"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

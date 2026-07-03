@@ -1,0 +1,116 @@
+table EU_SDG_15_50
+	isHidden
+	lineageTag: 949f9781-9520-4c94-9261-dd11a4098b1b
+
+	column Year
+		dataType: double
+		isHidden
+		lineageTag: 347bd286-ce61-48d9-a33b-2fc099fcbf59
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 2d755b74-2488-41f1-9ebc-de2d06e0031e
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 13a0ef28-66d7-4925-9b97-cd1ed7ebd3d2
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: d181d22c-c5fc-44bf-82b4-f1a97c0a2e39
+		summarizeBy: sum
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 0de74957-3109-4d03-a02d-b2ad5e338270
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: a341f7b4-db39-45ed-ada9-9f3d967bf6de
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column clc18
+		dataType: string
+		isHidden
+		lineageTag: 71595825-4554-4ea9-b422-d8c7e2ea399b
+		summarizeBy: none
+		sourceColumn: clc18
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column levels
+		dataType: string
+		isHidden
+		lineageTag: 4bd997ac-80a6-4270-ab9f-528c63515934
+		summarizeBy: none
+		sourceColumn: levels
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_SDG_15_50 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 2'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"741b10ab-99ca-4b5b-bb32-164adb8cc952" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 2"]}[Data],
+				    SDG_15_50_ = #"741b10ab-99ca-4b5b-bb32-164adb8cc952"{[entity="SDG_15_50",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_15_50_, each ([Unit] = "PC"))
+				in
+				    #"Filtered Rows"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

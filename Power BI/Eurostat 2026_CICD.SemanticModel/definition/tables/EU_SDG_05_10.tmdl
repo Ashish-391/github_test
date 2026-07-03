@@ -1,0 +1,178 @@
+table EU_SDG_05_10
+	lineageTag: dcfb4845-675c-4b49-bca9-dafd2358eeb6
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 0d66c240-ab45-47b7-b3a6-dbe41be4edea
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 1645a747-f75c-4229-bf6f-3d7c1987d7df
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: ecc76af5-66fd-4676-b2db-ef3e4eb900bc
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: aa3df016-d2ad-4c61-a3e0-1e93a91afa4f
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: c8e689a4-ab04-47f8-bba0-5c0e2844cdb7
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 70fb20c9-0847-4860-a406-bcac623cbc49
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column age
+		dataType: string
+		lineageTag: 44bb0fbd-740a-4d96-97e0-57906001ad84
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column nace_r2
+		dataType: string
+		lineageTag: 6831064d-4ccb-456e-90e1-64b1d1ea57f0
+		summarizeBy: none
+		sourceColumn: nace_r2
+
+		annotation SummarizationSetBy = Automatic
+
+	column wstatus
+		dataType: string
+		lineageTag: c59ec323-0f9f-482d-b902-2982dddbb279
+		summarizeBy: none
+		sourceColumn: wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column org_inst
+		dataType: string
+		lineageTag: 7f584d78-3b53-45b0-8839-a1384712d79e
+		summarizeBy: none
+		sourceColumn: org_inst
+
+		annotation SummarizationSetBy = Automatic
+
+	column prof_pos
+		dataType: string
+		lineageTag: 4baa61de-75fe-4eaa-8993-db5517abe17e
+		summarizeBy: none
+		sourceColumn: prof_pos
+
+		annotation SummarizationSetBy = Automatic
+
+	column M
+		dataType: double
+		lineageTag: dab08e2e-1acf-4076-b9c8-f733e6e7aff8
+		summarizeBy: sum
+		sourceColumn: M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column F
+		dataType: double
+		lineageTag: ebf4b557-f327-4164-9cf5-2201a6a7aebd
+		summarizeBy: sum
+		sourceColumn: F
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: b7a56aaf-d77e-41d8-b77f-48f0398f7b36
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 95ef8ad8-96e0-40ae-8ea1-3902f905121f
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Modified
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1b604485-9e6c-4f5b-9889-11403e32b288
+		summarizeBy: none
+		sourceColumn: Modified
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duplicate
+		dataType: string
+		lineageTag: dfe4c453-edd0-4b73-a3d7-b2376dc8847e
+		summarizeBy: none
+		sourceColumn: Duplicate
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryIndex
+		dataType: double
+		lineageTag: d1dfe069-f654-4ba8-a784-8a22665c71fd
+		summarizeBy: sum
+		sourceColumn: CountryIndex
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition EU_SDG_05_10 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 5'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 5"]}[Data],
+				    Goal5_ = #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b"{[entity="Goal5",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(Goal5_, each ([IndicatorValue] = "SDG_05_10") and ([Age Name] = "Total"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

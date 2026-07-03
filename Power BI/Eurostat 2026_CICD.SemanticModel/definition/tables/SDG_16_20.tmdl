@@ -1,0 +1,107 @@
+table SDG_16_20
+	lineageTag: 69d30683-3cff-461d-9482-af8073d04afa
+
+	column Year
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: 7144a070-16a9-4e83-854c-bae1cac4c0f3
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: fa424770-02d6-4db9-89e0-6cb2cef38d41
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 72d3ab20-7607-42f2-be90-ea6e025d56fe
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: c12b5130-548c-45d2-860a-3bff000ff561
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: c292b482-53a0-4015-b2ae-1609eabf7be2
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: a677f26e-2f39-4fed-b6f2-f3a2f2ce2108
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		isHidden
+		lineageTag: 2bd44a08-9cd0-468b-97d9-feabe00ea68d
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: e5f4be22-c058-4554-92f5-eb778f3c9044
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_16_20 = m
+		mode: import
+		queryGroup: 'Goal 11'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+				//     #"3d4a418b-9728-481b-93b1-95033c877725" = Source{[Id="3d4a418b-9728-481b-93b1-95033c877725"]}[Items],
+				//     #"Filtered Rows" = Table.SelectRows(#"3d4a418b-9728-481b-93b1-95033c877725", each ([incgrp] = "TOTAL"))
+				// in
+				//     #"Filtered Rows"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+				    SDG_16_20_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="SDG_16_20",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_16_20_, each ([incgrp] = "TOTAL")),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

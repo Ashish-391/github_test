@@ -1,0 +1,188 @@
+table BW_Goal11_52
+	lineageTag: 3c38431c-d1dc-4eff-b46b-038e4389fd79
+
+	column TIME_PERIOD
+		formatString: 0
+		lineageTag: cb746c97-f369-4182-9fb4-bfa556532eed
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[TIME_PERIOD]
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		lineageTag: c776b00c-9c87-4dda-97d7-6cf0ce0c53ae
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[OBS_VALUE]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Airpol
+		lineageTag: 8ddbf10b-5d1a-402f-bc37-99083f83ae02
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Airpol]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		lineageTag: d6393001-be07-4951-91b5-9823d1d1ebd2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indic_he
+		lineageTag: 1c7722ae-5e50-4b03-bb0f-476da67dc631
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Indic_he]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		lineageTag: 4ccab6f9-a75c-44b3-9a4a-8807ef479d60
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Unit]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		lineageTag: a7a712c6-2280-4b59-af6b-8895c217f00c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Freq]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		lineageTag: 7dd8014a-2edd-4fb2-98dc-bba560cefbd0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Indicator]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		lineageTag: ed84eeb4-7f84-45bc-b780-6096556abe1b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Sex]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantile
+		lineageTag: 6795741f-33b3-4664-ac5e-5fbd20c5dbfc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Quantile]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		lineageTag: 8e719c79-c1f7-41c2-96f8-100adc506704
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Age]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Levels
+		lineageTag: 28ff3232-9fac-4ade-9b31-2a88f08f462c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Levels]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		lineageTag: 9ab74b90-a41c-4151-8025-807eb45aaa85
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Mortality]
+
+		annotation SummarizationSetBy = Automatic
+
+	column ICD10
+		lineageTag: f148bf13-19ff-4445-8c6b-07c9777e841d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[ICD10]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TRA_INFR
+		lineageTag: 75847ed0-c7b0-4b63-9fc2-ac248fa8951a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[TRA_INFR]
+
+		annotation SummarizationSetBy = Automatic
+
+	column INGCRP
+		lineageTag: e32c99cb-bbad-44ca-965d-7bc7b9d6cf7c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[INGCRP]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_11_52"
+			var maxTime_Period = CALCULATE(MAX(All_SDG_Goal3[Time_Period]),All_SDG_Goal3[Indicator]=indicator,All_SDG_Goal3[Geo]="EU27_2020")
+			RETURN
+			IF(BW_Goal11_52[Time_Period]=maxTime_Period,maxTime_Period&BW_Goal11_52[OBS_VALUE],BLANK())
+		dataType: double
+		lineageTag: 43de2528-86f4-40c1-aeef-9c2c6b1e7c63
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Indicator.1'
+		lineageTag: 2abaf0d0-5c91-409b-8843-ccf83069a488
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Indicator.1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Effect
+		lineageTag: 05f3175a-a4a5-4ea1-a1d5-6b4fc69d1f9f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[Effect]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'indic_he 2'
+		lineageTag: c7da744b-e0ae-42c3-984b-1e743d04dc9a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: All_SDG_Goal3[indic_he 2]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BW_Goal11_52 = calculated
+		mode: import
+		source =
+				
+				var indicator = "SDG_11_52"
+				//Var maxDate = CALCULATE(MAX(All_SDG_Goal3[UpdatedFromDate]),All_SDG_Goal3[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX(All_SDG_Goal3[Time_Period]),All_SDG_Goal3[Indicator]=indicator,All_SDG_Goal3[Geo]="EU27_2020")
+				RETURN
+				FILTER
+				(All_SDG_Goal3,(All_SDG_Goal3[Time_Period]= maxTime_Period
+				||
+				All_SDG_Goal3[Time_Period]=maxTime_Period-5
+				) && All_SDG_Goal3[Indicator]=indicator )
+
+	annotation PBI_Id = 550958c16f3b4d438e908b82f5c9b60f
+

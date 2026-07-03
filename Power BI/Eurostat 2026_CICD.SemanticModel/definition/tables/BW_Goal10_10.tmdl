@@ -1,0 +1,71 @@
+table BW_Goal10_10
+	lineageTag: dda68866-9ff4-4deb-829c-f178dd2318d4
+
+	column Year
+		formatString: 0
+		lineageTag: d7ba3d3c-3f20-45a3-a3cd-0f610cc3c071
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: f5ed2cf9-9778-4fdc-b314-0a13502237e5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: c65b4cea-fd2f-48c4-b77e-a909154e1543
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting = IF(BW_Goal10_10[Year]=MAX(BW_Goal10_10[Year]),(MAX(BW_Goal10_10[Year])&BW_Goal10_10[Value]),BLANK())
+		dataType: double
+		lineageTag: 55545913-117f-46e0-89b3-5e22ec25095b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Index EU 100' =
+			
+			var indicator = "SDG_10_10"
+			var unit = CALCULATE(MAX('All_SDG_Goal5-12'[Unit]),'All_SDG_Goal5-12'[Indicator]=indicator)
+			RETURN
+			IF(unit="PC",100)
+		formatString: 0
+		lineageTag: e317e92d-d6fe-4ebe-89bf-619434190213
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition BW_Goal10_10 = calculated
+		mode: import
+		source =
+				
+				var indicator = "SDG_10_10"
+				
+				//Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Geo]="EU27_2020",'All_SDG_Goal5-12'[indic_ppp]="VI_PPS_EU27_2020_HAB")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period)
+				 && 'All_SDG_Goal5-12'[Indicator]=indicator && 'All_SDG_Goal5-12'[indic_ppp]="VI_PPS_EU27_2020_HAB"),
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				    )
+
+	annotation PBI_Id = 5767f65389c64e109e75247debb88b92
+

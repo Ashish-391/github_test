@@ -1,0 +1,44 @@
+table Unit-15_61
+	isHidden
+	lineageTag: 2be4bd26-e990-480c-9a95-da2220260de9
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 03c0cab0-558d-4315-a0fd-47985b8aec60
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitName
+		dataType: string
+		isHidden
+		lineageTag: 79f1f59c-3c51-4bbb-97e5-e3498da7fdda
+		summarizeBy: none
+		sourceColumn: UnitName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Unit-15_61 = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8jQwUNJR8sxLSa3QMTIwMLA1BArE6gAlLBEShpaWUIlYAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Unit = _t, UnitName = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Unit", type text}, {"UnitName", type text}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","I90","I91",Replacer.ReplaceText,{"Unit"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","Index,1990=100","Index,1991=100",Replacer.ReplaceText,{"UnitName"})
+				in
+				    #"Replaced Value1"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

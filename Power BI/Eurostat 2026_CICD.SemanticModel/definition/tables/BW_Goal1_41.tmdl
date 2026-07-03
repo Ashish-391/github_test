@@ -1,0 +1,76 @@
+table BW_Goal1_41
+	lineageTag: b6da7bd4-f1be-4ec9-aa47-5688f16e00a0
+
+	column Year
+		lineageTag: a2733c04-e35e-40e2-87cb-d060ee97dd09
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		lineageTag: a82871c9-8e0c-4855-af67-3c11cbcfd7ba
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		lineageTag: 87bb0416-0b56-482d-8304-16175aa46857
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [CountryAbrv]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_01_41"
+			var maxYear = CALCULATE(MAX(Goal1[Year]),Goal1[IndicatorValue]=indicator,Goal1[CountryAbrv]="EU27_2020")
+			RETURN
+			IF(BW_Goal1_41[Year]=maxYear,maxYear&BW_Goal1_41[Value],BLANK())
+		dataType: double
+		lineageTag: bae22ff8-111a-4ba9-b1f5-b48b85db8161
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal1_41 = calculated
+		mode: import
+		source =
+				
+				/* VAR indicator = "SDG_01_41"
+				VAR maxYear = CALCULATE(MAX(Goal1[Year]), Goal1[IndicatorValue] = indicator, Goal1[CountryAbrv] = "EU27_2020", Goal1[Unit] = "PC")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER (
+				            Goal1,
+				            (Goal1[Year] = maxYear || Goal1[Year] = maxYear - 5) && Goal1[IndicatorValue] = indicator && Goal1[Unit] = "PC"
+				        ),
+				        "Year", Goal1[Year],
+				        "Value", Goal1[Value],
+				        "CountryAbrv", Goal1[CountryAbrv]
+				    ) */
+				    VAR indicator = "SDG_01_41"
+				VAR maxYear = CALCULATE(MAX(All_SDG_Goal1[TIME_PERIOD]), All_SDG_Goal1[Indicator] = indicator, All_SDG_Goal1[Geo] = "EU27_2020", All_SDG_Goal1[Unit] = "PC")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER (
+				            All_SDG_Goal1,
+				            (All_SDG_Goal1[TIME_PERIOD] = maxYear || All_SDG_Goal1[TIME_PERIOD] = maxYear - 5) && All_SDG_Goal1[Indicator] = indicator && All_SDG_Goal1[Unit] = "PC" )
+				        ,
+				        "Year", All_SDG_Goal1[TIME_PERIOD],
+				        "Value", All_SDG_Goal1[OBS_VALUE],
+				        "CountryAbrv", All_SDG_Goal1[Geo]
+				    )
+
+	annotation PBI_Id = 3cc46e49624949418bcb06b805daea1f
+

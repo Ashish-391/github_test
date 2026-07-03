@@ -1,0 +1,120 @@
+table eu_Goal7
+	lineageTag: 8da0089d-c587-4712-9dbf-7a3ccee3a5cd
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 5ce85ad1-0c70-4129-bed9-1a97951100ab
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 59a3fe15-4c8c-492a-82e3-efb051ca65bb
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: c6a82c28-d86d-4992-b5c4-ff0d215738b1
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 9fd59c47-dbc7-4bf4-99cb-d99da05e1b51
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 49db4955-fd9d-4425-9491-22d08342b1b9
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4317de9e-e823-4b2a-a0e7-1a8497bc10d8
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column nrg_bal
+		dataType: string
+		lineageTag: f46286c0-1b5b-42a6-9501-b77b4f9f669b
+		summarizeBy: none
+		sourceColumn: nrg_bal
+
+		annotation SummarizationSetBy = Automatic
+
+	column siec
+		dataType: string
+		lineageTag: 0975a5e8-fcbb-4023-a9f9-f174dea61054
+		summarizeBy: none
+		sourceColumn: siec
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: 2584c3eb-10a4-43ce-8ec0-4f5553a772f3
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 05f8ce8d-9fa6-49eb-bb8d-dc3e8bf67dc6
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Created
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8049cd7e-71e9-4084-a007-693e66053a96
+		summarizeBy: none
+		sourceColumn: Created
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_Goal7 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 7'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"69f78a02-1390-4995-9d19-f85df1dc3e57" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 7"]}[Data],
+				    SDG_07_10_ = #"69f78a02-1390-4995-9d19-f85df1dc3e57"{[entity="SDG_07_10",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_07_10_, each ([Unit] = "TOE_HAB")),
+				    #"Appended Query" = Table.Combine({#"Filtered Rows", EU_SDG_07_11, EU_SDG_07_30, SDG_07_20, SDG_07_40, SDG_07_50, SDG_07_60}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Appended Query",{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

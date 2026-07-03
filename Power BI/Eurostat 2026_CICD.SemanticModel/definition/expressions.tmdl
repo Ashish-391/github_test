@@ -1,0 +1,870 @@
+expression SDG_02_10_Excel =
+		let
+		    Source = Excel.Workbook(File.Contents("C:\Users\Lovish.Sood\OneDrive - Tmotions Global Ltd\Eurostat\Sharepoint\SDG_02_10.xlsx"), null, true),
+		    SDG_02_10_Sheet = Source{[Item="SDG_02_10",Kind="Sheet"]}[Data],
+		    #"Promoted Headers" = Table.PromoteHeaders(SDG_02_10_Sheet, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CountryCode", Int64.Type}, {"Country", type text}, {"Year", Int64.Type}, {"Duplicate", Int64.Type}, {"IndicatorValue", type text}, {"Unit", type text}, {"Bmi", type text}, {"Value", type number}, {"UpdatedDate", type datetime}, {"UpdatedToDate", type datetime}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type",{"CountryCode", "Country", "Year", "Duplicate", "IndicatorValue", "UpdatedDate", "Unit", "Bmi", "Value", "UpdatedToDate"})
+		in
+		    #"Reordered Columns"
+	lineageTag: 1f60c8c5-29f6-41b3-ae8f-7435254f9769
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Sheet1 =
+		let
+		    Source = Excel.Workbook(File.Contents("C:\Users\Lovish.Sood\OneDrive - Tmotions Global Ltd\Eurostat\Sharepoint\SDG_02_10.xlsx"), null, true),
+		    Sheet1_Sheet = Source{[Item="Sheet1",Kind="Sheet"]}[Data],
+		    #"Promoted Headers" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CountryCode", Int64.Type}, {"Country", type text}, {"Year", Int64.Type}, {"Duplicate", Int64.Type}, {"IndicatorValue", type text}, {"Unit", type text}, {"Bmi", type text}, {"Value", type number}, {"UpdatedDate", type datetime}, {"UpdatedToDate", type datetime}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"UpdatedDate", type date}, {"UpdatedToDate", type date}})
+		in
+		    #"Changed Type1"
+	lineageTag: 9b6b854f-a07f-4d67-9aba-7dde9c0ba9ec
+
+	annotation PBI_ResultType = Table
+
+expression SDG_05_40 =
+		// let
+		//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		//     #"c2d8b90a-be7f-4b81-926d-d6236bae4ed4" = Source{[Id="c2d8b90a-be7f-4b81-926d-d6236bae4ed4"]}[Items]
+		// in
+		//     #"c2d8b90a-be7f-4b81-926d-d6236bae4ed4"
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 5"]}[Data],
+		    SDG_05_40_ = #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b"{[entity="SDG_05_40",version=""]}[Data]
+		in
+		    SDG_05_40_
+	lineageTag: f016ecbe-b313-431a-a19c-50cff1bf1a17
+	queryGroup: 'Goal 5'
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression SDG_13_60 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		    #"7e85ad5c-c3b7-4ac6-ab0e-25957ed1863e" = Source{[Id="7e85ad5c-c3b7-4ac6-ab0e-25957ed1863e"]}[Items]
+		in
+		    #"7e85ad5c-c3b7-4ac6-ab0e-25957ed1863e"
+	lineageTag: 00bb7e42-42b1-4b9b-9177-4b82ea1d7770
+	queryGroup: 'Goal 13'
+
+	annotation PBI_ResultType = Table
+
+expression 'Indicators_Name (2)' =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("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", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Code = _t, Indicators = _t, SDGIndex = _t, MPI = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Code", type text}, {"Indicators", type text}, {"SDGIndex", Int64.Type}, {"MPI", Int64.Type}}),
+		    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","[","",Replacer.ReplaceText,{"Code"}),
+		    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","]","",Replacer.ReplaceText,{"Code"})
+		in
+		    #"Replaced Value1"
+	lineageTag: cd6fba99-1f1a-4b82-82de-a28e85d283a4
+	queryGroup: 'Key Tables'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Indicator_Bridge =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("bdQ/awJBEAXw73K1xc3f0z6QKpWlyEJEooWNpsjHz+EsMjvP9sebfXsLN4fDtP/4bDM1mqfNRNNx8xIGEaqikFHIWMlwdHEWBhEQBfEiElOShagKQ0YZpExpdGkWBllACOT5hoNoynyB7EHihl6+wqLLsggIgxiIF/E42bMwiIAoiIF4kSW6lkGoCkNGQBTEQLzINtq3g1AVhoyAKIgX2UXXLouCCMgCYiA+Cs1xzlqYKH7UgQhThuSVKB6JKJMxUCyUgRTJK63b4Xk8Z4qrDiSJTudr+3nc5zcxx8MUySpJr5RMcbGBFFNWSTtpJkcipGgcSGqqrwKyTPGNAxmmGMnrYN8H5Jk40el+vbXfy3d7nP8gKDirSFapLwZaMjGSICmSIXmhdRG+Bo//", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Indicators = _t, Sort = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Indicators", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: 4c7a93fc-eb05-4cb7-a4fe-fe7dec1c9c59
+	queryGroup: 'Key Tables'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Goal1Graph =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/TM-Eurostat_Sharepoint/", [Implementation=null, ApiVersion=15]),
+		    #"182fca7e-08e8-49d9-ae79-ec35d643eb99" = Source{[Id="182fca7e-08e8-49d9-ae79-ec35d643eb99"]}[Items],
+		    #"Renamed Columns" = Table.RenameColumns(#"182fca7e-08e8-49d9-ae79-ec35d643eb99",{{"ID", "ID.1"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Year", "Unit", "Value", "age", "UpdatedDate", "IndicatorValue", "RecordCount", "CountryAbrv", "Created"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{ {"Unit", type text}, {"Year", Int64.Type}, {"Value", type number}, {"age", type text},{"IndicatorValue", type text}, {"UpdatedDate", type datetime},  {"Created", type datetime}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Unit] = "PC") and ([age] = "TOTAL")),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows",{{"UpdatedDate", type date}, {"Created", type date}, {"CountryAbrv", type text}}),
+		    #"Replaced Value" = Table.ReplaceValue(#"Changed Type1",null,"SDG_01_10",Replacer.ReplaceValue,{"IndicatorValue"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Replaced Value",{{"UpdatedDate", "UpdatedFromDate"}}),
+		    #"Replaced Value1" = Table.ReplaceValue(#"Renamed Columns1",null,#date(2024, 1, 15),Replacer.ReplaceValue,{"UpdatedFromDate"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Replaced Value1", each ([UpdatedFromDate] <> #date(2024, 1, 15))),
+		    #"Appended Query" = Table.Combine({#"Filtered Rows1", SDG_01_20Graph, #"eu_SDG_01_31 (2)", #"eu_SDG_01_40 (2)", #"eu_SDG_01_41 (2)", #"eu_SDG_01_50 (2)", #"eu_SDG_10_30 (2)", #"eu_SDG_11_11 (2)"}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Appended Query",{{"RecordCount", Int64.Type}}),
+		    #"Filtered Rows2" = Table.SelectRows(#"Changed Type2", each ([CountryAbrv] = "EU27_2020"))
+		in
+		    #"Filtered Rows2"
+	lineageTag: 88fc2a1e-a42e-4ec6-9d74-a1a5d8974ddd
+	queryGroup: Goal1-Graph
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_01_20Graph =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		    #"955671a0-a283-4003-92e4-568f952c3506" = Source{[Id="955671a0-a283-4003-92e4-568f952c3506"]}[Items],
+		    #"Renamed Columns" = Table.RenameColumns(#"955671a0-a283-4003-92e4-568f952c3506",{{"ID", "ID.1"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Year", "Unit", "Value", "age", "UpdatedDate", "IndicatorValue", "RecordCount", "CountryAbrv", "Created"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Year", Int64.Type}, {"Unit", type text}, {"age", type text}, {"IndicatorValue", type text}, {"Value", type number}, {"CountryAbrv", type text}, {"Created", type datetime}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"UpdatedDate", type datetime}, {"Created", type date}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"UpdatedDate", type date}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type2", each ([Unit] = "PC")and ([IndicatorValue] = "SDG_01_20")),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows",{{"UpdatedDate", "UpdatedFromDate"}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1",{"CountryAbrv", "Year", "Unit", "Value", "age", "UpdatedFromDate", "IndicatorValue"}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Reordered Columns", each ([UpdatedFromDate] <> #date(2024, 2, 20)))
+		in
+		    #"Filtered Rows1"
+	lineageTag: 0c576a6e-46bb-416a-979f-52ca5a6e5146
+	queryGroup: Goal1-Graph
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'eu_SDG_01_31 (2)' =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		    #"1f794c6c-e01f-442a-bb62-410f224200be" = Source{[Id="1f794c6c-e01f-442a-bb62-410f224200be"]}[Items],
+		    #"Renamed Columns" = Table.RenameColumns(#"1f794c6c-e01f-442a-bb62-410f224200be",{{"ID", "ID.1"}}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns", each [Created] >= #datetime(2024, 1, 1, 0, 0, 0)),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows1",{"CountryCode", "Year", "Unit", "Value", "age", "Duplicate", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "RecordCount", "CountryAbrv"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"CountryCode", Int64.Type}, {"Year", Int64.Type}, {"Unit", type text}, {"age", type text}, {"Duplicate", type text}, {"IndicatorValue", type text}, {"RecordCount", type text}, {"Value", type number}, {"UpdatedFromDate", type date}, {"UpdatedToDate", type date}, {"CountryAbrv", type text}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([age] = "TOTAL") and ([Unit] = "PC")),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Filtered Rows",{"CountryAbrv", "CountryCode", "Year", "Unit", "Value", "age", "Duplicate", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "RecordCount"})
+		in
+		    #"Reordered Columns"
+	lineageTag: 661a8186-39ad-4e90-aaa2-bd535e11f707
+	queryGroup: Goal1-Graph
+
+	annotation PBI_ResultType = Table
+
+expression 'eu_SDG_01_40 (2)' =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		    #"a7e59f8a-bafb-49a7-ade0-083433641994" = Source{[Id="a7e59f8a-bafb-49a7-ade0-083433641994"]}[Items],
+		    #"Removed Other Columns" = Table.SelectColumns(#"a7e59f8a-bafb-49a7-ade0-083433641994",{"CountryCode", "Year", "Unit", "Value", "Duplicate", "age", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "RecordCount", "CountryAbrv"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"CountryCode", Int64.Type}, {"Year", Int64.Type}, {"Unit", type text}, {"Duplicate", type text}, {"age", type text}, {"IndicatorValue", type text}, {"Value", type number}, {"CountryAbrv", type text}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([age] = "Y_LT65") and ([Unit] = "PC")),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows",{{"UpdatedFromDate", type date}, {"UpdatedToDate", type date}}),
+		    #"Filtered Rows2" = Table.SelectRows(#"Changed Type1", each [UpdatedFromDate] >= #date(2024, 1, 3))
+		in
+		    #"Filtered Rows2"
+	lineageTag: f059f050-d534-4589-a3c5-f62fa3af0de8
+	queryGroup: Goal1-Graph
+
+	annotation PBI_ResultType = Table
+
+expression 'eu_SDG_01_41 (2)' =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		    #"01b9ff9c-6728-4b0f-8d54-2c870e1d33d5" = Source{[Id="01b9ff9c-6728-4b0f-8d54-2c870e1d33d5"]}[Items],
+		    #"Renamed Columns" = Table.RenameColumns(#"01b9ff9c-6728-4b0f-8d54-2c870e1d33d5",{{"ID", "ID.1"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"CountryCode", "Year", "Unit", "Value", "age", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "RecordCount", "CountryAbrv"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"CountryCode", Int64.Type}, {"Year", Int64.Type}, {"Unit", type text}, {"age", type text}, {"IndicatorValue", type text}, {"Value", type number}, {"UpdatedFromDate", type date}, {"UpdatedToDate", type date}, {"CountryAbrv", type text}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([UpdatedFromDate] <> null))
+		in
+		    #"Filtered Rows"
+	lineageTag: c8119f25-709d-4aee-912d-13f71b8803ac
+	queryGroup: Goal1-Graph
+
+	annotation PBI_ResultType = Table
+
+expression 'eu_SDG_01_50 (2)' =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		    #"08bcea43-1510-43c7-b9ae-6170ba8ab7f4" = Source{[Id="08bcea43-1510-43c7-b9ae-6170ba8ab7f4"]}[Items],
+		    #"Removed Other Columns" = Table.SelectColumns(#"08bcea43-1510-43c7-b9ae-6170ba8ab7f4",{"Year", "Unit", "Value", "age", "UpdatedFromDate", "IndicatorValue", "RecordCount", "incgrp", "CountryAbrv"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{ {"Year", Int64.Type}, {"Unit", type text}, {"age", type text}, {"IndicatorValue", type text}, {"Value", type number}, {"UpdatedFromDate", type date}, {"incgrp", type text}, {"CountryAbrv", type text}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Unit] = "PC") and ([incgrp] = "TOTAL"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 553ae456-5a0f-4b25-ad18-f1e7b35074fb
+	queryGroup: Goal1-Graph
+
+	annotation PBI_ResultType = Table
+
+expression 'eu_SDG_10_30 (2)' =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		    #"94106bd9-219d-4b5c-994d-9d08932dd39d" = Source{[Id="94106bd9-219d-4b5c-994d-9d08932dd39d"]}[Items],
+		    #"Renamed Columns" = Table.RenameColumns(#"94106bd9-219d-4b5c-994d-9d08932dd39d",{{"ID", "ID.1"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Year", "Unit", "Value", "sex", "age", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "RecordCount", "CountryAbrv", "indic_il"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Year", Int64.Type}, {"Unit", type text}, {"sex", type text}, {"age", type text}, {"indic_il", type text}, {"CountryAbrv", type text}, {"IndicatorValue", type text}, {"UpdatedToDate", type date}, {"UpdatedFromDate", type date}, {"Value", type number}})
+		in
+		    #"Changed Type"
+	lineageTag: 557d4a08-352d-450e-8abc-d987f4e4dd6c
+	queryGroup: Goal1-Graph
+
+	annotation PBI_ResultType = Table
+
+expression 'eu_SDG_11_11 (2)' =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		    #"7f166b6f-0592-4179-bff3-94ffcd95f65f" = Source{[Id="7f166b6f-0592-4179-bff3-94ffcd95f65f"]}[Items],
+		    #"Removed Other Columns" = Table.SelectColumns(#"7f166b6f-0592-4179-bff3-94ffcd95f65f",{"CountryCode", "Year", "Unit", "Value", "sex", "age", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "RecordCount", "CountryAbrv", "indic_il"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"CountryCode", Int64.Type}, {"Year", Int64.Type}, {"Unit", type text}, {"sex", type text}, {"age", type text}, {"IndicatorValue", type text}, {"CountryAbrv", type text}, {"indic_il", type text}, {"UpdatedFromDate", type date}, {"UpdatedToDate", type date}, {"Value", type number}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([indic_il] = "TOTAL")),
+		    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"indic_il", "incgrp"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: bede999e-6a47-4883-8fca-898fded60678
+	queryGroup: Goal1-Graph
+
+	annotation PBI_ResultType = Table
+
+expression OverviewwOld =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("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", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Code = _t, Indicators = _t, SDGIndex = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Code", type text}, {"Indicators", type text}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Indicators", "Code Name"}}),
+		    #"Merged Columns" = Table.CombineColumns(#"Renamed Columns",{"Code", "Code Name"},Combiner.CombineTextByDelimiter(": ", QuoteStyle.None),"Indicators"),
+		    #"Duplicated Column" = Table.DuplicateColumn(#"Merged Columns", "Indicators", "Indicators - Copy"),
+		    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column",{"Indicators - Copy"}),
+		    #"Added Index" = Table.AddIndexColumn(#"Removed Columns", "Index", 1, 1, Int64.Type),
+		    #"Duplicated Column1" = Table.DuplicateColumn(#"Added Index", "Indicators", "Indicators - Copy"),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column1", "Indicators - Copy", Splitter.SplitTextByDelimiter(":", QuoteStyle.Csv), {"Indicators - Copy.1", "Indicators - Copy.2", "Indicators - Copy.3"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Indicators - Copy.1", type text}, {"Indicators - Copy.2", type text}, {"Indicators - Copy.3", type text}}),
+		    #"Split Column by Positions" = Table.SplitColumn(#"Changed Type1", "Indicators - Copy.1", Splitter.SplitTextByPositions({0}), {"Indicators - Copy.1.1"}),
+		    #"Split Column by Positions1" = Table.SplitColumn(#"Split Column by Positions", "Indicators - Copy.1.1", Splitter.SplitTextByPositions({1}), {"Indicators - Copy.1.1.1"}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Positions1",{{"Indicators - Copy.1.1.1", type text}}),
+		    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type2", "Indicators - Copy.1.1.1", Splitter.SplitTextByDelimiter("]", QuoteStyle.Csv), {"Indicators - Copy.1.1.1.1", "Indicators - Copy.1.1.1.2"}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Indicators - Copy.1.1.1.1", type text}, {"Indicators - Copy.1.1.1.2", type text}}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type3",{"Indicators - Copy.1.1.1.2", "Indicators - Copy.2", "Indicators - Copy.3"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"Indicators - Copy.1.1.1.1", "Indicator"}, {"Indicators", "IndicatorsName"}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1",{"Index", "Indicator", "IndicatorsName"}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Reordered Columns",{{"SDGIndex", Int64.Type}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type4", each ([Indicator] = "SDG_01_10" or [Indicator] = "SDG_01_20")),
+		    #"Merged Queries" = Table.NestedJoin(#"Filtered Rows", {"Indicator"}, Goal1, {"IndicatorValue"}, "Goal1", JoinKind.Inner),
+		    #"Expanded Goal1" = Table.ExpandTableColumn(#"Merged Queries", "Goal1", {"Year", "Value", "IndicatorValue", "CountryAbrv"}, {"Year", "Value", "IndicatorValue", "CountryAbrv"}),
+		    FilteredData = Table.SelectRows(#"Expanded Goal1", each [CountryAbrv] = "EU27_2020"),
+		    GroupedData = Table.Group(
+		        FilteredData,
+		        {"Index", "SDGIndex", "Indicator", "IndicatorsName"},
+		        {
+		            {"MinYear", each List.Min([Year]), type nullable number},
+		            {"MaxYear", each List.Max([Year]), type nullable number}
+		        }
+		    ),
+		    #"Grouped Rows" = GroupedData
+		    ,
+		    #"Added Custom" = Table.AddColumn(#"Grouped Rows", "Short Term", each "Short Term"),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Long Term", each "Long Term"),
+		    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Added Custom1", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear"}, "Attribute", "Value"),
+		    #"Removed Columns2" = Table.RemoveColumns(#"Unpivoted Columns",{"Value"}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns2",{{"Attribute", "Year-Label"}}),
+		    #"Added Custom2" = Table.AddColumn(#"Renamed Columns2", "Observed", each "Observed"),
+		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Required", each "Required"),
+		    #"Unpivoted Columns1" = Table.UnpivotOtherColumns(#"Added Custom3", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear", "Year-Label"}, "Attribute", "Value"),
+		    #"Removed Columns3" = Table.RemoveColumns(#"Unpivoted Columns1",{"Value"}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3",{{"Attribute", "CAGR-Header"}}),
+		    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns3", {"Indicator"}, #"Indicator Dimensions", {"Indicator"}, "Indicator Dimensions", JoinKind.LeftOuter),
+		    #"Expanded Indicator Dimensions" = Table.ExpandTableColumn(#"Merged Queries1", "Indicator Dimensions", {"TargetValue", "Target Year", "Dimension"}, {"TargetValue", "Target Year", "Dimension"}),
+		    #"Merged Queries2" = Table.NestedJoin(#"Expanded Indicator Dimensions", {"Indicator"}, SubThemes, {"Indicator"}, "SubThemes", JoinKind.LeftOuter),
+		    #"Expanded SubThemes" = Table.ExpandTableColumn(#"Merged Queries2", "SubThemes", {"SubThemes"}, {"SubThemes.1"}),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Expanded SubThemes",{"SubThemes.1", "Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "TargetValue", "Target Year", "Dimension"})
+		in
+		    #"Reordered Columns1"
+	lineageTag: 6eed18f4-6b37-4da8-89e6-e6e31c2ba81d
+	queryGroup: 'Key Tables'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression 'Overvieww Target_Old' =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("rVnrbts4Fn4VosACiTdZ+N52/6WJm+kibYNkssWgUwS0RFvcSKKGpJx4fs077Bvuk+x3SMq2RKdN2g4KTJycG8/lOxd//vzi8/XZ+W1/cDvof3lx9OJSqCoXjFumpbljasEqtRLarpnSzKhE8pyJhySvjVQl6AcvvhxtZQwfkSHLRBViI4ovrNhIs5qXZiG0iaSNBiTtWoBJsIKDh+h5mTasqai0XHELU5jG39kcspeCLbWqK08oHiKx410jc7mS5RIGskzVRmQqTw27lzZj0Lpmubpn90rfgcCK0ki7PmopiYU7m9+VnovbY3LBsVocN28nOyOuiTPpF1hAxiTKWEbk81qnYvu0RoSx3NZdd41up/2e91e+ONaiUtqKlNVlISwrBX5cIIKFSGXiQsgLWXrPkZ8Srp0K+KvXFjxAZgx6O4HIgpX7nN+2sCOpPww59nEuyJMbrrlK14ivMfByKh7YwZv37w5BN2zx+tw6WWqZ1LmtNV6x4InFo5rsQk7xsqzxB+f8upSWHZx8ujlkB0bVOhH/ZLNaKzLuiJ2ds5Pzqz16Rk7POb0EvistM3VFzmRWIe472rUwguskcw5M4ZxcVcQQSfQJd6IFh00prFR6yUuZwH6NKCwjhqlnKApVSs5EIQ1Vm2ELrYodG8TOu2Yn3ZdModfF7YO0ztPIccrZMr2nUmrz9trMgwlSsveF4bczYyXVHhWdROLAfxRxhM2LOWacHsYXC5EQlUsilygNqVO+0favq9M92qZB26miR7O51GlIBsiz60oQiphKJFIYqJzdwA1LLZYt0bM3p7HsPgLq3HAlciTrSrga4OW+2lzyqvd7F9VGyH9XnYLnNgMkyIVga0TeEMLBUpvhr6MWh8/V64yqiiDUY42DlaVSKWGpgxf3AXmbCBiWssypiKT5jLwu1B3VXaXFiueiTERE6MHn2iIhuU6lEZSXHEpdCNJaUA7beg6FdY7gmCP2y7t/u/zNRAXvWGliocNIKF8pmfI5nlSgMHiOYu6wvWrQ6C23hNlJIoFk1rnMFScV66BP/7nPgP9eW8SAuokTcamqOvc4sxetE5QGpGv6i82gwGYCSVgjI7UvmVLB7Fh+qI8rxVPqQosFStL5a48tk6G3RQsUA5WeJ2ycKh4qZWof7YUsAUZcWypTcjw4UCmGHVy+H/5jctgR3h8HWJxxnSO9BF8RsTNcpHWyBWnYKEuPF+MWv0+3X5HDkiOrNlzkeWvB5HDst+HkeDSOmH2XvXT2ysprg4OFsybJZJ5mlKVbU3ybiOS8bOc8T4FRhmXcRQxRwcPQ1ubckJflUlJemDuZ5yYS5QHzAr2XwwCgibMfRgFp0rYD3n+doaAg7ZBff53cAF98YbUNCoBMTwqR3fEUHqb3hOWnNeROulAX7T25jXaTbdLMednaOMVhSqKuuZLK4Qol9D06KiHhpMXrE+1cuC5WcYeY5IK65Ol/amP9o4qIb7TLJ4oqV2vncrBHtH4WukZ5IXtE7jqKs4YUlU1eIwq55IXHFDxhuenXJpLoo3cJwLOujUZSjSglxYKXGOxCC590KvT2XPMqGz6rUHuRnGGQ8/R67cqYNgHcomKosVKgv9AMhCKz2RFQj342mboX2n9CXij8b4HpPXNoiY4uXOKDUeotqEL+tKVz2NUJ0C19w6exqKluI/D7lN50j48ijAgWZWuDW9tifV68kSrJMOVQOqqH9RJBSQGzZepKXq78btDm9CW8f7SJiCch5ZWpskD+iFifKp+c2cD0XAGmQp2jpI5YBdexg0+zd38/bPMOxk07eVfmZLp/OkWCPI3UE2GvwPYk8pwC7En+qF0D7XVsednEWWP8oiQphV6uXbOri8r67etlm8Eh+VtJefQEch/Tx8g7TZb6dcIruCOS44M48xIqrZDNmLP8TNCmHLdbhIbWezdGBPU+jACwxVPfMNnVLQs3p2MxIaApk9iAaTeNAVykHzl8J0SFB2OP4KlATKzIKYsdmO0KeRXicoVZjZ2fXbY986pNGZbBlTDWrxLN08EYUft4/IY0XjYTY1PS1I+3qOlL+fHhoC02hGfLHjbQNlXTEsvlMZKygGPENzi8L58+33UE0Krce8Ku3GvzDbAIer73zUFgoZTFKlraDmn/dQjVucupFLHFLpNQXSM/pJvi4Lyr3+t+fzg9A+HrDlb3ngfTO+yDl5vu34S8e1/I5DI7xkojUndc0CWQOKAqdHTk4S3hbIFXQymvqlx6a4wb6jPhdttKYLMJNB9poMV6NLv8eBhJ81nRvJ3CZUh3HhH6se5E6s0eur2F+N4HaETr1+uOB7DG+kB592Nnqam2Uvde1PZKauU8CHfSHmTCKKJXsNpQK8FuH7th0saQOZxqtgVAsw/+OQSuMAqJcukaEC8NYUMkbdpBJC79RCR3QPyer3fFLrRA5OxjQjEp+Kw7kwZDCkYO4bgjqBj0O1vq05fUmLs5O7lDCJY0q+W8dthw3JxH/qgRN/T7AEKakicW5N0bBG3gitJrrqxFtMd99rfmV9UGSGNBYWQ267wuWunaJR0EmPzGeYnY2mepaCb5ke0wFu/rbc9yGJNOhj9rN4xlT0NeJOskpze4eQeSirp0W0juR60OoxvZutvzd81sva7k1+409P012BU42GeqX5fovSpJaq3dWgJVCaYhcbTdVOiQQoeJXJpiO8fSRSpSM2kazjXdsQzat0+W1J+IBy3o8iV8ujMOEYLzP7lOkVqsGVddLgw73Wl/c4opfcWfIOvpnHz6cbhz6SOkuCtCfor7HT9iMdyj1df/qaTDDtfbYzkis6meNsdkEFYyoXnzwE0mDTs4/qMwviMzEfJ2aXQ/9vBjrnIjZu+RGbPXNXcUYvcB7XSphSgdFgA1zda9xDNq8fiofYWngbwLeh3+eLT5CcnAERn37LdKC2qF7ODi5uLm9O3hzvtHrReNOzX0/Fm4133FsHHT96RUJG0UAPA0d+ffY02dCUEntFBIfpbDOLHHlZMmsNseFAYUP+Y0IxSmw3nJbq7P8KiikH5AJpTyCtlGoR/X3GTbUtXczd6jyxKqamU9ulH5O8PGLWof4+09GxBXpg6sFtJkzFiV3LG5VHRCibnDGP0IdzjMGsL5mHfcvz1VqC2e37rV0jvI/eIZG2Is17v6PFdzCCpo9IP+BQcuAt48L8dgvpd3uus7R2taR3xRW4yTWejaXf7mjLTJ34XLfOd6op20aDf3SVcdhEt7gjXpYPXjUN2mnHQC8yNfU8TSpwjdx9uTiwsfs863E3voA1Yih1wDRAVA/SJf72VwJ5DeE28gvZg5dOI9l40u8aC5J7itwH95uvnGisFazIycOiowbzP2eQDaVKwfJEnwy5ZgH97ZjYOqMvGXpUa+/0KzJjTwaNHmHTW8fnkP57Sn8Y772xaW71wAg92pmNuYaWd/MPTGdgez/MGP61aFj8ChlSjrffo7y8PzFryOOPcFPCd5N3rOy//99V/tvmSkAyvdiZ/4bXy/JXHoJZ5iCfkTG1smq0ge8llYGv6+/d38ruxxY+0+2eIZX2S0pL76msXrHzyMsIMPs9mvh7HO0VdeEt1AWryTbQrSYZu4ELjGRlVb2jxc68v5XNWaZCabL+IS7pYS5GFFO8pc5m5ZfNE9X4dR4acqCaeSL/8H", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Code = _t, Indicators = _t, SDGIndex = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Code", type text}, {"Indicators", type text}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Indicators", "Code Name"}}),
+		    #"Merged Columns" = Table.CombineColumns(#"Renamed Columns",{"Code", "Code Name"},Combiner.CombineTextByDelimiter(": ", QuoteStyle.None),"Indicators"),
+		    #"Duplicated Column" = Table.DuplicateColumn(#"Merged Columns", "Indicators", "Indicators - Copy"),
+		    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column",{"Indicators - Copy"}),
+		    #"Added Index" = Table.AddIndexColumn(#"Removed Columns", "Index", 1, 1, Int64.Type),
+		    #"Duplicated Column1" = Table.DuplicateColumn(#"Added Index", "Indicators", "Indicators - Copy"),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column1", "Indicators - Copy", Splitter.SplitTextByDelimiter(":", QuoteStyle.Csv), {"Indicators - Copy.1", "Indicators - Copy.2", "Indicators - Copy.3"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Indicators - Copy.1", type text}, {"Indicators - Copy.2", type text}, {"Indicators - Copy.3", type text}}),
+		    #"Split Column by Positions" = Table.SplitColumn(#"Changed Type1", "Indicators - Copy.1", Splitter.SplitTextByPositions({0}), {"Indicators - Copy.1.1"}),
+		    #"Split Column by Positions1" = Table.SplitColumn(#"Split Column by Positions", "Indicators - Copy.1.1", Splitter.SplitTextByPositions({1}), {"Indicators - Copy.1.1.1"}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Positions1",{{"Indicators - Copy.1.1.1", type text}}),
+		    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type2", "Indicators - Copy.1.1.1", Splitter.SplitTextByDelimiter("]", QuoteStyle.Csv), {"Indicators - Copy.1.1.1.1", "Indicators - Copy.1.1.1.2"}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Indicators - Copy.1.1.1.1", type text}, {"Indicators - Copy.1.1.1.2", type text}}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type3",{"Indicators - Copy.1.1.1.2", "Indicators - Copy.2", "Indicators - Copy.3"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"Indicators - Copy.1.1.1.1", "Indicator"}, {"Indicators", "IndicatorsName"}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1",{"Index", "Indicator", "IndicatorsName"}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Reordered Columns",{{"SDGIndex", Int64.Type}}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Changed Type4", each ([Indicator] = "SDG_01_10" or [Indicator] = "SDG_01_20")),
+		    #"Merged Queries" = Table.NestedJoin(#"Filtered Rows1", {"Indicator"}, Goal1, {"IndicatorValue"}, "Goal1", JoinKind.Inner),
+		    #"Expanded Goal1" = Table.ExpandTableColumn(#"Merged Queries", "Goal1", {"Year", "Value", "IndicatorValue", "CountryAbrv"}, {"Year", "Value", "IndicatorValue", "CountryAbrv"}),
+		    FilteredData = Table.SelectRows(#"Expanded Goal1", each [CountryAbrv] = "EU27_2020"),
+		    GroupedData = Table.Group(
+		        FilteredData,
+		        {"Index", "SDGIndex", "Indicator", "IndicatorsName"},
+		        {
+		            {"MinYear", each List.Min([Year]), type nullable number},
+		            {"MaxYear", each List.Max([Year]), type nullable number}
+		        }
+		    ),
+		    #"Grouped Rows" = GroupedData,
+		    #"Added Custom" = Table.AddColumn(#"Grouped Rows", "Short Term", each "Short Term"),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Long Term", each "Long Term"),
+		    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Added Custom1", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear"}, "Attribute", "Value"),
+		    #"Removed Columns2" = Table.RemoveColumns(#"Unpivoted Columns",{"Value"}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns2",{{"Attribute", "Year-Label"}}),
+		    #"Added Custom2" = Table.AddColumn(#"Renamed Columns2", "Observed", each "Observed"),
+		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Required", each "Required"),
+		    #"Unpivoted Columns1" = Table.UnpivotOtherColumns(#"Added Custom3", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear", "Year-Label"}, "Attribute", "Value"),
+		    #"Removed Columns3" = Table.RemoveColumns(#"Unpivoted Columns1",{"Value"}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3",{{"Attribute", "CAGR-Header"}}),
+		    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns3", {"Indicator"}, #"Indicator Dimensions", {"Indicator"}, "Indicator Dimensions", JoinKind.LeftOuter),
+		    #"Expanded Indicator Dimensions" = Table.ExpandTableColumn(#"Merged Queries1", "Indicator Dimensions", {"Target Value", "Target Year", "Dimension"}, {"Target Value", "Target Year", "Dimension"}),
+		    #"Merged Queries2" = Table.NestedJoin(#"Expanded Indicator Dimensions", {"Indicator"}, SubThemes, {"Indicator"}, "SubThemes", JoinKind.LeftOuter),
+		    #"Expanded SubThemes" = Table.ExpandTableColumn(#"Merged Queries2", "SubThemes", {"SubThemes"}, {"SubThemes.1"}),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Expanded SubThemes",{"SubThemes.1", "Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "Target Value", "Target Year", "Dimension"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns1", each ([Target Value] <> null)),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Filtered Rows",{{"Target Value", type number}}),
+		    #"Added Conditional Column" = Table.AddColumn(#"Changed Type5", "Arrow Target", each if [Indicator] = "SDG_01_10" then -1 else if [Indicator] = "SDG_02_40" then 1 else null),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Arrow Target", Int64.Type}, {"Target Value", type number}})
+		in
+		    #"Changed Type6"
+	lineageTag: 2e478a0c-651c-4a20-8e63-0fda64d167e3
+	queryGroup: 'Key Tables'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression 'Overvieww without Target_Old' =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("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", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Code = _t, Indicators = _t, SDGIndex = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Code", type text}, {"Indicators", type text}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Indicators", "Code Name"}}),
+		    #"Merged Columns" = Table.CombineColumns(#"Renamed Columns",{"Code", "Code Name"},Combiner.CombineTextByDelimiter(": ", QuoteStyle.None),"Indicators"),
+		    #"Duplicated Column" = Table.DuplicateColumn(#"Merged Columns", "Indicators", "Indicators - Copy"),
+		    #"Removed Columns" = Table.RemoveColumns(#"Duplicated Column",{"Indicators - Copy"}),
+		    #"Added Index" = Table.AddIndexColumn(#"Removed Columns", "Index", 1, 1, Int64.Type),
+		    #"Duplicated Column1" = Table.DuplicateColumn(#"Added Index", "Indicators", "Indicators - Copy"),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column1", "Indicators - Copy", Splitter.SplitTextByDelimiter(":", QuoteStyle.Csv), {"Indicators - Copy.1", "Indicators - Copy.2", "Indicators - Copy.3"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Indicators - Copy.1", type text}, {"Indicators - Copy.2", type text}, {"Indicators - Copy.3", type text}}),
+		    #"Split Column by Positions" = Table.SplitColumn(#"Changed Type1", "Indicators - Copy.1", Splitter.SplitTextByPositions({0}), {"Indicators - Copy.1.1"}),
+		    #"Split Column by Positions1" = Table.SplitColumn(#"Split Column by Positions", "Indicators - Copy.1.1", Splitter.SplitTextByPositions({1}), {"Indicators - Copy.1.1.1"}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Positions1",{{"Indicators - Copy.1.1.1", type text}}),
+		    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type2", "Indicators - Copy.1.1.1", Splitter.SplitTextByDelimiter("]", QuoteStyle.Csv), {"Indicators - Copy.1.1.1.1", "Indicators - Copy.1.1.1.2"}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Indicators - Copy.1.1.1.1", type text}, {"Indicators - Copy.1.1.1.2", type text}}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type3",{"Indicators - Copy.1.1.1.2", "Indicators - Copy.2", "Indicators - Copy.3"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"Indicators - Copy.1.1.1.1", "Indicator"}, {"Indicators", "IndicatorsName"}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns1",{"Index", "Indicator", "IndicatorsName"}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Reordered Columns",{{"SDGIndex", Int64.Type}}),
+		    #"Filtered Rows2" = Table.SelectRows(#"Changed Type4", each ([Indicator] = "SDG_01_10" or [Indicator] = "SDG_01_20")),
+		    #"Merged Queries" = Table.NestedJoin(#"Filtered Rows2", {"Indicator"}, Goal1, {"IndicatorValue"}, "Goal1", JoinKind.Inner),
+		    #"Expanded Goal1" = Table.ExpandTableColumn(#"Merged Queries", "Goal1", {"Year", "Value", "IndicatorValue", "CountryAbrv"}, {"Year", "Value", "IndicatorValue", "CountryAbrv"}),
+		    FilteredData = Table.SelectRows(#"Expanded Goal1", each [CountryAbrv] = "EU27_2020"),
+		    GroupedData = Table.Group(
+		        FilteredData,
+		        {"Index", "SDGIndex", "Indicator", "IndicatorsName"},
+		        {
+		            {"MinYear", each List.Min([Year]), type nullable number},
+		            {"MaxYear", each List.Max([Year]), type nullable number}
+		        }
+		    ),
+		    #"Grouped Rows" = GroupedData,
+		    #"Added Custom" = Table.AddColumn(#"Grouped Rows", "Short Term", each "Short Term"),
+		    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Long Term", each "Long Term"),
+		    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Added Custom1", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear"}, "Attribute", "Value"),
+		    #"Removed Columns2" = Table.RemoveColumns(#"Unpivoted Columns",{"Value"}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns2",{{"Attribute", "Year-Label"}}),
+		    #"Added Custom2" = Table.AddColumn(#"Renamed Columns2", "Observed", each "Observed"),
+		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Required", each "Required"),
+		    #"Unpivoted Columns1" = Table.UnpivotOtherColumns(#"Added Custom3", {"Index", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear", "Year-Label"}, "Attribute", "Value"),
+		    #"Removed Columns3" = Table.RemoveColumns(#"Unpivoted Columns1",{"Value"}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3",{{"Attribute", "CAGR-Header"}}),
+		    #"Merged Queries1" = Table.NestedJoin(#"Renamed Columns3", {"Indicator"}, #"Indicator Dimensions", {"Indicator"}, "Indicator Dimensions", JoinKind.LeftOuter),
+		    #"Expanded Indicator Dimensions" = Table.ExpandTableColumn(#"Merged Queries1", "Indicator Dimensions", {"TargetValue", "Target Year", "Dimension"}, {"TargetValue", "Target Year", "Dimension"}),
+		    #"Merged Queries2" = Table.NestedJoin(#"Expanded Indicator Dimensions", {"Indicator"}, SubThemes, {"Indicator"}, "SubThemes", JoinKind.LeftOuter),
+		    #"Expanded SubThemes" = Table.ExpandTableColumn(#"Merged Queries2", "SubThemes", {"SubThemes"}, {"SubThemes.1"}),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Expanded SubThemes",{"SubThemes.1", "Index", "SDGIndex", "Indicator", "IndicatorsName", "Dimension", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "TargetValue", "Target Year"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns1", each ([TargetValue] = null)),
+		    #"SortSubthemes Added Conditional Column" = Table.AddColumn(#"Filtered Rows", "Sort Subthemes", each if [SubThemes.1] = "Multidimensional poverty" then 1 else if [SubThemes.1] = "Basic Needs" then 2 else if [SubThemes.1] = "Malnutrition" then 3 else if [SubThemes.1] = "Sustainable agricultural prodution" then 4 else if [SubThemes.1] = "Environmental impacts of agricultural production" then 5 else if [SubThemes.1] = "Healthy lives" then 6 else if [SubThemes.1] = "Health determinants" then 7 else if [SubThemes.1] = "Causes of death" then 8 else if [SubThemes.1] = "Access to health care" then 9 else if [SubThemes.1] = "Adult learning" then 10 else if [SubThemes.1] = "Gender based violence" then 11 else if [SubThemes.1] = "Employment" then 12 else if [SubThemes.1] = "Leadership positions" then 13 else if [SubThemes.1] = "Sanitation" then 14 else if [SubThemes.1] = "Water quality" then 15 else if [SubThemes.1] = "Water scarcity" then 16 else if [SubThemes.1] = "Energy consumption" then 17 else if [SubThemes.1] = "Energy supply" then 18 else if [SubThemes.1] = "Access to affordable energy" then 19 else if [SubThemes.1] = "Sustainable economic growth" then 20 else if [SubThemes.1] = " Employment " then 21 else if [SubThemes.1] = "Decent work" then 22 else if [SubThemes.1] = "R&D and innovation" then 23 else if [SubThemes.1] = "Sustainable industry" then 24 else if [SubThemes.1] = "Sustainable infrastructure" then 25 else if [SubThemes.1] = "Inequalities within countries" then 26 else if [SubThemes.1] = "Inequalities between countries" then 27 else if [SubThemes.1] = "Migration and social inclusion" then 28 else if [SubThemes.1] = "Quality of life in cities and communities" then 29 else if [SubThemes.1] = "Sustainable mobility" then 30 else if [SubThemes.1] = "Environmental impacts" then 31 else if [SubThemes.1] = "Consumption patterns" then 32 else if [SubThemes.1] = "Green economy" then 33 else if [SubThemes.1] = "Waste generation and management" then 34 else if [SubThemes.1] = "Climate mitigation" then 35 else if [SubThemes.1] = "Climate impacts and adaptation" then 36 else if [SubThemes.1] = "Financing climate action" then 37 else if [SubThemes.1] = "Ocean health" then 38 else if [SubThemes.1] = "Marine conservation" then 39 else if [SubThemes.1] = "Sustainable fisheries" then 40 else if [SubThemes.1] = "Ecosystem status" then 41 else if [SubThemes.1] = "Land degradation" then 42 else if [SubThemes.1] = "Biodiversity" then 43 else if [SubThemes.1] = "Peace and personal security" then 44 else if [SubThemes.1] = "Access to justice" then 45 else if [SubThemes.1] = "Trust in institutions" then 46 else if [SubThemes.1] = "Global partnership" then 47 else if [SubThemes.1] = "Financial governance within the EU" then 48 else if [SubThemes.1] = "Access to technology" then 49 else null),
+		    #"DimAdded Conditional Column1" = Table.AddColumn(#"SortSubthemes Added Conditional Column", "Dim", each if [Indicator] = "SDG_01_10" then -1 else if [Indicator] = "SDG_01_20" then -1 else if [Indicator] = "SDG_01_31" then -1 else if [Indicator] = "SDG_01_40" then -1 else if [Indicator] = "SDG_01_41" then -1 else if [Indicator] = "SDG_01_50" then -1 else if [Indicator] = "SDG_03_60" then -1 else if [Indicator] = "SDG_11_11*" then -1 else if [Indicator] = "SDG_10_30*" then -1 else if [Indicator] = "SDG_02_10" then -1 else if [Indicator] = "SDG_02_20" then 1 else if [Indicator] = "SDG_02_30" then 1 else if [Indicator] = "SDG_02_40" then 1 else if [Indicator] = "SDG_02_60" then -1 else if [Indicator] = "SDG_06_40*" then -1 else if [Indicator] = "SDG_15_50*" then -1 else if [Indicator] = "SDG_15_60*" then 1 else if [Indicator] = "SDG_03_11" then 1 else if [Indicator] = "SDG_03_20" then 1 else if [Indicator] = "SDG_03_30" then -1 else if [Indicator] = "SDG_03_41" then -1 else if [Indicator] = "SDG_03_42" then -1 else if [Indicator] = "SDG_08_60*" then -1 else if [Indicator] = "SDG_11_20*" then -1 else if [Indicator] = "SDG_04_60" then 1 else if [Indicator] = "SDG_03_60*" then -1 else if [Indicator] = "SDG_02_10*" then -1 else if [Indicator] = "SDG_05_10" then -1 else if [Indicator] = "SDG_05_20" then -1 else if [Indicator] = "SDG_05_30" then -1 else if [Indicator] = "SDG_05_50" then 1 else if [Indicator] = "SDG_05_60" then 1 else if [Indicator] = "SDG_04_10_Graph2" then -1 else if [Indicator] = "SDG_04_20_Graph" then -1 else if [Indicator] = "SDG_06_10" then -1 else if [Indicator] = "SDG_06_20" then 1 else if [Indicator] = "SDG_06_30" then -1 else if [Indicator] = "SDG_06_40" then -1 else if [Indicator] = "SDG_06_50" then -1 else if [Indicator] = "SDG_06_60" then -1 else if [Indicator] = "SDG_14_40*" then 1 else if [Indicator] = "SDG_07_10" then -1 else if [Indicator] = "SDG_07_11" then -1 else if [Indicator] = "SDG_07_20" then -1 else if [Indicator] = "SDG_07_30" then 1 else if [Indicator] = "SDG_07_40" then 1 else if [Indicator] = "SDG_07_50" then -1 else if [Indicator] = "SDG_07_60" then -1 else if [Indicator] = "SDG_08_10" then 1 else if [Indicator] = "SDG_08_11" then 1 else if [Indicator] = "SDG_08_20" then -1 else if [Indicator] = "SDG_08_30" then -1 else if [Indicator] = "SDG_08_40" then -1 else if [Indicator] = "SDG_08_60" then -1 else if [Indicator] = "SDG_01_41*" then -1 else if [Indicator] = "SDG_12_21*" then -1 else if [Indicator] = "SDG_09_10" then 1 else if [Indicator] = "SDG_09_30" then 1 else if [Indicator] = "SDG_09_40" then 1 else if [Indicator] = "SDG_09_50" then 1 else if [Indicator] = "SDG_09_60" then 1 else if [Indicator] = "SDG_09_70" then -1 else if [Indicator] = "SDG_04_20*" then 1 else if [Indicator] = "SDG_12_61*" then 1 else if [Indicator] = "SDG_17_60*" then 1 else if [Indicator] = "SDG_10_10" then -1 else if [Indicator] = "SDG_10_30" then -1 else if [Indicator] = "SDG_10_41" then -1 else if [Indicator] = "SDG_10_50" then 1 else if [Indicator] = "SDG_10_60" then 1 else if [Indicator] = "SDG_11_11" then -1 else if [Indicator] = "SDG_11_20" then -1 else if [Indicator] = "SDG_11_40" then -1 else if [Indicator] = "SDG_11_52" then -1 else if [Indicator] = "SDG_11_60" then 1 else if [Indicator] = "SDG_06_20*" then 1 else if [Indicator] = "SDG_09_50*" then 1 else if [Indicator] = "SDG_16_20*" then -1 else if [Indicator] = "SDG_15_41*" then -1 else if [Indicator] = "SDG_12_10" then -1 else if [Indicator] = "SDG_12_21" then -1 else if [Indicator] = "SDG_12_30" then -1 else if [Indicator] = "SDG_12_41" then 1 else if [Indicator] = "SDG_12_51" then -1 else if [Indicator] = "SDG_12_61" then 1 else if [Indicator] = "SDG_07_30*" then 1 else if [Indicator] = "cei_gsr010" then -1 else if [Indicator] = "SDG_13_10" then -1 else if [Indicator] = "SDG_13_21" then -1 else if [Indicator] = "SDG_13_40" then -1 else if [Indicator] = "SDG_13_50" then 1 else if [Indicator] = "SDG_07_40*" then 1 else if [Indicator] = "SDG_12_30*" then -1 else if [Indicator] = "SDG_14_10" then 1 else if [Indicator] = "SDG_14_21" then 1 else if [Indicator] = "SDG_14_30" then -1 else if [Indicator] = "SDG_14_40_Coastal_Water" then 1 else if [Indicator] = "SDG_14_50" then -1 else if [Indicator] = "SDG_14_60" then -1 else if [Indicator] = "SDG_15_10" then 1 else if [Indicator] = "SDG_15_20" then 1 else if [Indicator] = "SDG_15_41" then -1 else if [Indicator] = "SDG_15_50" then -1 else if [Indicator] = "SDG_15_60_CO_ALL" then 1 else if [Indicator] = "SDG_15_61" then 1 else if [Indicator] = "SDG_06_30*" then -1 else if [Indicator] = "SDG_06_50*" then -1 else if [Indicator] = "SDG_16_10" then -1 else if [Indicator] = "SDG_16_20" then -1 else if [Indicator] = "SDG_16_30" then 1 else if [Indicator] = "SDG_16_40" then 1 else if [Indicator] = "SDG_16_50" then 1 else if [Indicator] = "crim_thb_sex" then -1 else if [Indicator] = "SDG_17_10" then 1 else if [Indicator] = "SDG_17_20" then 1 else if [Indicator] = "SDG_17_30" then 1 else if [Indicator] = "SDG_17_40" then -1 else if [Indicator] = "SDG_17_50" then 1 else if [Indicator] = "SDG_17_60" then 1 else if [Indicator] = "SDG_01_10a" then -1 else if [Indicator] = "SDG_01_20a" then -1 else if [Indicator] = "SDG_04_10a" then -1 else if [Indicator] = "SDG_08_20a" then -1 else if [Indicator] = "SDG_08_30a" then -1 else if [Indicator] = "SDG_05_40" then -1 else if [Indicator] = "SDG_05_40*" then -1 else null),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"DimAdded Conditional Column1",{{"Dim", Int64.Type}}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Changed Type5", each true),
+		    #"Reordered Columns2" = Table.ReorderColumns(#"Filtered Rows1",{"Dim", "SubThemes.1", "Index", "SDGIndex", "IndicatorsName", "Indicator", "Dimension", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "TargetValue", "Target Year", "Sort Subthemes"})
+		in
+		    #"Reordered Columns2"
+	lineageTag: 612d1699-bba0-4552-a7ab-c11fe4f8fd74
+	queryGroup: 'Key Tables'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Unit-15_60 (2)' =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8jQwUNJR8sxLSa3QMTIwMLA1BArE6gAlLBEShpaWUIlYAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Unit = _t, UnitName = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Unit", type text}, {"UnitName", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: a8c1b796-c6c7-44e9-8646-ad55c479e01e
+	queryGroup: EU-Goal1
+
+	annotation PBI_ResultType = Table
+
+expression 'SDG_06_40 (2)' =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"812786d6-888c-4a99-a06d-44fdc4c0d8ed" = Source{[Id="812786d6-888c-4a99-a06d-44fdc4c0d8ed"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"812786d6-888c-4a99-a06d-44fdc4c0d8ed", each [Unit] = "MG_L")
+		in
+		    #"Filtered Rows"
+	lineageTag: a2267623-dbf2-4b71-8ddc-d9492fb99df4
+	queryGroup: EU-Goal1
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_01_10 =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"238281b2-c170-4491-b22a-2ad63536f76a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 1"]}[Data],
+		    SDG_01_10_ = #"238281b2-c170-4491-b22a-2ad63536f76a"{[entity="SDG_01_10",version=""]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(SDG_01_10_, each ([Unit] = "PC") and ([age] = "TOTAL")),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"UpdatedFromDate", type date}}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Changed Type", let latest = List.Max(#"Changed Type"[UpdatedFromDate]) in each [UpdatedFromDate] = latest),
+		    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each [CountryAbrv] <> "EA19" and [CountryAbrv] <> "EA20" and [CountryAbrv] <> "UK")
+		in
+		    #"Filtered Rows2"
+	lineageTag: 5abd1841-5b21-4657-942d-75df7560a4f3
+	queryGroup: 'Goal 1'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_02_20 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"53e3183d-2c01-49c9-9a16-4723695cd31f" = Source{[Id="53e3183d-2c01-49c9-9a16-4723695cd31f"]}[Items],
+		    #"Added Custom" = Table.AddColumn(#"53e3183d-2c01-49c9-9a16-4723695cd31f", "NA", each null),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"NA", Int64.Type}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([IndicatorValue] = "SDG_02_20") and ([Unit] = "I10"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 4a4250f6-cc70-43a7-a383-6508b5f09614
+	queryGroup: 'Goal 2'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_02_30 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"e2699025-3651-424a-be1a-7db3d718ef97" = Source{[Id="e2699025-3651-424a-be1a-7db3d718ef97"]}[Items],
+		    #"Changed Type" = Table.TransformColumnTypes(#"e2699025-3651-424a-be1a-7db3d718ef97",{{"UpdatedFromDate", type date}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Unit] = "MIO_EUR") and ([UpdatedFromDate] >= #date(2024, 1, 3)))
+		in
+		    #"Filtered Rows"
+	lineageTag: 6fed7a95-3931-4be3-9b29-ad173c5c3614
+	queryGroup: 'Goal 2'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_02_60 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"ef9e5b10-422f-4c0a-a86e-67673c3490a0" = Source{[Id="ef9e5b10-422f-4c0a-a86e-67673c3490a0"]}[Items],
+		    #"Changed Type" = Table.TransformColumnTypes(#"ef9e5b10-422f-4c0a-a86e-67673c3490a0",{{"UpdatedFromDate", type date}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Unit] = "T") and ([UpdatedFromDate] >= #date(2024, 1, 1)))
+		in
+		    #"Filtered Rows"
+	lineageTag: 1904e109-a49c-431b-bff0-8005ab2f3eca
+	queryGroup: 'Goal 2'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_03_41 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data",[Implementation="2.0", ViewMode="Default"]),
+		    #"c3c25e2c-f8e6-4969-ac9f-fbf00869ce6f" = Source{[Id="c3c25e2c-f8e6-4969-ac9f-fbf00869ce6f"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"c3c25e2c-f8e6-4969-ac9f-fbf00869ce6f", each ([icd10] = "TOTAL"))
+		in
+		    #"Filtered Rows"
+	lineageTag: b681625c-5d5a-4e9a-9577-8c506a9d5bc2
+	queryGroup: 'Goal 3'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_15_50 =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"741b10ab-99ca-4b5b-bb32-164adb8cc952" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 2"]}[Data],
+		    SDG_15_50_ = #"741b10ab-99ca-4b5b-bb32-164adb8cc952"{[entity="SDG_15_50",version=""]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(SDG_15_50_, each ([Unit] = "KM2"))
+		in
+		    #"Filtered Rows"
+	lineageTag: ff1ae373-a98e-4023-b60e-8909c6b6ea6d
+	queryGroup: 'Goal 2'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_15_60 =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		
+		    #"741b10ab-99ca-4b5b-bb32-164adb8cc952" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 2"]}[Data],
+		
+		    SDG_15_60_ = #"741b10ab-99ca-4b5b-bb32-164adb8cc952"{[entity="SDG_15_60",version=""]}[Data]
+		in
+		    SDG_15_60_
+	lineageTag: d8415190-a659-4365-b791-1532d9aa288b
+	queryGroup: 'Goal 2'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_11_40 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data",[Implementation="2.0", ViewMode="Default"]),
+		    #"6642134a-88ee-45c2-994d-01ae5a708210" = Source{[Id="6642134a-88ee-45c2-994d-01ae5a708210"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"6642134a-88ee-45c2-994d-01ae5a708210", each ([Unit] = "NR") and ([tra_infr] = "TOTAL")),
+		    #"Removed Blank Rows" = Table.SelectRows(#"Filtered Rows", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+		in
+		    #"Removed Blank Rows"
+	lineageTag: 36d82378-9ff4-4ffc-97b5-71e4e86405c2
+	queryGroup: 'Goal 3'
+
+	annotation PBI_ResultType = Table
+
+expression SDG_11_52 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"7677175b-7629-4e93-9a22-2b730be09743" = Source{[Id="7677175b-7629-4e93-9a22-2b730be09743"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"7677175b-7629-4e93-9a22-2b730be09743", each ([Unit] = "NR"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 1830f089-c3a9-463a-ac65-1852318d66d6
+	queryGroup: 'Goal 3'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_12_61 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"02b8d08b-5038-4f88-9f12-0d19a697358c" = Source{[Id="02b8d08b-5038-4f88-9f12-0d19a697358c"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"02b8d08b-5038-4f88-9f12-0d19a697358c", each ([Unit] = "MEUR_CLV10"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 534629e3-1334-46b5-88b9-063e53d8ce00
+	queryGroup: 'Goal 9'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression cei_gsr010 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data",  [Implementation="2.0", ViewMode="Default"]),
+		    #"4e08adc4-b96b-4e15-bebb-3549081851cc" = Source{[Id="4e08adc4-b96b-4e15-bebb-3549081851cc"]}[Items],
+		    #"Changed Type" = Table.TransformColumnTypes(#"4e08adc4-b96b-4e15-bebb-3549081851cc",{{"Year", Int64.Type}, {"Unit", type text}, {"Value", type number}, {"RecordCount", Int64.Type}, {"UpdatedFromDate", type date}, {"IndicatorValue", type text}, {"CountryAbrv", type text}, {"Created", type date}, {"cons_fp", type text}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([cons_fp] = "SWS") and ([Unit] <> "P_HAB"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 242bd83e-39b6-4c69-a2b1-e0dee0e17855
+	queryGroup: 'Goal 12'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_01_10a =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"1ccdc0be-3a01-4b60-901b-79ab7e5a582d" = Source{[Id="1ccdc0be-3a01-4b60-901b-79ab7e5a582d"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"1ccdc0be-3a01-4b60-901b-79ab7e5a582d", each ([deg_urb] <> "DEG2") ),
+		    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"ID","Created"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"Value", type number}, {"UpdatedFromDate", type date}}),
+		    #"Pivoted Column" = Table.Pivot(#"Changed Type", List.Distinct(#"Changed Type"[deg_urb]), "deg_urb", "Value", List.Max),
+		    #"Added Custom" = Table.AddColumn(#"Pivoted Column", "Value", each if [DEG1] is null then [DEG3] else if [DEG3] is null then [DEG1] else Number.Abs([DEG1]-[DEG3])),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Added Custom",{"DEG1", "DEG3"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns1",{{"Value", type number}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type)
+		in
+		    #"Added Index"
+	lineageTag: 5068e7a8-67c7-452a-9e25-f6d3dc6955d1
+	queryGroup: 'Goal 10'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_01_20a =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"fa8b0ca9-efcb-43ba-861e-7c8d87149d7a" = Source{[Id="fa8b0ca9-efcb-43ba-861e-7c8d87149d7a"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"fa8b0ca9-efcb-43ba-861e-7c8d87149d7a", each ([citizen] <> "EU27_2020_FOR")),
+		    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"ID","age","sex"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"Value", type number}, {"UpdatedFromDate", type date}}),
+		    #"Pivoted Column" = Table.Pivot(#"Changed Type", List.Distinct(#"Changed Type"[citizen]), "citizen", "Value", List.Sum),
+		    #"Added Custom" = Table.AddColumn(#"Pivoted Column", "Value", each if [NAT] is null then [NEU27_2020_FOR] else if [NEU27_2020_FOR] is null then [NAT] else Number.Abs([NAT]-[NEU27_2020_FOR])),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Added Custom",{"NAT", "NEU27_2020_FOR"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns1",{{"Value", type number}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type)
+		in
+		    #"Added Index"
+	lineageTag: f0ba0dd7-db54-4516-8e34-fda5b4d06ac2
+	queryGroup: 'Goal 10'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_04_10a =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"a89ac197-71c7-4cc7-8697-e473eeeadf64" = Source{[Id="a89ac197-71c7-4cc7-8697-e473eeeadf64"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"a89ac197-71c7-4cc7-8697-e473eeeadf64", each ([citizen] <> "EU27_2020_FOR") and ([Year] <> 2004 and [Year] <> 2005)),
+		#"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"ID"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"Value", type number}, {"UpdatedFromDate", type date}}),
+		    #"Pivoted Column" = Table.Pivot(#"Changed Type", List.Distinct(#"Changed Type"[citizen]), "citizen", "Value", List.Max),
+		    #"Added Custom" = Table.AddColumn(#"Pivoted Column", "Value", each if [NAT] is null then [NEU27_2020_FOR] else if [NEU27_2020_FOR] is null then [NAT] else Number.Abs([NAT]-[NEU27_2020_FOR])),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Added Custom",{"NAT", "NEU27_2020_FOR"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns1",{{"Value", type number}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type)
+		in
+		    #"Added Index"
+	lineageTag: ad989e22-c7d0-4e96-8381-3c1096ea7f42
+	queryGroup: 'Goal 10'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_08_20a =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"584a10a2-b289-4ab5-a306-1e125848f1fb" = Source{[Id="584a10a2-b289-4ab5-a306-1e125848f1fb"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"584a10a2-b289-4ab5-a306-1e125848f1fb", each ([citizen] <> "EU27_2020_FOR")),
+		#"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"ID","Created"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"Value", type number}, {"UpdatedFromDate", type date}}),
+		    #"Pivoted Column" = Table.Pivot(#"Changed Type", List.Distinct(#"Changed Type"[citizen]), "citizen", "Value", List.Max),
+		    #"Added Custom" = Table.AddColumn(#"Pivoted Column", "Value", each if [NAT] is null then [NEU27_2020_FOR] else if [NEU27_2020_FOR] is null then [NAT] else Number.Abs([NAT]-[NEU27_2020_FOR])),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Added Custom",{"NAT", "NEU27_2020_FOR"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns1",{{"Value", type number}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type),
+		    #"Filtered Rows1" = Table.SelectRows(#"Added Index", each ([CountryAbrv] <> ""))
+		in
+		    #"Filtered Rows1"
+	lineageTag: c7264c98-d4a8-4ed9-b38a-8c238bc93c43
+	queryGroup: 'Goal 10'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_08_30a =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation="2.0", ViewMode="Default"]),
+		    #"2e48fd38-a692-49a6-a3a3-9e7b262a2a4c" = Source{[Id="2e48fd38-a692-49a6-a3a3-9e7b262a2a4c"]}[Items],
+		    #"Filtered Rows" = Table.SelectRows(#"2e48fd38-a692-49a6-a3a3-9e7b262a2a4c", each ([citizen] <> "EU27_2020_FOR")),
+		#"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"ID"}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"Value", type number}, {"UpdatedFromDate", type date}}),
+		    #"Pivoted Column" = Table.Pivot(#"Changed Type", List.Distinct(#"Changed Type"[citizen]), "citizen", "Value", List.Max),
+		    #"Added Custom" = Table.AddColumn(#"Pivoted Column", "Value", each if [NAT] is null then [NEU27_2020_FOR] else if [NEU27_2020_FOR] is null then [NAT] else Number.Abs([NAT]-[NEU27_2020_FOR])),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Added Custom",{"NAT", "NEU27_2020_FOR"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns1",{{"Value", type number}}),
+		    #"Added Index" = Table.AddIndexColumn(#"Changed Type1", "Index", 1, 1, Int64.Type)
+		in
+		    #"Added Index"
+	lineageTag: c4300004-b9f4-431b-86d7-1b019aec328b
+	queryGroup: 'Goal 10'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression EU_cei_gsr010 =
+		let
+		    Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data",  [Implementation="2.0", ViewMode="Default"]),
+		    #"4e08adc4-b96b-4e15-bebb-3549081851cc" = Source{[Id="4e08adc4-b96b-4e15-bebb-3549081851cc"]}[Items],
+		    #"Changed Type" = Table.TransformColumnTypes(#"4e08adc4-b96b-4e15-bebb-3549081851cc",{{"Year", Int64.Type}, {"Unit", type text}, {"Value", type number}, {"RecordCount", Int64.Type}, {"UpdatedFromDate", type date}, {"IndicatorValue", type text}, {"CountryAbrv", type text}, {"Created", type date}, {"cons_fp", type text}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([cons_fp] = "SWS") and ([Unit] ="P_HAB"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 45d7d864-fc9b-428d-974f-731b9dc995de
+	queryGroup: 'EU-Goal1\EU_Goal 12'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_13_21 =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+		    SDG_13_21_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="SDG_13_21",version=""]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(SDG_13_21_, each ([Unit] = "THS_T"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 2ea97a02-d580-4332-8934-43d870e9a6de
+	queryGroup: 'Goal 13'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_13_40 =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+		    SDG_13_40_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="SDG_13_40",version=""]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(SDG_13_40_, each ([statinfo] = "AVG_30Y") and ([Unit] = "MIO_EUR"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 68e79c43-2ba1-49b2-be4f-452f355953d9
+	queryGroup: 'Goal 13'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression crim_thb_sex =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+		    crim_thb_sex_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="crim_thb_sex",version=""]}[Data]
+		in
+		    crim_thb_sex_
+	lineageTag: 185034ef-37de-4653-ba39-b9f0763ae2d4
+	queryGroup: 'Goal 16'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression SDG_05_50 =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 5"]}[Data],
+		    SDG_05_50_ = #"ab8970c0-6fe3-4f4a-9cdd-fc18a8cf682b"{[entity="SDG_05_50",version=""]}[Data]
+		in
+		    SDG_05_50_
+	lineageTag: 76a6da90-7c1f-42db-9831-88260f9130e3
+	queryGroup: 'Goal 5'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression SDG_12_30 =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"4d6c5c1a-98f1-4c86-a450-a994c6460126" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 11 - 12- 13"]}[Data],
+		    SDG_12_30_ = #"4d6c5c1a-98f1-4c86-a450-a994c6460126"{[entity="SDG_12_30",version=""]}[Data],
+		    #"Added Custom" = Table.AddColumn(SDG_12_30_, "Unit", each "g CO2 per km"),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Unit", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: a998a153-a105-4362-9c04-587efe0d377c
+	queryGroup: 'Goal 12'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression SDG_14_50 =
+		// let
+		//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+		//     #"de1f9020-5499-439f-bf05-88aa5cba45fe" = Source{[Id="de1f9020-5499-439f-bf05-88aa5cba45fe"]}[Items],
+		//     #"Removed Other Columns" = Table.SelectColumns(#"de1f9020-5499-439f-bf05-88aa5cba45fe",{"Year", "Value", "RecordCount", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "CountryAbrv", "indic_env", "Created"}),
+		//     #"Changed Type1" = Table.TransformColumnTypes(#"Removed Other Columns",{{"indic_env", type text}}),
+		//     #"Changed Type" = Table.TransformColumnTypes(#"Changed Type1",{{"Year", Int64.Type}, {"Value", type number}, {"RecordCount", Int64.Type}, {"UpdatedFromDate", type date}, {"UpdatedToDate", type date}, {"IndicatorValue", type text}, {"CountryAbrv", type text}, {"Created", type date}}),
+		//     #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"indic_env"}, SDG_14_50_Indicenv, {"indic_env"}, "SDG_14_50_Indicenv", JoinKind.Inner),
+		//     #"Expanded SDG_14_50_Indicenv" = Table.ExpandTableColumn(#"Merged Queries", "SDG_14_50_Indicenv", {"Indic"}, {"Indic"})
+		// in
+		//     #"Expanded SDG_14_50_Indicenv"
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+		    SDG_14_50_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_14_50",version=""]}[Data]
+		in
+		    SDG_14_50_
+	lineageTag: 86c81afe-e971-485b-b69d-49079febd15c
+	queryGroup: 'Goal 14'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression SDG_17_30 =
+		let
+		    Source = PowerPlatform.Dataflows(null),
+		    Workspaces = Source{[Id="Workspaces"]}[Data],
+		    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+		    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+		    SDG_17_30_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_17_30",version=""]}[Data]
+		in
+		    SDG_17_30_
+	lineageTag: 10b3f200-7105-4410-85c6-8ff5b12ba529
+	queryGroup: 'Goal 17'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression SharepointLocation = "https://tmotions0.sharepoint.com/sites/TM-Eurostat_Sharepoint" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: fcab19d6-0459-4c65-9592-89cc39793b0a
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression workspaceID = "bb4c392e-e6de-4a51-a74f-c2830108781a" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: d4c10bd5-ac37-456b-b64c-67032727d0d2
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

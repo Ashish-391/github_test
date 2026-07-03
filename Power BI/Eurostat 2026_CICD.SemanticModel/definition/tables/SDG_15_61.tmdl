@@ -1,0 +1,118 @@
+table SDG_15_61
+	lineageTag: 1687469c-6beb-4220-aa28-3776f8d6d113
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f03440d6-04ed-4891-bb16-b3fe6a1e6a29
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: f90fb681-cd71-48f8-82a4-0061c6dd64c5
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: b8de2543-c55d-4fa1-af0c-8f95637c4f88
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: c7ef9f6d-2367-49d1-91de-5d9cf191ee36
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 313a50ea-b700-4a24-a145-f99c50eba960
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 186e694d-ef6e-4cd6-8ffa-1a3b6f2b3d6e
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitName
+		dataType: string
+		isHidden
+		lineageTag: 4909fe65-cc18-4e25-93ed-ea6aa8d4d256
+		summarizeBy: none
+		sourceColumn: UnitName
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 0b30df22-a34e-4801-83f4-ad75eed4e914
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 32763fb6-a58d-4b1b-b09e-bbed805b0a83
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_15_61 = m
+		mode: import
+		queryGroup: 'Goal 15'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"a18be4d8-1d52-4dff-9cb8-e20947849ddc" = Source{[Id="a18be4d8-1d52-4dff-9cb8-e20947849ddc"]}[Items],
+				//     #"Renamed Columns" = Table.RenameColumns(#"a18be4d8-1d52-4dff-9cb8-e20947849ddc",{{"ID", "ID.1"}}),
+				//     #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Year", "Unit", "Value", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "RecordCount", "CountryAbrv", "Created"}),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Year", Int64.Type}, {"Unit", type text}, {"Value", type number}, {"UpdatedFromDate", type date}, {"UpdatedToDate", type date}, {"IndicatorValue", type text}, {"RecordCount", Int64.Type}, {"CountryAbrv", type text}, {"Created", type date}}),
+				//     #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Unit"}, #"Unit-15_61", {"Unit"}, "Unit-15_60", JoinKind.LeftOuter),
+				//     #"Expanded Unit-15_60" = Table.ExpandTableColumn(#"Merged Queries", "Unit-15_60", {"UnitName"}, {"UnitName"})
+				// in
+				//     #"Expanded Unit-15_60"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_15_61_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_15_61",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SDG_15_61_,{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

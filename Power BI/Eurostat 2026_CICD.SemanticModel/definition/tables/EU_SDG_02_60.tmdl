@@ -1,0 +1,94 @@
+table EU_SDG_02_60
+	isHidden
+	lineageTag: d8438d44-960d-40ed-b682-0f3a99e26602
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 9892e92d-ce90-4776-ac60-2e0b2b28c844
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 44a09617-fe36-4545-94cb-63383c306377
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 295eab8b-a378-4b9a-9615-88acb59d5ecc
+		summarizeBy: sum
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year
+		dataType: double
+		isHidden
+		lineageTag: 971df0f9-69f6-4fa8-bdb6-2e49fd9cdaaa
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: d3feac3f-b474-4bcc-b367-2892e06ad68c
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 58d41c09-7d23-40d2-8c55-ac3a6f28a40a
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EU_SDG_02_60 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 2'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"741b10ab-99ca-4b5b-bb32-164adb8cc952" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 2"]}[Data],
+				    SDG_02_60_ = #"741b10ab-99ca-4b5b-bb32-164adb8cc952"{[entity="SDG_02_60",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_02_60_, each ([Unit] = "KG_HA"))
+				in
+				    #"Filtered Rows"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

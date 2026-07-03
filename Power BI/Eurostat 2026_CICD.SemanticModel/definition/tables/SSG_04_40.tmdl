@@ -1,0 +1,179 @@
+table SSG_04_40
+	isHidden
+	lineageTag: 2672f36a-3e59-4c15-94fb-9e56afec1c3d
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 285d903c-f1ef-4ae0-b839-65b05b0381a8
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 31e671ae-b959-435d-81ce-190be4ad13b4
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 7e84fab8-e72f-4acc-b0cc-03030cf62a6e
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		isHidden
+		lineageTag: 0b295861-a2d5-4b28-9b6d-19fd086cd7dd
+		summarizeBy: none
+		sourceColumn: sex
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: 7ed6c5bc-3e24-4a22-952f-9ff99e63237e
+		summarizeBy: none
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 2a27debe-861a-4125-955b-92c1423480d8
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: 7c3c3cf8-477d-4550-8fe4-bcdb2a4224ba
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		isHidden
+		lineageTag: 32d7896d-afda-443f-a2fb-8da2a5ee7f3e
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column field
+		dataType: string
+		lineageTag: fe1771e0-ed29-4be6-bb84-ef7792d5de62
+		summarizeBy: none
+		sourceColumn: field
+
+		annotation SummarizationSetBy = Automatic
+
+	column Created
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 574826fc-00d2-4de6-9676-25f0cba204f1
+		summarizeBy: none
+		sourceColumn: Created
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryCode
+		dataType: double
+		lineageTag: a1d54f07-ca8f-43e0-99aa-8525d44189de
+		summarizeBy: count
+		sourceColumn: CountryCode
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Title
+		dataType: string
+		lineageTag: f4b851d2-215a-40e2-b37d-27963480e0ed
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Color Tag'
+		dataType: string
+		lineageTag: 868aa6c7-cc3c-4863-872d-62d3b08bebc2
+		summarizeBy: none
+		sourceColumn: Color Tag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Compliance Asset Id'
+		dataType: string
+		lineageTag: 9431f8a3-965b-4bf7-aa1c-eb4357511339
+		summarizeBy: none
+		sourceColumn: Compliance Asset Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duplicate
+		dataType: string
+		lineageTag: 8438d2a0-3798-4397-8c47-a2bd3a5e7854
+		summarizeBy: none
+		sourceColumn: Duplicate
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedToDate
+		dataType: string
+		lineageTag: e76f0d8b-4373-4f91-85f9-bd8ab136406a
+		summarizeBy: none
+		sourceColumn: UpdatedToDate
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SSG_04_40 = m
+		mode: import
+		queryGroup: 'Goal 4'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cc0fa450-fa6f-471a-bef0-4056b78f3912" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 4"]}[Data],
+				    SSG_04_40_ = #"cc0fa450-fa6f-471a-bef0-4056b78f3912"{[entity="SSG_04_40",version=""]}[Data]
+				in
+				    SSG_04_40_
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

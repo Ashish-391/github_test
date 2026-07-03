@@ -1,0 +1,99 @@
+table SDG_10_60
+	lineageTag: 8b881b31-8e2d-4dbf-a8c8-4640300f1af7
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fd6400c9-ceed-436a-bc2a-821e21c75ad2
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: ff6ef4a3-ee84-48c8-9ab2-7339c5fe3b8b
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: e3bf217f-6c8e-4948-816a-5a7bc2f27cf5
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 21f266f2-f6ae-40cd-aec0-a97fcacb6d7e
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 3b991f45-f788-41c5-8242-008b47d68e2e
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column asyl_app
+		dataType: string
+		isHidden
+		lineageTag: c2aed683-18f0-4856-8c89-8038e997f713
+		summarizeBy: none
+		sourceColumn: asyl_app
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: fd4f41e4-48d7-4d58-8065-69afde694fc8
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: b300568a-3d9d-4c52-b088-cef1e52abcf4
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_10_60 = m
+		mode: import
+		queryGroup: 'Goal 10'
+		source = ```
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"01ac67f9-8931-4690-be8c-906c66ded44b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 10"]}[Data],
+				   
+				    SDG_10_60_ = #"01ac67f9-8931-4690-be8c-906c66ded44b"{[entity="SDG_10_60",version=""]}[Data],
+				    
+				    #"Filtered Rows" = Table.SelectRows(SDG_10_60_, each ([asyl_app] = "NASY_APP"))
+				in
+				    #"Filtered Rows"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

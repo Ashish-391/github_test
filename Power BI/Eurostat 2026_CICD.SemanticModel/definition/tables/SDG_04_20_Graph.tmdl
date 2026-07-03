@@ -1,0 +1,99 @@
+table SDG_04_20_Graph
+	lineageTag: cbbbcdeb-3e81-485b-ab0c-de5d70a6a591
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c561cb5-f606-4699-b310-e225d7ff28cb
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: c3f5953c-8dad-4b49-a0f8-292ef4c2c91f
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: e901b36e-9597-4f98-b312-b9c9e6772531
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Attribute:isced11
+		dataType: string
+		lineageTag: e3648bb5-9783-4b59-91d2-c1b3b9a432aa
+		summarizeBy: none
+		sourceColumn: Attribute:isced11
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: cbc98499-15a3-4050-8af7-8ffc42b974f1
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: d659c5d4-c3f9-4f90-87a3-436d9ae9dbf2
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column F
+		dataType: double
+		lineageTag: 46e5968b-89d8-414f-be68-026a3d1ce33a
+		summarizeBy: sum
+		sourceColumn: F
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column M
+		dataType: double
+		lineageTag: 4acd1b75-a649-4c53-a669-4e6fda5a551a
+		summarizeBy: sum
+		sourceColumn: M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: c871f8fc-634b-406c-8aeb-4ea598ef0438
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_04_20_Graph = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"920dad29-ca8b-44ae-95de-219011930d3b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All SDG Goal 5-6-7"]}[Data],
+				    SDG_04_20_Graph_ = #"920dad29-ca8b-44ae-95de-219011930d3b"{[entity="SDG_04_20_Graph",version=""]}[Data]
+				in
+				    SDG_04_20_Graph_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

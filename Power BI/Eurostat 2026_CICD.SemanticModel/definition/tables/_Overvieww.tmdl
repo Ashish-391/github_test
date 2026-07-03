@@ -1,0 +1,211 @@
+table _Overvieww
+	lineageTag: b2358d2a-8390-4ba9-b4c2-4b4cc4b534f0
+
+	measure Goal-Indicator-Title =
+			var slicervalue = SELECTEDVALUE(SDG[Index],BLANK())
+			return
+			SWITCH(slicervalue,1,"Indicators measuring progress towards SDG 1, EU",
+			                   2,"Indicators measuring progress towards SDG 2, EU",
+			                   3,"Indicators measuring progress towards SDG 3, EU",
+			                   4,"Indicators measuring progress towards SDG 4, EU",
+			                   5,"Indicators measuring progress towards SDG 5, EU",
+			                   6,"Indicators measuring progress towards SDG 6, EU",
+			                   7,"Indicators measuring progress towards SDG 7, EU",
+			                   8,"Indicators measuring progress towards SDG 8, EU",
+			                   9,"Indicators measuring progress towards SDG 9, EU",
+			                   10,"Indicators measuring progress towards SDG 10, EU",
+			                   11,"Indicators measuring progress towards SDG 11, EU",
+			                   12,"Indicators measuring progress towards SDG 12, EU",
+			                   13,"Indicators measuring progress towards SDG 13, EU",
+			                   14,"Indicators measuring progress towards SDG 14, EU",
+			                   15,"Indicators measuring progress towards SDG 15, EU",
+			                   16,"Indicators measuring progress towards SDG 16, EU",
+			                   17,"Indicators measuring progress towards SDG 17, EU"
+			                   )
+			
+			                  /*  3,"Under-Progress","Please select single or valid Goal value" */
+		lineageTag: 651cf5a7-b07a-44be-b063-3780494ad851
+
+	measure Long_Term_Year = ```
+			var Max_Year = [MaxxYear_Overview]
+			return
+			IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_50*",
+			     Max_Year-16,
+			     IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_50",
+			     Max_Year-16,
+			IF( MAX(_Goal1_Overview[Indicator]) = "SDG_15_42",
+			     Max_Year-14,
+			IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-14,
+			        IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-13,
+			            IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-12,
+			                IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-11,
+			                    IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-10,
+			     BLANK()
+			                        )
+			                    )
+			                )
+			            )
+			        )
+			     
+			     ))))
+			```
+		formatString: 0
+		lineageTag: 527ebe05-b1b1-445e-a4f9-da314c4d184a
+
+	column 'SubThemes.1'
+		dataType: string
+		lineageTag: 072da716-ef11-4bf1-ad2c-cde4b45a155a
+		summarizeBy: none
+		sourceColumn: SubThemes.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 66e600e5-5184-4191-b588-7a92ed5191ae
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column SDGIndex
+		dataType: int64
+		formatString: 0
+		lineageTag: ce6df4fd-f48c-421c-95b5-f6fa86473c95
+		summarizeBy: sum
+		sourceColumn: SDGIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 1add691d-a530-4222-9031-fd7d03adba0e
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorsName
+		dataType: string
+		lineageTag: ecc69833-897e-4e65-b693-7b849058b59f
+		summarizeBy: none
+		sourceColumn: IndicatorsName
+
+		annotation SummarizationSetBy = Automatic
+
+	column MinYear
+		dataType: int64
+		lineageTag: 02dc9403-a83a-4c06-94b5-25c13772b12f
+		summarizeBy: sum
+		sourceColumn: MinYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MaxYear
+		dataType: int64
+		lineageTag: c724ec68-8855-4242-9b5e-cf5cb6af7a0a
+		summarizeBy: sum
+		sourceColumn: MaxYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year-Label
+		dataType: string
+		lineageTag: fecd0e15-d917-481f-9823-273ca6315ccb
+		summarizeBy: none
+		sourceColumn: Year-Label
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAGR-Header
+		dataType: string
+		lineageTag: 7be9f8e5-6c4a-40d4-aa6e-d510f7a985a0
+		summarizeBy: none
+		sourceColumn: CAGR-Header
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 658c59fb-2681-4bbc-8a66-6cbc04cc4b62
+		summarizeBy: sum
+		sourceColumn: Target Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Value'
+		dataType: double
+		lineageTag: 85efd056-d26d-4431-a68d-7686504616f7
+		summarizeBy: sum
+		sourceColumn: Target Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: 70ffb41e-aa8f-41df-ba59-1b7a144db49c
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearValue2 = ```
+			
+			var indicator = SELECTEDVALUE(_Goal1_Overview[Indicator])
+			var Max_Year1 = CALCULATE(MAX(_Goal1_Overview[TIME_PERIOD]))
+			var min_year2 = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]),_Goal1_Overview[Indicator] = indicator)
+			var longterm = Max_Year1 - min_year2
+			var Max_Year = [MaxxYear]
+			var shortyear = [MaxYearMinus3or5_Overvieww]  
+			var min_year = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]),_Goal1_Overview[Indicator] = indicator)
+			var longtermYear = [Long_Term_Year]
+			return
+			
+			SWITCH(TRUE(),
+			        _Overvieww[Year-Label] = "Short Term" && ISBLANK(shortyear), "Short Term " & "Time series too short",
+			        _Overvieww[Year-Label]="Short Term" ,"Short Term " & shortyear & "-" & Max_Year1, 
+			        _Overvieww[Year-Label]="Long Term" &&  not ISBLANK(longtermYear),"Long Term " & longtermYear & "-" & Max_Year1,
+			        _Overvieww[Year-Label] = "Long Term" && ISBLANK(longtermYear), "Long Term " & "Time series too short")
+			```
+		lineageTag: d68cdec3-7020-472f-af15-145e3bdecb91
+		summarizeBy: none
+		sortByColumn: Year-Label
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Overvieww = m
+		mode: import
+		queryGroup: Overvieww
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Source{[workspaceId=workspaceID]}[Data],
+				    #"2182f1ac-b015-4bb6-91e0-33a86e05578c" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="Indi_Overview"]}[Data],
+				    Overvieww1 = #"2182f1ac-b015-4bb6-91e0-33a86e05578c"{[entity="Overvieww"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(Overvieww1, each ([Indicator] <> "SDG_03_41")),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Filtered Rows",{"Index", "SubThemes.1", "SDGIndex", "Indicator", "IndicatorsName", "MinYear", "MaxYear", "Year-Label", "CAGR-Header", "Target Year", "Target Value", "Dimension"})
+				in
+				    #"Reordered Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,421 @@
+table '_Overvieww Target'
+	lineageTag: cc9e6ef6-c8bb-4d7a-91a1-a98a54c179a1
+
+	measure 'A_CAGR-TargetLongTerm T' = ```
+			
+			var Max_Year1 = MAX(_Goal1_Overview[TIME_PERIOD])
+			var min_year2 = MIN(_Goal1_Overview[TIME_PERIOD])
+			var longtermCalc = IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-14,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-13,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-12,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-11,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-10,BLANK()
+			     )))))
+			     
+			     )
+			VAR Indi = SELECTEDVALUE(_Goal1_Overview[Indicator])
+			
+			var Max_Year = 2030
+			var min_year = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]))
+			var longtermYear = SWITCH(TRUE(),(Max_Year - min_year)>=15,Max_Year-15,(Max_Year - min_year)<10,BLANK(),(Max_Year - min_year)=14,Max_Year-14,(Max_Year - min_year)=13,Max_Year-13,(Max_Year - min_year)=12,Max_Year-12,(Max_Year - min_year)=11,Max_Year-11,(Max_Year - min_year)=10,Max_Year-10,BLANK())
+			
+			var longexpo = IF(Indi = "sdg_05_60", 2026 - longtermCalc,Max_Year - longtermCalc)
+			
+			var longgvalue = CALCULATE(MAX('_Overvieww Target'[Target Value]),  FILTER('Indicator Dimensions',NOT ISBLANK('Indicator Dimensions'[Target Year]) && 
+			                        'Indicator Dimensions'[Indicator]=SELECTEDVALUE('_Overvieww Target'[Indicator]  )))
+			
+			var expo = 1/longexpo
+			RETURN
+			longgvalue
+			```
+		lineageTag: 4ebfd272-0a5c-4283-a34c-4e75674d814a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure A_shortbeg = ```
+			
+			 VAR MaxYearVal = [MaxxYear_Overview]
+			 VAR ExcludedYear = 2020
+			VAR MaxYearMinus4Val =
+			    VAR y1 = MaxYearVal - 4
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			VAR MaxYearMinus5Val =
+			    VAR y1 = MaxYearVal - 5
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			/* VAR MaxYearMinus4Val = MaxYearVal - 4 */
+			var a = SELECTEDVALUE('_Overvieww Target'[Indicator])
+			Return
+			 SWITCH(TRUE(),
+			a="SDG_04_40", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			a="SMG_04_40", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			a="SSG_04_40", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),  
+			CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MAX(_Goal1_Overview[TIME_PERIOD])-5)
+			  )
+			```
+		lineageTag: 50e6c845-ffdb-4ec4-a319-971156c66e1a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure A_Target = CALCULATE(Max('_Overvieww Target'[Target Value]), _Goal1_Overview[Indicator] = _Goal1_Overview[Indicator])
+		lineageTag: 2dbebf3d-8993-42dc-ab03-ae00833dca51
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure aero =
+			
+			Var yearlabel = SELECTEDVALUE('_Overvieww Target'[Year-Label])
+			Var header = SELECTEDVALUE('_Overvieww Target'[CAGR-Header])
+			return
+			SWITCH(TRUE(),
+			yearlabel="Short Term" && header= "Observed",(DIVIDE([CAGR_ShortTerm_T],[CAGR-TargetShorTermT]) * 100),
+			yearlabel="Short Term" && header="Required",(DIVIDE([CAGR_ShortTerm_T],[CAGR-TargetShorTermT]) * 100),
+			yearlabel="Long Term"&& header ="Required",IF( ISBLANK([CAGR-TargetLongTerm T]), 1,DIVIDE([Overvieww_CAGRLongTerm_Observed],[CAGR-TargetLongTerm T])*100),
+			yearlabel="Long Term"&& header="Observed",IF( ISBLANK([CAGR-TargetLongTerm T]), 1,DIVIDE([Overvieww_CAGRLongTerm_Observed],[CAGR-TargetLongTerm T])*100),BLANK())
+		lineageTag: 4b56c5e1-8e0d-41de-bc88-b5ad9d461b82
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure CAGR_ShortTerm_T = ```
+			
+			
+			 VAR max_year = MAX(_Goal1_Overview[TIME_PERIOD])
+			 var S_year = [MaxxYear_Overview] - [MaxYearMinus3or5_Overvieww]
+			 return
+			IF(ISBLANK([ShortTermBeginningValue_WT]),BLANK(),  ((([Ending Value WT]/[ShortTermBeginningValue_WT])^(1/S_year)-1)  ) * 100)
+			```
+		formatString: 0
+		lineageTag: 476ef6c6-2583-4060-add6-473fd30de7f6
+
+	measure 'CAGR-TargetLongTerm T' = ```
+			
+			//var target = Max
+			
+			var Max_Year1 = MAX(_Goal1_Overview[TIME_PERIOD])
+			var min_year2 = MIN(_Goal1_Overview[TIME_PERIOD])
+			var longtermCalc = /* SWITCH(TRUE(),(Max_Year1 - min_year2)>=15,Max_Year1-15,(Max_Year1 - min_year2)<10,BLANK(),(Max_Year1 - min_year2)=14,Max_Year1-14,(Max_Year1 - min_year2)=13,Max_Year1-13,(Max_Year1 - min_year2)=12,Max_Year1-12,(Max_Year1 - min_year2)=11,Max_Year1-11,(Max_Year1 - min_year2)=10,Max_Year1-10,BLANK()) */
+			IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-14,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-13,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-12,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-11,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year1 - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year1-10,BLANK()
+			     )))))
+			     
+			     )
+			VAR Indi = SELECTEDVALUE(_Goal1_Overview[Indicator])
+			
+			var Max_Year = 2030
+			var min_year = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]))
+			var longtermYear = SWITCH(TRUE(),(Max_Year - min_year)>=15,Max_Year-15,(Max_Year - min_year)<10,BLANK(),(Max_Year - min_year)=14,Max_Year-14,(Max_Year - min_year)=13,Max_Year-13,(Max_Year - min_year)=12,Max_Year-12,(Max_Year - min_year)=11,Max_Year-11,(Max_Year - min_year)=10,Max_Year-10,BLANK())
+			
+			var longexpo = IF(Indi = "sdg_05_60", 2026 - longtermCalc,Max_Year - longtermCalc)
+			/* SWITCH(TRUE(),(Max_Year - min_year)>=15,15,(Max_Year - min_year)<10,BLANK(),(Max_Year - min_year)=14,14,(Max_Year - min_year)=13,13,(Max_Year - min_year)=12,12,(Max_Year - min_year)=11,11,(Max_Year - min_year)=10,10,BLANK()) */
+			
+			var longgvalue = CALCULATE(MAX('_Overvieww Target'[Target Value]),  FILTER('Indicator Dimensions',NOT ISBLANK('Indicator Dimensions'[Target Year]) && 
+			                        'Indicator Dimensions'[Indicator]=VALUES('_Overvieww Target'[Indicator]  )))
+			
+			var expo = 1/longexpo
+			return
+			 IF(ISBLANK([Long_BeginnningValue1]),BLANK(),((DIVIDE(longgvalue,[Long_BeginnningValue1])^(expo)) - 1 ) * 100) 
+			```
+		lineageTag: 6a81f847-7487-4ca1-a50e-6305eb94e1b9
+
+	measure CAGR-TargetShorTermT =
+			
+			//var target = Max
+			var Max_Year = MAX(_Goal1_Overview[TIME_PERIOD])
+			var targetyear = 2030
+			var T = /* CALCULATE(SUM('Overvieww Target'[Target Value])) */ CALCULATE(Max('_Overvieww Target'[Target Value]), _Goal1_Overview[Indicator] = _Goal1_Overview[Indicator])
+			Var Indi = SELECTEDVALUE(_Goal1_Overview[Indicator])
+			
+			var shorttermyear =  [MaxYearMinus3or5_Overvieww]
+			var denominator = IF(Indi = "sdg_05_60", 2026 - shorttermyear,targetyear - shorttermyear )
+			var shortbeg = [ShortTermBeginningValue1]
+			var targetShortTerm =  ((DIVIDE(T,shortbeg)^(1/denominator))-1)*100
+			return IF(ISBLANK([ShortTermBeginningValue1]),BLANK(),targetShortTerm)
+		lineageTag: ee78ae8f-0da0-4615-a505-bbae2b529238
+
+	measure 'Ending ValueT' = CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MAX(_Goal1_Overview[TIME_PERIOD]),ALLEXCEPT(Indicators,  Indicators[Indicator]))
+		lineageTag: f603a6f6-ecac-427d-8429-dee0e46911cf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Long_BeginnningValue1 = ```
+			
+			// var Max_Year = MAX(Goal1_Overview[TIME_PERIOD])
+			var Max_Year = [MaxxYear_Overview]
+			var min_year = MIN(_Goal1_Overview[TIME_PERIOD])
+			var longtermCalc = 
+			                IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-14,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-13,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-12,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-11,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     Max_Year-10,BLANK()
+			     )))))
+			     
+			     )
+			
+			return 
+			IF(ISBLANK(longtermCalc), BLANK(),CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=longtermCalc))
+			```
+		lineageTag: 8f39f2a7-fc19-47e1-abf4-92f5765c61a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Overvieww_CAGRLongTerm_Observed = ```
+			
+			 var Max_Year = [MaxxYear_Overview]
+			var min_year = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]))
+			var longtermYear = SWITCH(TRUE(),(Max_Year - min_year)>=15,Max_Year-15,(Max_Year - min_year)<10,BLANK(),(Max_Year - min_year)=14,Max_Year-14,(Max_Year - min_year)=13,Max_Year-13,(Max_Year - min_year)=12,Max_Year-12,(Max_Year - min_year)=11,Max_Year-11,(Max_Year - min_year)=10,Max_Year-10,BLANK())
+			
+			var longexpo = 
+			IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 15 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     15,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 14 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     14,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 13 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     13,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 12 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     12,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 11 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     11,
+			     IF( COUNTROWS(FILTER(_Goal1_Overview,_Goal1_Overview[TIME_PERIOD] = Max_Year - 10 && NOT ISBLANK(_Goal1_Overview[OBS_VALUE]))) > 0,
+			     10,BLANK()
+			     )))))
+			     )
+			var expo = 1/longexpo
+			return
+			IF(ISBLANK([Long_BeginnningValue1]),BLANK(),(( DIVIDE([Ending ValueT],[Long_BeginnningValue1],0)^(expo)) - 1 ) * 100)
+			```
+		lineageTag: ac0af365-4c13-4f17-aa7a-e34389daa0ef
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure ShortTermBeginningValue1 = ```
+			
+			 VAR MaxYearVal = [MaxxYear_Overview]
+			/* VAR MaxYearMinus4Val = MaxYearVal - 4
+			VAR MaxYearMinus3Val = MaxYearVal - 3 */
+			VAR ExcludedYear = 2020
+			VAR MaxYearMinus4Val =
+			    VAR y1 = MaxYearVal - 4
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			
+			VAR MaxYearMinus3Val =
+			    VAR y1 = MaxYearVal - 3
+			    VAR y2 = IF(y1 = ExcludedYear, y1 - 1, y1)
+			    RETURN y2
+			var a = SELECTEDVALUE('_Overvieww Target'[Indicator])
+			var a14_10= SELECTEDVALUE(_Goal1_Overview[Indicator])
+			Return
+			SWITCH(TRUE(),
+			  a14_10="SDG_14_10", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus3Val), 
+			a="SDG_04_40" || a="SDG_17_60" ||a="SDG_17_60*" , CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			a="SMG_04_40", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			a="SSG_04_40", CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MaxYearMinus4Val),
+			CALCULATE(MAX(_Goal1_Overview[OBS_VALUE]),_Goal1_Overview[TIME_PERIOD]=MAX(_Goal1_Overview[TIME_PERIOD])-5,_Goal1_Overview[Indicator]=a)
+			) 
+			```
+		lineageTag: 1e42322c-866c-446e-a3ba-6d50a0824946
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'SubThemes.1'
+		dataType: string
+		lineageTag: 80d88fe3-b5d8-4682-a741-6d57ca2b398a
+		summarizeBy: none
+		sourceColumn: SubThemes.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 05c73a42-c598-452c-bead-0664d03ec2e2
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column SDGIndex
+		dataType: int64
+		formatString: 0
+		lineageTag: ec119d92-fbf0-4b29-a0bf-910d5456bfec
+		summarizeBy: sum
+		sourceColumn: SDGIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: ec8928a8-6916-420e-aae9-663e6021c98c
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorsName
+		dataType: string
+		lineageTag: 6b2e4f57-3b8a-4a3f-becc-9050cc645a13
+		summarizeBy: none
+		sourceColumn: IndicatorsName
+
+		annotation SummarizationSetBy = Automatic
+
+	column MinYear
+		dataType: int64
+		lineageTag: 1a61020e-cc9a-45ad-9cf8-feb02c9f3626
+		summarizeBy: sum
+		sourceColumn: MinYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MaxYear
+		dataType: int64
+		lineageTag: 58dc29f9-96ae-4417-bf43-42b96f823f9f
+		summarizeBy: sum
+		sourceColumn: MaxYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year-Label
+		dataType: string
+		lineageTag: 5c3af9ae-9648-410b-8506-6a0933715af2
+		summarizeBy: none
+		sourceColumn: Year-Label
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAGR-Header
+		dataType: string
+		lineageTag: 0e608711-1b69-4e34-845e-c7d86e127758
+		summarizeBy: none
+		sourceColumn: CAGR-Header
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 19226be0-b210-4ce2-92b6-b785f23b5753
+		summarizeBy: sum
+		sourceColumn: Target Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Target Value'
+		dataType: double
+		lineageTag: 7b1942d0-827a-48d6-ba0f-c90aecfe574f
+		summarizeBy: sum
+		sourceColumn: Target Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: 1d78b624-33c8-4110-9f3d-ef23b3e0ded6
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Arrow Target'
+		dataType: int64
+		formatString: 0
+		lineageTag: 24e66b39-f5e9-4135-9156-9e890a87bef7
+		summarizeBy: sum
+		sourceColumn: Arrow Target
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CAGR -Required HeaderT' =
+			
+			SWITCH(NOt ISBLANK('_Overvieww Target'[Target Year]) && Not ISBLANK('_Overvieww Target'[YearValueT]),true && true ,'_Overvieww Target'[CAGR-Header])
+		lineageTag: 2793fbb9-3982-480b-88b5-f883f0f2956d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column CAGR_Target = ```
+			
+			//SWITCH(Overvieww[Year-Label],"Short Term",[CAGR_ShortTerm],[CAGR_LongTerm])
+			var cagr = SWITCH('_Overvieww Target'[Year-Label] & ('_Overvieww Target'[CAGR-Header]), 
+			"Short Term" & "Observed",[CAGR_ShortTerm_T],
+			"Short Term" & "Required" ,IF(NOT ISBLANK('_Overvieww Target'[Target Year]), [CAGR-TargetShorTermT]),
+			"Long Term" & "Observed", [Overvieww_CAGRLongTerm_Observed],
+			"Long Term" & "Required", [CAGR-TargetLongTerm T]
+			)
+			return cagr
+			```
+		lineageTag: 2f8555e4-70f2-4538-846c-56662858f38f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column YearValueT = ```
+			var Max_Year = [MaxxYear_Overview]
+			            /*  var min_year2 = CALCULATE(MIN(Goal1_Overview[TIME_PERIOD])) */
+			var logg =  SELECTEDVALUE('Indicator Dimensions'[Indicator])    
+			var min_year = CALCULATE(MIN(_Goal1_Overview[TIME_PERIOD]))
+			var longtermYear = [Long_Term_Year]
+			var shortyear = [MaxYearMinus3or5_Overvieww]
+			
+			return
+			SWITCH(TRUE(),  '_Overvieww Target'[Year-Label]="Short Term" && ISBLANK(shortyear),"Time series too short", 
+			               '_Overvieww Target'[Year-Label]="Short Term" , shortyear & "-" & Max_Year, 
+			              '_Overvieww Target'[Year-Label]="Long Term" &&  not ISBLANK(longtermYear),longtermYear & "-" & Max_Year,
+			              '_Overvieww Target'[Year-Label]="Long Term" && ISBLANK(longtermYear)," Time series too short") 
+			```
+		lineageTag: c9eac535-e1e9-4259-82ac-01073e11f2d8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '_Overvieww Target' = m
+		mode: import
+		queryGroup: Overvieww
+		source =
+				let
+				    Source = PowerBI.Dataflows(null),
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Source{[workspaceId=workspaceID]}[Data],
+				    #"2182f1ac-b015-4bb6-91e0-33a86e05578c" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="Indi_Overview"]}[Data],
+				    #"Overvieww Target1" = #"2182f1ac-b015-4bb6-91e0-33a86e05578c"{[entity="Overvieww Target"]}[Data]
+				in
+				    #"Overvieww Target1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

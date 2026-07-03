@@ -1,0 +1,66 @@
+table SDG_05_61_eu
+	lineageTag: 7aca3238-07fd-4e74-b671-4c220d683f20
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: a8e62466-193e-4073-8a2e-98a8ef96df9e
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 74c00ce2-793e-4d99-9b7a-6df7423aabc1
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 9cd8356e-63ff-4400-9da9-f98870be3928
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 2fbc4659-71af-4a91-be57-849eea237cda
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: d0c3aae9-f859-4f81-9a4c-f884b052c181
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_05_61_eu = m
+		mode: import
+		queryGroup: 'New indicators 2026'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2db96d17-b148-4d11-80f4-26b75cb98f00" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="ALL_SDG_New Indicators"]}[Data],
+				    SDG_05_61_ = #"2db96d17-b148-4d11-80f4-26b75cb98f00"{[entity="SDG_05_61",version=""]}[Data],
+				    #"Added Custom" = Table.AddColumn(SDG_05_61_, "Indicator", each "sdg_05_61"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"Indicator", type text}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Changed Type",{"TIME_PERIOD", "OBS_VALUE", "Geo", "Unit", "Indicator"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

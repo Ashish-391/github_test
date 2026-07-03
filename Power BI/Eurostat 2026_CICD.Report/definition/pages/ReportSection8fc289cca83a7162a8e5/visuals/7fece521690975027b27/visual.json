@@ -1,0 +1,84 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "7fece521690975027b27",
+  "position": {
+    "x": 410.0502512562814,
+    "y": 252.06030150753767,
+    "z": 2000,
+    "height": 467.9396984924623,
+    "width": 365.42713567839195,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "SDG_14_21_Fishreg"
+                    }
+                  },
+                  "Property": "fishreg_1"
+                }
+              },
+              "queryRef": "SDG_14_21_Fishreg.fishreg_1",
+              "nativeQueryRef": "fishreg_1"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Goal14"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "Sum(Goal 14.Year)",
+              "nativeQueryRef": "Year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Goal14"
+                    }
+                  },
+                  "Property": "obs_value_Goal14"
+                }
+              },
+              "queryRef": "Goal 14.obs_value_Goal14",
+              "nativeQueryRef": "obs_value_Goal14"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "115.29411764705883D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(Goal 14.Year)"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

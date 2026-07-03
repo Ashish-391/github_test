@@ -1,0 +1,83 @@
+table SDG_04_10_Graph
+	lineageTag: cd21dcd9-6e69-4b9f-addd-38ff635c7cf7
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 0db12670-84b7-40e2-a71e-6c04df45921f
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: 2118a720-1fb9-47c0-9f84-abac81349b13
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 0ee69e8e-347c-4935-ab32-76c90a865a82
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 4860ab83-0d91-4c34-bd1d-9d86a98ad5f2
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column F
+		dataType: double
+		lineageTag: 1bf9d44d-9a50-46aa-bffc-74dcbf126ef0
+		summarizeBy: sum
+		sourceColumn: F
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column M
+		dataType: double
+		lineageTag: 01966ed8-8ed7-42e9-8b90-875c1fc1f37d
+		summarizeBy: sum
+		sourceColumn: M
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 05ffc239-5f01-4608-b4a8-34d72f393628
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_04_10_Graph = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"920dad29-ca8b-44ae-95de-219011930d3b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All SDG Goal 5-6-7"]}[Data],
+				    SDG_04_10_Graph_ = #"920dad29-ca8b-44ae-95de-219011930d3b"{[entity="SDG_04_10_Graph",version=""]}[Data]
+				in
+				    SDG_04_10_Graph_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

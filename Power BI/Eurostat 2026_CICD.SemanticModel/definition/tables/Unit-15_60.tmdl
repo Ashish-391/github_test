@@ -1,0 +1,40 @@
+table Unit-15_60
+	isHidden
+	lineageTag: 63541180-6899-41cb-a2c6-54dd7942eb7d
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 56b66b42-8a5e-490a-a063-7275fc40614c
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitName
+		dataType: string
+		isHidden
+		lineageTag: 86951453-c66f-4dab-8bf6-d2a0192fcd30
+		summarizeBy: none
+		sourceColumn: UnitName
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Unit-15_60 = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8jQwUNJR8sxLSa3QMTIwMLA1BArE6gAlLBEShpaWUIlYAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Unit = _t, UnitName = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Unit", type text}, {"UnitName", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

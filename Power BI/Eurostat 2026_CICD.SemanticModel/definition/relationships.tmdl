@@ -1,0 +1,605 @@
+relationship e15db0ea-fa26-4a63-adb0-2753bfb1ec54
+	fromColumn: Indicators.SDGIndex
+	toColumn: SDG.Index
+
+relationship 21317781-78b8-4580-8ba8-d6f83b003f5a
+	fromColumn: Goal2.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 4ff22ad9-1fd9-49e2-97a6-28b6a7aac4da
+	fromColumn: Goal3.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 12172c84-6a41-490c-a548-cc19f72528cf
+	fromColumn: Goal1.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship eef4bab5-917b-4f8c-b43a-984250d365ac
+	fromColumn: Goal2.Unit
+	toColumn: Unit-15_60.Unit
+
+relationship d4d4691b-3124-4120-b0e3-ef913670af66
+	fromColumn: Goal4.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship cb086053-2daf-4af3-97c1-a028dbe657fb
+	fromColumn: Goal5.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 4a11f03d-6020-4a35-b23a-cadf0fe9ef66
+	fromColumn: Goal6.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 42bb1044-bf3c-480e-99e8-1b7810bb1ba0
+	fromColumn: Goal7.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship da71263b-4505-458a-96f1-08c6ef4cd611
+	fromColumn: Goal8.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 0e5a079e-4676-4a9c-8097-a152060a467f
+	fromColumn: Goal9.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship ac8ef1c9-a9d9-4475-8d94-174ee5db7918
+	fromColumn: Goal10.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 5e2890bd-5535-4e44-a6ee-94938b259a05
+	fromColumn: Goal11.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 2f2876b0-bb73-4f02-9818-86e918f87889
+	fromColumn: Goal12.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 3da34bd9-3028-4d91-b430-fcc9bada4443
+	fromColumn: Goal13.Unit
+	toColumn: Unit-15_60.Unit
+
+relationship ad18d212-a916-49a4-9ccc-7b0a58e42cb9
+	fromColumn: Goal13.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship ac6acb3c-8e22-4a21-b70d-4afcb0a82b55
+	fromColumn: Goal14.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 7c27651c-f88f-4977-bafb-e011e9d81cb2
+	fromColumn: Goal15.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 45b553d2-5ce9-43fc-98d0-b99d919b145a
+	fromColumn: Goal16.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship 24a9c974-0891-43ab-84e6-a86cc2df845c
+	fromColumn: Goal17.CountryAbrv
+	toColumn: Country-withEUs.CountryCode
+
+relationship b5361a91-766c-4764-a92c-34c9a599111c
+	fromColumn: SDG_15_60_CO_ALL.Unit
+	toColumn: Unit-15_60.Unit
+
+relationship 235abb99-cc6b-4872-8890-857bd4724318
+	fromColumn: Goal15.UnitName
+	toColumn: Unit-15_60.UnitName
+
+relationship 883ab7f9-e842-46b0-8272-58037a322be4
+	fromColumn: Goal2.Unit
+	toColumn: Unit-15_61.Unit
+
+relationship 36101f45-8502-4df6-9153-695cce62f248
+	fromColumn: Goal15.Unit
+	toColumn: Unit-15_61.Unit
+
+relationship a8117644-64ff-4d8b-9bea-083579435c2f
+	fromColumn: SDG_15_61.Unit
+	toColumn: Unit-15_61.Unit
+
+relationship f353427f-6e2f-452a-9019-b5ca794a8459
+	fromColumn: SDG_15_60_CO_ALL.Unit
+	toColumn: Unit-15_61.Unit
+
+relationship 37884199-9dba-406f-a832-812d96dfbda3
+	fromColumn: Indicators_Name.SDGIndex
+	toColumn: SDG.Index
+
+relationship df7d3bb9-abbd-45b7-9124-2101491fbb4c
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Datapoints-List.Index
+	toColumn: Indicators.Index
+
+relationship 57cd2d00-bc45-4912-86b6-b241d218bb10
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Datapoints-List.Index
+	toColumn: 'Age Class - 05_10'.Index
+
+relationship 82b43a8a-31a5-4bf4-859d-12e408d1026a
+	fromColumn: SubThemes.'Goal Index'
+	toColumn: SDG.Index
+
+relationship 1dfab5d5-dc87-4f34-8f57-07a9e191f8ca
+	fromColumn: All_SDG_11_11_EUGraph.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship cd5fab83-6f28-4fc2-b3c3-a5d6865d8a24
+	toCardinality: many
+	fromColumn: eu_Goal1.IndicatorValue
+	toColumn: Goal1.IndicatorValue
+
+relationship 579b4374-3c1a-4cec-b200-02c60894909c
+	fromColumn: Goal1.IndicatorValue
+	toColumn: 'Indicator Dimensions'.Indicator
+
+relationship 41775b24-0a21-4cf4-81bf-db2b0b6fd23e
+	fromColumn: All_Goal1_Graph2.CountryAbrv
+	toColumn: Country-FullNames.CountryCode
+
+relationship 13b67362-e9e4-4837-9752-244bc4363d25
+	fromColumn: BW_Goal2_30.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 8e994da0-20ed-4e57-b0b1-98853c4d7bd0
+	fromColumn: BW_Goal2_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship b7d1d244-8a5a-4434-a98c-b27af0a39127
+	fromColumn: BW_Goal2_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship cd13530c-3055-43d9-a006-9e0d39bcdcb1
+	fromColumn: BW_Goal6_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 6d1c7126-748c-4664-a461-9ec57860d396
+	fromColumn: BW_Goal3_11.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship acaae3f7-f056-4134-951c-727e8ffe08db
+	fromColumn: BW_Goal3_42.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 0f6097ea-01d1-4d34-9749-edce9813c54d
+	fromColumn: BW_Goal8_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 9acad2e3-cdb0-42f1-a92e-b4abd89660c4
+	fromColumn: BW_Goal11_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 35d129cc-24fe-403c-a43e-a19b95cf6708
+	fromColumn: BW_Goal11_52.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 5b97bdd4-19bb-47c2-b584-d7edb5b12209
+	fromColumn: '_Overvieww Target'.Indicator
+	toColumn: Indicators.Indicator
+
+relationship 39f100d4-1a47-4825-8799-0543dd0221bc
+	fromColumn: _Overvieww.Indicator
+	toColumn: Indicators.Indicator
+
+relationship e792d2a4-3040-4214-90d2-fa198e9621ee
+	fromColumn: _Goal1_Overview.Indicator
+	toColumn: Indicators.Indicator
+
+relationship 10ea3a52-8c27-474e-9290-fe88620e7103
+	isActive: false
+	fromColumn: Goal1.IndicatorValue
+	toColumn: Indicators.Indicator
+
+relationship 46c56e32-8eeb-438d-834f-46d237f61a1f
+	fromColumn: BW_Goal1_20.CountryAbrv
+	toColumn: Country-FullNames.CountryCode
+
+relationship 439094d8-0e12-4a8d-b867-48b86ad89960
+	fromColumn: BW_Goal10_30.CountryAbrv
+	toColumn: Country-FullNames.CountryCode
+
+relationship 571670f2-f3bb-4907-939f-7d566cdda392
+	fromColumn: _Goal1_Overview.Indicator
+	toColumn: 'Indicator Dimensions'.Indicator
+
+relationship 6849dc62-a796-4c72-836e-6a65d4817d6e
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Indicators.Indicator
+	toColumn: 'Indicator Dimensions'.Indicator
+
+relationship 79c9a372-73d7-4a82-b6f3-ca5544ff6741
+	fromColumn: BW_Goal4_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 490c51a7-7f6d-4ccd-a8fe-ba36ded9b860
+	fromColumn: BW_Goal4_31.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 57bf373d-56fa-4434-af1d-39524f14c5e6
+	fromColumn: BW_Goal4_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 02fb7a08-0c73-4caf-ad6f-839f4a68efee
+	fromColumn: All_SDG_Goal4.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 60cc1ce6-cbfa-462b-b7a8-7e0d0f4b8860
+	fromColumn: BW_Goal4_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship c1de3ee1-4c96-4cb4-a40f-fb87c04c03af
+	fromColumn: BW_Goal5_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship cedd2b63-8cd0-4501-af5b-0716847ea986
+	fromColumn: BW_Goal5_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship f767a15f-d107-49cd-b50b-f7de6d1bc268
+	fromColumn: BW_Goal5_30.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 4d8c8417-50bf-42c3-be7b-dce86f7734fa
+	fromColumn: BW_Goal5_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship e70b46ad-8a22-485c-a228-c66efede8d58
+	fromColumn: BW_Goal6_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 86395771-ed64-4ae5-afeb-b7adcd9b805f
+	fromColumn: BW_Goal6_30.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 0019f618-960d-4008-b07a-8dbfc3144ff1
+	fromColumn: BW_Goal6_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship a3f2ab81-ad3e-4dad-b2d9-d9d6f797faa0
+	fromColumn: BW_Goal6_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 320fcbc9-5ef1-69c8-3651-a57c53f2140e
+	fromColumn: BW_Goal4_70.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 73c7f266-866b-4b0c-84f1-286785679f79
+	fromColumn: BW_Goal7_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 237e7129-8653-4ab0-aadb-835ff06aa1d0
+	fromColumn: BW_Goal7_11.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship ed500a12-048e-4ffe-a731-12d8e80f81ae
+	fromColumn: BW_Goal7_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 34bfbea9-5802-45e6-b0f6-9396d6fdaca4
+	fromColumn: BW_Goal7_30.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship d8439720-0f1f-4f6d-ba92-701cb2229719
+	fromColumn: BW_Goal7_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship b4de9567-a89a-4c82-87b2-702a7df95655
+	fromColumn: BW_Goal7_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 6b4c0276-0ff3-4b87-a44d-f2484b883a3e
+	fromColumn: BW_Goal7_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship ecb69207-3c67-45a1-810b-bb2567f0869a
+	fromColumn: All_SDG_Goal5-12.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship ad287831-6be3-40ee-b955-cbdef2b5c65c
+	fromColumn: BW_Goal8_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 983cb3ae-5618-48f1-a090-ffd13400a1d2
+	fromColumn: BW_Goal8_30.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 75c5c9ac-c810-43b8-8827-cd619f397b4a
+	fromColumn: BW_Goal8_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 7e8f7fe3-0f4e-4d7b-9d6a-49921e53a8d5
+	fromColumn: BW_Goal12_21.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 6e8ab15a-6515-4a15-91f1-f7a6ab7a9ebe
+	fromColumn: BW_Goal9_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 2336b997-a275-4529-9e8f-e4fbcfec8614
+	fromColumn: BW_Goal6_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 97ea38f5-78a4-b6e8-b575-98230b6d9f64
+	fromColumn: BW_Goal9_30.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 908eb528-a184-48e5-b376-8ad9f070663c
+	fromColumn: BW_Goal9_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 1b552856-648c-41cb-a53e-c365940633cf
+	fromColumn: BW_Goal8_11.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship c78774ef-c82d-4193-81c2-2a51b9970ea2
+	fromColumn: BW_Goal9_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 53f252e2-c535-4a52-afc1-1cf9ad88ed2d
+	fromColumn: BW_Goal9_70.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship b1cc816a-0bbb-4730-8751-f9b92ef9b093
+	fromColumn: BW_Goal17_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 84297244-6eb1-4514-a8c9-ac2d2d6aebed
+	isActive: false
+	fromColumn: eu_Goal1.IndicatorValue
+	toColumn: Indicators.Indicator
+
+relationship 2f9d0b19-4fb1-4fb9-a1a0-31ae9161d086
+	fromColumn: BW_Goal10_41.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship c0cc1716-d6ec-4e08-ad04-0aca87153149
+	fromColumn: BW_Goal10_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship efdd1789-4840-4647-a661-a8c023974bd0
+	fromColumn: BW_Goal10_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship c615e6ee-9b66-4f9a-8c2e-971a186db67d
+	fromColumn: All_SDG_01_10a.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 2ffae494-cb1a-41e7-9d9c-d4bbb59a91f5
+	fromColumn: BW_Goal2_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship a9cd5a58-d86a-476b-8a5b-15948011f894
+	fromColumn: BW_Goal11_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 7eedcd71-c0a0-07b6-7397-370e974b55f7
+	fromColumn: BW_Goal16_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 2318f4ab-2864-409c-9ca9-e3de80b19a19
+	fromColumn: BW_Goal12_51.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 198bc90f-3650-4818-a68b-28cd94f8d267
+	fromColumn: BW_Goal11_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 25e4d290-edcd-40e6-8ec3-6de924621ea4
+	fromColumn: BW_Goal3_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 20971f85-57b7-06f7-a2fa-52e1ab30abd7
+	fromColumn: BW_Goal1_31.CountryAbrv
+	toColumn: Country-FullNames.CountryCode
+
+relationship 97d90af4-b1dc-4aef-a77d-1a13f7b85ee0
+	fromColumn: BW_Goal1_40.CountryAbrv
+	toColumn: Country-FullNames.CountryCode
+
+relationship 46796834-7d96-45d4-9103-8d4dd91702a6
+	fromColumn: BW_Goal1_41.CountryAbrv
+	toColumn: Country-FullNames.CountryCode
+
+relationship f1d80904-5273-42cf-8b6c-1cb5e102425b
+	fromColumn: BW_Goal1_50.CountryAbrv
+	toColumn: Country-FullNames.CountryCode
+
+relationship c84d1404-3fa8-9d58-57fc-bf9cb522f1bb
+	fromColumn: BW_Goal13_21.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship f3f7e490-9899-b313-9caa-ee721b053c06
+	fromColumn: BW_Goal13_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 9161742b-af75-ec60-eb9e-23d72033f868
+	fromColumn: BW_Goal14_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship da1a2b6f-fb14-b53e-fabc-8247346b658a
+	fromColumn: BW_Goal14_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 10438803-fd18-4355-9a5c-887579bb802a
+	fromColumn: BW_Goal15_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 7fca7b63-f9cb-5eba-0d38-1821830ca514
+	fromColumn: BW_Goal15_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 4fc85239-1fa6-e73f-bc23-2cb4e25b5836
+	fromColumn: BW_Goal16_30.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 42c4533c-bedc-ce44-6595-1c8234248ed2
+	fromColumn: BW_Goal16_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 36d5aa95-2373-d354-0159-9094d0b0fffe
+	fromColumn: BW_Goal16_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 36f41822-db5f-c068-4144-ef98f1ba8c87
+	fromColumn: All_SDG_16_40_EUGraph.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 545c893d-91cc-39d8-1921-d3c51a8fb501
+	fromColumn: BW_Goal17_50.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 47c1868f-341a-18bb-da7b-54409c6ccaf0
+	fromColumn: BW_Goal17_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 9c6f20f2-8be9-4f1d-ba25-107917b953a7
+	fromColumn: BW_Goal9_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship d063f1a3-160e-4b97-9351-ba70fff9d560
+	fromColumn: BW_Goal2_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship a71550aa-0c02-491b-ba40-70cf54683f4a
+	fromColumn: BW_Goal1_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 8b76a87f-5773-4b66-b472-5aa502a231a9
+	fromColumn: BW_Goal3_30.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 73ea2b97-b312-4b53-aa4b-5808886763ab
+	fromColumn: BW_Goal12_61.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship d3632fa1-4116-5524-e41c-7aea3961e8fd
+	fromColumn: BW_Goal12_41.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 1ba0d6a4-579f-4957-80df-e9a07deddefc
+	fromColumn: BW_Goal14_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship c44d0ce8-8219-a04f-55b8-9faacfc6142b
+	fromColumn: BW_Goal16_70.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship c31abe3e-0624-7521-79e7-3f0e6df50bc6
+	fromColumn: BW_Goal16_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 08ba2bc5-d7a7-a765-0759-877dc72d1d0c
+	fromColumn: Goal12.hazard
+	toColumn: sdg_12_10_Hazard.hazard_1
+
+relationship 92acbd86-c25a-46a4-871f-0a4e72b35255
+	fromColumn: BW_Goal3_20.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 5c5ae609-9ef9-4291-bb34-a22964b015fd
+	fromColumn: BW_Goal12_31.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship cdd87315-9bde-4e24-be83-d9ca7951d9e7
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Country-FullNames.CountryCode
+	toColumn: BW_Goal11_32.Geo
+
+relationship 11cdb950-60e4-4bf4-a8d4-993eafb3def8
+	fromColumn: BW_Goal13_31.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship ffdb70d7-245e-bf8e-b27e-e533ef1d7c4e
+	fromColumn: BW_Goal3_70.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 9fb82343-4cd8-eb10-db4a-b89635d24142
+	fromColumn: BW_Goal2_53.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship ccfab6c1-e9b3-b0f5-811f-77b3c24a3ce0
+	fromColumn: BW_Goal5_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship aff0e5ce-886a-2eb8-60c8-1eb28837fa01
+	fromColumn: BW_Goal15_42.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 652bcfb1-63e3-e7b7-7382-de89cff802b8
+	fromColumn: 'Goal 1 - Goal 17'.IndicatorValue
+	toColumn: Indicators.Indicator
+
+relationship ebb2f269-efdc-74bd-6a96-99de1164ce1b
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: 'Goal 1 - Goal 17'.IndicatorValue
+	toColumn: Indicators_Name.Code
+
+relationship 4b2b9e8e-ee33-e008-b069-81fa58ec30a8
+	fromColumn: BW_Goal17_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 4787bde3-254b-2548-fed0-a42db0a3fb64
+	fromColumn: BW_Goal13_40.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 26e57415-b332-4b5b-efd0-7877979c3664
+	fromColumn: BW_Goal15_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship bfbef91f-465b-45d8-92b6-0cc0a3854bab
+	fromColumn: BW_Goal5_60.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship c5700f94-2e50-cca4-ad45-c5e852d12211
+	fromColumn: BW_Goal17_31.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 07e4fc63-77cd-6a30-2d99-1b090ed6d816
+	fromColumn: BW_Goal15_11.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship f8d6686f-7054-fee9-da92-614ae280a93e
+	fromColumn: BW_Goal13_11.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship fecbfd9e-36a3-6a23-05bd-f1c2f11d889c
+	fromColumn: BW_Goal13_70a.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship 2226d06a-2814-c6a6-9525-098355134d81
+	fromColumn: 'BW_Goal hlth_silc_17'.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship db1644da-16df-27dd-4ab9-4d79d3fd4cd2
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: BW_Goal5_11.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship ea4569ae-bfc3-24b4-8d07-4f26f45a2e71
+	fromColumn: BW_Goal5_61.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship bef8ee36-3faa-d92d-2ac6-653ee52de404
+	fromColumn: BW_Goal13_10.Geo
+	toColumn: Country-FullNames.CountryCode
+
+relationship cb8b902b-d252-5778-96d7-0cc8fd38183f
+	fromColumn: '_Overvieww without Target'.Indicator
+	toColumn: Indicators.Indicator
+
+relationship 55fb8673-c068-5bf9-61af-7757e47466e2
+	isActive: false
+	fromColumn: Goal1.IndicatorValue
+	toColumn: 'Target Values'.'Indicator Name'
+
+relationship 72579159-3219-40d7-bb72-6ff2fa99ed9b
+	fromColumn: BW_Goal10_10.Geo
+	toColumn: Country-FullNames.CountryCode
+

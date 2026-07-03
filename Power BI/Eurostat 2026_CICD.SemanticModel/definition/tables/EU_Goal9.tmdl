@@ -1,0 +1,152 @@
+table EU_Goal9
+	lineageTag: 00fd3dbb-b914-4025-964b-44f2513d9d19
+
+	column Year
+		dataType: int64
+		lineageTag: 97a9ea3f-2f74-480b-96bf-e3d0d4eb02b0
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 36ca265b-6696-4899-91a8-cade63fcdfdc
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: c19c69aa-7c93-450b-bba5-4034b7b25f13
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 93b9a04f-d8fa-4acc-a505-dd7a06cbfa79
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sectperf
+		dataType: string
+		lineageTag: 54012073-07ab-4860-9e82-4f0b7af1eec1
+		summarizeBy: none
+		sourceColumn: sectperf
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: dec34f9d-a1e8-47d7-a574-e1388d2c9694
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bdd11089-0ca8-4a5b-b718-84d720dd08c3
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column coop_ptn
+		dataType: string
+		lineageTag: c22a6939-d7b8-47d3-af01-15d8e338d239
+		summarizeBy: none
+		sourceColumn: coop_ptn
+
+		annotation SummarizationSetBy = Automatic
+
+	column ty
+		dataType: string
+		lineageTag: e008412e-1901-48e7-9b6b-ac12449e6f60
+		summarizeBy: none
+		sourceColumn: ty
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 36c3c1a1-5a60-4ada-bfcc-6229ab430d60
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column vehicle
+		dataType: string
+		lineageTag: ae53f057-8ed3-470b-8f46-f4e7173ba236
+		summarizeBy: none
+		sourceColumn: vehicle
+
+		annotation SummarizationSetBy = Automatic
+
+	column tra_mode
+		dataType: string
+		lineageTag: 84e0073d-30af-44a5-80d8-3a26f32ccea1
+		summarizeBy: none
+		sourceColumn: tra_mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column airpol
+		dataType: string
+		lineageTag: f0d46e75-48e9-474d-9d16-80baae0b692a
+		summarizeBy: none
+		sourceColumn: airpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column terrtypo
+		dataType: string
+		lineageTag: 451548af-5fbd-49dd-9f0b-73ffe5d24198
+		summarizeBy: none
+		sourceColumn: terrtypo
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 9d98e5ea-5465-473c-ab62-9c762d84ffeb
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition EU_Goal9 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 9'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"e7dd114e-bbb6-4bb8-8411-634dc72935be" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 9"]}[Data],
+				    SDG_09_10_ = #"e7dd114e-bbb6-4bb8-8411-634dc72935be"{[entity="SDG_09_10",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_09_10_, each ([sectperf] = "TOTAL")),
+				    #"Appended Query" = Table.Combine({#"Filtered Rows", SDG_09_30, SDG_09_50, SDG_09_60, SDG_09_70, SDG_17_60, eu_SDG_09_40, eu_SDG_12_61}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Appended Query",{{"UpdatedFromDate", type date}, {"IndicatorValue", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

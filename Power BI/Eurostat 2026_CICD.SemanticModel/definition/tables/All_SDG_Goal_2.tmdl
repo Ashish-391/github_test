@@ -1,0 +1,121 @@
+table All_SDG_Goal_2
+	lineageTag: b4486711-f6fe-4b99-878a-e16aac8c8c30
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: fcb0fd35-30f7-4fd2-8936-807a338cbc0e
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: c8d599c7-c6a4-47bb-bb5d-34f7c3cbec6a
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 923bb0a3-291e-4131-be76-01056fc046e7
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 0bf57cf9-e23a-4c78-a40d-b9056cb98032
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column BMI
+		dataType: string
+		lineageTag: 5d381241-ac3c-49d5-9409-f365bea65758
+		summarizeBy: none
+		sourceColumn: BMI
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 92d4376f-cac9-435b-88d3-72417133e7ab
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'BMI Indicator'
+		dataType: string
+		lineageTag: c4d64784-b1c8-4195-80d5-794cb3699b03
+		summarizeBy: none
+		sourceColumn: BMI Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 194db1ab-92cf-49d9-a2b8-465a65e408d5
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Watpol
+		dataType: string
+		lineageTag: 613974ab-d12c-4655-b222-7465cff86f5c
+		summarizeBy: none
+		sourceColumn: Watpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subst_cat
+		dataType: string
+		lineageTag: f1140677-8dcb-45b3-92c2-896ad6315bb0
+		summarizeBy: none
+		sourceColumn: Subst_cat
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_Goal_2 = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				// let
+				//     Source = PowerPlatform.Dataflows(null),
+				//     Workspaces = Source{[Id="Workspaces"]}[Data],
+				//     #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId="c7d6b588-fe82-40f0-aea3-7929f303084b"]}[Data],
+				//     #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowId="aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"]}[Data],
+				//     All_SDG_Goal_2_ = #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"{[entity="All_SDG_Goal_2",version=""]}[Data]
+				// in
+				//     All_SDG_Goal_2_
+				
+				
+				/* let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="All_SDG_Goal 2-3-4"]}[Data],
+				    All_SDG_Goal_2_ = #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"{[entity="All_SDG_Goal_2",version=""]}[Data]
+				in
+				    All_SDG_Goal_2_ */
+				    let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"f9fb070d-dd61-496d-b566-5843fb0bc8de" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All_SDG_Goal1-2"]}[Data],
+				    All_SDG_Goal2_ = #"f9fb070d-dd61-496d-b566-5843fb0bc8de"{[entity="All_SDG_Goal_2",version=""]}[Data]
+				in
+				    All_SDG_Goal2_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,96 @@
+table SDG_08_30
+	lineageTag: d52d6943-3983-4d63-943c-153ef7a3cada
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 12444520-7afd-4cd4-bc60-f32251b7865d
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: 3fd945bd-73d0-499a-a41f-8ba1cbc52f19
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 492a1d4a-4c8d-4795-a621-ada2642550fd
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sex
+		dataType: string
+		isHidden
+		lineageTag: bee59279-d6fe-40bb-bc3c-7b7ba5bef92f
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 087f238f-6f62-4f9f-9e8a-c851cb0d1e64
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 480d0a12-54e5-450a-afa9-707b6b74d0c1
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 86be336e-cbd3-4e64-86fa-fd56c671c736
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 3b3f168a-2b9a-4161-8c12-bb620277f592
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_08_30 = m
+		mode: import
+		queryGroup: 'Goal 8'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"31375fdf-94e1-4ae0-a1b0-e759391261d1" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 8"]}[Data],
+				    SDG_08_30_ = #"31375fdf-94e1-4ae0-a1b0-e759391261d1"{[entity="SDG_08_30",version=""]}[Data]
+				in
+				    SDG_08_30_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

@@ -1,0 +1,84 @@
+table SDG_01_10a_Graph
+	lineageTag: 9a7cb44c-ecd6-488b-bb20-7ae3cfb466d5
+
+	column Year
+		dataType: double
+		lineageTag: 57afc22d-0b7c-48a7-ba43-4e8089b10e05
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 1e03ed59-aac3-42f6-baa4-18f3ac8c32ce
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: fab75ede-d2c9-494e-801d-f43e110c6fe9
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 3514bb3e-3a2e-46e7-a986-d74707277b84
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f7b98caf-e0ca-4021-9ebb-34c51191dab9
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Value
+		dataType: double
+		lineageTag: 7c2eb384-88a4-41ed-98ac-3f241c52a6a0
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d2ebe6d-5b8a-452f-9a9e-811d2df2fd5a
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_01_10a_Graph = m
+		mode: import
+		queryGroup: 'Goal 10'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"01ac67f9-8931-4690-be8c-906c66ded44b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 10"]}[Data],
+				    SDG_01_10a_Graph_ = #"01ac67f9-8931-4690-be8c-906c66ded44b"{[entity="SDG_01_10a_Graph",version=""]}[Data]
+				in
+				    SDG_01_10a_Graph_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

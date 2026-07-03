@@ -1,0 +1,138 @@
+table EU_Goal2
+	lineageTag: b6723b8d-cd5a-4a55-bf44-a94e8d85b9a3
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: c3d64112-7e3b-4c74-92b6-763b8e32c1ad
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 0ddf6816-edf9-4452-a7ca-105fa1a1fa8a
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 143ab743-1823-4995-8131-959a5b202c7a
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 9b8932b0-d726-4e85-92f4-20dcdb234051
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 7c772f44-08b9-4b79-af7e-b5826f2005c7
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		lineageTag: ec9adc01-b48c-42b8-9d28-2dc7b910c2b0
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bmi
+		dataType: string
+		lineageTag: ef3ce6f7-6eec-4eb5-8102-a0f0fd52a5a6
+		summarizeBy: none
+		sourceColumn: Bmi
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bmi_Indicator
+		dataType: string
+		lineageTag: 9a388b0e-c533-4278-9a33-1af4dd10ed65
+		summarizeBy: none
+		sourceColumn: Bmi_Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column clc18
+		dataType: string
+		lineageTag: 8138385a-187b-4648-8b33-262cca2b2a37
+		summarizeBy: none
+		sourceColumn: clc18
+
+		annotation SummarizationSetBy = Automatic
+
+	column levels
+		dataType: string
+		lineageTag: 05d4db94-01ce-4302-8f29-04b05895a747
+		summarizeBy: none
+		sourceColumn: levels
+
+		annotation SummarizationSetBy = Automatic
+
+	column watpol
+		dataType: string
+		lineageTag: 5a65f096-98a2-40b3-9ea2-719c535e9e27
+		summarizeBy: none
+		sourceColumn: watpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column NA
+		dataType: int64
+		formatString: 0
+		lineageTag: 776c1d47-8c88-4dff-996b-2cc631e8e157
+		summarizeBy: sum
+		sourceColumn: NA
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		lineageTag: 043a2ca1-1125-4c8e-84c3-e6eaff2ddb8c
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 28fb027a-e133-43c3-86bf-d461b83aa393
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition EU_Goal2 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 2'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"741b10ab-99ca-4b5b-bb32-164adb8cc952" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 2"]}[Data],
+				    SDG_02_10_ = #"741b10ab-99ca-4b5b-bb32-164adb8cc952"{[entity="SDG_02_10",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_02_10_, each ([Bmi] = "BMI_GE30")),
+				    #"Appended Query" = Table.Combine({#"Filtered Rows", EU_SDG_02_20, EU_SDG_02_30, EU_SDG_15_50, EU_SDG_02_60, SDG_06_40, SDG_02_40})
+				in
+				    #"Appended Query"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

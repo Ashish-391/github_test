@@ -1,0 +1,119 @@
+table SDG_15_60_CO_ALL
+	lineageTag: 69dbf720-c56d-4815-8a94-3d972ce88dc6
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0853634c-b26b-4efd-b724-108153d9b526
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: c323a344-f29b-4dc4-9972-3af68bb9853e
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 63e205db-259e-4383-a357-0b95ea375b25
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 052a5f10-a74f-41e5-87f8-ca17e49b595e
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 09787856-e975-41de-b534-e954af881236
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 3648048f-6bfb-4f33-99ba-a98dad772cd4
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitName
+		dataType: string
+		isHidden
+		lineageTag: e93ca2d5-36f3-4d06-8f37-cf96b72d1194
+		summarizeBy: none
+		sourceColumn: UnitName
+
+		annotation SummarizationSetBy = Automatic
+
+	column statinfo
+		dataType: string
+		lineageTag: 3bdf4e84-95af-49c2-ad11-f72d214c6e59
+		summarizeBy: none
+		sourceColumn: statinfo
+
+		annotation SummarizationSetBy = Automatic
+
+	column comspec
+		dataType: string
+		lineageTag: e225d0d7-79e0-4122-98c7-8306e04fb856
+		summarizeBy: none
+		sourceColumn: comspec
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_15_60_CO_ALL = m
+		mode: import
+		queryGroup: 'Goal 15'
+		source =
+				// let
+				//     Source = SharePoint.Tables("https://tmotions0.sharepoint.com/sites/EuroStat_Data", [Implementation=null, ApiVersion=15]),
+				//     #"bdd58485-075c-4c4d-9833-7d662a0aece4" = Source{[Id="bdd58485-075c-4c4d-9833-7d662a0aece4"]}[Items],
+				//     #"Removed Other Columns" = Table.SelectColumns(#"bdd58485-075c-4c4d-9833-7d662a0aece4",{"Year", "Unit", "Value", "sex", "age", "UpdatedFromDate", "UpdatedToDate", "IndicatorValue", "RecordCount", "CountryAbrv"}),
+				//     #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Year", Int64.Type}, {"Unit", type text}, {"sex", type text}, {"age", type text}, {"IndicatorValue", type text}, {"CountryAbrv", type text}, {"Value", type number}, {"UpdatedFromDate", type date}, {"UpdatedToDate", type date}}),
+				//     #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([age] = "CO_ALL")),
+				//     #"Filtered Rows1" = Table.SelectRows(#"Filtered Rows", each [sex] = "SME"),
+				//     #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"age", "levels"}}),
+				//     #"Merged Queries" = Table.NestedJoin(#"Renamed Columns", {"Unit"}, #"Unit-15_60", {"Unit"}, "Unit-15_60", JoinKind.LeftOuter),
+				//     #"Expanded Unit-15_60" = Table.ExpandTableColumn(#"Merged Queries", "Unit-15_60", {"UnitName"}, {"UnitName"}),
+				//     #"Changed Type1" = Table.TransformColumnTypes(#"Expanded Unit-15_60",{{"RecordCount", Int64.Type}})
+				// in
+				//     #"Changed Type1"
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_15_60_CO_ALL_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_15_60_CO_ALL",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(SDG_15_60_CO_ALL_,{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

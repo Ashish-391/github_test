@@ -1,0 +1,83 @@
+table EU_SDG_07_11
+	lineageTag: bc48fb8f-1692-46c6-a257-e4e409d41dd7
+
+	column Year
+		dataType: int64
+		lineageTag: afaed495-121c-4ebb-8f5d-ec4e78115088
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 0603fc04-37ca-47c4-b1fc-4bfe84d948a4
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: c9b5b4e7-c2f2-48d3-a719-e2c5c952284b
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 2cf10bd7-dbcf-490a-8a17-67b5712c43f4
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 5b3ca684-9972-4aba-8fd5-20bd6d4f6851
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 221f10ff-37bc-4194-91b8-b36b65bd7d80
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: ec518626-0d74-492a-a22c-7687fd3870c6
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition EU_SDG_07_11 = m
+		mode: import
+		queryGroup: 'EU-Goal1\EU_Goal 7'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"69f78a02-1390-4995-9d19-f85df1dc3e57" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 7"]}[Data],
+				    SDG_07_11_ = #"69f78a02-1390-4995-9d19-f85df1dc3e57"{[entity="SDG_07_11",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_07_11_, each ([Unit] = "TOE_HAB"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

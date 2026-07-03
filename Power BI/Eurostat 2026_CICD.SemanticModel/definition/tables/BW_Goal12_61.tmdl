@@ -1,0 +1,73 @@
+table BW_Goal12_61
+	lineageTag: 9188fecc-5548-4071-aad4-a411a997d495
+
+	column Year
+		formatString: 0
+		lineageTag: 2ef763b9-75ec-4696-bd99-4248d97d9551
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 082fa8c2-d99e-446a-9724-0b0388fb9092
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 8de362dd-fe51-405e-bafc-b404cdc5eca3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting = IF(BW_Goal12_61[Year]=MAX(BW_Goal12_61[Year]),(MAX(BW_Goal12_61[Year])&BW_Goal12_61[Value]),BLANK())
+		dataType: double
+		isHidden
+		lineageTag: 13bdc0ec-e36c-4f4f-a8a2-7aebc5ca8652
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal12_61 = calculated
+		mode: import
+		source =
+				
+				
+				var indicator = "SDG_12_61"
+				var unit = "PC_GDP"
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Geo]="EU27_2020",'All_SDG_Goal5-12'[Unit] = unit)
+				
+				RETURN
+				
+				    SELECTCOLUMNS (
+				
+				        FILTER
+				
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				
+				||
+				
+				'All_SDG_Goal5-12'[Time_Period]=maxTime_Period-5
+				
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator &&'All_SDG_Goal5-12'[Unit] = unit),
+				
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				
+				    )
+
+	annotation PBI_Id = e92a2c76edc74be0989e36bf786e06ff
+

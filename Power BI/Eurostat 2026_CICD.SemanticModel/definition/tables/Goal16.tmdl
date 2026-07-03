@@ -1,0 +1,145 @@
+table Goal16
+	lineageTag: 62ca4cdd-2564-46f7-8c82-bfc2c16ac894
+
+	measure Tooltip_color_Goal-16 =
+			
+			var minDate = CALCULATE(Min('Goal16'[UpdatedFromDate]),ALLSELECTED('Goal16'[UpdatedFromDate]))
+			var maxDate = CALCULATE(MAX('Goal16'[UpdatedFromDate]),ALLSELECTED('Goal16'[UpdatedFromDate]))
+			var minValue = CALCULATE(MAX('Goal16'[Value]),'Goal16'[UpdatedFromDate]=minDate)
+			var maxValue = CALCULATE(MAX('Goal16'[Value]),'Goal16'[UpdatedFromDate]=maxDate)
+			var countRowsTotal = COUNTROWS(FILTER('Goal16','Goal16'[UpdatedFromDate]>=minDate && 'Goal16'[UpdatedFromDate]<=maxDate))
+			
+			RETURN
+			//IF(countRowsTotal>2,IF(minValue<>maxValue,1,0),
+			IF(countRowsTotal>=2,
+			    IF(minValue=maxValue ,
+			        0,1),
+			
+			        0)
+		formatString: 0
+		lineageTag: 044e488b-b5d9-401d-bd28-49671240e903
+
+	measure obs_value_Goal16 =
+			var minDate = CALCULATE(Min('Goal16'[UpdatedFromDate]),ALLSELECTED('Goal16'[UpdatedFromDate]))
+			var maxDate = CALCULATE(MAX('Goal16'[UpdatedFromDate]),ALLSELECTED('Goal16'[UpdatedFromDate]))
+			var dateCheck = IF(maxDate in ALLSELECTED('Goal16'[UpdatedFromDate]),6,0)
+			//var datafilter = IF(dateCheck=0,CALCULATETABLE('Goal 16',FILTER('Goal 16','Goal 16'[UpdatedFromDate]<=maxDate)))
+			RETURN
+			
+			SWITCH(TRUE(),
+			        minDate<>maxDate,
+			            CALCULATE(MAX('Goal16'[Value]),/* 'Goal 16'[UpdatedDate]>minDate && */ 'Goal16'[UpdatedFromDate]=maxDate),
+			        minDate=maxDate,CALCULATE(MAX('Goal16'[Value]),'Goal16'[UpdatedFromDate]=maxDate))
+		lineageTag: fcf96128-e68a-4581-9389-2cbedc760b89
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 883c29b7-b612-4917-9f29-83589f2a5b8f
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: cb796f95-6540-4356-aea8-f52d1291dd9e
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 3dd83ca1-5407-4474-927c-7c617ad467f1
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sex
+		dataType: string
+		lineageTag: df724960-87cd-4697-a94a-a8f8309ea347
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: dd mmmm yyyy
+		lineageTag: 360dce93-940f-4bfb-99b1-19f3b11a56a8
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 7f3174cd-22b1-4f38-bc27-41ae5c3848ba
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: ddcccf22-c341-4c03-9824-bd0051233545
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column lev_perc
+		dataType: string
+		lineageTag: ed3a154a-414b-41df-81c4-81178ec8f7eb
+		summarizeBy: none
+		sourceColumn: lev_perc
+
+		annotation SummarizationSetBy = Automatic
+
+	column leg_stat
+		dataType: string
+		lineageTag: 09d9fc10-d371-4cb4-ac75-8c8113a9514c
+		summarizeBy: none
+		sourceColumn: leg_stat
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 07aead96-860e-4875-a8ae-6ca8bcfae15d
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Goal16 = m
+		mode: import
+		queryGroup: 'Goal 16'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    Goal16_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="Goal16",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal16_,{{"UpdatedFromDate", type date}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type",{"IndicatorValue", "Year", "CountryAbrv", "Unit", "sex", "Value", "UpdatedFromDate", "lev_perc", "leg_stat"})
+				in
+				    #"Reordered Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

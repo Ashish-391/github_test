@@ -1,0 +1,187 @@
+table All_SDG_Goal3
+	lineageTag: 1bef11ac-2715-4090-8878-821f11a30207
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 66dd20ad-ae3e-4094-b8e7-8c1a386c8995
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 2f361cd5-3182-4cb8-8052-3975eed2f62b
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Airpol
+		dataType: string
+		lineageTag: 6713485a-22b7-421f-ae0e-0312c9a86129
+		summarizeBy: none
+		sourceColumn: Airpol
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geo
+		dataType: string
+		lineageTag: c201f3fe-8e73-450d-a582-c04c5143d83e
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indic_he
+		dataType: string
+		lineageTag: aeca9fce-952f-4344-a6a4-137b99c4453c
+		summarizeBy: none
+		sourceColumn: Indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: f469da87-65d4-4ad1-b60a-d9a8700c2e3d
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 23844a4d-8e40-4dab-9c1a-57a5db8f2551
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 32bc8db3-e4ba-4513-8628-44f6ff26b4f5
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: 0eb1624e-045c-439e-8b86-6a254954e95e
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantile
+		dataType: string
+		lineageTag: c79b24db-bbd7-4362-823a-dbf13d846597
+		summarizeBy: none
+		sourceColumn: Quantile
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 3ba199b7-ac94-41c8-aaa6-612e8052dd4b
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Levels
+		dataType: string
+		lineageTag: 1177a48e-18ab-4fe0-be0c-a10cf2ebcebb
+		summarizeBy: none
+		sourceColumn: Levels
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		dataType: string
+		lineageTag: 387938cb-fd37-4601-b7d9-86a16cb9325d
+		summarizeBy: none
+		sourceColumn: Mortality
+
+		annotation SummarizationSetBy = Automatic
+
+	column ICD10
+		dataType: string
+		lineageTag: 21dfbc25-f9c6-4954-bfb1-ace8ebc0b89f
+		summarizeBy: none
+		sourceColumn: ICD10
+
+		annotation SummarizationSetBy = Automatic
+
+	column TRA_INFR
+		dataType: string
+		lineageTag: c5171faf-6ef1-4194-ad9f-1a616bec125d
+		summarizeBy: none
+		sourceColumn: TRA_INFR
+
+		annotation SummarizationSetBy = Automatic
+
+	column INGCRP
+		dataType: string
+		lineageTag: 561551dd-b4d0-4caf-a78e-7319da4a9750
+		summarizeBy: none
+		sourceColumn: INGCRP
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicator.1'
+		dataType: string
+		lineageTag: 392f646a-93c0-467a-b13a-80ddb89e7a91
+		summarizeBy: none
+		sourceColumn: Indicator.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column Effect
+		dataType: string
+		lineageTag: 014495fa-ca97-4d66-99c5-ee06072a1fd7
+		summarizeBy: none
+		sourceColumn: Effect
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'indic_he 2'
+		dataType: string
+		lineageTag: 4939e06f-4a9a-4cd3-b796-db5432b57f91
+		summarizeBy: none
+		sourceColumn: indic_he
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_Goal3 = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				// let
+				//     Source = PowerPlatform.Dataflows(null),
+				//     Workspaces = Source{[Id="Workspaces"]}[Data],
+				//     #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId="c7d6b588-fe82-40f0-aea3-7929f303084b"]}[Data],
+				//     #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowId="aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"]}[Data],
+				//     All_SDG_Goal3_ = #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"{[entity="All_SDG_Goal3",version=""]}[Data]
+				// in
+				//     All_SDG_Goal3_
+				
+				
+				
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="All_SDG_Goal 2-3-4"]}[Data],
+				    All_SDG_Goal3_ = #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"{[entity="All_SDG_Goal3",version=""]}[Data],
+				    #"Appended Query" = Table.Combine({All_SDG_Goal3_, hlth_silc_17})
+				in
+				    #"Appended Query"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

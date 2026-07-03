@@ -1,0 +1,39 @@
+table 'Goal 1 - Goal 17'
+	lineageTag: 63e9845f-7cde-4c82-a1a6-1dc467668031
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: dd mmmm yyyy
+		lineageTag: 255bbafb-e5bf-4842-b3d8-fcded102f569
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: f930050c-b654-404f-9b6f-4d4cebefe265
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Goal 1 - Goal 17' = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.Combine({Goal1}),
+				    //, Goal2, Goal3, Goal4, Goal5, Goal6, Goal7, Goal8, Goal9, Goal10, Goal11, Goal12, Goal13, Goal14, Goal15, Goal16, Goal17}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"UpdatedFromDate", "IndicatorValue"})
+				in
+				    #"Removed Other Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

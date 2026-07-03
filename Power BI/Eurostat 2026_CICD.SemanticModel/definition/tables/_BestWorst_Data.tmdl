@@ -1,0 +1,258 @@
+table _BestWorst_Data
+	lineageTag: b9dd4910-1eb7-4154-96a0-3c2cafdda9b7
+
+	measure BestEU_Country = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE( MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxBWYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var maxBW_Year = IF(ISBLANK(maxBWYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var minValue = CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year)
+			var minValue2 = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year)
+			RETURN
+			
+			IF(dim = -1 ,
+			CALCULATE(MIN(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=minValue,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year), 
+			CALCULATE(MAX(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=minValue2,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year))
+			```
+		lineageTag: 7c566ef6-8791-41f2-b0f3-193f888a11b6
+
+	measure BestEU_Country2 =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE( MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxBWYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var maxBW_Year = IF(ISBLANK(maxBWYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var minValue = CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year)
+			var minValue2 = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year)
+			var bestEUCountry = [BestEU_Country]
+			 /* CALCULATE(MIN(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=minValue,ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=MaxYear) */
+			var obs = IF(dim = -1,
+			CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=maxBW_Year),
+			CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=maxBW_Year))
+			RETURN
+			IF(dim = -1,
+			CALCULATE(MIN(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=obs,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[Year]=maxBW_Year),
+			CALCULATE(MAX(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=obs,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[Year]=maxBW_Year
+			))
+		lineageTag: 5e79d74b-65d4-4b01-9112-6a16fce86955
+
+	measure BestEU_Country3 = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE( MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxBWYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var maxBW_Year = IF(ISBLANK(maxBWYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var minValue = CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year)
+			var minValue2 = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year)
+			var bestEUCountry = [BestEU_Country]
+			
+			var obs = IF(dim = -1,
+			CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=maxBW_Year),
+			CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=maxBW_Year))
+			
+			var bestEUCountry2 = [BestEU_Country2] 
+			/* CALCULATE(MIN(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=obs,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[Year]=maxBW_Year
+			) */
+			var obs1 = IF(dim = -1,
+			CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry2,eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year),
+			CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry2,eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxBW_Year))
+			RETURN
+			IF(dim = -1 ,
+			CALCULATE(MIN(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=obs1,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[CountryAbrv]<>bestEUCountry2,eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[Year]=maxBW_Year),
+			CALCULATE(MAX(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=obs1,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[CountryAbrv]<>bestEUCountry2,eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[Year]=maxBW_Year))
+			```
+		lineageTag: d496b7d7-8220-40a5-adee-dedfc5c2ff02
+
+	measure BestEU_Value =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE( MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var minValue = CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			var bestEUCountry = [BestEU_Country]
+			//CALCULATE(MIN(eu_Goal1[CountryAbrv]),eu_Goal1[Value]=minValue,ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			RETURN
+			IF(dim= -1 ,
+			CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[CountryAbrv]=bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),
+			CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[CountryAbrv]=bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+		lineageTag: 5ad2473e-e795-4e4f-b029-e2a31fdccbb9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure BestEU_Value2 =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE( MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var minValue = CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			var bestEUCountry = [BestEU_Country]
+			var obs = IF(dim = -1 ,
+			CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year),
+			CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year))
+			var bestEUCountry2 = [BestEU_Country2]
+			
+			RETURN
+			IF(dim = -1 ,
+			CALCULATE(MIN(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+		lineageTag: 7e321bc0-3589-4b8a-a800-0af224c147de
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure BestEU_Value3 =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE( MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var minValue = CALCULATE(MIN(EU_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			var bestEUCountry = [BestEU_Country]
+			var obs = IF(dim = -1,
+			CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>bestEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year),
+			CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>bestEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year))
+			var bestEUCountry2 = [BestEU_Country2] /* CALCULATE(MIN(EU_Goal1[CountryAbrv]),EU_Goal1[Value]=obs,ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,EU_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[Year]=MaxYear
+			) */
+			var BestEU_Value2 = IF(dim = -1,
+			                            CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),
+			                        CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+			RETURN
+			IF(dim = -1,
+			CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>bestEUCountry2,EU_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),
+			CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>bestEUCountry2,EU_Goal1[CountryAbrv]<>bestEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+		lineageTag: dd756d79-c576-4423-96f7-342dfdb057ee
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure WorstEU_Country =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE( MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var minValue = CALCULATE(MAX(EU_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			var minValue2 = CALCULATE(MIN(EU_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			RETURN
+			IF(dim = -1,
+			CALCULATE(MAX(EU_Goal1[CountryAbrv]),EU_Goal1[Value]=minValue,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),
+			CALCULATE(MIN(EU_Goal1[CountryAbrv]),EU_Goal1[Value]=minValue2,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+		lineageTag: 0e73be63-7e59-4612-a82d-8c75bc9b2cce
+
+	measure WorstEU_Country2 =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE(MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var MAXValue = CALCULATE(MAX(EU_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			var worstEUCountry = [WorstEU_Country]
+			/* CALCULATE(MAX(EU_Goal1[CountryAbrv]),EU_Goal1[Value]=MAXValue,ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=MaxYear) */
+			var obs = IF(dim = -1 ,
+			CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>worstEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year),CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>worstEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year))
+			RETURN
+			CALCULATE(MAX(EU_Goal1[CountryAbrv]),EU_Goal1[Value]=obs,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,EU_Goal1[CountryAbrv]<>worstEUCountry,eu_Goal1[Year]=BW_Year
+			)
+		lineageTag: 48aa752c-63ef-464f-8f1c-c01da8a707c4
+
+	measure WorstEU_Country3 =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE(MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var WorstEUCountry = [WorstEU_Country]
+			var obs = IF(dim = -1 ,
+			                CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year),CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year))
+			var WorstEUCountry2 = [WorstEU_Country2]
+			var obs1 = IF(dim = -1 ,
+			                CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry2,EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),
+			                CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry2,EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+			RETURN
+			If(dim = -1 ,
+			CALCULATE(MAX(EU_Goal1[CountryAbrv]),EU_Goal1[Value]=obs1,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,EU_Goal1[CountryAbrv]<>WorstEUCountry2,EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[Year]=BW_Year),
+			CALCULATE(MIN(EU_Goal1[CountryAbrv]),EU_Goal1[Value]=obs1,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,EU_Goal1[CountryAbrv]<>WorstEUCountry2,EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[Year]=BW_Year))
+		lineageTag: dd9fbab9-5630-410c-a37f-7db6804ce6b3
+
+	measure WorstEU_Value =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE(MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var MAXValue = CALCULATE(MAX(EU_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			var WorstEUCountry = [WorstEU_Country]
+			RETURN
+			IF(dim = -1 ,
+			CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]=WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),
+			CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]=WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+		lineageTag: ffeac1bf-0ef0-4cb7-b5e0-6fdb90a64aa4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure WorstEU_Value2 = ```
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE(MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var MAXValue = CALCULATE(MAX(EU_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			var WorstEUCountry = [WorstEU_Country]
+			var obs = IF(dim = -1 ,
+			CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year),CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year))
+			var WorstEUCountry2 = [WorstEU_Country2]
+			RETURN
+			IF(dim = -1 , 
+			CALCULATE(MAX(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),
+			CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+			```
+		lineageTag: 162347f4-66fe-4da1-bd3a-d78136b176e8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure WorstEU_Value3 =
+			
+			var indicator = SELECTEDVALUE(Goal1[IndicatorValue])
+			var dim = CALCULATE(MAX('Indicator Dimensions'[Dim]),'Indicator Dimensions'[Indicator]=indicator)
+			var maxYear = [1CY]
+			var maxYear_Value = CALCULATE(MAX(eu_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=maxYear)
+			var BW_Year = IF(ISBLANK(maxYear_Value),CALCULATE(MAX(eu_Goal1[Year]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[IndicatorValue]=indicator),[1CY])
+			var MaxValue = CALCULATE(Max(EU_Goal1[Value]),eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year)
+			var WorstEUCountry = [WorstEU_Country]
+			var obs = IF(dim = -1 ,
+			                CALCULATE(Max(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year),
+			                CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,EU_Goal1[IndicatorValue]=indicator,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),eu_Goal1[Year]=BW_Year))
+			var WorstEUCountry2 = [WorstEU_Country2]
+			var WorstEU_Value2 = IF(dim = -1 ,
+			                        CALCULATE(Max(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),
+			                        CALCULATE(MIN(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+			RETURN
+			 IF(dim = -1 ,
+			    CALCULATE(Max(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry2,EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year),CALCULATE(Min(EU_Goal1[Value]),EU_Goal1[CountryAbrv]<>WorstEUCountry2,EU_Goal1[CountryAbrv]<>WorstEUCountry,eu_Goal1[UpdatedFromDate]=ALLSELECTED(Goal1[UpdatedFromDate]),EU_Goal1[IndicatorValue]=indicator,eu_Goal1[Year]=BW_Year))
+		lineageTag: 9db61c6e-65c8-432d-bba0-a1080ad80ef9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition _BestWorst_Data = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

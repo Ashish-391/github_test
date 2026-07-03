@@ -1,0 +1,97 @@
+table SDG_16_40
+	lineageTag: 4561e11a-d6bd-4597-aa7a-96e51988a36e
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 5f410fba-24b7-474f-9ab1-f9813f16e5ba
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: fc0c04ca-155b-442c-9b53-a15cc1c993aa
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 7982e44e-53e9-453f-826c-2104995a8e84
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 49b82545-6fcf-438a-8a37-f2ffa3bef4db
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: 528d7c5f-c88e-417a-84e4-aa9e245dce31
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: 712ede50-52d0-4de0-95ed-298a8c964d50
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column lev_perc
+		dataType: string
+		isHidden
+		lineageTag: 6cf9eb0d-49a6-4a14-9281-53615fb993f1
+		summarizeBy: none
+		sourceColumn: lev_perc
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 7c9fa996-5355-49da-8c64-86c940125425
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SDG_16_40 = m
+		mode: import
+		queryGroup: 'Goal 16'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    SDG_16_40_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="SDG_16_40",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(SDG_16_40_, each ([lev_perc] = "VG_FG"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

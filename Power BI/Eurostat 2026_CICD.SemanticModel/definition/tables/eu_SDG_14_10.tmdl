@@ -1,0 +1,106 @@
+table eu_SDG_14_10
+	lineageTag: 9ce3707a-230d-47d6-8e5d-59139a1c73c8
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: f6567ea9-fecb-4da3-a77d-b9f7dceff18b
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: f5d27c8b-f105-431d-a4c6-fec5ba4afbc3
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: de69659e-5210-428e-a456-92800de19c10
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 0d0aa8b4-2d86-4a28-8246-0cf52826940c
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: fe5423bf-e5c7-4f58-a342-8996daf9c63d
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		lineageTag: 402e23dc-8870-44e4-a556-f590758d2624
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column fishreg
+		dataType: string
+		lineageTag: d98c1189-f27b-4603-bdcf-25e07d6e7150
+		summarizeBy: none
+		sourceColumn: fishreg
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EU Fish Stock'
+		dataType: string
+		lineageTag: 9119f6f6-04ee-4301-8afa-edbbcd1f920c
+		summarizeBy: none
+		sourceColumn: EU Fish Stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: 50062bdb-264e-49fb-ad0e-f3ab6445958d
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Seabasin
+		dataType: string
+		lineageTag: 66e3749e-d5d0-4c94-a065-0409b88b7379
+		summarizeBy: none
+		sourceColumn: Seabasin
+
+		annotation SummarizationSetBy = Automatic
+
+	partition eu_SDG_14_10 = m
+		mode: import
+		queryGroup: 'EU_Goal 14'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"c1cad8c5-2b2f-4168-a09d-4ca007884a11" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 14 to 17"]}[Data],
+				    Goal14_ = #"c1cad8c5-2b2f-4168-a09d-4ca007884a11"{[entity="Goal14",version=""]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(Goal14_, each ([IndicatorValue] = "SDG_14_10") and ([Unit] = "PC"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

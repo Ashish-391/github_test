@@ -1,0 +1,71 @@
+table SDG_13_70a_eu
+	lineageTag: 0bffbfd8-cadc-4004-91fa-5d8ae6fea8b2
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: d1848fd9-4687-41be-9eb2-5cb3a0d5350b
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 98dcf596-4334-4a0d-8c7a-76ea76af6507
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: eeac1fc8-a2a6-4123-ad4f-172bdf8e8e7b
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 2182af66-429a-46b3-a98b-15e22eb0a16a
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Freq
+		dataType: string
+		lineageTag: 6fbdd963-a4be-428b-9598-3e6bd6078eb4
+		summarizeBy: none
+		sourceColumn: Freq
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 921a49f3-be34-452d-89c4-dfd443b2955b
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_13_70a_eu = m
+		mode: import
+		queryGroup: 'New indicators 2026'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"2db96d17-b148-4d11-80f4-26b75cb98f00" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="ALL_SDG_New Indicators"]}[Data],
+				    SDG_13_70a_ = #"2db96d17-b148-4d11-80f4-26b75cb98f00"{[entity="SDG_13_70a",version=""]}[Data]
+				in
+				    SDG_13_70a_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

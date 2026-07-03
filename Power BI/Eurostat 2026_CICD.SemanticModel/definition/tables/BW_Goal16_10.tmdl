@@ -1,0 +1,66 @@
+table BW_Goal16_10
+	lineageTag: 59029f13-1add-4806-ab29-a88371fc12a7
+
+	column Year
+		formatString: 0
+		lineageTag: ae3d36b7-679e-4171-9407-f3fb4bad383f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		lineageTag: 5ff6931a-a7b7-403e-94de-2f004f0555ab
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		lineageTag: 4e55ac0d-8cc5-4def-87b9-152233c32c48
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Geo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_16_10"
+			var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[TIME_PERIOD]),'All_SDG_Goal5-12'[Indicator]=indicator)
+			RETURN
+			IF(BW_Goal16_10[Year]=maxTime_Period,maxTime_Period&BW_Goal16_10[Value],BLANK())
+		dataType: double
+		lineageTag: 3c308890-b7b3-4e9a-b845-7fd3a959e4e4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal16_10 = calculated
+		mode: import
+		source =
+				
+				var indicator = "sdg_16_10"
+				var sex = "T"
+				//Var maxDate = CALCULATE(MAX('Goal 4 BW'[UpdatedFromDate]),'Goal 4 BW'[Indicator]=indicator)
+				var maxTime_Period = CALCULATE(MAX('All_SDG_Goal5-12'[Time_Period]),'All_SDG_Goal5-12'[Indicator]=indicator,'All_SDG_Goal5-12'[Geo]="EU27_2020", 'All_SDG_Goal5-12'[Sex] = sex)
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER
+				('All_SDG_Goal5-12',('All_SDG_Goal5-12'[Time_Period]= maxTime_Period
+				||
+				'All_SDG_Goal5-12'[Time_Period]=maxTime_Period-5
+				) && 'All_SDG_Goal5-12'[Indicator]=indicator && 'All_SDG_Goal5-12'[Sex] = sex),
+				        "Year", 'All_SDG_Goal5-12'[Time_Period],
+				        "Value", 'All_SDG_Goal5-12'[OBS_VALUE],
+				        "Geo", 'All_SDG_Goal5-12'[Geo]
+				    )
+
+	annotation PBI_Id = ae840bb949394b8ba5ea83a1bcdff821
+

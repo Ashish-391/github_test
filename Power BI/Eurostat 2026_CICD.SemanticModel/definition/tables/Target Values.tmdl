@@ -1,0 +1,74 @@
+table 'Target Values'
+	lineageTag: 84ab6f2e-811e-488b-a9de-dd7c6424124d
+
+	column 'Target Year'
+		dataType: double
+		lineageTag: b2af75ed-658c-4b48-b84b-e327a1ed3499
+		summarizeBy: sum
+		sourceColumn: Target Year
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Target Value'
+		dataType: double
+		lineageTag: 49740493-e3a9-4c15-bb8c-d58d95802a73
+		summarizeBy: sum
+		sourceColumn: Target Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Dimension
+		dataType: double
+		lineageTag: b469c6e2-fc1f-4be3-8e33-0d91c76ba7d9
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 558bb4a5-0205-431a-b35c-f01a3def993d
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: ba82c151-2d50-43e5-b0f8-cba84f4a3aa3
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Indicator Name'
+		dataType: string
+		lineageTag: 6e301ca6-af25-4f89-8f22-a686cddfb5b7
+		summarizeBy: none
+		sourceColumn: Indicator Name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Target Values' = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = SharePoint.Tables(SharepointLocation, [Implementation="2.0", ViewMode="Default"]),
+				    #"f6250192-bc41-4dca-bbab-956947afa755" = Source{[Title="Target Values"]}[Items],
+				    #"Changed Type" = Table.TransformColumnTypes(#"f6250192-bc41-4dca-bbab-956947afa755",{{"Indicator Name", type text}, {"Target Year", type number}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Age] = "Target"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

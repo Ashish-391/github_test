@@ -1,0 +1,129 @@
+table SDG_03_42
+	isHidden
+	lineageTag: d4dd17f0-a939-4ec4-836f-a147eb6b96a0
+
+	column Year
+		dataType: double
+		isHidden
+		formatString: 0
+		lineageTag: df80da05-3f32-41c4-a37b-e9057a68bf9a
+		summarizeBy: sum
+		sourceColumn: Year
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: ac113a64-215a-45ba-9f3f-8cb2995da953
+		summarizeBy: none
+		sourceColumn: Unit
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: aaf3d186-6d85-4948-ab54-8fa3bb999d5a
+		summarizeBy: none
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		isHidden
+		lineageTag: 7b822f63-490f-4c55-af88-8d94ab770a74
+		summarizeBy: none
+		sourceColumn: sex
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: a38b055f-62c5-404c-bd74-bd3c7956911c
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: ff5787cf-1fa0-4575-9e36-9b8d8a9f3ff3
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mortality
+		dataType: string
+		isHidden
+		lineageTag: a8cf58f5-36ad-4574-ab50-669f9951121e
+		summarizeBy: none
+		sourceColumn: Mortality
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: d284fda2-9c32-428f-8ec3-8bcfa756bccb
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column icd10
+		dataType: string
+		lineageTag: e012d1f7-eef6-4ca2-8255-026cb7cd4bb4
+		summarizeBy: none
+		sourceColumn: icd10
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 19f6b7da-0da2-4ade-a3af-65afe7c434c3
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_03_42 = m
+		mode: import
+		queryGroup: 'Goal 3'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 3"]}[Data],
+				    SDG_03_42_ = #"cde5f2dc-94e1-40b1-9d86-7334a30cc33a"{[entity="SDG_03_42",version=""]}[Data]
+				in
+				    SDG_03_42_
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

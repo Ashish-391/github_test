@@ -1,0 +1,64 @@
+table BW_Goal10_30
+	lineageTag: d0dd1cec-943f-4ce1-a894-561e85764877
+
+	column Year
+		lineageTag: fd6ed084-0b1d-481c-8980-5c750181fe62
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		lineageTag: dc46f01c-00f1-4f4e-b160-45578a117de3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CountryAbrv
+		lineageTag: 3f06d7d2-4198-430c-b8da-972b1d280ec0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [CountryAbrv]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sorting =
+			
+			var indicator = "SDG_10_30"
+			var maxYear = CALCULATE(MAX(Goal1[Year]),Goal1[IndicatorValue]=indicator,Goal1[CountryAbrv]="EU27_2020")
+			RETURN
+			IF(BW_Goal10_30[Year]=maxYear,maxYear&BW_Goal10_30[Value],BLANK())
+		dataType: double
+		lineageTag: e3a1f02e-b648-4553-94ff-2904650bfc78
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition BW_Goal10_30 = calculated
+		mode: import
+		source =
+				
+				VAR indicator = "SDG_10_30"
+				VAR maxYear = CALCULATE(MAX(Goal1[Year]), Goal1[IndicatorValue] = indicator, Goal1[CountryAbrv] = "EU27_2020", Goal1[Unit] = "PC")
+				RETURN
+				    SELECTCOLUMNS (
+				        FILTER (
+				            Goal1,
+				            (Goal1[Year] = maxYear || Goal1[Year] = maxYear - 5) && Goal1[IndicatorValue] = indicator && Goal1[Unit] = "PC"
+				        ),
+				        "Year", Goal1[Year],
+				        "Value", Goal1[Value],
+				        "CountryAbrv", Goal1[CountryAbrv]
+				    )
+
+	annotation PBI_Id = 407a19624b4d4f1894aea8bd28dbb3da
+

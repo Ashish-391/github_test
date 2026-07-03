@@ -1,0 +1,59 @@
+table Datapoints-List
+	lineageTag: 45f4b109-8044-45a5-8596-b4f76b32fb87
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 243fbd3b-78ed-4cbe-b21e-31b5c34b3407
+		summarizeBy: none
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Data Points'
+		dataType: string
+		lineageTag: 5f66b4b5-76fd-4dcc-a07f-5fb4b049cddb
+		summarizeBy: none
+		sourceColumn: Data Points
+		sortByColumn: Index
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column CategoryIndex
+		dataType: string
+		lineageTag: 35afdefc-fb19-457b-b88e-514b3ac1cac8
+		summarizeBy: none
+		sourceColumn: CategoryIndex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 90a9e518-465f-4261-8902-86063b41b4d2
+		summarizeBy: none
+		sourceColumn: Category
+		sortByColumn: CategoryIndex
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Datapoints-List = m
+		mode: import
+		queryGroup: 'Key Tables'
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("tVNLT8JAEP4rk54wAaTFi0dFY0g0EkAMIRxWGNuNdBdnpxD/vcNDqPRhNfHU7H7PnUwnE6+TEKFhGKMir+6N1CJB+fretD7xeqQt5UNDRSFy5noQWWIYIsUZ6N6aMB/pRMqECGM7hlofZ1LnTLD9rdNmhs2mXARp8regcmo6uIh5dddPWULNvjikFc63RTZg7VUmwTKqOSjn0Ll4X7Odb0D4nmjCObCFGJGBtwOr6tdXrC18tTg/uO20x6Bf9TsM4o/vS+n/9XmHnKp2PVRvJ7LT3VuX4juDdWQXCKxjWRAkja7AqAIvvWewcf9xS3dU8S9hPo66N+BfQjdeqhmXEK0QSDtrYK05giVhYytuiNhpTjbjNxWC5G+0K6SPfbugFbSKVdfoGG6foGMTw6LxBXkYwLGMnC9ymUFlZruQ+WypanyGWpyfoRYUmH4C", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Data Points" = _t, Category = _t, CategoryIndex = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Data Points", type text}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Changed Type", "Index", 1, 1, Int64.Type),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Added Index",{"Index", "Data Points", "CategoryIndex", "Category"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns", each ([Index] <> 15 and [Index] <> 16))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

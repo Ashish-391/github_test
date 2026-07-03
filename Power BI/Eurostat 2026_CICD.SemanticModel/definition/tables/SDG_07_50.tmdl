@@ -1,0 +1,86 @@
+table SDG_07_50
+	lineageTag: b19518c8-30d8-47d7-be55-99602841858d
+
+	column Year
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: a4a0579f-d0d7-45fc-832a-537cf4beb343
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		isHidden
+		lineageTag: 64556f37-35ee-4cf5-aac5-17ec93e4d7c1
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: string
+		isHidden
+		lineageTag: 010769bc-4722-422c-a385-670fdb918289
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column IndicatorValue
+		dataType: string
+		isHidden
+		lineageTag: f0fa5ddc-693d-4d7f-b222-72cd2cb14378
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		isHidden
+		lineageTag: c2b1cc15-ef7e-4e05-96fc-2f027890d8c4
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		isHidden
+		lineageTag: ec1d6246-4321-46a0-ba88-708880024b41
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column siec
+		dataType: string
+		isHidden
+		lineageTag: 04963c65-178c-4292-9708-55b23c640ee1
+		summarizeBy: none
+		sourceColumn: siec
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SDG_07_50 = m
+		mode: import
+		queryGroup: 'Goal 7'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"69f78a02-1390-4995-9d19-f85df1dc3e57" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 7"]}[Data],
+				    SDG_07_50_ = #"69f78a02-1390-4995-9d19-f85df1dc3e57"{[entity="SDG_07_50",version=""]}[Data]
+				in
+				    SDG_07_50_
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

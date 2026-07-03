@@ -1,0 +1,137 @@
+table 'Goal1 target new'
+	lineageTag: 0d1e7b90-fdc9-49e1-928d-0c3a3113beb4
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: a53fb993-7dad-4eda-9d92-f40aaed0aaff
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: a7bd3072-8159-4f54-ba4c-7417f2ec66b4
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 667b233a-9a26-4901-866e-9e59b5aac1dd
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 7209f661-0de5-4b1f-876c-406af2dd85cb
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: 4e84e3ed-d7e8-4f32-b083-2acce078adc0
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 3f2392fd-d9c0-46eb-bee1-ea90e507b684
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: 1c9f3c5c-f141-4dcf-b818-0b5cbcaed121
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Wstatus
+		dataType: string
+		lineageTag: 4b4e09c5-c695-4721-bda4-4d9ac037eb8e
+		summarizeBy: none
+		sourceColumn: Wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dimension
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ee5f53a-f4b7-4447-b087-3e358f7e30cf
+		summarizeBy: sum
+		sourceColumn: Dimension
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 76e23e96-b094-4ba9-aac5-f1bc7ecfe2db
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column indic_il
+		dataType: string
+		lineageTag: f033840b-8cd2-48a4-bfa3-6d428263c1aa
+		summarizeBy: none
+		sourceColumn: indic_il
+
+		annotation SummarizationSetBy = Automatic
+
+	column incgrp
+		dataType: string
+		lineageTag: 0a71956d-c30c-4018-9043-606f867c3eba
+		summarizeBy: none
+		sourceColumn: incgrp
+
+		annotation SummarizationSetBy = Automatic
+
+	column reason
+		dataType: string
+		lineageTag: eb4d345d-2e2c-42e8-8223-e2aae401c570
+		summarizeBy: none
+		sourceColumn: reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantile
+		dataType: string
+		lineageTag: 1a1d8196-dc9c-483d-9e7c-b503081e2f52
+		summarizeBy: none
+		sourceColumn: quantile
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Goal1 target new' = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"f9fb070d-dd61-496d-b566-5843fb0bc8de" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All_SDG_Goal1-2"]}[Data],
+				    #"Goal1 target new_" = #"f9fb070d-dd61-496d-b566-5843fb0bc8de"{[entity="Goal1 Target new",version=""]}[Data]
+				in
+				    #"Goal1 target new_"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

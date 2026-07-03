@@ -1,0 +1,106 @@
+table All_SDG_Goal1
+	lineageTag: 00440c30-7ab5-4296-8555-427241f45c80
+
+	column TIME_PERIOD
+		dataType: int64
+		formatString: 0
+		lineageTag: 785eb075-c722-4be1-95dd-5f3387a88216
+		summarizeBy: sum
+		sourceColumn: TIME_PERIOD
+
+		annotation SummarizationSetBy = Automatic
+
+	column OBS_VALUE
+		dataType: double
+		lineageTag: 847a0f83-c4c2-481d-bb12-8a0bf8729237
+		summarizeBy: sum
+		sourceColumn: OBS_VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Geo
+		dataType: string
+		lineageTag: 48bcd319-5ad3-4ca5-ac16-dd5021a89af3
+		summarizeBy: none
+		sourceColumn: Geo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 56a14f22-7f62-43e8-9acb-64a8b2142ec1
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sex
+		dataType: string
+		lineageTag: 2731fd2b-39ac-460a-bb32-ae1879f8ab80
+		summarizeBy: none
+		sourceColumn: Sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: string
+		lineageTag: dcc78b36-5a52-4d03-b6d8-b1b6f4ae0ec3
+		summarizeBy: none
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column Indicator
+		dataType: string
+		lineageTag: 180209b6-309b-4fac-90fa-91d8f1af6951
+		summarizeBy: none
+		sourceColumn: Indicator
+
+		annotation SummarizationSetBy = Automatic
+
+	column INCGRP
+		dataType: string
+		lineageTag: 3271fef0-8ce8-4a6e-8408-54bf41c311d5
+		summarizeBy: none
+		sourceColumn: INCGRP
+
+		annotation SummarizationSetBy = Automatic
+
+	partition All_SDG_Goal1 = m
+		mode: import
+		queryGroup: 'Stats-EU Graphs'
+		source =
+				// let
+				//     Source = PowerPlatform.Dataflows(null),
+				//     Workspaces = Source{[Id="Workspaces"]}[Data],
+				//     #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId="c7d6b588-fe82-40f0-aea3-7929f303084b"]}[Data],
+				//     #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowId="aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"]}[Data],
+				//     All_SDG_Goal1_ = #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"{[entity="All_SDG_Goal1",version=""]}[Data]
+				// in
+				//     All_SDG_Goal1_
+				
+				
+				
+				/* let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"c7d6b588-fe82-40f0-aea3-7929f303084b" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854" = #"c7d6b588-fe82-40f0-aea3-7929f303084b"{[dataflowName="All_SDG_Goal 2-3-4"]}[Data],
+				    All_SDG_Goal1_ = #"aec4d9f2-cc7f-4efb-97a5-4ce79d33b854"{[entity="All_SDG_Goal1",version=""]}[Data]
+				in
+				    All_SDG_Goal1_ */
+				    let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"f9fb070d-dd61-496d-b566-5843fb0bc8de" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="All_SDG_Goal1-2"]}[Data],
+				    All_SDG_Goal1_ = #"f9fb070d-dd61-496d-b566-5843fb0bc8de"{[entity="All_SDG_Goal1",version=""]}[Data]
+				in
+				    All_SDG_Goal1_
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

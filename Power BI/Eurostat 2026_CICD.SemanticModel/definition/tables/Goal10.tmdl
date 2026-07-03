@@ -1,0 +1,222 @@
+table Goal10
+	lineageTag: d2e5c8f8-bffa-4fe1-8bee-11c7a3831e57
+
+	measure obs_value_Goal10 =
+			VAR minDate =
+			    CALCULATE (
+			        MIN ( 'Goal10'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal10'[UpdatedFromDate] )
+			    )
+			VAR maxDate =
+			    CALCULATE (
+			        MAX ( 'Goal10'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal10'[UpdatedFromDate] )
+			    )
+			VAR dateCheck =
+			    IF (
+			        maxDate
+			            IN ALLSELECTED ( 'Goal10'[UpdatedFromDate] ),
+			        6,
+			        0
+			    ) //var datafilter = IF(dateCheck=0,CALCULATETABLE('Goal 10',FILTER('Goal 10','Goal 10'[UpdatedFromDate]<=maxDate)))
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        minDate <> maxDate,
+			            CALCULATE (
+			                MAX ( 'Goal10'[Value] ),
+			                /* 'Goal 10'[UpdatedDate]>minDate && */
+			                'Goal10'[UpdatedFromDate] = maxDate
+			            ),
+			        minDate = maxDate,
+			            CALCULATE (
+			                MAX ( 'Goal10'[Value] ),
+			                'Goal10'[UpdatedFromDate] = maxDate
+			            )
+			    )
+		lineageTag: 16f9390d-254f-4493-bc5d-39ff7ee5c2d3
+
+	measure Tooltip_color_Goal-10 =
+			VAR minDate =
+			    CALCULATE (
+			        MIN ( 'Goal10'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal10'[UpdatedFromDate] )
+			    )
+			VAR maxDate =
+			    CALCULATE (
+			        MAX ( 'Goal10'[UpdatedFromDate] ),
+			        ALLSELECTED ( 'Goal10'[UpdatedFromDate] )
+			    )
+			VAR minValue =
+			    CALCULATE (
+			        MAX ( 'Goal10'[Value] ),
+			        'Goal10'[UpdatedFromDate] = minDate
+			    )
+			VAR maxValue =
+			    CALCULATE (
+			        MAX ( 'Goal10'[Value] ),
+			        'Goal10'[UpdatedFromDate] = maxDate
+			    )
+			VAR countRowsTotal =
+			    COUNTROWS (
+			        FILTER (
+			            'Goal10',
+			            'Goal10'[UpdatedFromDate] >= minDate
+			                && 'Goal10'[UpdatedFromDate] <= maxDate
+			        )
+			    )
+			RETURN
+			    //IF(countRowsTotal>2,IF(minValue<>maxValue,1,0),
+			    IF (
+			        countRowsTotal >= 2,
+			        IF (
+			            minValue = maxValue,
+			0,
+			            1
+			        ),0
+			
+			    )
+		formatString: 0
+		lineageTag: 14d81576-0f7b-42d1-9807-ca6028b28aa7
+
+	column Year
+		dataType: double
+		formatString: 0
+		lineageTag: 9d28180b-60a4-4d28-9d52-dc304c566a13
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unit
+		dataType: string
+		lineageTag: 6f4611e3-e172-4bf6-a29d-eedd4643c102
+		summarizeBy: none
+		sourceColumn: Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value
+		dataType: double
+		lineageTag: 8df1a05e-e277-4a8a-9e93-49bf10a8d99f
+		summarizeBy: sum
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UpdatedFromDate
+		dataType: dateTime
+		formatString: dd mmmm yyyy
+		lineageTag: 29f683cf-1e2c-43b3-8a71-d43fac54acb1
+		summarizeBy: none
+		sourceColumn: UpdatedFromDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column IndicatorValue
+		dataType: string
+		lineageTag: 77e0d998-7953-4114-a68d-54ef0470c0de
+		summarizeBy: none
+		sourceColumn: IndicatorValue
+
+		annotation SummarizationSetBy = Automatic
+
+	column CountryAbrv
+		dataType: string
+		lineageTag: 0c848408-faab-48f8-bce8-7f740598973f
+		summarizeBy: none
+		sourceColumn: CountryAbrv
+
+		annotation SummarizationSetBy = Automatic
+
+	column na_item
+		dataType: string
+		lineageTag: e6e72694-b8c5-43e0-8fe3-3077e151a325
+		summarizeBy: none
+		sourceColumn: na_item
+
+		annotation SummarizationSetBy = Automatic
+
+	column asyl_app
+		dataType: string
+		lineageTag: 15fa35fc-1f83-44fd-8f23-88aef7493409
+		summarizeBy: none
+		sourceColumn: asyl_app
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cb4ad18-ac18-44ea-955d-ec373893f487
+		summarizeBy: sum
+		sourceColumn: Index
+
+		annotation SummarizationSetBy = Automatic
+
+	column sex
+		dataType: string
+		lineageTag: 67f49412-929d-4be6-9499-36ead4bbc8d8
+		summarizeBy: none
+		sourceColumn: sex
+
+		annotation SummarizationSetBy = Automatic
+
+	column age
+		dataType: string
+		lineageTag: 098ba7f3-425b-467f-a4d0-cf67fee66a06
+		summarizeBy: none
+		sourceColumn: age
+
+		annotation SummarizationSetBy = Automatic
+
+	column wstatus
+		dataType: string
+		lineageTag: 53cae8c4-5bd0-44f1-a378-3e71ee370155
+		summarizeBy: none
+		sourceColumn: wstatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column training
+		dataType: string
+		lineageTag: 93a3c80f-9186-4426-bf02-7fae413bba85
+		summarizeBy: none
+		sourceColumn: training
+
+		annotation SummarizationSetBy = Automatic
+
+	column RecordCount
+		dataType: double
+		lineageTag: edef5cec-178b-4450-b0ea-4cf1118b1ead
+		summarizeBy: sum
+		sourceColumn: RecordCount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Goal10 = m
+		mode: import
+		queryGroup: 'Goal 10'
+		source =
+				let
+				    Source = PowerPlatform.Dataflows(null),
+				    Workspaces = Source{[Id="Workspaces"]}[Data],
+				    #"bb4c392e-e6de-4a51-a74f-c2830108781a" = Workspaces{[workspaceId=workspaceID]}[Data],
+				    #"01ac67f9-8931-4690-be8c-906c66ded44b" = #"bb4c392e-e6de-4a51-a74f-c2830108781a"{[dataflowName="Goal 10"]}[Data],
+				    Goal10_ = #"01ac67f9-8931-4690-be8c-906c66ded44b"{[entity="Goal10",version=""]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Goal10_,{{"UpdatedFromDate", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
